@@ -46,5 +46,8 @@ for num in range(26,1118):
     print(auc_date_2, auc_stock_2,auc_price_2)
     print(song_date, stock_num)
     print(page)
-
-
+    
+    
+    
+#총 주식 결측값들은 child(18)을 값으로 가짐
+#page_market > div > div.song_tab.tab_info.on > section:nth-child(7) > div.card_body > div > dl > dd:nth-child(18) > p:nth-child(1)
