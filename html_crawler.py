@@ -7,7 +7,8 @@ from bs4 import BeautifulSoup
 
 
 for num in range(26,1118):
-    url = requests.get("https://www.musicow.com/song/{0}?tab=info".format(num))
+    page = "https://www.musicow.com/song/{0}?tab=info".format(num)
+    url = requests.get(page)
     html = url.text
     soup = BeautifulSoup(html, 'html.parser')
 
@@ -44,5 +45,6 @@ for num in range(26,1118):
     print(auc_date_1, auc_stock_1, auc_price_1)
     print(auc_date_2, auc_stock_2,auc_price_2)
     print(song_date, stock_num)
-    print()
+    print(page)
+
 
