@@ -1,12 +1,28 @@
-import requests
-import re
-from bs4 import BeautifulSoup
+import openpyxl
 
-#, 1118, 625번
-# 옥션 마감곡 784곡, 진행중 5곡 20210328기준, 마켓 731곡(최근거래곡)
+count=0
+list=[]
+for num in range(0,2000):
+    page = "https://www.musicow.com/song/{0}?tab=info".format(num)
+    url = requests.get(page)
+    html = url.text
+    soup = BeautifulSoup(html, 'html.parser')
+    song_title = str(soup.select('div.song_header > div.information > p > strong'))
+    song_title = re.sub('<.+?>', '', song_title, 0).strip()
+    if song_title[1:-1]=='':
+        pass
+    else:
+        count+=1
+        list.append(num)
 
+        
+        
+import openpyxl
+wb = openpyxl.Workbook() 
+sheet = wb.active
+sheet.append(['제목','가수','1차 옥션 기간','1차 발행 주식 수','1차 낙찰가','2차 옥션 기간','2차 발행 주식 수','2차 낙찰가','곡 출시일','총 주식수','링크'])
 
-for num in range(26,1118):
+for num in list:
     page = "https://www.musicow.com/song/{0}?tab=info".format(num)
     url = requests.get(page)
     html = url.text
@@ -15,7 +31,7 @@ for num in range(26,1118):
     # for auc_num in range(1,2):
     #
     #     auc_stock = soup.select('div.card_body > div > div:nth-child({0}) > dl > dd:nth-child(2)'.fomrat(auc_num))
-
+    
     song_title = str(soup.select('div.song_header > div.information > p > strong'))
     song_title = re.sub('<.+?>', '', song_title, 0).strip()
     song_artist = str(soup.select('div.song_header > div.information > em'))
@@ -37,17 +53,16 @@ for num in range(26,1118):
 
     song_date = str(soup.select('div.card_body > div > dl > dd:nth-child(2)'))
     song_date = re.sub('<.+?>', '', song_date, 0).strip()
-    stock_num = str(soup.select('div.card_body > div > dl > dd:nth-child(20) > p:nth-child(1)'))
-    stock_num = re.sub('<.+?>', '', stock_num, 0).strip()
+    #stock_num = str(soup.select('div.card_body > div > dl > dd:nth-child(20) > p:nth-child(1)'))
+    #stock_num = re.sub('<.+?>', '', stock_num, 0).strip()
+    stock_num=soup.select_one('div.lst_copy_info dd p').text
+    
+    
+    
+    if song_title[1:-1]=='':
+        pass
+    else:
+        sheet.append([song_title[1:-1], song_artist[1:-1], auc_date_1[1:-1], auc_stock_1[1:-1], auc_price_1[1:-1], auc_date_2[1:-1], auc_stock_2[1:-1], auc_price_2[1:-1], song_date[1:-1], ''.join(re.findall("\d", stock_num))[1:], page])
 
 
-    print("{0}번 곡".format(num), song_title, song_artist)
-    print(auc_date_1, auc_stock_1, auc_price_1)
-    print(auc_date_2, auc_stock_2,auc_price_2)
-    print(song_date, stock_num)
-    print(page)
-    
-    
-    
-#총 주식 결측값들은 child(18)을 값으로 가짐
-#page_market > div > div.song_tab.tab_info.on > section:nth-child(7) > div.card_body > div > dl > dd:nth-child(18) > p:nth-child(1)
+wb.save('market2.xlsx')
