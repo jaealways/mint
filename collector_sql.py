@@ -2,6 +2,7 @@ from sqlalchemy import create_engine
 import pymysql
 print("collector_sql 시작")
 
+pymysql.install_as_MYSQLdb()
 
 class Collector:
     def __init__(self):
