@@ -1,4 +1,7 @@
 import openpyxl
+import requests
+import re
+from bs4 import BeautifulSoup
 
 count=0
 list=[]
