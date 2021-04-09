@@ -57,7 +57,7 @@ for num in range(0,27):
         # print(auc_date_1, auc_stock_1, auc_price_1)
         # print(auc_date_2, auc_stock_2,auc_price_2)
         # print(song_date, stock_num)
-        print(soup)
+        print(html)
     
     
         #클라우드에 저장하는 것 까지 구현할 것
