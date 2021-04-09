@@ -53,10 +53,10 @@ for num in range(0,27):
         stock_num = stock_num.replace('\t','').replace('\n','').replace('1/','').replace(',','')
 
 
-        print("{0}번 곡".format(num), song_title, song_artist)
-        print(auc_date_1, auc_stock_1, auc_price_1)
-        print(auc_date_2, auc_stock_2,auc_price_2)
-        print(song_date, stock_num)
+        # print("{0}번 곡".format(num), song_title, song_artist)
+        # print(auc_date_1, auc_stock_1, auc_price_1)
+        # print(auc_date_2, auc_stock_2,auc_price_2)
+        # print(song_date, stock_num)
         print(soup)
     
     
