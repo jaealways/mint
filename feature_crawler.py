@@ -14,21 +14,21 @@ song_artist = "거미"
 
 #Google Crawling
 
-# page_Google = "https://www.google.com/search?q={0}".format(song_artist + ' ' + song_title)
-#
-# driver = webdriver.Chrome()
-# driver.get(page_Google)
-#
-# html_Google = driver.page_source
-# soup_Google = BeautifulSoup(html_Google, 'html.parser')
-#
-# search_num_Google = soup_Google.select('div.LHJvCe')
-#
-# for n in search_num_Google:
-#     search_Google = n.text.strip()
-#     print(search_Google)
-#
-# driver.close()
+page_Google = "https://www.google.com/search?q={0}".format(song_artist + ' ' + song_title)
+
+driver = webdriver.Chrome()
+driver.get(page_Google)
+
+html_Google = driver.page_source
+soup_Google = BeautifulSoup(html_Google, 'html.parser')
+
+search_num_Google = soup_Google.select('div.LHJvCe')
+
+for n in search_num_Google:
+    search_Google = n.text.strip()
+    print(search_Google)
+
+driver.close()
 
 
 # Youtube Crawling
