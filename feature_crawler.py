@@ -10,25 +10,25 @@ import lxml
 
 
 # from song_auc_crawler import song_title, song_artist
-song_title = "친구라도 될 걸 그랬어"
-song_artist = "거미"
+song_title = "dyanmite"
+song_artist = "bts"
 #
 # #Google Crawling
-#
-# page_Google = "https://www.google.com/search?q={0}&source=lnms&tbm=nws&tbs=qdr:d&sa=X&ved=2ahUKEwihz8TrjfXvAhUjNKYKHZLKAjkQ_AUoA3oECAEQBQ&biw=767&bih=700".format(song_artist + ' ' + song_title)
-#
-# driver = webdriver.Chrome()
-# driver.get(page_Google)
-#
-# html_Google = driver.page_source
-# soup_Google = BeautifulSoup(html_Google, 'html.parser')
-#
-# search_num_Google = soup_Google.select('div.LHJvCe')
-#
-# for n in search_num_Google:
-#     search_Google = n.text.strip()
-#     print(search_Google)
-#
+
+page_Google = "https://www.google.com/search?q={0}&source=lnms&tbm=nws&tbs=qdr:d&sa=X&ved=2ahUKEwihz8TrjfXvAhUjNKYKHZLKAjkQ_AUoA3oECAEQBQ&biw=767&bih=700".format(song_artist + ' ' + song_title)
+
+driver = webdriver.Chrome()
+driver.get(page_Google)
+
+html_Google = driver.page_source
+soup_Google = BeautifulSoup(html_Google, 'html.parser')
+
+search_num_Google = soup_Google.select('div.LHJvCe')
+
+for n in search_num_Google:
+    search_Google = n.text.strip()
+    print(search_Google)
+
 # driver.close()
 
 
@@ -36,19 +36,19 @@ song_artist = "거미"
 
 # 관련성 기준으로 검색
 
-page_Youtube = "https://www.youtube.com/search?q={0}&sp=EgIQAQ%253D%253D".format(song_artist + ' ' + song_title)
-
-driver = webdriver.Chrome()
-driver.get(page_Youtube)
-
-html_Youtube = driver.page_source
-soup_Youtube = BeautifulSoup(html_Youtube, 'html.parser')
-
-search_num_Youtube = soup_Youtube.select('div.title-wrapper')
-
-for n in search_num_Youtube:
-    search_Youtube = n.text.strip()
-    print(search_Youtube)
+# page_Youtube = "https://www.youtube.com/search?q={0}&sp=EgIQAQ%253D%253D".format(song_artist + ' ' + song_title)
+#
+# driver = webdriver.Chrome()
+# driver.get(page_Youtube)
+#
+# html_Youtube = driver.page_source
+# soup_Youtube = BeautifulSoup(html_Youtube, 'html.parser')
+#
+# search_num_Youtube = soup_Youtube.select('div.title-wrapper')
+#
+# for n in search_num_Youtube:
+#     search_Youtube = n.text.strip()
+#     print(search_Youtube)
 
 # driver.close()
 
