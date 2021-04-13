@@ -2,7 +2,6 @@ import requests
 import re
 from bs4 import BeautifulSoup
 from sqlalchemy import create_engine
-from collector_sql import create_engine
 import pymysql
 import pandas as pd
 
