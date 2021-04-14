@@ -58,14 +58,14 @@ for i in range(731):
 # 빈칸이 %20 으로 표현됨. '(작은따옴표) 는 %27
 
 
-# for songs in matching:
-#     page = "https://twitter.com/search?q={0}&src=typed_query".format(songs)
-#     url = requests.get(page)
-#     html = url.text
-#     soup = BeautifulSoup(html, 'html.parser')
-#
-#     tweet_num = str(soup.select('div.css-1dbjc4n.r-j7yic.r-qklmqi.r-ladg311.r1ny4131'))
-#     tweet_num = re.sub('<.+?>', '', song_title, 0).strip()
+for songs in matching:
+    page = "https://twitter.com/search?q={0}&src=typed_query".format(songs)
+    url = requests.get(page)
+    html = url.text
+    soup = BeautifulSoup(html, 'html.parser')
+
+    tweet_num = str(soup.select('div.css-1dbjc4n.r-j7yic.r-qklmqi.r-ladg311.r1ny4131'))
+    tweet_num = re.sub('<.+?>', '', song_title, 0).strip()
 
 
 # ================================ 유튜브 크롤링 ============================================ #
