@@ -1,4 +1,4 @@
-# 트위터_크롤링.py - YW 수정 04 / 10
+# a.트위터_크롤링.py - YW 수정 04 / 10
 
 import requests
 import re
