@@ -12,7 +12,7 @@ class HtmlCrawler():
     def input_info(self):
         self.artist = str(input("아티스트 입력: "))
         self.title = str(input("제목 입력: "))
-        self.link = str(input("링크 입력(link는 {0}.format(num)형태로 넣을것): "))
+        self.link = (str(input("링크 입력(link는 {0}.format(num)형태로 넣을것): "))).format(num)
         self.tag = str(input("태그 입력: "))
 
 
