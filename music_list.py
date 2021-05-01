@@ -4,6 +4,15 @@ from bs4 import BeautifulSoup
 from pprint import pprint
 import boto3
 
+import os
+
+os.chdir('C:/dynamodb_local_latest')
+os.system('start cmd /k java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb')
+
+os.chdir('C:/dynamodb_local_latest')
+os.system('aws dynamodb list-tables --endpoint-url http://localhost:8000')
+
+
 class MusicList():
     def __init__(self):
         # 뮤직카우 크롤링 시작
@@ -66,61 +75,64 @@ class MusicList():
 
     #def name_classifier
 
-    def collect_db(self, dynamodb=None):
-        if not dynamodb:
-            dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
+    def collect_db(self):
+        dynamodb = boto3.resource('dynamodb', endpoint_url = 'http://localhost:8000', aws_access_key_id = secret,
+                                  aws_secret_access_key = secret, verify = False)
+
+        # if dynamodb.Table != "music_cow":
+        #
+        #     table = dynamodb.create_table(
+        #         TableName='music_cow',
+        #         KeySchema=[
+        #             {
+        #                 'AttributeName': 'song_title',
+        #                 'KeyType': 'HASH'  # Partition key
+        #             },
+        #             {
+        #                 'AttributeName': 'num',
+        #                 'KeyType': 'RANGE'  # Sort key
+        #             }
+        #         ],
+        #         AttributeDefinitions=[
+        #             {
+        #                 'AttributeName': 'song_title',
+        #                 'AttributeType': 'S'
+        #             },
+        #             {
+        #                 'AttributeName': 'num',
+        #                 'AttributeType': 'N'
+        #             },
+        #
+        #         ],
+        #         ProvisionedThroughput={
+        #             'ReadCapacityUnits': 5,
+        #             'WriteCapacityUnits': 5
+        #         }
+        #     )
+        # return table
 
         print("{0}번째 노래 클라우드 입력 중".format(self.num))
 
-        table = dynamodb.create_table(
-            TableName='music_cow',
-            KeySchema=[
-                {
-                    'AttributeName': 'song_title',
-                    'KeyType': 'HASH'  # Partition key
-                },
-                {
-                    'AttributeName': 'num',
-                    'KeyType': 'RANGE'  # Sort key
-                }
-            ],
-            AttributeDefinitions=[
-                {
-                    'AttributeName': 'year',
-                    'AttributeType': 'N'
-                },
-                {
-                    'AttributeName': 'title',
-                    'AttributeType': 'S'
-                },
+        dynamoTable = dynamodb.Table('music_cow')
+        dynamoTable.put_item(
 
-            ],
-            ProvisionedThroughput={
-                'ReadCapacityUnits': 10,
-                'WriteCapacityUnits': 10
+            Item={
+                'num': int(self.num),
+                'page': str(self.page),
+                'song_title': str(self.song_title),
+                'song_artist': str(self.song_artist),
+                'auc1_info':{
+                    'auc_date': str(self.auc_date_1), 'auc_stock': str(self.auc_stock_1), 'auc_price': str(self.auc_price_1)},
+                'auc2_info':{
+                    'auc_date': str(self.auc_date_2), 'auc_stock': str(self.auc_stock_2), 'auc_price': str(self.auc_price_2)},
+                'auc_song_date': str(self.song_date),
+                'stock_num': str(self.stock_num)
+
             }
         )
-    return table
-
-
-        table = dynamodb.Table('Music_cow')
-        response = table.put_item(
-            Item={
-                'num': self.num,
-                'page': self.page,
-                'song_title': self.song_title,
-                'song_artist': self.song_artist,
-                'auc1_info':{
-                    'auc_date': self.auc_date_1, 'auc_stock': self.auc_stock_1, 'auc_price': self.auc_price_1},
-                'auc2_info':{
-                    'auc_date': self.auc_date_2, 'auc_stock': self.auc_stock_2, 'auc_price': self.auc_price_2},
-                'auc_song_date': self.song_date,
-                'stock_num': self.stock_num
-
-                }
-            )
-        return response
 
 
 if __name__ == '__main__':
     MusicList()
+
+os.close()
