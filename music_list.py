@@ -1,26 +1,15 @@
 import requests
 import re
 from bs4 import BeautifulSoup
-from pprint import pprint
-import boto3
-
-import os
-
-os.chdir('C:/dynamodb_local_latest')
-os.system('start cmd /k java -Djava.library.path=./DynamoDBLocal_lib -jar DynamoDBLocal.jar -sharedDb')
-
-os.chdir('C:/dynamodb_local_latest')
-os.system('aws dynamodb list-tables --endpoint-url http://localhost:8000')
+from selenium import webdriver
+from pymongo import MongoClient
+import time
 
 
 class MusicList():
     def __init__(self):
         # 뮤직카우 크롤링 시작
         self.crawl_link()
-        # 아티스트랑 타이틀 분류하기(feat, prod)
-        #self.name_classifier()
-        # DB에 저장하기
-        self.collect_db()
 
 
     def crawl_link(self):
@@ -70,69 +59,74 @@ class MusicList():
                 self.stock_num = re.sub('<.+?>', '', self.stock_num, 0).strip()
                 self.stock_num = self.stock_num.replace('\t','').replace('\n','').replace('1/','').replace(',','')
 
+                self.listing_youtube()
                 self.collect_db()
 
 
     #def name_classifier
 
-    def collect_db(self):
-        dynamodb = boto3.resource('dynamodb', endpoint_url = 'http://localhost:8000', aws_access_key_id = secret,
-                                  aws_secret_access_key = secret, verify = False)
+    def listing_youtube(self):
+        self.pair = self.song_artist + ' ' + self.song_title
+        self.pair = self.pair.replace('[', '').replace(']','')
 
-        # if dynamodb.Table != "music_cow":
-        #
-        #     table = dynamodb.create_table(
-        #         TableName='music_cow',
-        #         KeySchema=[
-        #             {
-        #                 'AttributeName': 'song_title',
-        #                 'KeyType': 'HASH'  # Partition key
-        #             },
-        #             {
-        #                 'AttributeName': 'num',
-        #                 'KeyType': 'RANGE'  # Sort key
-        #             }
-        #         ],
-        #         AttributeDefinitions=[
-        #             {
-        #                 'AttributeName': 'song_title',
-        #                 'AttributeType': 'S'
-        #             },
-        #             {
-        #                 'AttributeName': 'num',
-        #                 'AttributeType': 'N'
-        #             },
-        #
-        #         ],
-        #         ProvisionedThroughput={
-        #             'ReadCapacityUnits': 5,
-        #             'WriteCapacityUnits': 5
-        #         }
-        #     )
-        # return table
+
+        page_Youtube = "https://www.youtube.com/search?q={0}&sp=EgIQAQ%253D%253D".format(self.pair)
+
+        driver.get(page_Youtube)
+
+        html_Youtube = driver.page_source
+        soup_Youtube = BeautifulSoup(html_Youtube, 'html.parser')
+        time.sleep(5)
+
+        search_num_Youtube = soup_Youtube.select('a#video-title')
+        count = 0
+        self.youtube_video = []
+
+        for i in search_num_Youtube:
+            count+=1
+            self.href = i.attrs['href']
+            self.href = "https://youtube.com{0}".format(self.href)
+            print(count, self.href)
+            self.youtube_video.append(self.href)
+            time.sleep(0.7)
+
+            if count == 10:
+                break
+
+
+    def collect_db(self):
+        client = MongoClient('localhost', 27017)
+        db = client.music_cow
+        db.myCol
+        posts = db.posts
 
         print("{0}번째 노래 클라우드 입력 중".format(self.num))
 
-        dynamoTable = dynamodb.Table('music_cow')
-        dynamoTable.put_item(
+        if posts.find_one(self.song_title) == True:
+            pass
 
-            Item={
-                'num': int(self.num),
-                'page': str(self.page),
-                'song_title': str(self.song_title),
-                'song_artist': str(self.song_artist),
+        else:
+            music={
+                'song_title': self.song_title,
+                'num': self.num,
+                'page': self.page,
+                'song_artist': self.song_artist,
                 'auc1_info':{
-                    'auc_date': str(self.auc_date_1), 'auc_stock': str(self.auc_stock_1), 'auc_price': str(self.auc_price_1)},
+                    'auc_date': self.auc_date_1, 'auc_stock': self.auc_stock_1, 'auc_price': self.auc_price_1},
                 'auc2_info':{
-                    'auc_date': str(self.auc_date_2), 'auc_stock': str(self.auc_stock_2), 'auc_price': str(self.auc_price_2)},
-                'auc_song_date': str(self.song_date),
-                'stock_num': str(self.stock_num)
+                    'auc_date': self.auc_date_2, 'auc_stock': self.auc_stock_2, 'auc_price': self.auc_price_2},
+                'auc_song_date': self.song_date,
+                'stock_num': self.stock_num,
+                'youtube_video': self.youtube_video
+                }
 
-            }
-        )
+
+            posts.insert_one(music).inserted_id
+
 
 
 if __name__ == '__main__':
+    driver = webdriver.Chrome()
     MusicList()
 
-os.close()
+driver.close()
