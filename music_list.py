@@ -100,7 +100,7 @@ class MusicList():
         db.myCol
         posts = db.posts
 
-        print("{0}번째 노래 클라우드 입력 중".format(self.num))
+        print("{0}번째 노래 DB 입력 중".format(self.num))
 
         if posts.find_one(self.song_title) == True:
             pass
@@ -118,7 +118,7 @@ class MusicList():
                 'auc_song_date': self.song_date,
                 'stock_num': self.stock_num,
                 'youtube_video': self.youtube_video
-                }
+            }
 
 
             posts.insert_one(music).inserted_id
