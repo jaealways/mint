@@ -102,26 +102,23 @@ class MusicList():
 
         print("{0}번째 노래 DB 입력 중".format(self.num))
 
-        if posts.find_one(self.song_title) == True:
-            pass
 
-        else:
-            music={
-                'song_title': self.song_title,
-                'num': self.num,
-                'page': self.page,
-                'song_artist': self.song_artist,
-                'auc1_info':{
-                    'auc_date': self.auc_date_1, 'auc_stock': self.auc_stock_1, 'auc_price': self.auc_price_1},
-                'auc2_info':{
-                    'auc_date': self.auc_date_2, 'auc_stock': self.auc_stock_2, 'auc_price': self.auc_price_2},
-                'auc_song_date': self.song_date,
-                'stock_num': self.stock_num,
-                'youtube_video': self.youtube_video
-            }
+        music={
+            'song_title': self.song_title,
+            'num': self.num,
+            'page': self.page,
+            'song_artist': self.song_artist,
+            'auc1_info':{
+                'auc_date': self.auc_date_1, 'auc_stock': self.auc_stock_1, 'auc_price': self.auc_price_1},
+            'auc2_info':{
+                'auc_date': self.auc_date_2, 'auc_stock': self.auc_stock_2, 'auc_price': self.auc_price_2},
+            'auc_song_date': self.song_date,
+            'stock_num': self.stock_num,
+            'youtube_video': self.youtube_video
+        }
 
 
-            posts.insert_one(music).inserted_id
+        posts.insert_one(music).inserted_id
 
 
 
