@@ -33,31 +33,31 @@ class MusicList():
                 #위에서 pass되지 않은 곡만 기록
                 #re.sub -> 정규표현식
                 self.song_title = str(self.soup.select('div.song_header > div.information > p > strong'))
-                self.song_title = re.sub('<.+?>', '', self.song_title, 0).strip()
+                self.song_title = re.sub('<.+?>', '', self.song_title, 0).strip().replace('[', '').replace(']','')
                 self.song_artist = str(self.soup.select('div.song_header > div.information > em'))
-                self.song_artist = re.sub('<.+?>', '', self.song_artist, 0).strip()
+                self.song_artist = re.sub('<.+?>', '', self.song_artist, 0).strip().replace('[', '').replace(']','')
 
                 self.auc_date_1 = str(self.soup.select('div:nth-child(1) > h2 > small'))
-                self.auc_date_1 = re.sub('<.+?>', '', self.auc_date_1, 0).strip()
+                self.auc_date_1 = re.sub('<.+?>', '', self.auc_date_1, 0).strip().replace('[', '').replace(']','')
                 self.auc_stock_1 = str(self.soup.select('div.card_body > div > div:nth-child(1) > dl > dd:nth-child(2)'))
-                self.auc_stock_1 = re.sub('<.+?>', '', self.auc_stock_1, 0).strip()
+                self.auc_stock_1 = re.sub('<.+?>', '', self.auc_stock_1, 0).strip().replace('[', '').replace(']','')
                 self.auc_price_1 = str(self.soup.select('div.card_body > div > div:nth-child(1) > dl > dd:nth-child(8)'))
-                self.auc_price_1 = re.sub('<.+?>', '', self.auc_price_1, 0).strip()
+                self.auc_price_1 = re.sub('<.+?>', '', self.auc_price_1, 0).strip().replace('[', '').replace(']','')
 
                 self.auc_date_2 = str(self.soup.select('div:nth-child(2) > h2 > small'))
-                self.auc_date_2 = re.sub('<.+?>', '', self.auc_date_2, 0).strip()
+                self.auc_date_2 = re.sub('<.+?>', '', self.auc_date_2, 0).strip().replace('[', '').replace(']','')
                 self.auc_stock_2 = str(self.soup.select('div.card_body > div > div:nth-child(2) > dl > dd:nth-child(2)'))
-                self.auc_stock_2 = re.sub('<.+?>', '', self.auc_stock_2, 0).strip()
+                self.auc_stock_2 = re.sub('<.+?>', '', self.auc_stock_2, 0).strip().replace('[', '').replace(']','')
                 self.auc_price_2 = str(self.soup.select('div.card_body > div > div:nth-child(2) > dl > dd:nth-child(8)'))
-                self.auc_price_2 = re.sub('<.+?>', '', self.auc_price_2, 0).strip()
+                self.auc_price_2 = re.sub('<.+?>', '', self.auc_price_2, 0).strip().replace('[', '').replace(']','')
 
                 self.song_date = str(self.soup.select('div.card_body > div > dl > dd:nth-child(2)'))
-                self.song_date = re.sub('<.+?>', '', self.song_date, 0).strip()
+                self.song_date = re.sub('<.+?>', '', self.song_date, 0).strip().replace('[', '').replace(']','')
 
                 #stock_num 앞뒤 공백 제거 후 숫자만 추출(어떻게 간추릴 수 있을지 고민 중)
                 self.stock_num = str(self.soup.select('div.card_body > div > dl > dd:nth-child(20) > p:nth-child(1)'))
                 self.stock_num = re.sub('<.+?>', '', self.stock_num, 0).strip()
-                self.stock_num = self.stock_num.replace('\t','').replace('\n','').replace('1/','').replace(',','')
+                self.stock_num = self.stock_num.replace('\t','').replace('\n','').replace('1/','').replace(',','').replace('[', '').replace(']','')
 
                 self.listing_youtube()
                 self.collect_db()
