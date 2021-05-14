@@ -21,7 +21,7 @@ class MusicList():
             self.soup = BeautifulSoup(self.html, 'html.parser')
 
             self.song_title = str(self.soup.select('div.song_header > div.information > p > strong'))
-            self.song_title = re.sub('<.+?>', '', self.song_title, 0).strip()
+            self.song_title = re.sub('<.+?>', '', self.song_title, 0).strip().replace('[', '').replace(']','')
 
             print("{0}번째 노래 저장 중".format(self.num))
 
@@ -32,8 +32,6 @@ class MusicList():
 
                 #위에서 pass되지 않은 곡만 기록
                 #re.sub -> 정규표현식
-                self.song_title = str(self.soup.select('div.song_header > div.information > p > strong'))
-                self.song_title = re.sub('<.+?>', '', self.song_title, 0).strip().replace('[', '').replace(']','')
                 self.song_artist = str(self.soup.select('div.song_header > div.information > em'))
                 self.song_artist = re.sub('<.+?>', '', self.song_artist, 0).strip().replace('[', '').replace(']','')
 
@@ -59,17 +57,44 @@ class MusicList():
                 self.stock_num = re.sub('<.+?>', '', self.stock_num, 0).strip()
                 self.stock_num = self.stock_num.replace('\t','').replace('\n','').replace('1/','').replace(',','').replace('[', '').replace(']','')
 
+                # self.translating_naver()
+                # self.classify_name()
                 self.listing_youtube()
                 self.collect_db()
 
 
-    #def name_classifier
-
-    def listing_youtube(self):
+    def translating_naver(self):
         self.pair = self.song_artist + ' ' + self.song_title
         self.pair = self.pair.replace('[', '').replace(']','')
+        self.naver = "https://vibe.naver.com/search?query={0}".format(self.pair)
+        self.url_naver = requests.get(self.naver)
+        self.html_naver = self.url_naver.text
+        self.soup_naver = BeautifulSoup(self.html_naver, 'html.parser')
+
+        print("NAVER VIBE로 변환 중")
+        self.song_title = str(self.soup.select('div:nth-child(1) > div.info_area > div.title > span.inner > a'))
+        self.song_title = re.sub('<.+?>', '', self.song_title, 0).strip().replace('[', '').replace(']','')
+        self.song_artist = str(self.soup.select('div:nth-child(1) > div.info_area > div.artist > span:nth-child(1) > span > a > span'))
+        self.song_artist = re.sub('<.+?>', '', self.song_artist, 0).strip().replace('[', '').replace(']','')
 
 
+    def classify_name(self):
+        # Feat 분류
+        if 'Feat.' in self.song_title:
+            pos_1 = re.search('Feat.', self.song_title)
+
+
+
+        # Prod 분류
+
+        # 메인 가수, 서브 가수 한글, 영어
+
+
+        # 원제 한글 영어
+        self.song
+
+
+    def listing_youtube(self):
         page_Youtube = "https://www.youtube.com/search?q={0}&sp=EgIQAQ%253D%253D".format(self.pair)
 
         driver.get(page_Youtube)
