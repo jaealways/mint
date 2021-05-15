@@ -145,7 +145,7 @@ class MusicList():
 
         posts.insert_one(music).inserted_id
 
-
+#for 문 클래스 밖으로 빼기??
 
 if __name__ == '__main__':
     driver = webdriver.Chrome()
