@@ -64,6 +64,7 @@ class MusicList:
         self.auc_date_2 = str(self.soup.select('div:nth-child(2) > h2 > small'))
         self.auc_date_2 = re.sub('\<.+?>|\[|\'|\]', '', self.auc_date_2, 0).strip()
         if self.auc_date_2[1:-1] == '':
+            # None 말고 NaN과 0 이라는 값 넣은 이유는 string과 int로 type 통일하기 위해서
             self.auc_date_2_start = 'NaN'; self.auc_date_2_end = 'NaN'
             self.auc_stock_2 = 0; self.auc_price_2 = 0
         else:
@@ -89,14 +90,14 @@ class MusicList:
         print("{0}번 곡 DB 입력 중".format(self.num))
 
         list_music = {
-            'song_title': self.song_title,
             'num': self.num,
-            'page': self.page,
+            'song_title': self.song_title,
             'song_artist': self.song_artist,
-            'auc1_info':{
+            'page': self.page,
+            'auc1_info': {
                 'auc_start_date': self.auc_date_1_start, 'auc_end_date': self.auc_date_1_end,
                 'auc_stock': self.auc_stock_1, 'auc_price': self.auc_price_1},
-            'auc2_info':{
+            'auc2_info': {
                 'auc_start_date': self.auc_date_2_start, 'auc_end_date': self.auc_date_2_end,
                 'auc_stock': self.auc_stock_2, 'auc_price': self.auc_price_2},
             'song_release_date': self.song_release_date,
