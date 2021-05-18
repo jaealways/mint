@@ -1,5 +1,6 @@
 import requests
 import re
+import pandas as pd
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from pymongo import MongoClient
@@ -7,58 +8,78 @@ import time
 
 
 class YoutubeList:
-    def __init__(self):
+    def __init__(self, num):
         self.num = num
         self.read_db()
 
     def read_db(self):
-        # DB에 곡이 있으면 유튜브 리스트 크롤링 시작
-        music_exist = music_list.find({'num': self.num})
-        if music_exist[1:-1] == '':
-            pass
-        else:
-
+        list_db_music = col1.find({}, {'num': {"$slice": [self.num, 1]}})
+        for x in list_db_music:
+            self.song_artist = x['song_artist']
+            self.song_title = x['song_title']
+            self.pair = self.song_artist + ' ' + self.song_title
 
             self.listing_youtube()
 
     def listing_youtube(self):
-        self.pair = self.song_artist + ' ' + self.song_title
         page_youtube = "https://www.youtube.com/search?q={0}&sp=EgIQAQ%253D%253D".format(self.pair)
-
         driver.get(page_youtube)
 
         html_youtube = driver.page_source
         soup_youtube = BeautifulSoup(html_youtube, 'html.parser')
         time.sleep(5)
 
-        search_num_Youtube = soup_youtube.select('a#video-title')
-        count = 0
-        self.youtube_video = []
-        print("Youtube List 출력 중")
+        search_num_youtube = soup_youtube.select('a#video-title')
+        count = 1
+        print("{0} Youtube List 출력 중".format(self.pair))
+        self.video_list = pd.DataFrame({'title': [], 'link': []})
 
-        for i in search_num_Youtube:
-            count+=1
+        for i in search_num_youtube:
             self.href = i.attrs['href']
             self.href = "https://youtube.com{0}".format(self.href)
-            print(count, self.href)
-            self.youtube_video.append(self.href)
+            self.title = i.attrs['aria-label']
+            self.title = self.title.split('게시자')[0].strip()
+            print("{0}의 {1}번째 비디오".format(count, self.title))
             time.sleep(0.7)
 
+            insert_data = pd.DataFrame({'title': [self.title], 'link': [self.href]})
+            self.video_list.append(insert_data)
+
+            count+=1
             if count == 10:
                 break
+
+        print("{0} 비디오 DB 입력 중".format(self.pair))
+        self.collect_db()
+
+    # 데이터 프레임 db에 어떻게 입력하는가??
+    def collect_db(self):
+        list_video = {
+            'num': self.num,
+            'song_title': self.song_title,
+            'song_artist': self.song_artist,
+            'video_info': {
+                'video_title': self.video_list['title'], 'video_link': self.video_list['link']
+            }
+
+        }
+
+        col2.insert_one(list_video).inserted_id
 
 
 if __name__ == '__main__':
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_arguemnt('--incognito')
+    chrome_options.add_argument('--incognito')
     driver = webdriver.Chrome(options=chrome_options)
 
     client = MongoClient('localhost', 27017)
     db = client.music_cow
-    music_list = db.music_list
-    youtube_list = db.youtube_list
+    col1 = db.music_list
+    col2 = db.youtube_list
 
-    for num in range(0,2000):
+    num_music = col1.count_documents({})
+
+    for num in range(1, num_music + 1):
         YoutubeList(num)
 
     driver.close()
