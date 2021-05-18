@@ -14,13 +14,18 @@ class MusicList:
 
     def read_db(self):
         # DB에 곡이 이미 존재하면 크롤링 하기 전에 패스
-
-        # 조회하는거 어떻게?? find()
-        music_exist = db.getCollection('music_list').find({'num': self.num})
-        print(music_exist)
-        if music_exist.alive is True:
-            pass
+        is_exist = col.find({'num': self.num}, {'_id': 0, 'num': 1})
+        if col.count_documents({'num': self.num}) != 0:
+            # if 문에 for x in is_exist 쓰면 x가 존재하지 않는 경우(즉 db)에 저장된 값이 없으면 에러 발생
+            for x in is_exist:
+                if x['num'] == self.num:
+                    print("{0}번 곡은 이미 DB에 존재합니다.".format(x['num']))
+                    pass
+                else:
+                    raise IndexError
+                    print("DB 입력 값 {0}과 홈페이지 넘버 {1}이 일치하지 않습니다.".format(x['num'], self.num))
         else:
+            print("{0}번 곡은 DB에 없습니다. 크롤링 시작.".format(self.num))
             self.identify_link()
 
     def identify_link(self):
@@ -32,16 +37,17 @@ class MusicList:
         self.song_title = str(self.soup.select('div.song_header > div.information > p > strong'))
         self.song_title = re.sub('<.+?>', '', self.song_title, 0).replace('[', '').replace(']','').strip()
 
-        print("{0}번째 노래 저장 중".format(self.num))
+        print("{0}번 곡 확인 중".format(self.num))
 
         # 노래 제목이 없을 경우 비어있는 페이지이므로 pass
         if self.song_title[1:-1] == '':
+            print("{0}번 곡은 존재하지 않습니다.".format(self.num))
             pass
         else:
             self.crawl_link()
 
     def crawl_link(self):
-        print("뮤직카우 {0}번 곡 크롤링".format(self.num))
+        print("{0}번 곡 뮤직카우 크롤링 시작".format(self.num))
         self.song_artist = str(self.soup.select('div.song_header > div.information > em'))
         self.song_artist = re.sub('\<.+?>|\[|\'|\]', '', self.song_artist, 0).strip()
 
@@ -80,7 +86,7 @@ class MusicList:
         self.collect_db()
 
     def collect_db(self):
-        print("{0}번째 노래 DB 입력 중".format(self.num))
+        print("{0}번 곡 DB 입력 중".format(self.num))
 
         list_music = {
             'song_title': self.song_title,
@@ -97,13 +103,13 @@ class MusicList:
             'stock_num': self.stock_num
         }
 
-        music_list.insert_one(list_music).inserted_id
+        col.insert_one(list_music).inserted_id
 
 
 if __name__ == '__main__':
     client = MongoClient('localhost', 27017)
     db = client.music_cow
-    music_list = db.music_list
+    col = db.music_list
 
-    for num in range(26, 2000):
+    for num in range(0, 2000):
         MusicList(num)
