@@ -16,7 +16,7 @@ from openpyxl import load_workbook
 
 # ================= 노래제목 - 가수이름 짝지어 dataframe 만들기 =================== #
 # market.xlsx 불러오기
-market_sheet = load_workbook("C:/Users/ninay/Desktop/pythonworkspace/kuggle_project/market.xlsx") 
+market_sheet = load_workbook("C:/Users/LG/Downloads/market.xlsx")
 data = market_sheet.active
 
 # 노래 제목 column 생성
@@ -66,6 +66,7 @@ print(df)
 #========================================== 1차분리 : main 가수 이름 ============================================#
 song_artist_main=[]
 for names in df['가수']:
+    # 정확히 무슨 정규표현식?
     omitetc=re.sub(r'\([^)]*\)', '', names)
     song_artist_main.append(omitetc)
 
@@ -76,6 +77,7 @@ for names in df['가수']:
 # main - 2차 분리 : main 가수 영어 이름
 song_artist_main_english=[]
 for artist_name in song_artist_main:
+    # encode isalpha가 무슨코드?
     if artist_name[0].encode().isalpha():
         song_artist_main_english.append(artist_name)
     else:
@@ -117,6 +119,7 @@ import re
 song_artist_split=[]
 song_arits_featuring=[]
 for titles in df['가수']:
+    # 정규표현식?
     item = re.findall('\(([^)]+)', titles)
 
     song_artist_split.append(item)
