@@ -83,8 +83,11 @@ class MusicList:
         self.stock_num = str(self.soup.select('div.card_body > div > dl > dd:nth-child(20) > p:nth-child(1)'))
         self.stock_num = re.sub('\<.+?>|\[|\'|\]|\t|\n|\,', '', self.stock_num, 0).replace('1/','').strip()
 
-        # self.classify_name()
+        #self.classify_name()
         self.collect_db()
+
+    #def classify_name(self):
+
 
     def collect_db(self):
         print("{0}번 곡 DB 입력 중".format(self.num))
