@@ -39,13 +39,13 @@ class YoutubeList:
             self.href = "https://youtube.com{0}".format(self.href)
             self.title = i.attrs['aria-label']
             self.title = self.title.split('게시자')[0].strip()
-            print("{0}의 {1}번째 비디오".format(count, self.title))
+            print("{0}의 {1}번째 비디오".format(self.title, count))
             time.sleep(0.7)
 
             insert_data = pd.DataFrame({'title': [self.title], 'link': [self.href]})
             self.video_list.append(insert_data)
 
-            count+=1
+            count += 1
             if count == 10:
                 break
 
@@ -53,6 +53,8 @@ class YoutubeList:
         self.collect_db()
 
     # 데이터 프레임 db에 어떻게 입력하는가??
+    # song 고유 식별자 부분은 처음에 입력하고, video list 는 for 문 안으로 집어넣음
+
     def collect_db(self):
         list_video = {
             'num': self.num,
