@@ -16,7 +16,7 @@ class MusicList:
         # DB에 곡이 이미 존재하면 크롤링 하기 전에 패스
         is_exist = col.find({'num': self.num}, {'_id': 0, 'num': 1})
         if col.count_documents({'num': self.num}) != 0:
-            # if 문에 for x in is_exist 쓰면 x가 존재하지 않는 경우(즉 db)에 저장된 값이 없으면 에러 발생
+            # if 문에 for x in is_exist 쓰면, x가 존재하지 않는 경우(즉 db)에 저장된 값이 없으면 에러 발생
             for x in is_exist:
                 if x['num'] == self.num:
                     print("{0}번 곡은 이미 DB에 존재합니다.".format(x['num']))
@@ -35,7 +35,7 @@ class MusicList:
         self.soup = BeautifulSoup(self.html, 'html.parser')
 
         self.song_title = str(self.soup.select('div.song_header > div.information > p > strong'))
-        self.song_title = re.sub('<.+?>', '', self.song_title, 0).replace('[', '').replace(']','').strip()
+        self.song_title = re.sub('\<.+?>|\[|\]', '', self.song_title, 0).strip()
 
         print("{0}번 곡 확인 중".format(self.num))
 
