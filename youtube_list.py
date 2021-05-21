@@ -1,10 +1,9 @@
-import requests
-import re
 import pandas as pd
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from pymongo import MongoClient
 import time
+import json
 
 
 class YoutubeList:
@@ -43,7 +42,7 @@ class YoutubeList:
             time.sleep(0.7)
 
             insert_data = pd.DataFrame({'title': [self.title], 'link': [self.href]})
-            self.video_list.append(insert_data)
+            self.video_list = self.video_list.append(insert_data)
 
             count += 1
             if count == 10:
@@ -55,18 +54,27 @@ class YoutubeList:
     # 데이터 프레임 db에 어떻게 입력하는가??
     # song 고유 식별자 부분은 처음에 입력하고, video list 는 for 문 안으로 집어넣음
 
+
+
     def collect_db(self):
-        list_video = {
+        list_video_info = {
             'num': self.num,
             'song_title': self.song_title,
             'song_artist': self.song_artist,
-            'video_info': {
-                'video_title': self.video_list['title'], 'video_link': self.video_list['link']
             }
 
-        }
+        # col2.insert_one(list_video_info).inserted_id
 
-        col2.insert_one(list_video).inserted_id
+        self.video_list.reset_index(inplace=True)
+        self.video_list_dict = self.video_list.to_dict()
+
+        # list_video = {
+        #     'video_info': {
+        #         'video_title': self.video_list['title'], 'video_link': self.video_list['link']
+        #     }
+        # }
+
+        col2.insert_many(list_video_info, self.video_list_dict)
 
 
 if __name__ == '__main__':
