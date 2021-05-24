@@ -40,8 +40,8 @@ class YoutubeList:
             self.href = "https://youtube.com{0}".format(self.href)
             self.title = i.attrs['aria-label']
             self.title = self.title.split('게시자')[0].strip()
-            print("{0} - {1}의 {2}번째 비디오".format(self.title, self.pair, count))
-            time.sleep(0.7)
+            print("{0}의 {1}th - {2}".format(self.pair, count, self.title))
+            time.sleep(0.2)
 
             video = {
                 'title': self.title, 'link': self.href
@@ -50,7 +50,7 @@ class YoutubeList:
             self.list_video['video{0}'.format(count)] = video
 
             count += 1
-            if count == 10:
+            if count == 11:
                 break
 
         print("{0} 비디오 DB 입력 중".format(self.pair))
@@ -64,9 +64,12 @@ if __name__ == '__main__':
     driver = webdriver.Chrome(options=chrome_options)
 
     client = MongoClient('localhost', 27017)
-    db = client.music_cow
-    col1 = db.music_list
-    col2 = db.youtube_list
+    db1 = client.music_cow
+    db2 = client.daily_crawler
+    col1 = db1.music_list
+    col2 = db1.youtube_list
+    col3 = db2.music_list
+    col4 = db2.youtube_list
 
     num_music = col1.count_documents({})
 
