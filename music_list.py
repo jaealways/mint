@@ -14,8 +14,8 @@ class MusicList:
 
     def read_db(self):
         # DB에 곡이 이미 존재하면 크롤링 하기 전에 패스
-        is_exist = col.find({'num': self.num}, {'_id': 0, 'num': 1})
-        if col.count_documents({'num': self.num}) != 0:
+        is_exist = col1.find({'num': self.num}, {'_id': 0, 'num': 1})
+        if col1.count_documents({'num': self.num}) != 0:
             # if 문에 for x in is_exist 쓰면, x가 존재하지 않는 경우(즉 db)에 저장된 값이 없으면 에러 발생
             for x in is_exist:
                 if x['num'] == self.num:
@@ -107,13 +107,20 @@ class MusicList:
             'stock_num': self.stock_num
         }
 
-        col.insert_one(list_music).inserted_id
+        col1.insert_one(list_music).inserted_id
 
 
 if __name__ == '__main__':
     client = MongoClient('localhost', 27017)
-    db = client.music_cow
-    col = db.music_list
+    db1 = client.music_cow
+    db2 = client.daily_crawler
+    col1 = db1.music_list
+    col2 = db2.music_list
 
     for num in range(0, 2000):
         MusicList(num)
+
+# 메모
+# 1. MongoDB id문제 해결하기
+# 2. num 일관성 있는 다른 변수로 바꾸기
+# 3. db 한 번에 2개에 추가 or 후에 복사하기 중 후자
