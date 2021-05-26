@@ -6,15 +6,14 @@ import time
 
 class YoutubeDailyCrawler:
     def __init__(self):
-        self.num = num
         self.read_db()
 
     def read_db(self):
-        list_db_music = col1.find({}, {'num': {"$slice": [self.num, 1]}})
+        list_db_music = col1.find({}, {'num': {"$slice": [1, 1]}})
         for x in list_db_music:
             for num_video_order in range(1,11):
-                self.link_video = x['video{0}'.format(num_video_order)['link']]
-                self.title_video = x['video{0}'.format(num_video_order)['title']]
+                self.link_video = x['video{0}'.format(num_video_order)]['link']
+                self.title_video = x['video{0}'.format(num_video_order)]['title']
 
                 self.crawling_daily()
 
@@ -25,9 +24,15 @@ class YoutubeDailyCrawler:
         soup_youtube = BeautifulSoup(html_youtube, 'html.parser')
         time.sleep(5)
 
-        search_num_youtube = soup_youtube.select('#main')
-        self.like = soup_youtube.select('#text')
-        self.dislike = soup_youtube.select('#text')
+        search_num_youtube = soup_youtube.select('#menu > ytd-menu-renderer')
+        # > yt-formatted-string
+
+        for num_like in search_num_youtube:
+            num_like = num_like.attrs['aria-label']
+            if '좋아요' in num_like:
+                self.like = num_like
+            else:
+                self.dislike = num_like
         count = 1
         print("{0} Youtube 댓글 출력 중".format(self.title_video))
 
@@ -76,10 +81,7 @@ if __name__ == '__main__':
     col1 = db.youtube_list
     col2 = db.daily_youtube
 
-    num_youtube = col1.count_documents({})
-
-    for num in range(1, num_youtube + 1):
-        YoutubeDailyCrawler(num)
+    YoutubeDailyCrawler()
 
     driver.close()
 
