@@ -4,13 +4,13 @@ from pymongo import MongoClient
 import time
 
 class YoutubeList:
-    def __init__(self, num):
-        self.num = num
+    def __init__(self):
         self.read_db()
 
     def read_db(self):
-        list_db_music = col1.find({}, {'num': {"$slice": [self.num, 1]}})
+        list_db_music = col1.find({}, {'num': {"$slice": [1, 1]}})
         for x in list_db_music:
+            self.num = x['num']
             self.song_artist = x['song_artist']
             self.song_title = x['song_title']
             self.pair = self.song_artist + ' ' + self.song_title
@@ -71,10 +71,7 @@ if __name__ == '__main__':
     col3 = db2.music_list
     col4 = db2.youtube_list
 
-    num_music = col1.count_documents({})
-
-    for num in range(1, num_music + 1):
-        YoutubeList(num)
+    YoutubeList()
 
     driver.close()
 
