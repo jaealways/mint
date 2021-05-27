@@ -1,5 +1,6 @@
 from googleapiclient.discovery import build
 from pymongo import MongoClient
+from datetime import datetime
 
 class YoutubeDailyCrawler:
     def __init__(self):
@@ -23,51 +24,40 @@ class YoutubeDailyCrawler:
         video_id = self.id_video
 
         api_obj = build('youtube', 'v3', developerKey=api_key)
-        response = api_obj.commentThreads().list(part='snippet,replies', videoId=video_id, maxResults=100).execute()
-        list_comment = {
+        response = api_obj.videos().list(part='statistics', id=video_id).execute()
+        d = datetime.today()
+        date_today = '{0}-{1}-{2}'.format(d.year, d.month, d.day)
+        video_info = {
             'title_video': self.title_video,
             'id_video': self.id_video,
             'song_title': self.song_title,
             'song_artist': self.song_artist
         }
 
-
         while response:
-            count = 1
             for item in response['items']:
-                comment = item['snippet']['topLevelComment']['snippet']
-                comments = {
-                    'comment': comment['textDisplay'],
-                    'author': comment['authorDisplayName'],
-                    'date': comment['publishedAt'],
-                    'like': comment['likeCount']
+                daily_crawl = item['statistics']
+                info_list = {
+                    'view': daily_crawl['viewCount'],
+                    'like': daily_crawl['likeCount'],
+                    'dislike': daily_crawl['dislikeCount'],
+                    'comments': daily_crawl['commentCount']
                 }
 
-                if item['snippet']['totalReplyCount'] > 0:
-                    for reply_item in item['replies']['comments']:
-                        reply = reply_item['snippet']
-                        comments = {
-                            'comment': reply['textDisplay'],
-                            'author': comment['authorDisplayName'],
-                            'date': comment['publishedAt'],
-                            'like': comment['likeCount']
-                        }
+                video_info['{0}'.format(date_today)] = info_list
+                print(info_list)
 
-                list_comment['comment{0}'.format(count)] = comments
-                print(comments)
-                count += 1
+                exit
+            exit
+        exit
 
-            if 'nextPageToken' in response:
-                response = api_obj.commentThreads().list(part='snippet,replies', videoId=video_id, pageToken=response['nextPageToken'], maxResults=100).execute()
-            else:
-                break
-        col2.insert_one(list_comment).inserted_id
+        col2.insert_one(video_info).inserted_id
 
 
 if __name__ == '__main__':
     client = MongoClient('localhost', 27017)
     db = client.music_cow
     col1 = db.youtube_list
-    col2 = db.daily_youtube
+    col2 = db.daily_youtube2
 
     YoutubeDailyCrawler()
