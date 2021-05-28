@@ -28,8 +28,7 @@ class YoutubeDailyCrawler:
 
         api_obj = build('youtube', 'v3', developerKey=api_key)
         response = api_obj.videos().list(part='statistics', id=video_id).execute()
-        d = datetime.today()
-        date_today = '{0}-{1}-{2}'.format(d.year, d.month, d.day)
+        date_today = datetime.now().strftime('%Y-%m-%d')
         video_info = {
             'title_video': self.title_video,
             'id_video': self.id_video,
