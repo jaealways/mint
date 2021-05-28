@@ -11,8 +11,14 @@ class YoutubeList:
         list_db_music = col1.find({}, {'num': {"$slice": [1, 1]}})
         for x in list_db_music:
             self.num = x['num']
-            self.song_artist = x['song_artist']
-            self.song_title = x['song_title']
+            if 'song_artist_main_kor' in x['list_split']:
+                self.song_artist = x['list_split']['song_artist_main_kor']
+            else:
+                self.song_artist = x['list_split']['song_artist_main_eng']
+            if 'song_title_main_kor' in x['list_split']:
+                self.song_title = x['list_split']['song_title_main_kor']
+            else:
+                self.song_title = x['list_split']['song_title_main_eng']
             self.pair = self.song_artist + ' ' + self.song_title
 
             self.listing_youtube()
@@ -65,11 +71,8 @@ if __name__ == '__main__':
 
     client = MongoClient('localhost', 27017)
     db1 = client.music_cow
-    db2 = client.daily_crawler
-    col1 = db1.music_list
+    col1 = db1.music_list_split
     col2 = db1.youtube_list
-    col3 = db2.music_list
-    col4 = db2.youtube_list
 
     YoutubeList()
 
