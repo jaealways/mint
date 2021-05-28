@@ -2,11 +2,12 @@ from googleapiclient.discovery import build
 from pymongo import MongoClient
 
 class YoutubeDailyCrawler:
-    def __init__(self):
+    def __init__(self, num):
+        self.num = num
         self.read_db()
 
     def read_db(self):
-        list_db_music = col1.find({}, {'num': {"$slice": [1, 1]}})
+        list_db_music = col1.find({}, {'num': {"$slice": [self.num, 1]}})
         for x in list_db_music:
             for num_video_order in range(1, 11):
                 self.link_video = x['video{0}'.format(num_video_order)]['link']
@@ -68,6 +69,10 @@ if __name__ == '__main__':
     client = MongoClient('localhost', 27017)
     db = client.music_cow
     col1 = db.youtube_list
-    col2 = db.daily_youtube
+    col2 = db.comment_youtube
 
-    YoutubeDailyCrawler()
+    num_youtube = col1.count_documents({})
+
+    for num in range(1, num_youtube + 1):
+        YoutubeDailyCrawler(num)
+
