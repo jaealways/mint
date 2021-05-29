@@ -50,7 +50,8 @@ for i in df:
 
 print('기사 총 개수:',count)
 
-
+a=pd.DataFrame(sentences)
+a.columns=['text']
 from kiwipiepy import Kiwi,Option
 kiwi=Kiwi()
 kiwi.prepare()
