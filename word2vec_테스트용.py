@@ -50,7 +50,8 @@ for i in df:
         pass
 
 print('기사 총 개수:',count)
-
+a=pd.DataFrame(sentences)
+a.columns=['text']
 kiwi=Kiwi()
 kiwi.prepare()
 a['tokenized']=a['text'].apply(lambda x: kiwi.analyze(x))
