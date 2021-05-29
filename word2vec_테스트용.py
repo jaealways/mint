@@ -2,6 +2,7 @@ import requests
 from gensim.models.word2vec import Word2Vec
 import re
 from bs4 import BeautifulSoup
+from kiwipiepy import Kiwi,Option
 df=pd.read_excel('./test_search.xlsx')
 url_poly='https://search.naver.com/search.naver'
 headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"}
