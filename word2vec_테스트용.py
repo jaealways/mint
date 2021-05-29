@@ -2,6 +2,7 @@ import requests
 from gensim.models.word2vec import Word2Vec
 import re
 from bs4 import BeautifulSoup
+import pandas as pd
 from kiwipiepy import Kiwi,Option
 df=pd.read_excel('./test_search.xlsx')
 url_poly='https://search.naver.com/search.naver'
@@ -50,8 +51,6 @@ for i in df:
 
 print('기사 총 개수:',count)
 
-
-from kiwipiepy import Kiwi,Option
 kiwi=Kiwi()
 kiwi.prepare()
 a['tokenized']=a['text'].apply(lambda x: kiwi.analyze(x))
