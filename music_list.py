@@ -35,7 +35,7 @@ class MusicList:
         self.soup = BeautifulSoup(self.html, 'html.parser')
 
         self.song_title = str(self.soup.select('div.song_header > div.information > p > strong'))
-        self.song_title = re.sub('\<.+?>|\[|\]', '', self.song_title, 0).strip()
+        self.song_title = re.sub('\<.+?>|\[|\]', '', self.song_title, 0).replace('&amp;', '&').strip()
 
         print("{0}번 곡 확인 중".format(self.num))
 
@@ -49,7 +49,7 @@ class MusicList:
     def crawl_link(self):
         print("{0}번 곡 뮤직카우 크롤링 시작".format(self.num))
         self.song_artist = str(self.soup.select('div.song_header > div.information > em'))
-        self.song_artist = re.sub('\<.+?>|\[|\'|\]', '', self.song_artist, 0).strip()
+        self.song_artist = re.sub('\<.+?>|\[|\'|\]', '', self.song_artist, 0).replace('&amp;', '&').strip()
 
         self.auc_date_1 = str(self.soup.select('div:nth-child(1) > h2 > small'))
         self.auc_date_1 = re.sub('\<.+?>|\[|\'|\]', '', self.auc_date_1, 0).strip()
