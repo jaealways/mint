@@ -11,17 +11,20 @@ class YoutubeList:
         list_db_music = col1.find({}, {'num': {"$slice": [1, 1]}})
         for x in list_db_music:
             self.num = x['num']
-            if 'song_artist_main_kor' in x['list_split']:
-                self.song_artist = x['list_split']['song_artist_main_kor']
+            if self.num < 1383:
+                pass
             else:
-                self.song_artist = x['list_split']['song_artist_main_eng']
-            if 'song_title_main_kor' in x['list_split']:
-                self.song_title = x['list_split']['song_title_main_kor']
-            else:
-                self.song_title = x['list_split']['song_title_main_eng']
-            self.pair = self.song_artist + ' ' + self.song_title
+                if 'song_artist_main_kor' in x['list_split']:
+                    self.song_artist = x['list_split']['song_artist_main_kor']
+                else:
+                    self.song_artist = x['list_split']['song_artist_main_eng']
+                if 'song_title_main_kor' in x['list_split']:
+                    self.song_title = x['list_split']['song_title_main_kor']
+                else:
+                    self.song_title = x['list_split']['song_title_main_eng']
+                self.pair = self.song_artist + ' ' + self.song_title
 
-            self.listing_youtube()
+                self.listing_youtube()
 
     def listing_youtube(self):
         page_youtube = "https://www.youtube.com/search?q={0}&sp=EgIQAQ%253D%253D".format(self.pair)
@@ -29,7 +32,7 @@ class YoutubeList:
 
         html_youtube = driver.page_source
         soup_youtube = BeautifulSoup(html_youtube, 'html.parser')
-        time.sleep(5)
+        time.sleep(1)
 
         search_num_youtube = soup_youtube.select('a#video-title')
         count = 1
