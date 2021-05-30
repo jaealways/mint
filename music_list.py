@@ -80,7 +80,7 @@ class MusicList:
         self.song_release_date = re.sub('\<.+?>|\[|\'|\]', '', self.song_release_date, 0).strip()
 
         # stock_num 앞뒤 공백 제거 후 숫자만 추출
-        self.stock_num = str(self.soup.select('div.card_body > div > dl > dd:nth-child(20) > p:nth-child(1)'))
+        self.stock_num = str(self.soup.select('div.lst_copy_info dd p')).split('2차적')[0]
         self.stock_num = re.sub('\<.+?>|\[|\'|\]|\t|\n|\,', '', self.stock_num, 0).replace('1/','').strip()
 
         #self.classify_name()
