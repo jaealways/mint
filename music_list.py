@@ -40,7 +40,7 @@ class MusicList:
         print("{0}번 곡 확인 중".format(self.num))
 
         # 노래 제목이 없을 경우 비어있는 페이지이므로 pass
-        if self.song_title[1:-1] == '':
+        if self.song_title[0:-1] == '':
             print("{0}번 곡은 존재하지 않습니다.".format(self.num))
             pass
         else:
@@ -63,7 +63,7 @@ class MusicList:
 
         self.auc_date_2 = str(self.soup.select('div:nth-child(2) > h2 > small'))
         self.auc_date_2 = re.sub('\<.+?>|\[|\'|\]', '', self.auc_date_2, 0).strip()
-        if self.auc_date_2[1:-1] == '':
+        if self.auc_date_2[0:-1] == '':
             # None 말고 NaN과 0 이라는 값 넣은 이유는 string과 int로 type 통일하기 위해서
             self.auc_date_2_start = 'NaN'; self.auc_date_2_end = 'NaN'
             self.auc_stock_2 = 0; self.auc_price_2 = 0
