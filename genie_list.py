@@ -4,13 +4,13 @@ from bs4 import BeautifulSoup
 from pymongo import MongoClient
 
 class GenieList:
-    def __init__(self, num):
-        self.num = num
+    def __init__(self):
         self.read_db()
 
     def read_db(self):
-        list_db_music = col1.find({}, {'num': {"$slice": [self.num, 1]}})
+        list_db_music = col1.find({}, {'num': {"$slice": [1, 1]}})
         for x in list_db_music:
+            self.num = x['num']
             if 'song_artist_main_kor' in x['list_split']:
                 self.song_artist = x['list_split']['song_artist_main_kor']
             else:
@@ -62,7 +62,4 @@ if __name__ == '__main__':
     col1 = db1.music_list_split
     col2 = db1.genie_list
 
-    num_music = col1.count_documents({})
-
-    for num in range(1, num_music + 1):
-        GenieList(num)
+    GenieList()
