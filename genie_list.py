@@ -40,7 +40,7 @@ class GenieList:
         }
 
         for n, i in enumerate(name):
-            if self.song_artist.lower().replace(' ', '') in i.text.lower().replace(' ', ''):
+            if self.song_title.lower().replace(' ', '') in i.text.lower().replace(' ', ''):
                 count += 1
 
                 self.url_detail = num[n].attrs['onclick']
