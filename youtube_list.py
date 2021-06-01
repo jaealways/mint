@@ -11,7 +11,7 @@ class YoutubeList:
         list_db_music = col1.find({}, {'num': {"$slice": [1, 1]}})
         for x in list_db_music:
             self.num = x['num']
-            if self.num < 1383:
+            if self.num < 0:
                 pass
             else:
                 if 'song_artist_main_kor' in x['list_split']:
