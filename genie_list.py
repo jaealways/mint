@@ -11,10 +11,10 @@ class GenieList:
         list_db_music = col1.find({}, {'num': {"$slice": [1, 1]}})
         for x in list_db_music:
             self.num = x['num']
-            if 'song_artist_main_kor' in x['list_split']:
-                self.song_artist = x['list_split']['song_artist_main_kor']
+            if 'song_artist_main_kor1' in x['list_split']:
+                self.song_artist = x['list_split']['song_artist_main_kor1']
             else:
-                self.song_artist = x['list_split']['song_artist_main_eng']
+                self.song_artist = x['list_split']['song_artist_main_eng1']
             if 'song_title_main_kor' in x['list_split']:
                 self.song_title = x['list_split']['song_title_main_kor']
             else:
