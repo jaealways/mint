@@ -5,12 +5,11 @@ from pymongo import MongoClient
 import re
 
 class GenieDailyCrawler:
-    def __init__(self, num):
-        self.num = num
+    def __init__(self):
         self.read_db()
 
     def read_db(self):
-        list_db_music = col1.find({}, {'num': {"$slice": [self.num, 1]}})
+        list_db_music = col1.find({}, {'num': {"$slice": [1, 1]}})
         for x in list_db_music:
             num_list_genie = len(x) - 4
             for y in range(1, num_list_genie):
@@ -66,7 +65,4 @@ if __name__ == '__main__':
     col1 = db1.genie_list
     col2 = db1.daily_genie
 
-    num_music = col1.count_documents({})
-
-    for num in range(1, num_music + 1):
-        GenieDailyCrawler(num)
+    GenieDailyCrawler()
