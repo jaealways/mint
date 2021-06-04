@@ -9,7 +9,7 @@ class SongSpliter:
         list_db_music = col1.find({}, {'num': {"$slice": [1, 1]}})
         for x in list_db_music:
             self.num = x['num']
-            if self.num < 58:
+            if self.num < 0:
                 pass
             else:
                 self.num_feat_kor, self.num_feat_eng, self.num_main_kor, \
@@ -17,9 +17,25 @@ class SongSpliter:
                 self.music_list = x
                 self.list_split = {}
                 self.song_artist = x['song_artist']
-                self.song_artist = self.song_artist.replace('(', ', (').split(',')
+                self.song_artist = self.song_artist.replace('(', ', (')
+                temp_art0 = re.search('\(([^)]+)', self.song_artist)
+                if temp_art0 != None:
+                    temp_art1 = re.search('\(([^)]+)', self.song_artist).regs[0]
+                    temp_art2 = self.song_artist[temp_art1[0]:temp_art1[1]].replace(',', '#')
+                    self.song_artist = re.sub('\(([^)]+)', temp_art2, self.song_artist).split(',')
+                else:
+                    self.song_artist = list(self.song_artist.split(','))
+
+                # 괄호 안 만 컴마 있어도 split 영향 안 받게??
                 self.song_title = x['song_title']
-                self.song_title = self.song_title.replace('(', ', (').split(',')
+                self.song_title = self.song_title.replace('(', ', (')
+                temp_tit0 = re.search('\(([^)]+)', self.song_title)
+                if temp_tit0 != None:
+                    temp_tit1 = re.search('\(([^)]+)', self.song_title).regs[0]
+                    temp_tit2 = self.song_title[temp_tit1[0]:temp_tit1[1]].replace(',', '#')
+                    self.song_title = re.sub('\(([^)]+)', temp_tit2, self.song_title).split(',')
+                else:
+                    self.song_title = list(self.song_title.split(','))
 
                 self.spliting_song()
                 self.collect_db()
@@ -27,7 +43,7 @@ class SongSpliter:
     def spliting_song(self):
         for title in self.song_title:
             if '(' in title:
-                song_title_sub = re.sub('|\(|\)', '', title).strip()
+                song_title_sub = re.sub('|\(|\)', '', title).replace('#', ',').strip()
                 if song_title_sub[0].encode().isalpha():
                     if ('Feat.' or 'feat.') in song_title_sub:
                         self.song_artist_sub_feat = song_title_sub.replace(('Feat.' or 'feat.'), '').strip()
@@ -48,7 +64,7 @@ class SongSpliter:
 
         for artist in self.song_artist:
             if '(' in artist:
-                song_artist_sub = re.sub('|\(|\)', '', artist).strip()
+                song_artist_sub = re.sub('|\(|\)', '', artist).replace('#', ',').strip()
                 if song_artist_sub[0].encode().isalpha():
                     self.num_sub_eng += 1
                     self.list_split['song_artist_sub_eng{0}'.format(self.num_sub_eng)] = song_artist_sub.strip()
