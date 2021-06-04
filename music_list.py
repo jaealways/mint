@@ -57,7 +57,7 @@ class MusicList:
         self.auc_date_1_end = self.auc_date_1.split('~')[1].strip()
 
         self.auc_stock_1 = str(self.soup.select('div.card_body > div > div:nth-child(1) > dl > dd:nth-child(2)'))
-        self.auc_stock_1 = re.sub('\<.+?>|\[|\'|\]', '', self.auc_stock_1, 0).replace('주','').strip()
+        self.auc_stock_1 = re.sub('\<.+?>|\[|\'|\]|\,', '', self.auc_stock_1, 0).replace('주','').strip()
         self.auc_price_1 = str(self.soup.select('div.card_body > div > div:nth-child(1) > dl > dd:nth-child(8)'))
         self.auc_price_1 = re.sub('\<.+?>|\[|\'|\]|\,', '', self.auc_price_1, 0).replace('캐쉬','').strip()
 
@@ -72,7 +72,7 @@ class MusicList:
             self.auc_date_2_end = self.auc_date_2.split('~')[1].strip()
 
         self.auc_stock_2 = str(self.soup.select('div.card_body > div > div:nth-child(2) > dl > dd:nth-child(2)'))
-        self.auc_stock_2 = re.sub('\<.+?>|\[|\'|\]', '', self.auc_stock_2, 0).replace('주','').strip()
+        self.auc_stock_2 = re.sub('\<.+?>|\[|\'|\]|\,', '', self.auc_stock_2, 0).replace('주','').strip()
         self.auc_price_2 = str(self.soup.select('div.card_body > div > div:nth-child(2) > dl > dd:nth-child(8)'))
         self.auc_price_2 = re.sub('\<.+?>|\[|\'|\]|\,', '', self.auc_price_2, 0).replace('캐쉬','').strip()
 
