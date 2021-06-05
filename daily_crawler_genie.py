@@ -62,7 +62,8 @@ class GenieDailyCrawler:
 if __name__ == '__main__':
     client = MongoClient('localhost', 27017)
     db1 = client.music_cow
+    db2 = client.daily_crawler
     col1 = db1.genie_list
-    col2 = db1.daily_genie
+    col2 = db2.daily_genie
 
     GenieDailyCrawler()
