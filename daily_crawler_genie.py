@@ -13,6 +13,7 @@ class GenieDailyCrawler:
         for x in list_db_music:
             num_list_genie = len(x) - 4
             for y in range(1, num_list_genie):
+                self.song_num = x['song_info{0}'.format(y)]['song_num']
                 self.link_genie = x['song_info{0}'.format(y)]['link']
                 self.song_artist = x['song_artist']
                 self.song_title = x['song_title']
@@ -40,6 +41,7 @@ class GenieDailyCrawler:
 
         # song_title은 원곡, song_name은 genie에 검색되는 여러 곡 중 하나의 이름
         self.list_genie = {
+            'song_num': self.song_num,
             'link': self.link_genie,
             'song_title': self.song_title,
             'song_artist': self.song_artist,
