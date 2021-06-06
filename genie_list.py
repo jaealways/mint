@@ -21,8 +21,8 @@ class GenieList:
             else:
                 self.song_title = x['list_split']['song_title_main_eng']
             self.pair = self.song_artist + ' ' + self.song_title
-            self.pair = self.pair.replace('%', '%25')
-            self.pair = self.pair.replace('&', '%26')
+            self.pair = self.pair.replace('%', '%2525')
+            self.pair = self.pair.replace('&', '%2526')
 
             self.listing_genie()
 
