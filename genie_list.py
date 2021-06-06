@@ -5,6 +5,7 @@ from pymongo import MongoClient
 
 class GenieList:
     def __init__(self):
+        self.song_num = 0
         self.read_db()
 
     def read_db(self):
@@ -44,13 +45,14 @@ class GenieList:
         for n, i in enumerate(name):
             if self.song_title.lower().replace(' ', '') in i.text.lower().replace(' ', ''):
                 count += 1
+                self.song_num += 1
 
                 self.url_detail = num[n].attrs['onclick']
                 self.link_genie = 'https://www.genie.co.kr/detail/songInfo?xgnm='+re.findall('\d+', self.url_detail)[0]
                 print("{0}의 {1}th - {2}".format(self.pair, count, self.link_genie))
 
                 song_info = {
-                    'link': self.link_genie
+                    'song_num': self.song_num, 'link': self.link_genie
                 }
 
                 self.list_genie['song_info{0}'.format(count)] = song_info
