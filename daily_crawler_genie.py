@@ -30,9 +30,9 @@ class GenieDailyCrawler:
         album_name = str(self.soup.select('div.info-zone > ul > li:nth-child(1) > span.value > a'))
         album_name = re.sub('\<.+?>|\[|\'|\]', '', album_name, 0).strip()
         #artist_name, genre_name 빼고는 다 출력
-        artist_name = str(self.soup.select('#body-content > div.song-main-infos > div.info-zone > ul > li:nth-child(2) > span.value > a'))
+        artist_name = str(self.soup.select('span.value')[0])
         artist_name = re.sub('\<.+?>|\[|\'|\]', '', artist_name, 0).strip()
-        genre_name = str(self.soup.select('#body-content > div.song-main-infos > div.info-zone > ul > li:nth-child(3) > span.value'))
+        genre_name = str(self.soup.select('span.value')[2])
         genre_name = re.sub('\<.+?>|\[|\'|\]', '', genre_name, 0).strip()
 
         total_listener = self.soup.select('div.total p')[0].text.replace(',','')
