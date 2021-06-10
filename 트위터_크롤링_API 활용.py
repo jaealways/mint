@@ -3,10 +3,10 @@ from tweepy import OAuthHandler, API
 import pandas as pd
 
 # 트위터 Application에서 발급 받은 key 정보들
-consumer_key='P4Vhqlcf2qOHibWiC0EXYpCnL'
-consumer_secret='UVTDOrO55Ay5yoVHUOSuqePLjndgsR32aErhgfsm3zGyLEJQKW'
-access_token='1182506328696078336-rVMMKtibciWg8VQvFBT8YBJwZFEgYU'
-access_token_secret='241AArB9BXCkeLFHQQpMk01FJgRRugOreQESWO7T6DmJx'
+consumer_key=''
+consumer_secret=''
+access_token=''
+access_token_secret=''
 
 # 1. 핸들러 생성 및 개인정보 인증요청
 auth=tweepy.OAuthHandler(consumer_key, consumer_secret)
