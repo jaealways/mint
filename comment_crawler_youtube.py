@@ -2,14 +2,15 @@ from googleapiclient.discovery import build
 from pymongo import MongoClient
 
 class YoutubeDailyCrawler:
-    def __init__(self, num):
-        self.num = num
+    def __init__(self):
         self.read_db()
 
     def read_db(self):
-        list_db_music = col1.find({}, {'num': {"$slice": [self.num, 1]}})
+        list_db_music = col1.find({'num': 1064})
         for x in list_db_music:
             for num_video_order in range(1, 11):
+                # self.video_num = x['video_num']
+                # self.num_video += 1
                 self.link_video = x['video{0}'.format(num_video_order)]['link']
                 self.id_video = self.link_video.split('watch?v=')[1]
                 self.title_video = x['video{0}'.format(num_video_order)]['title']
@@ -40,7 +41,7 @@ class YoutubeDailyCrawler:
                 comments = {
                     'comment': comment['textDisplay'],
                     'author': comment['authorDisplayName'],
-                    'date': comment['publishedAt'],
+                    'date': comment['publishedAt'].split('T')[0],
                     'like': comment['likeCount']
                 }
 
@@ -50,7 +51,7 @@ class YoutubeDailyCrawler:
                         comments = {
                             'comment': reply['textDisplay'],
                             'author': comment['authorDisplayName'],
-                            'date': comment['publishedAt'],
+                            'date': comment['publishedAt'].split('T')[0],
                             'like': comment['likeCount']
                         }
 
@@ -59,7 +60,7 @@ class YoutubeDailyCrawler:
                 count += 1
 
             if 'nextPageToken' in response:
-                response = api_obj.commentThreads().list(part='snippet,replies', videoId=video_id, pageToken=response['nextPageToken'], maxResults=100).execute()
+                response = api_obj.commentThreads().list(part='snippet,replies', videoId=video_id, pageToken=response['nextPageToken'], maxResults=4000).execute()
             else:
                 break
         col2.insert_one(list_comment).inserted_id
@@ -67,12 +68,10 @@ class YoutubeDailyCrawler:
 
 if __name__ == '__main__':
     client = MongoClient('localhost', 27017)
-    db = client.music_cow
-    col1 = db.youtube_list
-    col2 = db.comment_youtube
+    db1 = client.music_cow
+    db2 = client.daily_crawler
+    col1 = db1.youtube_list
+    col2 = db2.comment_youtube
 
-    num_youtube = col1.count_documents({})
-
-    for num in range(1, num_youtube + 1):
-        YoutubeDailyCrawler(num)
+    YoutubeDailyCrawler()
 
