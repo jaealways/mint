@@ -4,6 +4,7 @@ from datetime import datetime
 class DailyToCowDB:
     def __init__(self):
         self.date_today = datetime.now().strftime('%Y-%m-%d')
+        # self.date_today = '2021-06-06'
         self.db_youtube()
         self.db_genie()
         self.db_music_cow()
@@ -14,6 +15,7 @@ class DailyToCowDB:
             video_num = x['video_num']
             self.date_data = x['{0}'.format(self.date_today)]
             col1.update_one({'video_num': video_num}, {'$set': {self.date_today: self.date_data}}, upsert=True)
+        col2.delete_many({})
 
     def db_genie(self):
         list_db_gen_daily = col4.find({}, {'num': {"$slice": [1, 1]}})
@@ -21,6 +23,7 @@ class DailyToCowDB:
             link = x['link']
             self.date_data = x['{0}'.format(self.date_today)]
             col3.update_one({'link': link}, {'$set': {self.date_today: self.date_data}}, upsert=True)
+        col4.delete_many({})
 
     def db_music_cow(self):
         list_db_gen_daily = col6.find({}, {'num': {"$slice": [1, 1]}})
@@ -28,6 +31,7 @@ class DailyToCowDB:
             num = x['num']
             self.date_data = x['{0}'.format(self.date_today)]
             col5.update_one({'num': num}, {'$set': {self.date_today: self.date_data}}, upsert=True)
+        col6.delete_many({})
 
 
 if __name__ == '__main__':
