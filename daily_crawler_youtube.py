@@ -19,7 +19,10 @@ class YoutubeDailyCrawler:
                 self.song_artist = x['song_artist']
                 self.song_title = x['song_title']
 
-                self.crawling_daily()
+                if self.video_num > 0:
+                    self.crawling_daily()
+                else:
+                    pass
 
     def crawling_daily(self):
         f = open("key.txt", 'r')
