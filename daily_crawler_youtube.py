@@ -32,6 +32,11 @@ class YoutubeDailyCrawler:
         api_obj = build('youtube', 'v3', developerKey=api_key)
         response = api_obj.videos().list(part='statistics', id=video_id, maxResults=100).execute()
         date_today = datetime.now().strftime('%Y-%m-%d')
+        if response['items'] == []:
+            #에러뜨면 카톡오게, 에러뜨면 자동으로 삭제하고 다시
+            print('{0}번 오류 발생 - {1}'.format(self.video_num, self.id_video))
+            print('{0} {1}'.format(self.song_artist, self.song_title))
+            raise IndexError
         video_info = {
             'title_video': self.title_video,
             'id_video': self.id_video,
