@@ -7,6 +7,7 @@ class YoutubeList:
     def __init__(self):
         self.video_num = 0
         self.read_db()
+        self.re_list()
 
     def read_db(self):
         list_db_music = col1.find({}, {'num': {"$slice": [1, 1]}})
@@ -75,17 +76,17 @@ class YoutubeList:
         col2.insert_one(self.list_video).inserted_id
 
 
-if __name__ == '__main__':
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument('--incognito')
-    driver = webdriver.Chrome(options=chrome_options)
 
-    client = MongoClient('localhost', 27017)
-    db1 = client.music_cow
-    col1 = db1.music_list_split
-    col2 = db1.youtube_list
+chrome_options = webdriver.ChromeOptions()
+chrome_options.add_argument('--incognito')
+driver = webdriver.Chrome(options=chrome_options)
 
-    YoutubeList()
+client = MongoClient('localhost', 27017)
+db1 = client.music_cow
+col1 = db1.music_list_split
+col2 = db1.youtube_list
 
-    driver.close()
+YoutubeList()
+
+driver.close()
 
