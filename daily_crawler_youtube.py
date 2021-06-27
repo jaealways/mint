@@ -1,6 +1,7 @@
 from googleapiclient.discovery import build
 from pymongo import MongoClient
 from datetime import datetime
+import winsound
 
 # return 값 반환하는 형태로 대규모 개편하기
 
@@ -34,6 +35,7 @@ class YoutubeDailyCrawler:
         date_today = datetime.now().strftime('%Y-%m-%d')
         if response['items'] == []:
             #에러뜨면 카톡오게, 에러뜨면 자동으로 삭제하고 다시
+            winsound.Beep(2000, 1000)
             print('{0}번 오류 발생 - {1}'.format(self.video_num, self.id_video))
             print('{0} {1}'.format(self.song_artist, self.song_title))
             raise IndexError
