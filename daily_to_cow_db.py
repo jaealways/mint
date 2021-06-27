@@ -54,12 +54,6 @@ if __name__ == '__main__':
     col5 = db1.daily_music_cow
     col6 = db2.daily_music_cow
     # back_up db collection
-    # col_copy1 = db3.comment_youtube
-    # col_copy2 = db3.daily_music_cow
-    # col_copy3 = db3.daily_youtube
-    # col_copy4 = db3.genie_list
-    # col_copy5 = db3.music_list
-    # col_copy6 = db3.music_list_split
-    # col_copy7 = db3.youtube_list
+
 
     DailyToCowDB()
