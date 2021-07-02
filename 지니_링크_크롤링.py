@@ -18,7 +18,7 @@ num=soup.select('a.btn-info')
 count=0
     
 
-for n,i in enumerate(name):
+for n, i in enumerate(name):
     if title.lower().replace(' ','') in i.text.lower().replace(' ',''):
         count+=1
         

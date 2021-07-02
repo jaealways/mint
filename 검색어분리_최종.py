@@ -8,7 +8,7 @@ from openpyxl import load_workbook
 
 # ================= 노래제목 - 가수이름 짝지어 dataframe 만들기 =================== #
 # market.xlsx 불러오기
-market_sheet = load_workbook("C:/Users/ninay/Desktop/pythonworkspace/kuggle_project/market.xlsx")
+market_sheet = load_workbook("C:/music_cow/market.xlsx")
 data = market_sheet.active
 
 # 노래 제목 column 생성
