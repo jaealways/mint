@@ -4,6 +4,7 @@ from pymongo import MongoClient
 class SongSpliter:
     def __init__(self):
         self.read_db()
+        #test
 
     def read_db(self):
         list_db_music = col1.find({}, {'num': {"$slice": [1, 1]}})
