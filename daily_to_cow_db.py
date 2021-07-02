@@ -22,11 +22,12 @@ class DailyToCowDB:
                 file.write(json_daily)
 
     def pull_github(self):
-        message = 'Update Daily_JSON'
+        message = 'Update Daily_JSON %s' % self.date_today
 
-        cp = cmd.run("git add. 'test_run'", check=True, shell=True)
-        cp = cmd.run(f"git commit -m '{message}'", check=True, shell=True)
-        cp = cmd.run("git push -u origin master -f", check=True, shell=True)
+        cmd.run("cd /c/music_cow", check=True, shell=True)
+        cmd.run("git add. 'test_run'", check=True, shell=True)
+        cmd.run(f"git commit -m '{message}'", check=True, shell=True)
+        cmd.run("git push -u origin master -f", check=True, shell=True)
 
 
     def db_youtube(self):
