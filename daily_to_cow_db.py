@@ -10,8 +10,8 @@ class DailyToCowDB:
         self.date_today = datetime.now().strftime('%Y-%m-%d')
         # self.date_today = '2021-06-06'
         self.export_json()
-        self.pull_github()
-        # self.push_github()
+        self.push_github()
+        # self.pull_github()
         # self.db_youtube()
         # self.db_genie()
         # self.db_music_cow()
@@ -24,9 +24,8 @@ class DailyToCowDB:
         self.json_name = '%s#%s.json' % (x.name, self.date_today)
         with open('%s' % self.json_name, 'w') as file:
             file.write(json_daily)
-            
 
-    def pull_github(self):
+    def push_github(self):
         message = 'Update_Daily_JSON_%s' % self.date_today
 
         cmd.run("cd c:/music_cow", check=True, shell=True) # 각자 로컬에 저장한 곳 입력
@@ -37,7 +36,7 @@ class DailyToCowDB:
         cmd.run("git commit -m {0}".format(message), check=True, shell=True)
         cmd.run("git push -u origin master -f", check=True, shell=True)
 
-    def push_github(self):
+    def pull_github(self):
         cmd.run("cd c:/music_cow", check=True, shell=True) # 각자 로컬에 저장한 곳 입력
         # cmd.run("git config core.sparseCheckout true", check=True, shell=True)
         # cmd.run("git remote add -f origin https://github.com/jaealways/music_cow.git", check=True, shell=True)
