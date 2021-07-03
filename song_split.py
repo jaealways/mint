@@ -5,6 +5,7 @@ class SongSpliter:
     def __init__(self):
         self.read_db()
 
+
     def read_db(self):
         list_db_music = col1.find({}, {'num': {"$slice": [1, 1]}})
         for x in list_db_music:
