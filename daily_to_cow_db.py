@@ -24,6 +24,7 @@ class DailyToCowDB:
         self.json_name = '%s#%s.json' % (x.name, self.date_today)
         with open('%s' % self.json_name, 'w') as file:
             file.write(json_daily)
+            
 
     def pull_github(self):
         message = 'Update_Daily_JSON_%s' % self.date_today
