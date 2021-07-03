@@ -9,7 +9,7 @@ class DailyToCowDB:
     def __init__(self):
         self.date_today = datetime.now().strftime('%Y-%m-%d')
         # self.date_today = '2021-06-06'
-        self.import_json()
+        self.export_json()
         self.pull_github()
         # self.push_github()
         # self.db_youtube()
@@ -17,7 +17,7 @@ class DailyToCowDB:
         # self.db_music_cow()
         # self.db_back_up()
 
-    def import_json(self):
+    def export_json(self):
         x = col2 # 각자 맡은 col 숫자 변경해서 입력
         list_db_daily = list(x.find({}))
         json_daily = dumps(list_db_daily, indent=2)
