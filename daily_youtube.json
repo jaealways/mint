@@ -6,7 +6,7 @@
     "title_video": "\ub77c\ub514 - I'M IN LOVE (\uac00\uc0ac/3699)",
     "id_video": "46CgSGAQqQ4",
     "video_num": 1,
-    "song_title": "\uc774\uc7ac\ud600\uc5ectest",
+    "song_title": "test",
     "song_artist": "\ub77c\ub514",
     "2021-07-04": {
       "viewCount": "288311",
@@ -20,7 +20,7 @@
     "_id": {
       "$oid": "60e07cb1a6d885c8bda6bfba"
     },
-    "title_video": "\ub77c\ub514 - I'm In Love 1\uc2dc\uac04",
+    "title_video": "test_now",
     "id_video": "N7GnRSmzkew",
     "video_num": 3,
     "song_title": "I'm in love",
