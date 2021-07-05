@@ -8,7 +8,7 @@ import git
 class DailyToCowDB:
     def __init__(self):
         self.date_today = datetime.now().strftime('%Y-%m-%d')
-        # self.date_today = '2021-06-06'
+        # self.date_today = '2021-07-03'
         self.export_json()
         self.push_github()
         # self.pull_github()
@@ -21,7 +21,8 @@ class DailyToCowDB:
         x = col2 # 각자 맡은 col 숫자 변경해서 입력
         list_db_daily = list(x.find({}))
         json_daily = dumps(list_db_daily, indent=2)
-        self.json_name = '%s#%s.json' % (x.name, self.date_today)
+        # 날짜 지우고 update 시 제목에 날짜 추가
+        self.json_name = '%s.json' % x.name
         with open('%s' % self.json_name, 'w') as file:
             file.write(json_daily)
 
@@ -46,7 +47,7 @@ class DailyToCowDB:
             # cmd.run("echo jaealways/music_cow/%s > c:/music_cow" % self.json_name)
             # cmd.run("vi ./git/info/sparse-checkout")
         for x in [col2, col4, col6]:
-            self.json_name = '%s#%s.json' % (x.name, self.date_today)
+            self.json_name = '%s.json' % x.name
             with open('%s' % self.json_name, 'r', encoding='UTF8') as file:
                 json_file = loads(file.read())
 
