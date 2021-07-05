@@ -4,7 +4,7 @@ from bson.json_util import dumps, loads
 import subprocess as cmd
 import json
 import git
-
+#test
 class DailyToCowDB:
     def __init__(self):
         self.date_today = datetime.now().strftime('%Y-%m-%d')
