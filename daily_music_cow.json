@@ -1,0 +1,8956 @@
+[
+  {
+    "_id": {
+      "$oid": "60e31f1500c67f06f7c0faba"
+    },
+    "num": 26,
+    "song_title": "I'm in love",
+    "song_artist": "\ub77c\ub514",
+    "2021-07-06": {
+      "price": "24000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1500c67f06f7c0fabb"
+    },
+    "num": 27,
+    "song_title": "\uc5f0\uc560\uc2dc\ub300",
+    "song_artist": "\uc774\uc2b9\uae30",
+    "2021-07-06": {
+      "price": "23000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1500c67f06f7c0fabc"
+    },
+    "num": 28,
+    "song_title": "\uc5c4\ub9c8",
+    "song_artist": "\ub77c\ub514",
+    "2021-07-06": {
+      "price": "19000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1600c67f06f7c0fabd"
+    },
+    "num": 29,
+    "song_title": "I Can't",
+    "song_artist": "2PM",
+    "2021-07-06": {
+      "price": "60500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1600c67f06f7c0fabe"
+    },
+    "num": 30,
+    "song_title": "\uc624\ub79c\ub9cc\uc774\uc8e0",
+    "song_artist": "\ub77c\ub514",
+    "2021-07-06": {
+      "price": "12900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1600c67f06f7c0fabf"
+    },
+    "num": 31,
+    "song_title": "My Style",
+    "song_artist": "\uc870PD",
+    "2021-07-06": {
+      "price": "22000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1700c67f06f7c0fac0"
+    },
+    "num": 32,
+    "song_title": "\uace0\ub9c8\uc6cc\uace0\ub9c8\uc6cc",
+    "song_artist": "\ub77c\ub514",
+    "2021-07-06": {
+      "price": "8900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1700c67f06f7c0fac1"
+    },
+    "num": 33,
+    "song_title": "Couple Song",
+    "song_artist": "\ub77c\ub514",
+    "2021-07-06": {
+      "price": "13900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1800c67f06f7c0fac2"
+    },
+    "num": 34,
+    "song_title": "\uc5b4\uba38\ub2c8\uc758 \ub41c\uc7a5\uad6d",
+    "song_artist": "\ub2e4\uc774\ub098\ubbf9 \ub4c0\uc624",
+    "2021-07-06": {
+      "price": "18200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1800c67f06f7c0fac3"
+    },
+    "num": 35,
+    "song_title": "\ub108\uc640 \ud568\uaed8 \uc788\uc74c\uc744",
+    "song_artist": "\ub77c\ub514",
+    "2021-07-06": {
+      "price": "14300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1800c67f06f7c0fac4"
+    },
+    "num": 36,
+    "song_title": "Goodbye",
+    "song_artist": "\ub77c\ub514",
+    "2021-07-06": {
+      "price": "10600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1900c67f06f7c0fac5"
+    },
+    "num": 37,
+    "song_title": "Happy Birthday",
+    "song_artist": "\ub77c\ub514",
+    "2021-07-06": {
+      "price": "14500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1900c67f06f7c0fac6"
+    },
+    "num": 38,
+    "song_title": "\uc5b4\ub5a4 \uc124\ub808\uc784",
+    "song_artist": "\ub77c\ub514",
+    "2021-07-06": {
+      "price": "9500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1a00c67f06f7c0fac7"
+    },
+    "num": 39,
+    "song_title": "\uc544\ubc84\uc9c0",
+    "song_artist": "\ub2e4\uc774\ub098\ubbf9 \ub4c0\uc624",
+    "2021-07-06": {
+      "price": "29900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1a00c67f06f7c0fac8"
+    },
+    "num": 40,
+    "song_title": "\ub09c \ub124\uac8c",
+    "song_artist": "\ub77c\ub514",
+    "2021-07-06": {
+      "price": "8500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1a00c67f06f7c0fac9"
+    },
+    "num": 41,
+    "song_title": "\ube68\uac04 \uc6b4\ub3d9\ud654",
+    "song_artist": "\ubc15\ud61c\uacbd",
+    "2021-07-06": {
+      "price": "47000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1b00c67f06f7c0faca"
+    },
+    "num": 42,
+    "song_title": "\uc548\ub155",
+    "song_artist": "\ubc15\ud61c\uacbd",
+    "2021-07-06": {
+      "price": "93500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1b00c67f06f7c0facb"
+    },
+    "num": 43,
+    "song_title": "\ud558\uc774\ud790",
+    "song_artist": "\ubc15\ud61c\uacbd",
+    "2021-07-06": {
+      "price": "33500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1c00c67f06f7c0facc"
+    },
+    "num": 44,
+    "song_title": "Yesterday",
+    "song_artist": "\ubc15\ud61c\uacbd",
+    "2021-07-06": {
+      "price": "26800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1c00c67f06f7c0facd"
+    },
+    "num": 45,
+    "song_title": "Dream",
+    "song_artist": "\uc218\uc9c0",
+    "2021-07-06": {
+      "price": "46500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1c00c67f06f7c0face"
+    },
+    "num": 46,
+    "song_title": "\uc11c\uc6b8\uc0ac\ub78c\ub4e4",
+    "song_artist": "\ubc84\uc2a4\ucee4 \ubc84\uc2a4\ucee4",
+    "2021-07-06": {
+      "price": "29500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1d00c67f06f7c0facf"
+    },
+    "num": 47,
+    "song_title": "\uac00\uc2b4\uc553\uc774",
+    "song_artist": "\ubc14\ube44 \ud0b4",
+    "2021-07-06": {
+      "price": "37100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1d00c67f06f7c0fad0"
+    },
+    "num": 48,
+    "song_title": "\ub108\uc640 \ud568\uaed8",
+    "song_artist": "\uc6b8\ub784\ub77c\uc138\uc158",
+    "2021-07-06": {
+      "price": "43500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1e00c67f06f7c0fad1"
+    },
+    "num": 49,
+    "song_title": "\uae30\uc5b5\ud560\uac8c\uc694",
+    "song_artist": "\uc591\ud30c",
+    "2021-07-06": {
+      "price": "20800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1e00c67f06f7c0fad2"
+    },
+    "num": 50,
+    "song_title": "Fly",
+    "song_artist": "SUPER JUNIOR-K.R.Y.",
+    "2021-07-06": {
+      "price": "49000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1e00c67f06f7c0fad3"
+    },
+    "num": 51,
+    "song_title": "\ud654",
+    "song_artist": "\ub9e4\ub4dc\ud074\ub77c\uc6b4",
+    "2021-07-06": {
+      "price": "15000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1f00c67f06f7c0fad4"
+    },
+    "num": 52,
+    "song_title": "\ubc14\uc9c8",
+    "song_artist": "\ub9e4\ub4dc\ud074\ub77c\uc6b4",
+    "2021-07-06": {
+      "price": "11100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f1f00c67f06f7c0fad5"
+    },
+    "num": 53,
+    "song_title": "\ub54c\ub824\ubc15\ub294 \ub7a9",
+    "song_artist": "\ub9e4\ub4dc\ud074\ub77c\uc6b4",
+    "2021-07-06": {
+      "price": "11700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2000c67f06f7c0fad6"
+    },
+    "num": 54,
+    "song_title": "Rap Star",
+    "song_artist": "\uc2a4\uc719\uc2a4",
+    "2021-07-06": {
+      "price": "8800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2000c67f06f7c0fad7"
+    },
+    "num": 55,
+    "song_title": "Tic Toc",
+    "song_artist": "\ub9e4\ub4dc\ud074\ub77c\uc6b4",
+    "2021-07-06": {
+      "price": "13500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2000c67f06f7c0fad8"
+    },
+    "num": 56,
+    "song_title": "Would You Be My",
+    "song_artist": "\ud314\ub85c\uc54c\ud1a0",
+    "2021-07-06": {
+      "price": "9500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2100c67f06f7c0fad9"
+    },
+    "num": 57,
+    "song_title": "\uaf43",
+    "song_artist": "\ub9e4\ub4dc\ud074\ub77c\uc6b4",
+    "2021-07-06": {
+      "price": "19900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2100c67f06f7c0fada"
+    },
+    "num": 58,
+    "song_title": "\ub458\ub9cc \uc544\ub294 \ub9d0\ud22c",
+    "song_artist": "\uc81c\ub9ac\ucf00\uc774",
+    "2021-07-06": {
+      "price": "29800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2200c67f06f7c0fadb"
+    },
+    "num": 59,
+    "song_title": "Femme Fatale",
+    "song_artist": "\uc2a4\uc719\uc2a4",
+    "2021-07-06": {
+      "price": "9500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2200c67f06f7c0fadc"
+    },
+    "num": 60,
+    "song_title": "\ub2e4\ud23c",
+    "song_artist": "\uc81c\ub9ac\ucf00\uc774",
+    "2021-07-06": {
+      "price": "10500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2200c67f06f7c0fadd"
+    },
+    "num": 61,
+    "song_title": "\ub9c1\ub9c8\ubca8",
+    "song_artist": "\uac78\uc2a4\ub370\uc774",
+    "2021-07-06": {
+      "price": "30000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2300c67f06f7c0fade"
+    },
+    "num": 62,
+    "song_title": "\uc608\uc05c \ub098\uc774 25\uc0b4",
+    "song_artist": "\uc1a1\uc9c0\uc740",
+    "2021-07-06": {
+      "price": "22400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2300c67f06f7c0fadf"
+    },
+    "num": 63,
+    "song_title": "\uae30\uc5b5\uc5d0\uac8c \uc678\uce58\ub2e4",
+    "song_artist": "\uc7a5\uc6b0\ud601",
+    "2021-07-06": {
+      "price": "16000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2300c67f06f7c0fae0"
+    },
+    "num": 64,
+    "song_title": "\uc2ec\uc0c1\uce58 \uc54a\uc544",
+    "song_artist": "\ud0a4\uc378",
+    "2021-07-06": {
+      "price": "11000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2400c67f06f7c0fae1"
+    },
+    "num": 65,
+    "song_title": "\uc774\uc0c1\ud558\ub2e4 \ucc38",
+    "song_artist": "\ubbfc\uc544",
+    "2021-07-06": {
+      "price": "14100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2400c67f06f7c0fae2"
+    },
+    "num": 66,
+    "song_title": "\uc608\uc058\ub2e4",
+    "song_artist": "\uc5d0\uc5b4\ud50c\ub808\uc778",
+    "2021-07-06": {
+      "price": "14000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2500c67f06f7c0fae3"
+    },
+    "num": 67,
+    "song_title": "1\ubd84 1\ucd08",
+    "song_artist": "\uc9c0\uc5f0",
+    "2021-07-06": {
+      "price": "37600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2500c67f06f7c0fae4"
+    },
+    "num": 68,
+    "song_title": "White Day",
+    "song_artist": "\uac78\uc2a4\ub370\uc774",
+    "2021-07-06": {
+      "price": "22900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2500c67f06f7c0fae5"
+    },
+    "num": 69,
+    "song_title": "\ub108\ub9cc \ubd10",
+    "song_artist": "\uc720\uc9c0",
+    "2021-07-06": {
+      "price": "10000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2600c67f06f7c0fae6"
+    },
+    "num": 70,
+    "song_title": "If You",
+    "song_artist": "\uc5d0\uc77c\ub9ac",
+    "2021-07-06": {
+      "price": "13300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2600c67f06f7c0fae7"
+    },
+    "num": 71,
+    "song_title": "\uadf8 \uc911\uc5d0 \uadf8\ub300\ub97c \ub9cc\ub098",
+    "song_artist": "\uc774\uc120\ud76c",
+    "2021-07-06": {
+      "price": "111900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2700c67f06f7c0fae8"
+    },
+    "num": 72,
+    "song_title": "\uc0ac\uace0\ucce4\uc5b4\uc694",
+    "song_artist": "\ub2e4\ube44\uce58",
+    "2021-07-06": {
+      "price": "45400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2700c67f06f7c0fae9"
+    },
+    "num": 73,
+    "song_title": "\uc800\ub141\ud558\ub298",
+    "song_artist": "\uc5d0\uc77c\ub9ac",
+    "2021-07-06": {
+      "price": "140000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2700c67f06f7c0faea"
+    },
+    "num": 74,
+    "song_title": "\uc0ac\ub791\uc774\ub77c \uc4f0\uace0 \uc544\ud514\uc774\ub77c \ubd80\ub978\ub2e4",
+    "song_artist": "\uc11c\uc778\uc601",
+    "2021-07-06": {
+      "price": "16000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2800c67f06f7c0faeb"
+    },
+    "num": 75,
+    "song_title": "\uc2ac\ud508 \ubc1c\uac78\uc74c",
+    "song_artist": "\uc528\uc57c",
+    "2021-07-06": {
+      "price": "106900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2800c67f06f7c0faec"
+    },
+    "num": 76,
+    "song_title": "\uc0b4\uc544\uc11c\ub3c4.. \uc8fd\uc5b4\uc11c\ub3c4..",
+    "song_artist": "\ud718\uc131",
+    "2021-07-06": {
+      "price": "31200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2800c67f06f7c0faed"
+    },
+    "num": 77,
+    "song_title": "\ubcc4\ube5b \ubc14\ub7a8",
+    "song_artist": "SHINee",
+    "2021-07-06": {
+      "price": "52500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2900c67f06f7c0faee"
+    },
+    "num": 78,
+    "song_title": "\ub450\uadfc\ub450\uadfc",
+    "song_artist": "\ubca4",
+    "2021-07-06": {
+      "price": "22800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2900c67f06f7c0faef"
+    },
+    "num": 79,
+    "song_title": "\uc18c\uc8fc \ud55c \uc794",
+    "song_artist": "\uc784\ucc3d\uc815",
+    "2021-07-06": {
+      "price": "60600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2a00c67f06f7c0faf0"
+    },
+    "num": 80,
+    "song_title": "\ub098\uc640 \uac19\ub2e4\uba74",
+    "song_artist": "\uae40\uc7a5\ud6c8",
+    "2021-07-06": {
+      "price": "16000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2a00c67f06f7c0faf1"
+    },
+    "num": 81,
+    "song_title": "\uc624\ub79c\ub9cc\uc774\uc57c",
+    "song_artist": "\uc784\ucc3d\uc815",
+    "2021-07-06": {
+      "price": "59900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2b00c67f06f7c0faf2"
+    },
+    "num": 82,
+    "song_title": "\ub098\ub97c \uc78a\uc9c0 \ub9d0\uc544\uc694",
+    "song_artist": "\ud5c8\uac01",
+    "2021-07-06": {
+      "price": "26000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2b00c67f06f7c0faf3"
+    },
+    "num": 83,
+    "song_title": "\uc18c\uc6d0",
+    "song_artist": "\uae40\ud604\uc131",
+    "2021-07-06": {
+      "price": "21600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2b00c67f06f7c0faf4"
+    },
+    "num": 84,
+    "song_title": "\uc2ac\ud514\uc744 \ucc38\ub294 \uc138 \uac00\uc9c0 \ubc29\ubc95",
+    "song_artist": "\ud61c\ub839",
+    "2021-07-06": {
+      "price": "23400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2c00c67f06f7c0faf5"
+    },
+    "num": 85,
+    "song_title": "Again",
+    "song_artist": "\uc2a4\ud398\uc774\uc2a4 \uc5d0\uc774",
+    "2021-07-06": {
+      "price": "22600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2c00c67f06f7c0faf6"
+    },
+    "num": 86,
+    "song_title": "\ubcf4\ub780\ub4ef\uc774",
+    "song_artist": "\uc190\uc2b9\uc5f0",
+    "2021-07-06": {
+      "price": "14000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2d00c67f06f7c0faf7"
+    },
+    "num": 87,
+    "song_title": "\uc774\ub984",
+    "song_artist": "\uc784\uc7ac\ubc94",
+    "2021-07-06": {
+      "price": "52000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2d00c67f06f7c0faf8"
+    },
+    "num": 88,
+    "song_title": "\ub0a1\uc740 \uadf8\ub9ac\uc6c0",
+    "song_artist": "\uc5d0\uc77c\ub9ac",
+    "2021-07-06": {
+      "price": "14400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2e00c67f06f7c0faf9"
+    },
+    "num": 89,
+    "song_title": "Paradise",
+    "song_artist": "\ud6a8\ub9b0",
+    "2021-07-06": {
+      "price": "12100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2e00c67f06f7c0fafa"
+    },
+    "num": 90,
+    "song_title": "HONEY BEE",
+    "song_artist": "\ub8e8\ub098",
+    "2021-07-06": {
+      "price": "17000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2f00c67f06f7c0fafb"
+    },
+    "num": 91,
+    "song_title": "\ud558\ub298\ubc14\ub77c\uae30",
+    "song_artist": "\uc815\uc740\uc9c0",
+    "2021-07-06": {
+      "price": "51200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2f00c67f06f7c0fafc"
+    },
+    "num": 92,
+    "song_title": "Mr. Chu",
+    "song_artist": "Apink",
+    "2021-07-06": {
+      "price": "49700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f2f00c67f06f7c0fafd"
+    },
+    "num": 93,
+    "song_title": "\ub110 \ub108\ubb34 \uc0ac\ub791\ud574\uc11c",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "13200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3000c67f06f7c0fafe"
+    },
+    "num": 94,
+    "song_title": "\ub108\ub780 \ubd04",
+    "song_artist": "\uc815\uc740\uc9c0",
+    "2021-07-06": {
+      "price": "29000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3000c67f06f7c0faff"
+    },
+    "num": 95,
+    "song_title": "Darling",
+    "song_artist": "\uac78\uc2a4\ub370\uc774",
+    "2021-07-06": {
+      "price": "46200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3100c67f06f7c0fb00"
+    },
+    "num": 96,
+    "song_title": "Loving U",
+    "song_artist": "\uc528\uc2a4\ud0c0",
+    "2021-07-06": {
+      "price": "67800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3100c67f06f7c0fb01"
+    },
+    "num": 97,
+    "song_title": "\uac70\ubd81\uc774",
+    "song_artist": "\ub2e4\ube44\uce58",
+    "2021-07-06": {
+      "price": "40400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3200c67f06f7c0fb02"
+    },
+    "num": 98,
+    "song_title": "\uc11c\ucee4\uc2a4",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "31200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3200c67f06f7c0fb03"
+    },
+    "num": 99,
+    "song_title": "Something",
+    "song_artist": "\uac78\uc2a4\ub370\uc774",
+    "2021-07-06": {
+      "price": "34800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3200c67f06f7c0fb04"
+    },
+    "num": 100,
+    "song_title": "I Need You",
+    "song_artist": "\ud5c8\uac01",
+    "2021-07-06": {
+      "price": "44900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3300c67f06f7c0fb05"
+    },
+    "num": 101,
+    "song_title": "\ub0b4 \uc0dd\uc560 \uac00\uc7a5 \ud589\ubcf5\ud55c \uc2dc\uac04",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "47000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3300c67f06f7c0fb06"
+    },
+    "num": 102,
+    "song_title": "\ub108\uc5d0\uac8c \uc4f0\ub294 \ud3b8\uc9c0",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "52500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3400c67f06f7c0fb07"
+    },
+    "num": 103,
+    "song_title": "I Love U Oh Thank U",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "53300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3400c67f06f7c0fb08"
+    },
+    "num": 104,
+    "song_title": "Give It To Me",
+    "song_artist": "\uc528\uc2a4\ud0c0",
+    "2021-07-06": {
+      "price": "31700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3400c67f06f7c0fb09"
+    },
+    "num": 106,
+    "song_title": "\ubcc4\uc758 \ubcc4",
+    "song_artist": "Apink",
+    "2021-07-06": {
+      "price": "10000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3500c67f06f7c0fb0a"
+    },
+    "num": 107,
+    "song_title": "TIAMO",
+    "song_artist": "\ud2f0\uc544\ub77c",
+    "2021-07-06": {
+      "price": "10500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3500c67f06f7c0fb0b"
+    },
+    "num": 108,
+    "song_title": "\ub108\uc5d0\uac8c \ub2ff\uae30\ub97c",
+    "song_artist": "\uc6b0\uc8fc\uc18c\ub140",
+    "2021-07-06": {
+      "price": "20000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3600c67f06f7c0fb0c"
+    },
+    "num": 110,
+    "song_title": "\ubbf8\uce58\uaca0\uc5b4",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "16200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3600c67f06f7c0fb0d"
+    },
+    "num": 111,
+    "song_title": "\uc0ac\ub791 \ubc94\ubc85",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "26600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3600c67f06f7c0fb0e"
+    },
+    "num": 112,
+    "song_title": "\ub208\ubb3c",
+    "song_artist": "\ub9ac\uc30d",
+    "2021-07-06": {
+      "price": "33000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3700c67f06f7c0fb0f"
+    },
+    "num": 114,
+    "song_title": "\ubc18\ucc3d\uace0",
+    "song_artist": "\ud5c8\uac01",
+    "2021-07-06": {
+      "price": "11800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3700c67f06f7c0fb10"
+    },
+    "num": 115,
+    "song_title": "\uc9e7\uc740\uba38\ub9ac",
+    "song_artist": "\ud5c8\uac01",
+    "2021-07-06": {
+      "price": "33000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3700c67f06f7c0fb11"
+    },
+    "num": 116,
+    "song_title": "\ub9d8\ub9c8\ubbf8\uc544",
+    "song_artist": "\uce74\ub77c",
+    "2021-07-06": {
+      "price": "20000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3800c67f06f7c0fb12"
+    },
+    "num": 117,
+    "song_title": "\ub108\ub098 \uc798\ud574",
+    "song_artist": "\uc5d0\uc77c\ub9ac",
+    "2021-07-06": {
+      "price": "19200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3800c67f06f7c0fb13"
+    },
+    "num": 118,
+    "song_title": "\uc8fd\uc744 \ub9cc\ud07c \uc544\ud30c\uc11c",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "25000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3900c67f06f7c0fb14"
+    },
+    "num": 119,
+    "song_title": "\ub2e4\uc2dc",
+    "song_artist": "\ud130\ubcf4",
+    "2021-07-06": {
+      "price": "12300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3900c67f06f7c0fb15"
+    },
+    "num": 120,
+    "song_title": "\ub300\ubc15\uc0ac\uac74",
+    "song_artist": "B.A.P",
+    "2021-07-06": {
+      "price": "29000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3900c67f06f7c0fb16"
+    },
+    "num": 121,
+    "song_title": "Indian Boy",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "26000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3a00c67f06f7c0fb17"
+    },
+    "num": 122,
+    "song_title": "\ubd80\uc0b0 \ubc14\uce89\uc2a4",
+    "song_artist": "\ub808\uac8c \uac15 \uac19\uc740 \ud3c9\ud654",
+    "2021-07-06": {
+      "price": "44200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3a00c67f06f7c0fb18"
+    },
+    "num": 123,
+    "song_title": "Beautiful Target",
+    "song_artist": "B1A4",
+    "2021-07-06": {
+      "price": "9900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3a00c67f06f7c0fb19"
+    },
+    "num": 124,
+    "song_title": "\ud558\ub298\uc0c9 \uc57d\uc18d",
+    "song_artist": "god",
+    "2021-07-06": {
+      "price": "21600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3b00c67f06f7c0fb1a"
+    },
+    "num": 125,
+    "song_title": "\uc8fd\ub3c4\ub85d \uc0ac\ub791\ud574",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "22700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3b00c67f06f7c0fb1b"
+    },
+    "num": 126,
+    "song_title": "\ubabb\ub41c \uc5ec\uc790",
+    "song_artist": "\uc6d0\ud22c",
+    "2021-07-06": {
+      "price": "36000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3c00c67f06f7c0fb1c"
+    },
+    "num": 127,
+    "song_title": "\ub3c4\ub9dd\uac00\uc790",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "25600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3c00c67f06f7c0fb1d"
+    },
+    "num": 128,
+    "song_title": "\uc544\uc774\uc2a4\ud06c\ub9bc",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "28000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3c00c67f06f7c0fb1e"
+    },
+    "num": 129,
+    "song_title": "\ubbf8\uc6b4\uc624\ub9ac\uc0c8\ub07c",
+    "song_artist": "god",
+    "2021-07-06": {
+      "price": "25500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3d00c67f06f7c0fb1f"
+    },
+    "num": 130,
+    "song_title": "\uc804\uc7c1\uc774\uc57c",
+    "song_artist": "\uc5e0\ube14\ub799",
+    "2021-07-06": {
+      "price": "17200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3d00c67f06f7c0fb20"
+    },
+    "num": 131,
+    "song_title": "Good Morning Baby",
+    "song_artist": "Apink",
+    "2021-07-06": {
+      "price": "14500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3e00c67f06f7c0fb21"
+    },
+    "num": 132,
+    "song_title": "\uc6c3\ud508 \ud558\ub8e8",
+    "song_artist": "god",
+    "2021-07-06": {
+      "price": "19100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3e00c67f06f7c0fb22"
+    },
+    "num": 133,
+    "song_title": "\uc0ac\ub78c\ub0c4\uc0c8",
+    "song_artist": "\uc815\uc778",
+    "2021-07-06": {
+      "price": "36600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3e00c67f06f7c0fb23"
+    },
+    "num": 134,
+    "song_title": "Bubble Love",
+    "song_artist": "\uc11c\uc778\uc601",
+    "2021-07-06": {
+      "price": "25200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3f00c67f06f7c0fb24"
+    },
+    "num": 135,
+    "song_title": "\ub098\ub3c4 \uc5ec\uc790\uc608\uc694",
+    "song_artist": "\ubbfc\uc544",
+    "2021-07-06": {
+      "price": "16700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f3f00c67f06f7c0fb25"
+    },
+    "num": 136,
+    "song_title": "\ub7ec\ube0c119",
+    "song_artist": "\ucf00\uc774\uc70c",
+    "2021-07-06": {
+      "price": "26900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4000c67f06f7c0fb26"
+    },
+    "num": 137,
+    "song_title": "\ub3d9\ub124\uc220\uc9d1",
+    "song_artist": "\ud5c8\uac01",
+    "2021-07-06": {
+      "price": "23700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4000c67f06f7c0fb27"
+    },
+    "num": 139,
+    "song_title": "\ucd0c\uc2a4\ub7fd\uac8c \uc65c \uc774\ub798",
+    "song_artist": "\ucf00\uc774\uc70c",
+    "2021-07-06": {
+      "price": "18300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4000c67f06f7c0fb28"
+    },
+    "num": 140,
+    "song_title": "\uc7a0\uaf2c\ub300",
+    "song_artist": "\ub274\uc774\uc2a4\ud2b8",
+    "2021-07-06": {
+      "price": "40000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4100c67f06f7c0fb29"
+    },
+    "num": 141,
+    "song_title": "\ubc14\ub2e4\ub97c \ub098\ub294 \uac70\ubd81\uc774",
+    "song_artist": "\uc815\uc138\uc6b4",
+    "2021-07-06": {
+      "price": "11500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4100c67f06f7c0fb2a"
+    },
+    "num": 142,
+    "song_title": "\ud558\uc9c0\ub9c8",
+    "song_artist": "B.A.P",
+    "2021-07-06": {
+      "price": "12100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4100c67f06f7c0fb2b"
+    },
+    "num": 143,
+    "song_title": "\ub9c8\uc74c \ub2e8\ub2e8\ud788 \uba39\uc5b4",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "13100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4200c67f06f7c0fb2c"
+    },
+    "num": 144,
+    "song_title": "Lay Back",
+    "song_artist": "\ucf00\uc774\uc70c",
+    "2021-07-06": {
+      "price": "21100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4200c67f06f7c0fb2d"
+    },
+    "num": 145,
+    "song_title": "Pepe",
+    "song_artist": "CLC",
+    "2021-07-06": {
+      "price": "15400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4300c67f06f7c0fb2e"
+    },
+    "num": 146,
+    "song_title": "\uc544\ubb34\ub3c4 \ubaa8\ub974\uac8c",
+    "song_artist": "\uce58\ud0c0",
+    "2021-07-06": {
+      "price": "12500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4300c67f06f7c0fb2f"
+    },
+    "num": 147,
+    "song_title": "\ucc98\uc74c \ub290\uaef4\ubcf8 \uc774\ubcc4",
+    "song_artist": "\uc815\uc740\uc9c0",
+    "2021-07-06": {
+      "price": "10500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4300c67f06f7c0fb30"
+    },
+    "num": 148,
+    "song_title": "If You Love Me",
+    "song_artist": "NS \uc724\uc9c0",
+    "2021-07-06": {
+      "price": "71000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4400c67f06f7c0fb31"
+    },
+    "num": 149,
+    "song_title": "So Good",
+    "song_artist": "\uce74\ub77c",
+    "2021-07-06": {
+      "price": "9200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4400c67f06f7c0fb32"
+    },
+    "num": 150,
+    "song_title": "\ud648\ub7f0",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "20300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4500c67f06f7c0fb33"
+    },
+    "num": 151,
+    "song_title": "\uc6b0\ub9ac\uac00 \uc0ac\ub294 \uc774\uc57c\uae30",
+    "song_artist": "god",
+    "2021-07-06": {
+      "price": "10000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4500c67f06f7c0fb34"
+    },
+    "num": 153,
+    "song_title": "\ub611 \ub611 \ub611",
+    "song_artist": "\uc544\uc774\uc624\uc544\uc774",
+    "2021-07-06": {
+      "price": "12500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4500c67f06f7c0fb35"
+    },
+    "num": 154,
+    "song_title": "\ud314\ubca0\uac1c",
+    "song_artist": "\uc18c\uc720",
+    "2021-07-06": {
+      "price": "16500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4600c67f06f7c0fb36"
+    },
+    "num": 155,
+    "song_title": "\ubaa9\uc18c\ub9ac",
+    "song_artist": "\ubc31\uc9c0\uc601",
+    "2021-07-06": {
+      "price": "16800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4600c67f06f7c0fb37"
+    },
+    "num": 156,
+    "song_title": "\ube14\ub799\ud640",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "8000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4700c67f06f7c0fb38"
+    },
+    "num": 157,
+    "song_title": "Good-night Kiss",
+    "song_artist": "\uc804\ud6a8\uc131",
+    "2021-07-06": {
+      "price": "24900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4700c67f06f7c0fb39"
+    },
+    "num": 158,
+    "song_title": "I'm In Love",
+    "song_artist": "\uc2dc\ud06c\ub9bf",
+    "2021-07-06": {
+      "price": "12000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4700c67f06f7c0fb3a"
+    },
+    "num": 159,
+    "song_title": "\uadf8\ub798\ub3c4 \ub0a8\uc790\ub2c8\uae4c",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "13300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4800c67f06f7c0fb3b"
+    },
+    "num": 160,
+    "song_title": "\ub10c \ub108\ubb34 \uc57c\ud574",
+    "song_artist": "\uc528\uc2a4\ud0c0",
+    "2021-07-06": {
+      "price": "10700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4800c67f06f7c0fb3c"
+    },
+    "num": 161,
+    "song_title": "\ucc9c\ud558\ubb34\uc801",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "19000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4900c67f06f7c0fb3d"
+    },
+    "num": 163,
+    "song_title": "\uad8c\ud0dc\uc911\ub3c5",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "10300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4900c67f06f7c0fb3e"
+    },
+    "num": 164,
+    "song_title": "So Fresh",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "17000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4900c67f06f7c0fb3f"
+    },
+    "num": 165,
+    "song_title": "New York",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "11900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4a00c67f06f7c0fb40"
+    },
+    "num": 167,
+    "song_title": "Good Good Time",
+    "song_artist": "\ucf54\uc694\ud0dc",
+    "2021-07-06": {
+      "price": "16000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4a00c67f06f7c0fb41"
+    },
+    "num": 168,
+    "song_title": "IF...",
+    "song_artist": "B1A4",
+    "2021-07-06": {
+      "price": "14900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4a00c67f06f7c0fb42"
+    },
+    "num": 169,
+    "song_title": "\uc624\ub298 \ubc24",
+    "song_artist": "\ub9b0",
+    "2021-07-06": {
+      "price": "21700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4b00c67f06f7c0fb43"
+    },
+    "num": 171,
+    "song_title": "\ub3d9\ud654 \uac19\uc740 \uc0ac\ub791",
+    "song_artist": "Apink",
+    "2021-07-06": {
+      "price": "13000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4b00c67f06f7c0fb44"
+    },
+    "num": 173,
+    "song_title": "Luv D.N.A",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "13100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4c00c67f06f7c0fb45"
+    },
+    "num": 174,
+    "song_title": "\ub108\ub97c \uc6d0\ud574",
+    "song_artist": "\uc815\uae30\uace0",
+    "2021-07-06": {
+      "price": "16900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4c00c67f06f7c0fb46"
+    },
+    "num": 175,
+    "song_title": "\ub9c8\uc9c0\ub9c9 \uadf8 \ud55c\ub9c8\ub514",
+    "song_artist": "\uc774\uc2b9\uae30",
+    "2021-07-06": {
+      "price": "9700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4c00c67f06f7c0fb47"
+    },
+    "num": 176,
+    "song_title": "\uc8fd\uc744\ub9cc\ud07c \uc544\ud30c\uc11c Part.2",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "16200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4d00c67f06f7c0fb48"
+    },
+    "num": 177,
+    "song_title": "\ud638\ub7ec\uc1fc",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "16400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4d00c67f06f7c0fb49"
+    },
+    "num": 178,
+    "song_title": "Simple Love",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "10500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4e00c67f06f7c0fb4a"
+    },
+    "num": 179,
+    "song_title": "\uc720\ub9ac \uc2ec\uc7a5",
+    "song_artist": "\ub9b0",
+    "2021-07-06": {
+      "price": "20000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4e00c67f06f7c0fb4b"
+    },
+    "num": 180,
+    "song_title": "\ub098\ub294...",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "34300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4f00c67f06f7c0fb4c"
+    },
+    "num": 183,
+    "song_title": "PIPPI",
+    "song_artist": "\ud22c\uc544\uc774\uc988",
+    "2021-07-06": {
+      "price": "23100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4f00c67f06f7c0fb4d"
+    },
+    "num": 184,
+    "song_title": "180\u02da",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "11800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f4f00c67f06f7c0fb4e"
+    },
+    "num": 185,
+    "song_title": "\ub108\uc5d0\uac8c \uc4f0\ub294 \ud3b8\uc9c0 Part 2",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "29600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5000c67f06f7c0fb4f"
+    },
+    "num": 187,
+    "song_title": "\ubc24\uc744 \uc0c8",
+    "song_artist": "\ud5c8\uac01",
+    "2021-07-06": {
+      "price": "11900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5000c67f06f7c0fb50"
+    },
+    "num": 188,
+    "song_title": "\ub4e3\uace0\uc2f6\uc5b4",
+    "song_artist": "DIA",
+    "2021-07-06": {
+      "price": "14000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5000c67f06f7c0fb51"
+    },
+    "num": 189,
+    "song_title": "Good Boy",
+    "song_artist": "\ubc31\uc9c0\uc601",
+    "2021-07-06": {
+      "price": "12600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5100c67f06f7c0fb52"
+    },
+    "num": 190,
+    "song_title": "\uccab \ub208 \uadf8\ub9ac\uace0 \uccab \ud0a4\uc2a4",
+    "song_artist": "\ub2e4\ub2c8\uc5d8",
+    "2021-07-06": {
+      "price": "13300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5100c67f06f7c0fb53"
+    },
+    "num": 191,
+    "song_title": "\uc9c4\ud1b5\uc81c",
+    "song_artist": "\ud2f0\uc544\ub77c",
+    "2021-07-06": {
+      "price": "38500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5200c67f06f7c0fb54"
+    },
+    "num": 192,
+    "song_title": "\ub3c5\uc57d",
+    "song_artist": "\ub354 \uc528\uc57c",
+    "2021-07-06": {
+      "price": "17000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5200c67f06f7c0fb55"
+    },
+    "num": 193,
+    "song_title": "\ub10c \ub2ec\ub77c",
+    "song_artist": "DIA",
+    "2021-07-06": {
+      "price": "12400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5200c67f06f7c0fb56"
+    },
+    "num": 194,
+    "song_title": "\uc804\uad6d\ubbfc \ub7ec\ube0c\uc1a1",
+    "song_artist": "\ubc15\uc7a5\uadfc",
+    "2021-07-06": {
+      "price": "12200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5300c67f06f7c0fb57"
+    },
+    "num": 195,
+    "song_title": "The Romantic",
+    "song_artist": "\ud22c\uac1c\uc6d4",
+    "2021-07-06": {
+      "price": "15300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5300c67f06f7c0fb58"
+    },
+    "num": 197,
+    "song_title": "\uc804\uc6d0\uc77c\uae30",
+    "song_artist": "\ud2f0\uc544\ub77c",
+    "2021-07-06": {
+      "price": "83000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5400c67f06f7c0fb59"
+    },
+    "num": 198,
+    "song_title": "\ud551\ud06c\ube5b \ub85c\ub9e8\uc2a4",
+    "song_artist": "\ucf00\uc774\uc70c",
+    "2021-07-06": {
+      "price": "12000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5400c67f06f7c0fb5a"
+    },
+    "num": 199,
+    "song_title": "\uc624\ube60 \ud798\ub0b4\uc694",
+    "song_artist": "\uae40\uc885\ubbfc",
+    "2021-07-06": {
+      "price": "13900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5400c67f06f7c0fb5b"
+    },
+    "num": 202,
+    "song_title": "Hot Baby",
+    "song_artist": "\ubca0\uc2a4\ud2f0",
+    "2021-07-06": {
+      "price": "11100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5500c67f06f7c0fb5c"
+    },
+    "num": 204,
+    "song_title": "\ub2c8\uac00 \ud544\uc694\ud574",
+    "song_artist": "\ubca0\uc2a4\ud2f0",
+    "2021-07-06": {
+      "price": "21400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5700c67f06f7c0fb5d"
+    },
+    "num": 206,
+    "song_title": "\uc0ac\ub791\uc774 \uc628\ub2e4",
+    "song_artist": "\ubc31\uc9c0\uc601",
+    "2021-07-06": {
+      "price": "13000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5800c67f06f7c0fb5e"
+    },
+    "num": 207,
+    "song_title": "\uc2a4\ud1a0\ucee4",
+    "song_artist": "\ub9e4\ub4dc\ud074\ub77c\uc6b4",
+    "2021-07-06": {
+      "price": "10800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5800c67f06f7c0fb5f"
+    },
+    "num": 208,
+    "song_title": "\ubd04\ube44",
+    "song_artist": "\uae40\uc7a5\ud6c8",
+    "2021-07-06": {
+      "price": "14500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5900c67f06f7c0fb60"
+    },
+    "num": 211,
+    "song_title": "\uc8fd\ub3c4\ub85d \uc0ac\ub791\ud574 2",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "10900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5a00c67f06f7c0fb61"
+    },
+    "num": 212,
+    "song_title": "\ub9c8\ub140\uac00 \ub41c \uc774\uc720",
+    "song_artist": "NS \uc724\uc9c0",
+    "2021-07-06": {
+      "price": "10000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5a00c67f06f7c0fb62"
+    },
+    "num": 216,
+    "song_title": "Saturday Night",
+    "song_artist": "god",
+    "2021-07-06": {
+      "price": "23900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5b00c67f06f7c0fb63"
+    },
+    "num": 218,
+    "song_title": "\uc0ac\ub791 \uc55e\uc5d0\uc11c",
+    "song_artist": "\uc815\uc740\uc9c0",
+    "2021-07-06": {
+      "price": "10800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5b00c67f06f7c0fb64"
+    },
+    "num": 219,
+    "song_title": "\ub9c8\uce74\ub871",
+    "song_artist": "\uac78\uc2a4\ub370\uc774",
+    "2021-07-06": {
+      "price": "14000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5c00c67f06f7c0fb65"
+    },
+    "num": 221,
+    "song_title": "\ubc14\ub78c\uc758 \uc720\ub839",
+    "song_artist": "\uc81c\uad6d\uc758\uc544\uc774\ub4e4",
+    "2021-07-06": {
+      "price": "31000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5c00c67f06f7c0fb66"
+    },
+    "num": 224,
+    "song_title": "JUST U",
+    "song_artist": "\uc815\uc138\uc6b4",
+    "2021-07-06": {
+      "price": "27900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5c00c67f06f7c0fb67"
+    },
+    "num": 225,
+    "song_title": "Lead Me",
+    "song_artist": "\uc528\uc2a4\ud0c0",
+    "2021-07-06": {
+      "price": "18000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5d00c67f06f7c0fb68"
+    },
+    "num": 230,
+    "song_title": "\uc5b4\ub9c8\uc5b4\ub9c8\ud574",
+    "song_artist": "\ubaa8\ubaa8\ub79c\ub4dc",
+    "2021-07-06": {
+      "price": "69700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5d00c67f06f7c0fb69"
+    },
+    "num": 231,
+    "song_title": "\uc228\ubc14\uaf2d\uc9c8",
+    "song_artist": "\ud130\ubcf4",
+    "2021-07-06": {
+      "price": "10100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5e00c67f06f7c0fb6a"
+    },
+    "num": 233,
+    "song_title": "\uc608\uc05c \uc18d\uc637",
+    "song_artist": "\uc9c0\ub098",
+    "2021-07-06": {
+      "price": "13200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5e00c67f06f7c0fb6b"
+    },
+    "num": 237,
+    "song_title": "\uac16\uace0\ub180\ub798",
+    "song_artist": "\ubc94\ud0a4",
+    "2021-07-06": {
+      "price": "17300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5f00c67f06f7c0fb6c"
+    },
+    "num": 238,
+    "song_title": "\ubcf4\uace0\uc2f6\uc5b4",
+    "song_artist": "\uac78\uc2a4\ub370\uc774",
+    "2021-07-06": {
+      "price": "39000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f5f00c67f06f7c0fb6d"
+    },
+    "num": 240,
+    "song_title": "\ub108 \ub54c\ubb38\uc5d0",
+    "song_artist": "UV",
+    "2021-07-06": {
+      "price": "11500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6000c67f06f7c0fb6e"
+    },
+    "num": 258,
+    "song_title": "\ubb38\uc790",
+    "song_artist": "\ub9c8\ub9ac\uc624",
+    "2021-07-06": {
+      "price": "9000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6000c67f06f7c0fb6f"
+    },
+    "num": 261,
+    "song_title": "\ud63c\uc790\uac00 \ud3b8\ud574\uc84c\uc5b4",
+    "song_artist": "ELSIE",
+    "2021-07-06": {
+      "price": "14400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6100c67f06f7c0fb70"
+    },
+    "num": 262,
+    "song_title": "Marry Me",
+    "song_artist": "\ucf00\uc774\uc70c",
+    "2021-07-06": {
+      "price": "35000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6100c67f06f7c0fb71"
+    },
+    "num": 265,
+    "song_title": "\ub098\uc05c\uc190",
+    "song_artist": "\uc528\uc2a4\ud0c0",
+    "2021-07-06": {
+      "price": "24500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6200c67f06f7c0fb72"
+    },
+    "num": 267,
+    "song_title": "\ub178\ub798 \ubd88\ub7ec\uc918\uc694",
+    "song_artist": "god",
+    "2021-07-06": {
+      "price": "23700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6200c67f06f7c0fb73"
+    },
+    "num": 274,
+    "song_title": "\ub0af\uc120 \uae38",
+    "song_artist": "\uc131\uc720\uc9c4",
+    "2021-07-06": {
+      "price": "8300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6300c67f06f7c0fb74"
+    },
+    "num": 311,
+    "song_title": "\ub208\ubb3c\uc774 \ud22d",
+    "song_artist": "\uc9c0\uc544",
+    "2021-07-06": {
+      "price": "16200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6300c67f06f7c0fb75"
+    },
+    "num": 322,
+    "song_title": "\ub450\uadfc\ub450\uadfc",
+    "song_artist": "\uae40\uc885\ubbfc",
+    "2021-07-06": {
+      "price": "15500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6400c67f06f7c0fb76"
+    },
+    "num": 345,
+    "song_title": "\ub3d9\ub124\ud55c\ubc14\ud034",
+    "song_artist": "\uc774\uc120\ud76c",
+    "2021-07-06": {
+      "price": "60500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6400c67f06f7c0fb77"
+    },
+    "num": 373,
+    "song_title": "\ub0b4\uac00 \uac08\uac8c",
+    "song_artist": "\uc6b8\ub784\ub77c\uc138\uc158",
+    "2021-07-06": {
+      "price": "12200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6500c67f06f7c0fb78"
+    },
+    "num": 382,
+    "song_title": "\ud5a5\uc218",
+    "song_artist": "\ucf00\uc774\uc70c",
+    "2021-07-06": {
+      "price": "80000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6500c67f06f7c0fb79"
+    },
+    "num": 420,
+    "song_title": "\ub208\ubb3c \uc790\uad6d",
+    "song_artist": "\uae40\uc885\uad6d",
+    "2021-07-06": {
+      "price": "68900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6600c67f06f7c0fb7a"
+    },
+    "num": 460,
+    "song_title": "NoNoNo",
+    "song_artist": "Apink",
+    "2021-07-06": {
+      "price": "43900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6600c67f06f7c0fb7b"
+    },
+    "num": 461,
+    "song_title": "U & I",
+    "song_artist": "\uc5d0\uc77c\ub9ac",
+    "2021-07-06": {
+      "price": "67800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6700c67f06f7c0fb7c"
+    },
+    "num": 462,
+    "song_title": "\ub9d0\ud574\uc918\uc694",
+    "song_artist": "\uac78\uc2a4\ub370\uc774",
+    "2021-07-06": {
+      "price": "25200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6700c67f06f7c0fb7d"
+    },
+    "num": 464,
+    "song_title": "\ud1a1\ud1a1",
+    "song_artist": "\ub9c8\uc774\ud2f0 \ub9c8\uc6b0\uc2a4",
+    "2021-07-06": {
+      "price": "19100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6800c67f06f7c0fb7e"
+    },
+    "num": 465,
+    "song_title": "\uc5d0\ub108\uc9c0",
+    "song_artist": "\ub9c8\uc774\ud2f0 \ub9c8\uc6b0\uc2a4",
+    "2021-07-06": {
+      "price": "25500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6900c67f06f7c0fb7f"
+    },
+    "num": 466,
+    "song_title": "\ub098\uc05c\ub188",
+    "song_artist": "\ub9c8\uc774\ud2f0 \ub9c8\uc6b0\uc2a4",
+    "2021-07-06": {
+      "price": "12000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6a00c67f06f7c0fb80"
+    },
+    "num": 467,
+    "song_title": "\uc0ac\ub791\uc774 \uc62c\uae4c\uc694",
+    "song_artist": "\ub9c8\uc774\ud2f0 \ub9c8\uc6b0\uc2a4",
+    "2021-07-06": {
+      "price": "26300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6a00c67f06f7c0fb81"
+    },
+    "num": 468,
+    "song_title": "TTL Listen 2",
+    "song_artist": "\ud2f0\uc544\ub77c",
+    "2021-07-06": {
+      "price": "15500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6a00c67f06f7c0fb82"
+    },
+    "num": 469,
+    "song_title": "\ub784\ub784\ub77c",
+    "song_artist": "\ub9c8\uc774\ud2f0 \ub9c8\uc6b0\uc2a4",
+    "2021-07-06": {
+      "price": "12800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6b00c67f06f7c0fb83"
+    },
+    "num": 470,
+    "song_title": "\ub2f4\ubc30 \uc880 \uc904\uc5ec",
+    "song_artist": "\ubbf8\uc2a4\uc5d0\uc2a4",
+    "2021-07-06": {
+      "price": "10900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6b00c67f06f7c0fb84"
+    },
+    "num": 471,
+    "song_title": "\uc388\uc5b8\ub2c8",
+    "song_artist": "\uc81c\uc2dc",
+    "2021-07-06": {
+      "price": "22000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6c00c67f06f7c0fb85"
+    },
+    "num": 472,
+    "song_title": "\uc0ac\ub791\ud574",
+    "song_artist": "\ub9c8\uc774\ud2f0 \ub9c8\uc6b0\uc2a4",
+    "2021-07-06": {
+      "price": "24800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6c00c67f06f7c0fb86"
+    },
+    "num": 474,
+    "song_title": "Beautiful",
+    "song_artist": "Wanna One",
+    "2021-07-06": {
+      "price": "16600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6d00c67f06f7c0fb87"
+    },
+    "num": 475,
+    "song_title": "Nothing Without You",
+    "song_artist": "Wanna One",
+    "2021-07-06": {
+      "price": "7100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f6d00c67f06f7c0fb88"
+    },
+    "num": 477,
+    "song_title": "Amen",
+    "song_artist": "\ubaac\uc2a4\ud0c0\uc5d1\uc2a4",
+    "2021-07-06": {
+      "price": "28300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7000c67f06f7c0fb89"
+    },
+    "num": 478,
+    "song_title": "\uc194\uc9c1\ud788 \ub9d0\ud560\uae4c",
+    "song_artist": "\ubaac\uc2a4\ud0c0\uc5d1\uc2a4",
+    "2021-07-06": {
+      "price": "16600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7100c67f06f7c0fb8a"
+    },
+    "num": 479,
+    "song_title": "No Mercy",
+    "song_artist": "\uc2a4\uc719\uc2a4",
+    "2021-07-06": {
+      "price": "11200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7200c67f06f7c0fb8b"
+    },
+    "num": 480,
+    "song_title": "\uc624\ub298\ubd80\ud130 1\uc77c",
+    "song_artist": "\ucf00\uc774\uc70c",
+    "2021-07-06": {
+      "price": "38900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7200c67f06f7c0fb8c"
+    },
+    "num": 481,
+    "song_title": "LOVE IS YOU",
+    "song_artist": "\ucf00\uc774\uc70c",
+    "2021-07-06": {
+      "price": "23300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7300c67f06f7c0fb8d"
+    },
+    "num": 482,
+    "song_title": "Can't U See",
+    "song_artist": "\uc190\ub2f4\ube44",
+    "2021-07-06": {
+      "price": "11800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7300c67f06f7c0fb8e"
+    },
+    "num": 483,
+    "song_title": "Running & Running",
+    "song_artist": "\uc5e0\ube14\ub799",
+    "2021-07-06": {
+      "price": "13500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7400c67f06f7c0fb8f"
+    },
+    "num": 484,
+    "song_title": "\ub0b4 \uacc1\uc5d0 \uc11c \uc788\uc5b4\uc918",
+    "song_artist": "\ube44\ud22c\ube44-\ube14\ub8e8",
+    "2021-07-06": {
+      "price": "10000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7400c67f06f7c0fb90"
+    },
+    "num": 485,
+    "song_title": "I Like That",
+    "song_artist": "\uc528\uc2a4\ud0c0",
+    "2021-07-06": {
+      "price": "31100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7500c67f06f7c0fb91"
+    },
+    "num": 486,
+    "song_title": "Fiction",
+    "song_artist": "\ube44\uc2a4\ud2b8",
+    "2021-07-06": {
+      "price": "20300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7500c67f06f7c0fb92"
+    },
+    "num": 487,
+    "song_title": "\ub098\ub97c \uc0ac\ub791\ud588\ub358 \uc0ac\ub78c\uc544",
+    "song_artist": "\ud5c8\uac01",
+    "2021-07-06": {
+      "price": "41500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7600c67f06f7c0fb93"
+    },
+    "num": 488,
+    "song_title": "\ub0b4\uac00 \uc124\ub810 \uc218 \uc788\uac8c",
+    "song_artist": "Apink",
+    "2021-07-06": {
+      "price": "14800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7600c67f06f7c0fb94"
+    },
+    "num": 489,
+    "song_title": "\ubbf8\ub9ac \uba54\ub9ac \ud06c\ub9ac\uc2a4\ub9c8\uc2a4",
+    "song_artist": "\uc544\uc774\uc720",
+    "2021-07-06": {
+      "price": "300100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7600c67f06f7c0fb95"
+    },
+    "num": 490,
+    "song_title": "\ub10c \uac10\ub3d9\uc774\uc57c",
+    "song_artist": "\ube44\ud22c\ube44",
+    "2021-07-06": {
+      "price": "20000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7700c67f06f7c0fb96"
+    },
+    "num": 491,
+    "song_title": "\ub0b4\uc785\uc220...\ub530\ub73b\ud55c \ucee4\ud53c\ucc98\ub7fc",
+    "song_artist": "\uc0f5",
+    "2021-07-06": {
+      "price": "114900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7700c67f06f7c0fb97"
+    },
+    "num": 492,
+    "song_title": "Beautiful",
+    "song_artist": "Crush",
+    "2021-07-06": {
+      "price": "49100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7800c67f06f7c0fb98"
+    },
+    "num": 493,
+    "song_title": "Stay With Me",
+    "song_artist": "\ucc2c\uc5f4",
+    "2021-07-06": {
+      "price": "34000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7800c67f06f7c0fb99"
+    },
+    "num": 494,
+    "song_title": "\ub2e4\uc2dc \ub108\ub97c",
+    "song_artist": "\ub9e4\ub4dc\ud074\ub77c\uc6b4",
+    "2021-07-06": {
+      "price": "18000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7900c67f06f7c0fb9a"
+    },
+    "num": 495,
+    "song_title": "\uc774 \ubc24\uc758 \ub05d",
+    "song_artist": "\ud380\uce58",
+    "2021-07-06": {
+      "price": "45000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7900c67f06f7c0fb9b"
+    },
+    "num": 496,
+    "song_title": "\ub0b4 \uc0ac\ub791",
+    "song_artist": "\uc774\ud558\uc774",
+    "2021-07-06": {
+      "price": "36800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7900c67f06f7c0fb9c"
+    },
+    "num": 497,
+    "song_title": "Reset",
+    "song_artist": "\ud0c0\uc774\uac70JK",
+    "2021-07-06": {
+      "price": "18800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7a00c67f06f7c0fb9d"
+    },
+    "num": 498,
+    "song_title": "Hello Bubble",
+    "song_artist": "\uac78\uc2a4\ub370\uc774",
+    "2021-07-06": {
+      "price": "12700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7a00c67f06f7c0fb9e"
+    },
+    "num": 499,
+    "song_title": "\uaf43\uc774\uc57c",
+    "song_artist": "JBJ",
+    "2021-07-06": {
+      "price": "20000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7b00c67f06f7c0fb9f"
+    },
+    "num": 500,
+    "song_title": "Blue Eyes",
+    "song_artist": "\ucfe8",
+    "2021-07-06": {
+      "price": "32100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7b00c67f06f7c0fba0"
+    },
+    "num": 501,
+    "song_title": "I Wish",
+    "song_artist": "\uba54\uc774\ube44",
+    "2021-07-06": {
+      "price": "34200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7c00c67f06f7c0fba1"
+    },
+    "num": 502,
+    "song_title": "Sweet Dream",
+    "song_artist": "\uc54c\ub809\uc2a4",
+    "2021-07-06": {
+      "price": "14800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7c00c67f06f7c0fba2"
+    },
+    "num": 503,
+    "song_title": "What",
+    "song_artist": "\ub4dc\ub9bc\uce90\uccd0",
+    "2021-07-06": {
+      "price": "35500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7d00c67f06f7c0fba3"
+    },
+    "num": 504,
+    "song_title": "\uac00\uc2dc\ub9ac",
+    "song_artist": "\ubc84\ube14 \uc2dc\uc2a4\ud130\uc988",
+    "2021-07-06": {
+      "price": "28700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7d00c67f06f7c0fba4"
+    },
+    "num": 505,
+    "song_title": "\uadf8\ub807\uac8c \uc0ac\ub791\ud558\uace0 \uadf8\ub807\uac8c \uc6c3\uc5c8\uc2b5\ub2c8\ub2e4",
+    "song_artist": "\ubc84\ube14 \uc2dc\uc2a4\ud130\uc988",
+    "2021-07-06": {
+      "price": "18000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7e00c67f06f7c0fba5"
+    },
+    "num": 506,
+    "song_title": "\uadf8\ub9ac\uc6cc\uc11c \ub208\ubb3c\ub098\uc11c",
+    "song_artist": "\uc774\uc218\uc601",
+    "2021-07-06": {
+      "price": "18700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7e00c67f06f7c0fba6"
+    },
+    "num": 507,
+    "song_title": "\ub098 \uc774\ub7f0 \uc5ec\uc790\uc608\uc694",
+    "song_artist": "\uc9c0\uc544",
+    "2021-07-06": {
+      "price": "14500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7f00c67f06f7c0fba7"
+    },
+    "num": 509,
+    "song_title": "\ub108\ub9cc \uc0dd\uac01\ub098",
+    "song_artist": "\uc7a5\ub098\ub77c",
+    "2021-07-06": {
+      "price": "16900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f7f00c67f06f7c0fba8"
+    },
+    "num": 511,
+    "song_title": "\ubd04\ucc98\ub7fc",
+    "song_artist": "\uae40\ubcf4\uacbd",
+    "2021-07-06": {
+      "price": "13100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8000c67f06f7c0fba9"
+    },
+    "num": 512,
+    "song_title": "\uc0ac\ub791\uc740 \uc774\uc81c \uadf8\ub9cc",
+    "song_artist": "\ubc84\ube14 \uc2dc\uc2a4\ud130\uc988",
+    "2021-07-06": {
+      "price": "12000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8000c67f06f7c0fbaa"
+    },
+    "num": 513,
+    "song_title": "\uc0ac\ub791\ud560\ub798",
+    "song_artist": "\ubcc4",
+    "2021-07-06": {
+      "price": "23200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8100c67f06f7c0fbab"
+    },
+    "num": 514,
+    "song_title": "\uc544\ud504\ub2e4",
+    "song_artist": "\uc9c0\ucf54",
+    "2021-07-06": {
+      "price": "30300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8100c67f06f7c0fbac"
+    },
+    "num": 515,
+    "song_title": "\uc548\ub155 \uc815\ub9d0 \uc548\ub155",
+    "song_artist": "\uc5e0\ud22c\uc5e0",
+    "2021-07-06": {
+      "price": "21600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8100c67f06f7c0fbad"
+    },
+    "num": 516,
+    "song_title": "\uc5ec\uc790\ub77c\uc11c",
+    "song_artist": "\uc544\uc774\uc720",
+    "2021-07-06": {
+      "price": "53900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8200c67f06f7c0fbae"
+    },
+    "num": 517,
+    "song_title": "\uc5f0\uc560 \ud560\uae4c\uc694",
+    "song_artist": "\ud669\ubcf4",
+    "2021-07-06": {
+      "price": "23000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8200c67f06f7c0fbaf"
+    },
+    "num": 519,
+    "song_title": "\uc88b\uc740 \uae38",
+    "song_artist": "\uae40\ud615\uc911",
+    "2021-07-06": {
+      "price": "13500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8300c67f06f7c0fbb0"
+    },
+    "num": 520,
+    "song_title": "\uc88b\uc740\uc0ac\ub78c \ub9cc\ub098\uc694",
+    "song_artist": "\uba54\uc774\ube44",
+    "2021-07-06": {
+      "price": "17100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8300c67f06f7c0fbb1"
+    },
+    "num": 522,
+    "song_title": "\ud558\ub8e8\uc758 \ub05d\uc5d0",
+    "song_artist": "V.O.S",
+    "2021-07-06": {
+      "price": "26500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8400c67f06f7c0fbb2"
+    },
+    "num": 523,
+    "song_title": "OOH-AHH\ud558\uac8c",
+    "song_artist": "TWICE",
+    "2021-07-06": {
+      "price": "28600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8400c67f06f7c0fbb3"
+    },
+    "num": 524,
+    "song_title": "\ub178\ub798\uac00 \ub298\uc5c8\uc5b4",
+    "song_artist": "\uc5d0\uc77c\ub9ac",
+    "2021-07-06": {
+      "price": "22000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8400c67f06f7c0fbb4"
+    },
+    "num": 525,
+    "song_title": "HOT PINK",
+    "song_artist": "EXID",
+    "2021-07-06": {
+      "price": "16300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8500c67f06f7c0fbb5"
+    },
+    "num": 526,
+    "song_title": "\uafc8\uc5d0",
+    "song_artist": "EXID",
+    "2021-07-06": {
+      "price": "16400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8500c67f06f7c0fbb6"
+    },
+    "num": 527,
+    "song_title": "\uae08\ud1a0\uc77c",
+    "song_artist": "\ub2ec\uc0e4\ubcb3",
+    "2021-07-06": {
+      "price": "8900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8600c67f06f7c0fbb7"
+    },
+    "num": 528,
+    "song_title": "\ub208\ubb3c\uae38",
+    "song_artist": "\ud718\uc131",
+    "2021-07-06": {
+      "price": "21400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8600c67f06f7c0fbb8"
+    },
+    "num": 529,
+    "song_title": "\uad81\uae08\ud574",
+    "song_artist": "\ubaa8\ubaa8\ub79c\ub4dc",
+    "2021-07-06": {
+      "price": "28100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8700c67f06f7c0fbb9"
+    },
+    "num": 530,
+    "song_title": "\uac08 \uacf3\uc774 \uc5c6\uc5b4",
+    "song_artist": "\uac70\ubbf8",
+    "2021-07-06": {
+      "price": "13800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8700c67f06f7c0fbba"
+    },
+    "num": 531,
+    "song_title": "Only one you",
+    "song_artist": "\ubaa8\ubaa8\ub79c\ub4dc",
+    "2021-07-06": {
+      "price": "39800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8800c67f06f7c0fbbb"
+    },
+    "num": 532,
+    "song_title": "\uc0b4\ucc10 \uc0ac\ub791",
+    "song_artist": "\uc81c\uc2dc",
+    "2021-07-06": {
+      "price": "11900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8800c67f06f7c0fbbc"
+    },
+    "num": 534,
+    "song_title": "\uc6b0\uc720",
+    "song_artist": "EXID",
+    "2021-07-06": {
+      "price": "25000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8900c67f06f7c0fbbd"
+    },
+    "num": 535,
+    "song_title": "BOOMERANG",
+    "song_artist": "Wanna One",
+    "2021-07-06": {
+      "price": "14700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8900c67f06f7c0fbbe"
+    },
+    "num": 536,
+    "song_title": "Mr. Potter",
+    "song_artist": "DIA",
+    "2021-07-06": {
+      "price": "24800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8a00c67f06f7c0fbbf"
+    },
+    "num": 537,
+    "song_title": "\uadf8 \ub0a8\uc794 \ub9d0\uc57c",
+    "song_artist": "\uc5e0\uc528\ub354\ub9e5\uc2a4",
+    "2021-07-06": {
+      "price": "21900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8a00c67f06f7c0fbc0"
+    },
+    "num": 538,
+    "song_title": "\uc8fd\uc744 \uac83\ub9cc \uac19\uc544",
+    "song_artist": "\ud658\ud76c",
+    "2021-07-06": {
+      "price": "8300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8a00c67f06f7c0fbc1"
+    },
+    "num": 539,
+    "song_title": "\ub9c8\uc8fc\ubcf4\uba70 \uc11c \uc788\uc5b4",
+    "song_artist": "\uc778\ud53c\ub2c8\ud2b8",
+    "2021-07-06": {
+      "price": "12000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8b00c67f06f7c0fbc2"
+    },
+    "num": 540,
+    "song_title": "\ub2e4\uc74c\uc5ed",
+    "song_artist": "\uc564\uc528\uc544",
+    "2021-07-06": {
+      "price": "7700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8b00c67f06f7c0fbc3"
+    },
+    "num": 541,
+    "song_title": "\ub9c8\ub124\ud0b9",
+    "song_artist": "\uc774\ub8e8",
+    "2021-07-06": {
+      "price": "23100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8c00c67f06f7c0fbc4"
+    },
+    "num": 542,
+    "song_title": "You&I",
+    "song_artist": "\uba3c\ub370\uc774 \ud0a4\uc988",
+    "2021-07-06": {
+      "price": "20100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8c00c67f06f7c0fbc5"
+    },
+    "num": 543,
+    "song_title": "\ub10c \uc0b4\uc544\uc788\ub2e4",
+    "song_artist": "\ubc84\uc988",
+    "2021-07-06": {
+      "price": "20000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8d00c67f06f7c0fbc6"
+    },
+    "num": 544,
+    "song_title": "\ubd04\uc5d0 \uc624\uba74 \uad34\ub86d\ud790 \uac70\uc608\uc694",
+    "song_artist": "\uc564\uc528\uc544",
+    "2021-07-06": {
+      "price": "12700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8d00c67f06f7c0fbc7"
+    },
+    "num": 545,
+    "song_title": "\ub290\ub08c\uc774 \uc88b\uc544",
+    "song_artist": "\ud5e4\uc77c\ub85c",
+    "2021-07-06": {
+      "price": "22400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8e00c67f06f7c0fbc8"
+    },
+    "num": 546,
+    "song_title": "\uac00\uc9c0\ub9c8",
+    "song_artist": "\ud658\ud76c",
+    "2021-07-06": {
+      "price": "16900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8e00c67f06f7c0fbc9"
+    },
+    "num": 547,
+    "song_title": "\ub9c8\uc8fc\uce58\uc9c0 \ub9d0\uc790",
+    "song_artist": "SUPER JUNIOR",
+    "2021-07-06": {
+      "price": "14800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8f00c67f06f7c0fbca"
+    },
+    "num": 548,
+    "song_title": "\uadf8\ub9ac\uc6b4 \uac74 \uc5b4\uca54 \uc218 \uc5c6\uc5b4",
+    "song_artist": "\ud658\ud76c",
+    "2021-07-06": {
+      "price": "13000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f8f00c67f06f7c0fbcb"
+    },
+    "num": 549,
+    "song_title": "\uc9c4\uc2ec",
+    "song_artist": "\uc774\uc608\uc900",
+    "2021-07-06": {
+      "price": "44700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9000c67f06f7c0fbcc"
+    },
+    "num": 550,
+    "song_title": "\uc5b4\uc820",
+    "song_artist": "\uc1a1\uc9c0\uc740",
+    "2021-07-06": {
+      "price": "18300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9000c67f06f7c0fbcd"
+    },
+    "num": 551,
+    "song_title": "\uadf8 \uc0ac\ub78c... \uc695\ud558\uc9c0 \ub9c8\uc694",
+    "song_artist": "\ucc9c\uc0c1\uc9c0\ud76c \ub354 \uadf8\ub808\uc774\uc2a4",
+    "2021-07-06": {
+      "price": "23900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9000c67f06f7c0fbce"
+    },
+    "num": 553,
+    "song_title": "\uc660\uc9c0",
+    "song_artist": "DIA",
+    "2021-07-06": {
+      "price": "13900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9100c67f06f7c0fbcf"
+    },
+    "num": 554,
+    "song_title": "FM",
+    "song_artist": "\ud06c\ub808\uc6a9\ud31d",
+    "2021-07-06": {
+      "price": "9000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9100c67f06f7c0fbd0"
+    },
+    "num": 555,
+    "song_title": "SHAKE\u00a0IT",
+    "song_artist": "\uc528\uc2a4\ud0c0",
+    "2021-07-06": {
+      "price": "34000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9200c67f06f7c0fbd1"
+    },
+    "num": 556,
+    "song_title": "\ubfdc\ubfdc",
+    "song_artist": "\ubaa8\ubaa8\ub79c\ub4dc",
+    "2021-07-06": {
+      "price": "40500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9200c67f06f7c0fbd2"
+    },
+    "num": 557,
+    "song_title": "FIVE",
+    "song_artist": "Apink",
+    "2021-07-06": {
+      "price": "20000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9300c67f06f7c0fbd3"
+    },
+    "num": 558,
+    "song_title": "\ub35c\ub35c\ub35c",
+    "song_artist": "EXID",
+    "2021-07-06": {
+      "price": "14700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9300c67f06f7c0fbd4"
+    },
+    "num": 559,
+    "song_title": "BAAM",
+    "song_artist": "\ubaa8\ubaa8\ub79c\ub4dc",
+    "2021-07-06": {
+      "price": "124400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9400c67f06f7c0fbd5"
+    },
+    "num": 560,
+    "song_title": "Twilight",
+    "song_artist": "Wanna One",
+    "2021-07-06": {
+      "price": "11800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9400c67f06f7c0fbd6"
+    },
+    "num": 561,
+    "song_title": "\uc5ec\uc790\ub85c\ubcf4\uc5ec",
+    "song_artist": "\ucf5c\ub518",
+    "2021-07-06": {
+      "price": "11200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9500c67f06f7c0fbd7"
+    },
+    "num": 564,
+    "song_title": "True Colors",
+    "song_artist": "JBJ",
+    "2021-07-06": {
+      "price": "12000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9500c67f06f7c0fbd8"
+    },
+    "num": 565,
+    "song_title": "Never Ever",
+    "song_artist": "GOT7",
+    "2021-07-06": {
+      "price": "8400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9600c67f06f7c0fbd9"
+    },
+    "num": 566,
+    "song_title": "Dream Night",
+    "song_artist": "ASTRO",
+    "2021-07-06": {
+      "price": "41600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9600c67f06f7c0fbda"
+    },
+    "num": 567,
+    "song_title": "\uac01",
+    "song_artist": "\ud669\uce58\uc5f4",
+    "2021-07-06": {
+      "price": "8400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9600c67f06f7c0fbdb"
+    },
+    "num": 568,
+    "song_title": "\uace0\ub798\uc758 \uafc8",
+    "song_artist": "\ubc14\ube44 \ud0b4",
+    "2021-07-06": {
+      "price": "22300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9700c67f06f7c0fbdc"
+    },
+    "num": 569,
+    "song_title": "\ubc14\ub78c\uc778\uac00\uc694",
+    "song_artist": "\ube0c\ub77c\uc6b4 \uc544\uc774\ub4dc \uc18c\uc6b8",
+    "2021-07-06": {
+      "price": "17400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9700c67f06f7c0fbdd"
+    },
+    "num": 570,
+    "song_title": "\ucd94\uc5b5 \uc0ac\ub791\ub9cc\ud07c",
+    "song_artist": "\ube0c\ub77c\uc6b4 \uc544\uc774\ub4dc \uc18c\uc6b8",
+    "2021-07-06": {
+      "price": "18200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9800c67f06f7c0fbde"
+    },
+    "num": 571,
+    "song_title": "\uadf8\ub300\uc640 \ub458\uc774",
+    "song_artist": "\ube0c\ub77c\uc6b4 \uc544\uc774\ub4dc \uc18c\uc6b8",
+    "2021-07-06": {
+      "price": "16000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9800c67f06f7c0fbdf"
+    },
+    "num": 572,
+    "song_title": "\uc9e0\ucff5\ucf85",
+    "song_artist": "\ubaa8\ubaa8\ub79c\ub4dc",
+    "2021-07-06": {
+      "price": "15300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9900c67f06f7c0fbe0"
+    },
+    "num": 573,
+    "song_title": "I See you",
+    "song_artist": "\uac15\ubbfc\ud601",
+    "2021-07-06": {
+      "price": "8100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9900c67f06f7c0fbe1"
+    },
+    "num": 574,
+    "song_title": "Give it 2 Me",
+    "song_artist": "\uc2e0\ud654",
+    "2021-07-06": {
+      "price": "59900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9a00c67f06f7c0fbe2"
+    },
+    "num": 575,
+    "song_title": "\uac81\ub098",
+    "song_artist": "\uba5c\ub85c\ub514\ub370\uc774",
+    "2021-07-06": {
+      "price": "19100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9a00c67f06f7c0fbe3"
+    },
+    "num": 576,
+    "song_title": "\uc5b4\uc82f\ubc24 \uc774\uc57c\uae30",
+    "song_artist": "\uc18c\ubc29\ucc28",
+    "2021-07-06": {
+      "price": "76000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9b00c67f06f7c0fbe4"
+    },
+    "num": 577,
+    "song_title": "\ud654\ub824\ud55c \ub0a0\uc740 \uac00\uace0",
+    "song_artist": "\uc720\uc5f4",
+    "2021-07-06": {
+      "price": "15000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9b00c67f06f7c0fbe5"
+    },
+    "num": 578,
+    "song_title": "\uc138\uc0c1\uc740 \uc694\uc9c0\uacbd",
+    "song_artist": "\uc2e0\uc2e0\uc560",
+    "2021-07-06": {
+      "price": "10200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9c00c67f06f7c0fbe6"
+    },
+    "num": 579,
+    "song_title": "\uc624\uc9c1 \ud558\ub098\ubfd0\uc778 \uadf8\ub300",
+    "song_artist": "\uc2ec\uc2e0",
+    "2021-07-06": {
+      "price": "48500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9c00c67f06f7c0fbe7"
+    },
+    "num": 580,
+    "song_title": "\ud558\ub298\ub545 \ubcc4\ub545",
+    "song_artist": "\ube44\ube44",
+    "2021-07-06": {
+      "price": "71100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9c00c67f06f7c0fbe8"
+    },
+    "num": 581,
+    "song_title": "\ube44\ub828",
+    "song_artist": "\ube44\ube44",
+    "2021-07-06": {
+      "price": "54500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9d00c67f06f7c0fbe9"
+    },
+    "num": 582,
+    "song_title": "Insomnia",
+    "song_artist": "\ud718\uc131",
+    "2021-07-06": {
+      "price": "35800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9d00c67f06f7c0fbea"
+    },
+    "num": 583,
+    "song_title": "\ucc2c\ucc2c\ucc2c",
+    "song_artist": "\ud3b8\uc2b9\uc5fd",
+    "2021-07-06": {
+      "price": "24900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9e00c67f06f7c0fbeb"
+    },
+    "num": 584,
+    "song_title": "\ub5a0\ub0a0\uac70\uc57c",
+    "song_artist": "\uc384\uc384\uc384",
+    "2021-07-06": {
+      "price": "22400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9e00c67f06f7c0fbec"
+    },
+    "num": 585,
+    "song_title": "\uadf8\ub300 \uc2ac\ud514\uae4c\uc9c0 \uc0ac\ub791\ud574",
+    "song_artist": "\uc2ec\uc2e0",
+    "2021-07-06": {
+      "price": "37100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9f00c67f06f7c0fbed"
+    },
+    "num": 586,
+    "song_title": "\ud1b5\ud654\uc911",
+    "song_artist": "\uc18c\ubc29\ucc28",
+    "2021-07-06": {
+      "price": "24200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31f9f00c67f06f7c0fbee"
+    },
+    "num": 587,
+    "song_title": "\ud558\uc580 \ubc14\ub78c",
+    "song_artist": "\uc18c\ubc29\ucc28",
+    "2021-07-06": {
+      "price": "28800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa000c67f06f7c0fbef"
+    },
+    "num": 588,
+    "song_title": "\uc774\ubcc4\uc774\ub798",
+    "song_artist": "\uc720\uc5f4",
+    "2021-07-06": {
+      "price": "39500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa000c67f06f7c0fbf0"
+    },
+    "num": 589,
+    "song_title": "\ub09c \ub108\uc5d0\uac8c",
+    "song_artist": "\ubbfc\ub4e4\ub808",
+    "2021-07-06": {
+      "price": "30000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa100c67f06f7c0fbf1"
+    },
+    "num": 590,
+    "song_title": "\ub108\ub97c \uc0ac\ub791\ud558\uace0\ub3c4",
+    "song_artist": "\uc804\uc720\ub098",
+    "2021-07-06": {
+      "price": "46000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa100c67f06f7c0fbf2"
+    },
+    "num": 591,
+    "song_title": "\ud76c\ub098\ub9ac",
+    "song_artist": "\uad6c\ucc3d\ubaa8",
+    "2021-07-06": {
+      "price": "54000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa200c67f06f7c0fbf3"
+    },
+    "num": 592,
+    "song_title": "\uc695\uc2ec\uc7c1\uc774",
+    "song_artist": "\uc2ec\uc2e0",
+    "2021-07-06": {
+      "price": "36100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa200c67f06f7c0fbf4"
+    },
+    "num": 593,
+    "song_title": "\uc80a\uc740 \ub0a0\uc758 \ucd08\uc0c1",
+    "song_artist": "\uc8fc\uc601\ud6c8",
+    "2021-07-06": {
+      "price": "78000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa300c67f06f7c0fbf5"
+    },
+    "num": 594,
+    "song_title": "\uadf8\ub140\uc5d0\uac8c \uc804\ud574\uc8fc\uc624",
+    "song_artist": "\uc18c\ubc29\ucc28",
+    "2021-07-06": {
+      "price": "30500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa300c67f06f7c0fbf6"
+    },
+    "num": 595,
+    "song_title": "\ub9e8\ubc1c\uc758 \uccad\ucd98",
+    "song_artist": "\ubc85",
+    "2021-07-06": {
+      "price": "92900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa300c67f06f7c0fbf7"
+    },
+    "num": 596,
+    "song_title": "\uc560\ubaa8",
+    "song_artist": "\uae40\uc218\ud76c",
+    "2021-07-06": {
+      "price": "27700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa400c67f06f7c0fbf8"
+    },
+    "num": 597,
+    "song_title": "\ub118\uc0ac\ubcbd",
+    "song_artist": "\ubaac\uc2a4\ud0c0\uc5d1\uc2a4",
+    "2021-07-06": {
+      "price": "15600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa400c67f06f7c0fbf9"
+    },
+    "num": 598,
+    "song_title": "Go Higher",
+    "song_artist": "GOT7",
+    "2021-07-06": {
+      "price": "10800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa500c67f06f7c0fbfa"
+    },
+    "num": 601,
+    "song_title": "\ub9dd\uc124\uc774\ub2e4",
+    "song_artist": "GOT7",
+    "2021-07-06": {
+      "price": "10100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa500c67f06f7c0fbfb"
+    },
+    "num": 602,
+    "song_title": "\uc678\uce5c\ub2e4",
+    "song_artist": "ASTRO",
+    "2021-07-06": {
+      "price": "11200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa600c67f06f7c0fbfc"
+    },
+    "num": 603,
+    "song_title": "\uc5ec\ub984\uc5ec\ub984\ud574",
+    "song_artist": "\uc5ec\uc790\uce5c\uad6c",
+    "2021-07-06": {
+      "price": "65900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa600c67f06f7c0fbfd"
+    },
+    "num": 604,
+    "song_title": "Feeling",
+    "song_artist": "\uc815\uc138\uc6b4",
+    "2021-07-06": {
+      "price": "36500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa700c67f06f7c0fbfe"
+    },
+    "num": 605,
+    "song_title": "BAE",
+    "song_artist": "\ud6a8\ub9b0",
+    "2021-07-06": {
+      "price": "41100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa700c67f06f7c0fbff"
+    },
+    "num": 606,
+    "song_title": "\ucd95\uac00",
+    "song_artist": "\uc804\uc6b0\uc131",
+    "2021-07-06": {
+      "price": "310000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa700c67f06f7c0fc00"
+    },
+    "num": 607,
+    "song_title": "\uae4c\ub974\ubcf4\ub098\ub77c",
+    "song_artist": "\uae40\ub098\ud76c",
+    "2021-07-06": {
+      "price": "43800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa800c67f06f7c0fc01"
+    },
+    "num": 608,
+    "song_title": "\uc0ac\ub791\uc758 \uc2e0\ud638\ub4f1",
+    "song_artist": "\uc815\ub2e4\uacbd",
+    "2021-07-06": {
+      "price": "51000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa800c67f06f7c0fc02"
+    },
+    "num": 609,
+    "song_title": "\uc0ac\ub791\uc740 \ub2e4 \uc774\ub7ec\ub2c8",
+    "song_artist": "\ud64d\uc9c4\uc601",
+    "2021-07-06": {
+      "price": "33900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa900c67f06f7c0fc03"
+    },
+    "num": 610,
+    "song_title": "\uc598\uac00 \uc774\ub807\uac8c \uc608\ubee4\ub098",
+    "song_artist": "\ud6c8\uc2a4",
+    "2021-07-06": {
+      "price": "31000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fa900c67f06f7c0fc04"
+    },
+    "num": 611,
+    "song_title": "\uadf8\ub7f4\uac78",
+    "song_artist": "\uae40\ub098\uc601",
+    "2021-07-06": {
+      "price": "20100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31faa00c67f06f7c0fc05"
+    },
+    "num": 612,
+    "song_title": "\ub2e4\uc2dc \uc4f0\uace0 \uc2f6\uc5b4",
+    "song_artist": "\uc5d0\uc77c\ub9ac",
+    "2021-07-06": {
+      "price": "18500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31faa00c67f06f7c0fc06"
+    },
+    "num": 613,
+    "song_title": "\ub450\ubc14\ub461",
+    "song_artist": "\ub77c\ubd90",
+    "2021-07-06": {
+      "price": "95900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fab00c67f06f7c0fc07"
+    },
+    "num": 614,
+    "song_title": "Would You...",
+    "song_artist": "\ubc15\uc9c0\ud6c8",
+    "2021-07-06": {
+      "price": "25500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fab00c67f06f7c0fc08"
+    },
+    "num": 615,
+    "song_title": "\uc81c\uc790\ub9ac \uac78\uc74c",
+    "song_artist": "\uace0\uc720\uc9c4",
+    "2021-07-06": {
+      "price": "17000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fac00c67f06f7c0fc09"
+    },
+    "num": 616,
+    "song_title": "\uc1fc\ud06c",
+    "song_artist": "\uad6c\ud53c",
+    "2021-07-06": {
+      "price": "17000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fac00c67f06f7c0fc0a"
+    },
+    "num": 618,
+    "song_title": "Com' Back",
+    "song_artist": "\uc81d\uc2a4\ud0a4\uc2a4",
+    "2021-07-06": {
+      "price": "13600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fac00c67f06f7c0fc0b"
+    },
+    "num": 620,
+    "song_title": "\uc601\uc6d0\ud55c \uc0ac\ub791",
+    "song_artist": "\ud551\ud074",
+    "2021-07-06": {
+      "price": "55000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fad00c67f06f7c0fc0c"
+    },
+    "num": 621,
+    "song_title": "\uac8c\uc784\uc758 \ubc95\uce59",
+    "song_artist": "\uad6c\ud53c",
+    "2021-07-06": {
+      "price": "16500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fad00c67f06f7c0fc0d"
+    },
+    "num": 622,
+    "song_title": "\ucee4\ud50c",
+    "song_artist": "\uc81d\uc2a4\ud0a4\uc2a4",
+    "2021-07-06": {
+      "price": "31200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fae00c67f06f7c0fc0e"
+    },
+    "num": 623,
+    "song_title": "\uc0ac\ub791\ud558\ub294 \ub108\uc5d0\uac8c",
+    "song_artist": "\uc81d\uc2a4\ud0a4\uc2a4",
+    "2021-07-06": {
+      "price": "9000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fae00c67f06f7c0fc0f"
+    },
+    "num": 624,
+    "song_title": "\uc5bc\uc464",
+    "song_artist": "\uc719\ud06c",
+    "2021-07-06": {
+      "price": "32000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31faf00c67f06f7c0fc10"
+    },
+    "num": 625,
+    "song_title": "Tears",
+    "song_artist": "\uc18c\ucc2c\ud718",
+    "2021-07-06": {
+      "price": "59000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31faf00c67f06f7c0fc11"
+    },
+    "num": 630,
+    "song_title": "\ub208 \ub0b4\ub9ac\ub294 \ub9c8\uc744",
+    "song_artist": "\uc560\ud504\ud130\uc2a4\ucfe8",
+    "2021-07-06": {
+      "price": "12100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb000c67f06f7c0fc12"
+    },
+    "num": 631,
+    "song_title": "\ub108\uc5d0\uac8c \uc57d\uc18d\ud558\ub294 7\uac00\uc9c0",
+    "song_artist": "\ud14c\uc774",
+    "2021-07-06": {
+      "price": "31700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb000c67f06f7c0fc13"
+    },
+    "num": 632,
+    "song_title": "\uc6b0\ub9ac \uc0ac\ub791 \uc5ec\uae30\uae4c\uc9c0\uc8e0",
+    "song_artist": "\ud61c\ub839",
+    "2021-07-06": {
+      "price": "32500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb100c67f06f7c0fc14"
+    },
+    "num": 637,
+    "song_title": "1llusion",
+    "song_artist": "Dok2",
+    "2021-07-06": {
+      "price": "7500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb100c67f06f7c0fc15"
+    },
+    "num": 638,
+    "song_title": "\ub0b4\uac00",
+    "song_artist": "Dok2",
+    "2021-07-06": {
+      "price": "8000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb200c67f06f7c0fc16"
+    },
+    "num": 640,
+    "song_title": "\uc5f0\uacb0\uace0\ub9ac",
+    "song_artist": "ILLIONAIRE RECORDS",
+    "2021-07-06": {
+      "price": "19500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb200c67f06f7c0fc17"
+    },
+    "num": 642,
+    "song_title": "Profile",
+    "song_artist": "\ube48\uc9c0\ub178",
+    "2021-07-06": {
+      "price": "13100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb300c67f06f7c0fc18"
+    },
+    "num": 644,
+    "song_title": "\ub3c5\uae30",
+    "song_artist": "\ub9ac\uc30d",
+    "2021-07-06": {
+      "price": "16600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb300c67f06f7c0fc19"
+    },
+    "num": 645,
+    "song_title": "Rap Star",
+    "song_artist": "Dok2",
+    "2021-07-06": {
+      "price": "10500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb300c67f06f7c0fc1a"
+    },
+    "num": 646,
+    "song_title": "L4L",
+    "song_artist": "BOBBY",
+    "2021-07-06": {
+      "price": "9200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb400c67f06f7c0fc1b"
+    },
+    "num": 647,
+    "song_title": "\ucc98\ub7fc",
+    "song_artist": "\uc720\uc7ac\uc11d X Dok2",
+    "2021-07-06": {
+      "price": "10200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb400c67f06f7c0fc1c"
+    },
+    "num": 648,
+    "song_title": "\uc9c4\uc808\uba38\ub9ac",
+    "song_artist": "\ube48\uc9c0\ub178",
+    "2021-07-06": {
+      "price": "15000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb500c67f06f7c0fc1d"
+    },
+    "num": 649,
+    "song_title": "\uacf5\uc911\ub3c4\ub355",
+    "song_artist": "\uc218\ud37c\ube44",
+    "2021-07-06": {
+      "price": "12200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb500c67f06f7c0fc1e"
+    },
+    "num": 650,
+    "song_title": "Wonderful Day",
+    "song_artist": "JBJ",
+    "2021-07-06": {
+      "price": "16000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb600c67f06f7c0fc1f"
+    },
+    "num": 651,
+    "song_title": "\ubd80\uc0b0\uc5d0 \uac00\uba74",
+    "song_artist": "Ecobridge",
+    "2021-07-06": {
+      "price": "25800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb600c67f06f7c0fc20"
+    },
+    "num": 652,
+    "song_title": "\uccab\uc9f8 \ub0a0",
+    "song_artist": "Ecobridge",
+    "2021-07-06": {
+      "price": "24500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb700c67f06f7c0fc21"
+    },
+    "num": 653,
+    "song_title": "\uc65c \uc774\uc81c\uc57c \uc654\ub2c8",
+    "song_artist": "\uc815\uc5fd",
+    "2021-07-06": {
+      "price": "17000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb700c67f06f7c0fc22"
+    },
+    "num": 654,
+    "song_title": "Nothing Better",
+    "song_artist": "\ube0c\ub77c\uc6b4 \uc544\uc774\ub4dc \uc18c\uc6b8",
+    "2021-07-06": {
+      "price": "39600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb800c67f06f7c0fc23"
+    },
+    "num": 655,
+    "song_title": "\ubc14\ub2e4 \ub05d",
+    "song_artist": "\ucd5c\ubc31\ud638",
+    "2021-07-06": {
+      "price": "59000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb800c67f06f7c0fc24"
+    },
+    "num": 656,
+    "song_title": "You Are My Lady",
+    "song_artist": "\uc815\uc5fd",
+    "2021-07-06": {
+      "price": "25800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb800c67f06f7c0fc25"
+    },
+    "num": 657,
+    "song_title": "\uadf8\uac8c \uc88b\uc740\uac70\uc57c",
+    "song_artist": "\uaddc\ud604",
+    "2021-07-06": {
+      "price": "32500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb900c67f06f7c0fc26"
+    },
+    "num": 659,
+    "song_title": "\ub4b7\ubaa8\uc2b5\uc774 \ucc38 \uc608\ubee4\uad6c\ub098",
+    "song_artist": "\uaddc\ud604",
+    "2021-07-06": {
+      "price": "13300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fb900c67f06f7c0fc27"
+    },
+    "num": 661,
+    "song_title": "\ub9e4\uc77c",
+    "song_artist": "JBJ",
+    "2021-07-06": {
+      "price": "10700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fba00c67f06f7c0fc28"
+    },
+    "num": 663,
+    "song_title": "BIRD",
+    "song_artist": "\ud558\uc131\uc6b4",
+    "2021-07-06": {
+      "price": "15900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fba00c67f06f7c0fc29"
+    },
+    "num": 664,
+    "song_title": "Aspirin",
+    "song_artist": "\uac78",
+    "2021-07-06": {
+      "price": "35900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fbb00c67f06f7c0fc2a"
+    },
+    "num": 665,
+    "song_title": "\uce5c\uad6c\ub77c\ub3c4 \ub420 \uac78 \uadf8\ub7ac\uc5b4",
+    "song_artist": "\uac70\ubbf8",
+    "2021-07-06": {
+      "price": "38800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fbb00c67f06f7c0fc2b"
+    },
+    "num": 666,
+    "song_title": "\uadf8\ub300 \ub3cc\uc544\uc624\uba74..",
+    "song_artist": "\uac70\ubbf8",
+    "2021-07-06": {
+      "price": "32000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fbc00c67f06f7c0fc2c"
+    },
+    "num": 667,
+    "song_title": "\uc548\ub418\ub098\uc694",
+    "song_artist": "\ud718\uc131",
+    "2021-07-06": {
+      "price": "29500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fbc00c67f06f7c0fc2d"
+    },
+    "num": 668,
+    "song_title": "With Me",
+    "song_artist": "\ud718\uc131",
+    "2021-07-06": {
+      "price": "26100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fbd00c67f06f7c0fc2e"
+    },
+    "num": 669,
+    "song_title": "\ub0a0 \uadf8\ub9cc \uc78a\uc5b4\uc694",
+    "song_artist": "\uac70\ubbf8",
+    "2021-07-06": {
+      "price": "27500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fbd00c67f06f7c0fc2f"
+    },
+    "num": 670,
+    "song_title": "\ub2e4\uc2dc \ub9cc\ub09c \ub0a0",
+    "song_artist": "\ud718\uc131",
+    "2021-07-06": {
+      "price": "26800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fbd00c67f06f7c0fc30"
+    },
+    "num": 671,
+    "song_title": "\uc640\uc918..",
+    "song_artist": "SE7EN",
+    "2021-07-06": {
+      "price": "25500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fbe00c67f06f7c0fc31"
+    },
+    "num": 672,
+    "song_title": "\ub2e4\uc2dc \uc640\uc8fc\ub77c",
+    "song_artist": "\ubc14\uc774\ube0c",
+    "2021-07-06": {
+      "price": "33000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fbe00c67f06f7c0fc32"
+    },
+    "num": 673,
+    "song_title": "Break Away",
+    "song_artist": "\ube45\ub9c8\ub9c8",
+    "2021-07-06": {
+      "price": "60800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fbf00c67f06f7c0fc33"
+    },
+    "num": 674,
+    "song_title": "\uc804\ud560 \uc218 \uc5c6\ub294 \uc774\uc57c\uae30",
+    "song_artist": "\ud718\uc131",
+    "2021-07-06": {
+      "price": "18100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fbf00c67f06f7c0fc34"
+    },
+    "num": 675,
+    "song_title": "\ubbf8\uce5c\uac70\ub2c8",
+    "song_artist": "\ubc14\uc774\ube0c",
+    "2021-07-06": {
+      "price": "21900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc000c67f06f7c0fc35"
+    },
+    "num": 676,
+    "song_title": "\uace0\ubc31",
+    "song_artist": "\uc7a5\ub098\ub77c",
+    "2021-07-06": {
+      "price": "24200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc000c67f06f7c0fc36"
+    },
+    "num": 677,
+    "song_title": "4\uc6d4 \uc774\uc57c\uae30",
+    "song_artist": "\uc7a5\ub098\ub77c",
+    "2021-07-06": {
+      "price": "23600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc100c67f06f7c0fc37"
+    },
+    "num": 678,
+    "song_title": "\ubc1c\uc791",
+    "song_artist": "\uc6d0\ud2f0\ub4dc",
+    "2021-07-06": {
+      "price": "20100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc100c67f06f7c0fc38"
+    },
+    "num": 679,
+    "song_title": "Let Me Dance",
+    "song_artist": "\ub809\uc2dc",
+    "2021-07-06": {
+      "price": "20400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc200c67f06f7c0fc39"
+    },
+    "num": 680,
+    "song_title": "\ub3cc\uc544\ubcf4\uc9c0\ub9c8",
+    "song_artist": "\uc774\uc9c4\ud601",
+    "2021-07-06": {
+      "price": "19000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc200c67f06f7c0fc3a"
+    },
+    "num": 681,
+    "song_title": "\ubd99\uc7a1\uc558\uc5b4\uc57c \ud574",
+    "song_artist": "ASTRO",
+    "2021-07-06": {
+      "price": "10800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc200c67f06f7c0fc3b"
+    },
+    "num": 683,
+    "song_title": "Blue Rain",
+    "song_artist": "\ud551\ud074",
+    "2021-07-06": {
+      "price": "31000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc300c67f06f7c0fc3c"
+    },
+    "num": 684,
+    "song_title": "\uc624\ub298 \uadf8\ub140\uac00",
+    "song_artist": "\ub8e8\uadf8",
+    "2021-07-06": {
+      "price": "298700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc300c67f06f7c0fc3d"
+    },
+    "num": 685,
+    "song_title": "\ubd88\uaf43\ub180\uc774",
+    "song_artist": "Wanna One",
+    "2021-07-06": {
+      "price": "9900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc400c67f06f7c0fc3e"
+    },
+    "num": 686,
+    "song_title": "\ucc3e\uc558\ub2e4",
+    "song_artist": "\ubc15\uc720\ucc9c",
+    "2021-07-06": {
+      "price": "40700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc400c67f06f7c0fc3f"
+    },
+    "num": 687,
+    "song_title": "\uc6b4\uba85\ucc98\ub7fc",
+    "song_artist": "\ubca4",
+    "2021-07-06": {
+      "price": "16200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc500c67f06f7c0fc40"
+    },
+    "num": 688,
+    "song_title": "Because I Love You",
+    "song_artist": "\uac70\ubbf8",
+    "2021-07-06": {
+      "price": "21600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc500c67f06f7c0fc41"
+    },
+    "num": 689,
+    "song_title": "Too Love",
+    "song_artist": "XIA",
+    "2021-07-06": {
+      "price": "37300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc600c67f06f7c0fc42"
+    },
+    "num": 690,
+    "song_title": "\uadf8\ub300\uc774\uae30\uc5d0",
+    "song_artist": "The One",
+    "2021-07-06": {
+      "price": "10500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc700c67f06f7c0fc43"
+    },
+    "num": 691,
+    "song_title": "\ub108\uc5d0\uac90 \uc774\ubcc4 \ub098\uc5d0\uac90 \uae30\ub2e4\ub9bc",
+    "song_artist": "\uae40\uc7ac\uc911",
+    "2021-07-06": {
+      "price": "19200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc700c67f06f7c0fc44"
+    },
+    "num": 692,
+    "song_title": "\ud0dc\uc591\uc758 \uadf8\ub9bc\uc790",
+    "song_artist": "\uc5e0\uc528\ub354\ub9e5\uc2a4",
+    "2021-07-06": {
+      "price": "14900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc700c67f06f7c0fc45"
+    },
+    "num": 695,
+    "song_title": "\ub9cc\uc57d\uc5d0 \uc6b0\ub9ac \ub458 \uc911 \ud558\ub098\ub77c\ub3c4",
+    "song_artist": "\ud654\uc694\ube44",
+    "2021-07-06": {
+      "price": "12300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc800c67f06f7c0fc46"
+    },
+    "num": 696,
+    "song_title": "I Believe",
+    "song_artist": "\uc8fc\uc6d0",
+    "2021-07-06": {
+      "price": "14300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc800c67f06f7c0fc47"
+    },
+    "num": 697,
+    "song_title": "D-Day",
+    "song_artist": "\uc815\uae30\uace0",
+    "2021-07-06": {
+      "price": "9800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc900c67f06f7c0fc48"
+    },
+    "num": 698,
+    "song_title": "\uc5b4\ub978\ubcd1",
+    "song_artist": "\ud669\uce58\uc5f4",
+    "2021-07-06": {
+      "price": "11000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fc900c67f06f7c0fc49"
+    },
+    "num": 699,
+    "song_title": "Navy & Shining Gold",
+    "song_artist": "VIXX",
+    "2021-07-06": {
+      "price": "19500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fca00c67f06f7c0fc4a"
+    },
+    "num": 700,
+    "song_title": "Young 20",
+    "song_artist": "\ubc15\uc9c0\ud6c8",
+    "2021-07-06": {
+      "price": "21900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fca00c67f06f7c0fc4b"
+    },
+    "num": 701,
+    "song_title": "\ub208\ubb3c\uc544 \uc548\ub155",
+    "song_artist": "\uc544\uc774\ube44",
+    "2021-07-06": {
+      "price": "24000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fcb00c67f06f7c0fc4c"
+    },
+    "num": 702,
+    "song_title": "Perhaps Love",
+    "song_artist": "\uc5d0\ub9ad\ub0a8",
+    "2021-07-06": {
+      "price": "32000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fcb00c67f06f7c0fc4d"
+    },
+    "num": 703,
+    "song_title": "\uc2ac\ud508\ub2e4\uc9d0",
+    "song_artist": "\uc57c\ub2e4",
+    "2021-07-06": {
+      "price": "30000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fcc00c67f06f7c0fc4e"
+    },
+    "num": 705,
+    "song_title": "\ud55c\ubc88\ub9cc...",
+    "song_artist": "\ud61c\ub839",
+    "2021-07-06": {
+      "price": "31200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fcc00c67f06f7c0fc4f"
+    },
+    "num": 706,
+    "song_title": "\uae30\uc5b5\uc18d\uc758 \uba3c \uadf8\ub300\uc5d0\uac8c",
+    "song_artist": "\ubc15\ud6a8\uc2e0",
+    "2021-07-06": {
+      "price": "21800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fcc00c67f06f7c0fc50"
+    },
+    "num": 707,
+    "song_title": "\uc774 \ubc24\uc774 \uc9c0\ub098\uba74",
+    "song_artist": "\uc784\uc7ac\ubc94",
+    "2021-07-06": {
+      "price": "30000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fcd00c67f06f7c0fc51"
+    },
+    "num": 708,
+    "song_title": "\ub0b4\uac00 \uba3c\uc800",
+    "song_artist": "\ub3c4\uacb8",
+    "2021-07-06": {
+      "price": "12200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fcd00c67f06f7c0fc52"
+    },
+    "num": 709,
+    "song_title": "\uc774 \ubcc4",
+    "song_artist": "\uae38\uad6c\ubd09\uad6c",
+    "2021-07-06": {
+      "price": "22100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fce00c67f06f7c0fc53"
+    },
+    "num": 710,
+    "song_title": "Fighter",
+    "song_artist": "\ubaac\uc2a4\ud0c0\uc5d1\uc2a4",
+    "2021-07-06": {
+      "price": "19600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fce00c67f06f7c0fc54"
+    },
+    "num": 711,
+    "song_title": "\ub77c\uc774\ub529",
+    "song_artist": "\ud558\uc131\uc6b4",
+    "2021-07-06": {
+      "price": "12800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fcf00c67f06f7c0fc55"
+    },
+    "num": 712,
+    "song_title": "\uc0ac\ub791\uc77c\ubfd0\uc57c",
+    "song_artist": "\uae40\ubbfc\uc6b0",
+    "2021-07-06": {
+      "price": "30700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fcf00c67f06f7c0fc56"
+    },
+    "num": 713,
+    "song_title": "Memory",
+    "song_artist": "\uae40\ubc94\uc218",
+    "2021-07-06": {
+      "price": "12100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd000c67f06f7c0fc57"
+    },
+    "num": 714,
+    "song_title": "\ub108\uc5d0\uac8c\ub85c \ub610 \ub2e4\uc2dc",
+    "song_artist": "\ubcc0\uc9c4\uc12d",
+    "2021-07-06": {
+      "price": "37700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd000c67f06f7c0fc58"
+    },
+    "num": 715,
+    "song_title": "\uc57d\uc18d",
+    "song_artist": "\uae40\ubc94\uc218",
+    "2021-07-06": {
+      "price": "26700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd100c67f06f7c0fc59"
+    },
+    "num": 716,
+    "song_title": "\uc219\ub140\uc5d0\uac8c",
+    "song_artist": "\ubcc0\uc9c4\uc12d",
+    "2021-07-06": {
+      "price": "35200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd100c67f06f7c0fc5a"
+    },
+    "num": 719,
+    "song_title": "\ub0b4\uac8c \ub0a8\uc740 \uc0ac\ub791\uc744 \ub4dc\ub9b4\uaed8\uc694",
+    "song_artist": "\uc7a5\ud61c\ub9ac",
+    "2021-07-06": {
+      "price": "44400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd200c67f06f7c0fc5b"
+    },
+    "num": 721,
+    "song_title": "\ud734\uc2dd\uac19\uc740 \uce5c\uad6c",
+    "song_artist": "\uae40\ubbfc\uc6b0",
+    "2021-07-06": {
+      "price": "23700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd200c67f06f7c0fc5c"
+    },
+    "num": 722,
+    "song_title": "\uc6b0\ub9ac\uc758 \uc0ac\ub791\uc774 \ud544\uc694\ud55c \uac70\uc8e0",
+    "song_artist": "\ubcc0\uc9c4\uc12d",
+    "2021-07-06": {
+      "price": "22800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd300c67f06f7c0fc5d"
+    },
+    "num": 723,
+    "song_title": "\uaca8\uc6b8\uc774\uc57c\uae30",
+    "song_artist": "\uc870\uad00\uc6b0",
+    "2021-07-06": {
+      "price": "29200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd300c67f06f7c0fc5e"
+    },
+    "num": 725,
+    "song_title": "MaMa",
+    "song_artist": "\ubc14\ube44 \ud0b4",
+    "2021-07-06": {
+      "price": "15900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd300c67f06f7c0fc5f"
+    },
+    "num": 727,
+    "song_title": "\ub10c \ub610 \ub2e4\ub978 \ub098",
+    "song_artist": "\uc774\uc2b9\ucca0",
+    "2021-07-06": {
+      "price": "23100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd400c67f06f7c0fc60"
+    },
+    "num": 729,
+    "song_title": "Only You",
+    "song_artist": "\ubc14\ube44 \ud0b4",
+    "2021-07-06": {
+      "price": "15800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd500c67f06f7c0fc61"
+    },
+    "num": 730,
+    "song_title": "\ubcc4\uc758 \uc774\uc57c\uae30",
+    "song_artist": "\uc870\uad00\uc6b0",
+    "2021-07-06": {
+      "price": "15100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd500c67f06f7c0fc62"
+    },
+    "num": 731,
+    "song_title": "\uac00\uae4c\uc774 \uc640\ubd10",
+    "song_artist": "\uc774\uc2b9\ucca0",
+    "2021-07-06": {
+      "price": "13000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd600c67f06f7c0fc63"
+    },
+    "num": 733,
+    "song_title": "Really Like You",
+    "song_artist": "IZ*ONE",
+    "2021-07-06": {
+      "price": "18400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd600c67f06f7c0fc64"
+    },
+    "num": 734,
+    "song_title": "\ud589\ubcf5\ud558\uc9c0 \ub9d0\uc544\uc694",
+    "song_artist": "\uc5e0\uc528\ub354\ub9e5\uc2a4",
+    "2021-07-06": {
+      "price": "34100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd700c67f06f7c0fc65"
+    },
+    "num": 735,
+    "song_title": "\uae40\ubc25",
+    "song_artist": "\uc790\ub450",
+    "2021-07-06": {
+      "price": "22800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd700c67f06f7c0fc66"
+    },
+    "num": 737,
+    "song_title": "365\uc77c",
+    "song_artist": "\uc54c\ub9ac",
+    "2021-07-06": {
+      "price": "28000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd800c67f06f7c0fc67"
+    },
+    "num": 738,
+    "song_title": "\uc0ac\ub791\uc740 \uc544\ud504\ub824\uace0 \ud558\ub294 \uac70\uc8e0",
+    "song_artist": "MC THE MAX",
+    "2021-07-06": {
+      "price": "28200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd800c67f06f7c0fc68"
+    },
+    "num": 739,
+    "song_title": "\uc9c0\uc6b0\uac1c",
+    "song_artist": "\uc54c\ub9ac",
+    "2021-07-06": {
+      "price": "18200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd800c67f06f7c0fc69"
+    },
+    "num": 740,
+    "song_title": "\uc0ac\ub791\uc758 \uc2dc",
+    "song_artist": "\uc5e0\uc528\ub354\ub9e5\uc2a4",
+    "2021-07-06": {
+      "price": "30000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd900c67f06f7c0fc6a"
+    },
+    "num": 741,
+    "song_title": "\ud669\ud63c\uc758 \ubb38\ud131",
+    "song_artist": "\uc641\uc2a4",
+    "2021-07-06": {
+      "price": "31400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fd900c67f06f7c0fc6b"
+    },
+    "num": 742,
+    "song_title": "\uc544\ub85c\ud558",
+    "song_artist": "\ucfe8",
+    "2021-07-06": {
+      "price": "76000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fda00c67f06f7c0fc6c"
+    },
+    "num": 743,
+    "song_title": "\uc0ac\ub791\ud569\ub2c8\ub2e4",
+    "song_artist": "\uc774\uc7ac\ud6c8",
+    "2021-07-06": {
+      "price": "42000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fda00c67f06f7c0fc6d"
+    },
+    "num": 744,
+    "song_title": "\uc57d\uc18d",
+    "song_artist": "\uc81c\ub85c",
+    "2021-07-06": {
+      "price": "11500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fdb00c67f06f7c0fc6e"
+    },
+    "num": 745,
+    "song_title": "\uc560\ub828",
+    "song_artist": "\ucee8\uce04\ub9ac \uaf2c\uaf2c",
+    "2021-07-06": {
+      "price": "18900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fdb00c67f06f7c0fc6f"
+    },
+    "num": 746,
+    "song_title": "\uccab\uc0ac\ub791",
+    "song_artist": "\uc624\ud22c\ud3ec",
+    "2021-07-06": {
+      "price": "16800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fdc00c67f06f7c0fc70"
+    },
+    "num": 747,
+    "song_title": "Tears",
+    "song_artist": "\uc774\ubcd1\ud5cc",
+    "2021-07-06": {
+      "price": "15200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fdc00c67f06f7c0fc71"
+    },
+    "num": 748,
+    "song_title": "\uc2ac\ud508 \uc0ac\ub791",
+    "song_artist": "\uae30\ud638",
+    "2021-07-06": {
+      "price": "9700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fdd00c67f06f7c0fc72"
+    },
+    "num": 749,
+    "song_title": "\uaca8\uc6b8\ub098\uae30",
+    "song_artist": "\uc774\ub8e8",
+    "2021-07-06": {
+      "price": "11100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fdd00c67f06f7c0fc73"
+    },
+    "num": 750,
+    "song_title": "\ub2c8 \uc18c\uc2dd",
+    "song_artist": "\uc1a1\ud558\uc608",
+    "2021-07-06": {
+      "price": "43800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fde00c67f06f7c0fc74"
+    },
+    "num": 751,
+    "song_title": "\ub0b4 \uc548\ubd80",
+    "song_artist": "\uc774\uc6b0",
+    "2021-07-06": {
+      "price": "32000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fde00c67f06f7c0fc75"
+    },
+    "num": 752,
+    "song_title": "\ub098\ud63c\uc790",
+    "song_artist": "\uc528\uc2a4\ud0c0",
+    "2021-07-06": {
+      "price": "26700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fde00c67f06f7c0fc76"
+    },
+    "num": 753,
+    "song_title": "\uc6b0\uc5f0\ud788 \ubd04",
+    "song_artist": "\ub85c\uaf2c",
+    "2021-07-06": {
+      "price": "38000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fdf00c67f06f7c0fc77"
+    },
+    "num": 754,
+    "song_title": "Another Day",
+    "song_artist": "\uba3c\ub370\uc774 \ud0a4\uc988",
+    "2021-07-06": {
+      "price": "29200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fdf00c67f06f7c0fc78"
+    },
+    "num": 755,
+    "song_title": "\ub098\ub791 \uc0ac\uadc8\ub798",
+    "song_artist": "DIA",
+    "2021-07-06": {
+      "price": "17000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe000c67f06f7c0fc79"
+    },
+    "num": 756,
+    "song_title": "\ubabb\ub41c \uc5ec\uc790 \u2161",
+    "song_artist": "\uc6d0\ud22c",
+    "2021-07-06": {
+      "price": "19900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe000c67f06f7c0fc7a"
+    },
+    "num": 757,
+    "song_title": "\uadf8 \ub05d\uc5d0 \uadf8\ub300",
+    "song_artist": "\uccad\ud558",
+    "2021-07-06": {
+      "price": "39600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe100c67f06f7c0fc7b"
+    },
+    "num": 758,
+    "song_title": "Go&Stop",
+    "song_artist": "ASTRO",
+    "2021-07-06": {
+      "price": "10500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe100c67f06f7c0fc7c"
+    },
+    "num": 759,
+    "song_title": "\ub7ec\ube0c \ub378\ub8e8\ub098",
+    "song_artist": "\ud0dc\uc6a9",
+    "2021-07-06": {
+      "price": "39000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe200c67f06f7c0fc7d"
+    },
+    "num": 760,
+    "song_title": "\ub09c \uc608\uc220\uc774\uc57c",
+    "song_artist": "\ud5ec\ub85c\ube44\ub108\uc2a4",
+    "2021-07-06": {
+      "price": "27700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe200c67f06f7c0fc7e"
+    },
+    "num": 761,
+    "song_title": "OK",
+    "song_artist": "\ub538\uae30\uc6b0\uc720",
+    "2021-07-06": {
+      "price": "13600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe300c67f06f7c0fc7f"
+    },
+    "num": 762,
+    "song_title": "\uc624\ub298\ub530\ub77c \uc608\uc058\ub2e4",
+    "song_artist": "\uc724\ub534\ub534",
+    "2021-07-06": {
+      "price": "15600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe300c67f06f7c0fc80"
+    },
+    "num": 763,
+    "song_title": "\uc7a0\uae50\ub9cc\uc694",
+    "song_artist": "\uc5b4\ucfe0\ub8e8\ube0c",
+    "2021-07-06": {
+      "price": "12000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe300c67f06f7c0fc81"
+    },
+    "num": 764,
+    "song_title": "\ub0a8\uc794 \ub2e4 \uadf8\ub798",
+    "song_artist": "\uc774\uc6b0\uc0c1",
+    "2021-07-06": {
+      "price": "24900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe400c67f06f7c0fc82"
+    },
+    "num": 765,
+    "song_title": "\ucc98\uc74c\uc0ac\ub791",
+    "song_artist": "\uc720\uc5f4",
+    "2021-07-06": {
+      "price": "89200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe400c67f06f7c0fc83"
+    },
+    "num": 766,
+    "song_title": "SOUL",
+    "song_artist": "H&D",
+    "2021-07-06": {
+      "price": "14200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe500c67f06f7c0fc84"
+    },
+    "num": 767,
+    "song_title": "Endless",
+    "song_artist": "\ud50c\ub77c\uc6cc",
+    "2021-07-06": {
+      "price": "32300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe500c67f06f7c0fc85"
+    },
+    "num": 768,
+    "song_title": "Please",
+    "song_artist": "\ud50c\ub77c\uc6cc",
+    "2021-07-06": {
+      "price": "27300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe600c67f06f7c0fc86"
+    },
+    "num": 769,
+    "song_title": "\uae30\uc5b5\ud574...\uc0ac\ub791\ud574\u2026",
+    "song_artist": "\ud50c\ub77c\uc6cc",
+    "2021-07-06": {
+      "price": "25500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe600c67f06f7c0fc87"
+    },
+    "num": 770,
+    "song_title": "FOR YOU",
+    "song_artist": "\ud50c\ub77c\uc6cc",
+    "2021-07-06": {
+      "price": "21500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe700c67f06f7c0fc88"
+    },
+    "num": 771,
+    "song_title": "\uac08 \uc218\uac00 \uc5c6\uc5b4",
+    "song_artist": "\ubca4",
+    "2021-07-06": {
+      "price": "25500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe700c67f06f7c0fc89"
+    },
+    "num": 772,
+    "song_title": "\uc0ac\uc2e4\uc740",
+    "song_artist": "\ud55c\ud574",
+    "2021-07-06": {
+      "price": "16100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe800c67f06f7c0fc8a"
+    },
+    "num": 773,
+    "song_title": "\uc65c \uc774\ub9ac",
+    "song_artist": "\uae38\uad6c\ubd09\uad6c",
+    "2021-07-06": {
+      "price": "14000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe800c67f06f7c0fc8b"
+    },
+    "num": 774,
+    "song_title": "\ub208\ubb3c\uc774 \ub098",
+    "song_artist": "\ub9e5\ucf08\ub9ac",
+    "2021-07-06": {
+      "price": "24300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe900c67f06f7c0fc8c"
+    },
+    "num": 775,
+    "song_title": "Think About' Chu",
+    "song_artist": "\uc0d8\uae40",
+    "2021-07-06": {
+      "price": "29700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fe900c67f06f7c0fc8d"
+    },
+    "num": 776,
+    "song_title": "\ub450\ub460\uce6b",
+    "song_artist": "\ud06c\ub808\uc6a9\ud31d",
+    "2021-07-06": {
+      "price": "19000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fea00c67f06f7c0fc8e"
+    },
+    "num": 777,
+    "song_title": "\uc798 \uc788\ub098\uc694",
+    "song_artist": "The One",
+    "2021-07-06": {
+      "price": "18500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fea00c67f06f7c0fc8f"
+    },
+    "num": 781,
+    "song_title": "LOVE DAY",
+    "song_artist": "\uc591\uc694\uc12d",
+    "2021-07-06": {
+      "price": "126400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31feb00c67f06f7c0fc90"
+    },
+    "num": 782,
+    "song_title": "I Don't Care",
+    "song_artist": "2NE1",
+    "2021-07-06": {
+      "price": "36900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31feb00c67f06f7c0fc91"
+    },
+    "num": 783,
+    "song_title": "MY STAR",
+    "song_artist": "\uc774\ud558\uc774",
+    "2021-07-06": {
+      "price": "14500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fec00c67f06f7c0fc92"
+    },
+    "num": 785,
+    "song_title": "D.I.S.C.O",
+    "song_artist": "\uc5c4\uc815\ud654",
+    "2021-07-06": {
+      "price": "25200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fec00c67f06f7c0fc93"
+    },
+    "num": 789,
+    "song_title": "No Make Up",
+    "song_artist": "Zion.T",
+    "2021-07-06": {
+      "price": "24200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fec00c67f06f7c0fc94"
+    },
+    "num": 800,
+    "song_title": "\ubc14\ub78c\ub0ac\uc5b4",
+    "song_artist": "GG",
+    "2021-07-06": {
+      "price": "19200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fed00c67f06f7c0fc95"
+    },
+    "num": 813,
+    "song_title": "BABY DON'T CRY",
+    "song_artist": "\ub300\uc131",
+    "2021-07-06": {
+      "price": "11200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fed00c67f06f7c0fc96"
+    },
+    "num": 814,
+    "song_title": "1\ub144 \uc815\uac70\uc7a5",
+    "song_artist": "G-DRAGON",
+    "2021-07-06": {
+      "price": "17300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fee00c67f06f7c0fc97"
+    },
+    "num": 815,
+    "song_title": "\ud145\ube48\ub3c4\ub85c",
+    "song_artist": "\ud0dc\uc591",
+    "2021-07-06": {
+      "price": "8300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fee00c67f06f7c0fc98"
+    },
+    "num": 816,
+    "song_title": "Machine Gun",
+    "song_artist": "KUSH",
+    "2021-07-06": {
+      "price": "9100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fef00c67f06f7c0fc99"
+    },
+    "num": 817,
+    "song_title": "No Woman No Cry",
+    "song_artist": "\uc2a4\ud1a0\ub2c8 \uc2a4\ucef9\ud06c",
+    "2021-07-06": {
+      "price": "50900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fef00c67f06f7c0fc9a"
+    },
+    "num": 818,
+    "song_title": "Hello",
+    "song_artist": "G-DRAGON",
+    "2021-07-06": {
+      "price": "14500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff000c67f06f7c0fc9b"
+    },
+    "num": 819,
+    "song_title": "ANYMORE",
+    "song_artist": "\uc11c\uc778\uc601",
+    "2021-07-06": {
+      "price": "9500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff000c67f06f7c0fc9c"
+    },
+    "num": 820,
+    "song_title": "Baby Good Night",
+    "song_artist": "GD&TOP",
+    "2021-07-06": {
+      "price": "10700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff100c67f06f7c0fc9d"
+    },
+    "num": 821,
+    "song_title": "\ubc18\uc9dd\ubc18\uc9dd",
+    "song_artist": "BIGBANG",
+    "2021-07-06": {
+      "price": "12600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff100c67f06f7c0fc9e"
+    },
+    "num": 822,
+    "song_title": "\uc2e0\uc0ac",
+    "song_artist": "\ub808\ub514",
+    "2021-07-06": {
+      "price": "10500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff200c67f06f7c0fc9f"
+    },
+    "num": 823,
+    "song_title": "\ud5e4\uc5b4\uc9c0\uc790",
+    "song_artist": "\uc11c\uc778\uc601",
+    "2021-07-06": {
+      "price": "13900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff200c67f06f7c0fca0"
+    },
+    "num": 829,
+    "song_title": "\uc2dc\uac04\uc774 \ud544\uc694\ud574",
+    "song_artist": "\uae40\uc7ac\ud658",
+    "2021-07-06": {
+      "price": "22200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff300c67f06f7c0fca1"
+    },
+    "num": 831,
+    "song_title": "Zzz",
+    "song_artist": "\uae40\uc7ac\ud658",
+    "2021-07-06": {
+      "price": "13500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff300c67f06f7c0fca2"
+    },
+    "num": 833,
+    "song_title": "\ub204\ub098",
+    "song_artist": "\uae40\uc7ac\ud658",
+    "2021-07-06": {
+      "price": "32200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff300c67f06f7c0fca3"
+    },
+    "num": 835,
+    "song_title": "\ub2f9\uc2e0\uc758 \ub208\ubb3c",
+    "song_artist": "\ud0dc\uc9c4\uc544",
+    "2021-07-06": {
+      "price": "34700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff400c67f06f7c0fca4"
+    },
+    "num": 836,
+    "song_title": "\uadf8\ub300 \ub0b4 \uce5c\uad6c\uc5ec",
+    "song_artist": "\ud328\ud2f0\uae40",
+    "2021-07-06": {
+      "price": "52400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff400c67f06f7c0fca5"
+    },
+    "num": 838,
+    "song_title": "\uc0e4\ub12c",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "26500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff500c67f06f7c0fca6"
+    },
+    "num": 839,
+    "song_title": "\uc628\ub3c4",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "14300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff500c67f06f7c0fca7"
+    },
+    "num": 840,
+    "song_title": "\ub0b4 \uc0dd\uc560 \uac00\uc7a5 \ud589\ubcf5\ud55c \uc2dc\uac04 PART.2",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "21300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff600c67f06f7c0fca8"
+    },
+    "num": 841,
+    "song_title": "\uc54c\uc544",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "13000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff600c67f06f7c0fca9"
+    },
+    "num": 842,
+    "song_title": "\uc874\ubc84",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "20100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff700c67f06f7c0fcaa"
+    },
+    "num": 844,
+    "song_title": "WAKE ME UP",
+    "song_artist": "\ud0dc\uc591",
+    "2021-07-06": {
+      "price": "9700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff700c67f06f7c0fcab"
+    },
+    "num": 845,
+    "song_title": "\ub2c8\uac00 \ubb54\ub370",
+    "song_artist": "G-DRAGON",
+    "2021-07-06": {
+      "price": "21500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff800c67f06f7c0fcac"
+    },
+    "num": 846,
+    "song_title": "\ubc15\uc218\uccd0",
+    "song_artist": "2NE1",
+    "2021-07-06": {
+      "price": "20800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff800c67f06f7c0fcad"
+    },
+    "num": 847,
+    "song_title": "\ubbf8\uc548\ud574\uc694",
+    "song_artist": "\uac70\ubbf8",
+    "2021-07-06": {
+      "price": "28200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff900c67f06f7c0fcae"
+    },
+    "num": 849,
+    "song_title": "\uc544\ud30c",
+    "song_artist": "2NE1",
+    "2021-07-06": {
+      "price": "20600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ff900c67f06f7c0fcaf"
+    },
+    "num": 850,
+    "song_title": "\ub098\ub9cc \ubc14\ub77c\ubd10",
+    "song_artist": "\ud0dc\uc591",
+    "2021-07-06": {
+      "price": "32700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ffa00c67f06f7c0fcb0"
+    },
+    "num": 851,
+    "song_title": "\ucde8\ud5a5\uc800\uaca9",
+    "song_artist": "iKON",
+    "2021-07-06": {
+      "price": "24000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ffa00c67f06f7c0fcb1"
+    },
+    "num": 853,
+    "song_title": "In The Club",
+    "song_artist": "2NE1",
+    "2021-07-06": {
+      "price": "18900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ffa00c67f06f7c0fcb2"
+    },
+    "num": 854,
+    "song_title": "HANDS UP",
+    "song_artist": "BIGBANG",
+    "2021-07-06": {
+      "price": "17300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ffb00c67f06f7c0fcb3"
+    },
+    "num": 855,
+    "song_title": "Lonely",
+    "song_artist": "2NE1",
+    "2021-07-06": {
+      "price": "21400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ffb00c67f06f7c0fcb4"
+    },
+    "num": 857,
+    "song_title": "Don't Stop The Music",
+    "song_artist": "2NE1",
+    "2021-07-06": {
+      "price": "14900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ffc00c67f06f7c0fcb5"
+    },
+    "num": 858,
+    "song_title": "\uc9c0\ubabb\ubbf8",
+    "song_artist": "iKON",
+    "2021-07-06": {
+      "price": "21600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ffd00c67f06f7c0fcb6"
+    },
+    "num": 859,
+    "song_title": "\ube68\ub9ac \uc804\ud654\ud574",
+    "song_artist": "MOBB",
+    "2021-07-06": {
+      "price": "12200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ffd00c67f06f7c0fcb7"
+    },
+    "num": 861,
+    "song_title": "Make Love",
+    "song_artist": "\ud0dc\uc591",
+    "2021-07-06": {
+      "price": "10500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ffe00c67f06f7c0fcb8"
+    },
+    "num": 863,
+    "song_title": "Stay Together",
+    "song_artist": "2NE1",
+    "2021-07-06": {
+      "price": "12300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ffe00c67f06f7c0fcb9"
+    },
+    "num": 864,
+    "song_title": "\uc545\ubabd",
+    "song_artist": "G-DRAGON",
+    "2021-07-06": {
+      "price": "11300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31ffe00c67f06f7c0fcba"
+    },
+    "num": 865,
+    "song_title": "\ucc29\ud55c \uc0ac\ub78c",
+    "song_artist": "BIGBANG",
+    "2021-07-06": {
+      "price": "10800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fff00c67f06f7c0fcbb"
+    },
+    "num": 866,
+    "song_title": "\ub178\ub798",
+    "song_artist": "Zion.T",
+    "2021-07-06": {
+      "price": "25200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e31fff00c67f06f7c0fcbc"
+    },
+    "num": 868,
+    "song_title": "\uc544\ub984\ub2e4\uc6cc",
+    "song_artist": "C JAMM",
+    "2021-07-06": {
+      "price": "10100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200000c67f06f7c0fcbd"
+    },
+    "num": 869,
+    "song_title": "\uadf8\ub300\uac00 \ub0b4 \uc548\uc5d0 \ubc15\ud614\ub2e4",
+    "song_artist": "\ud669\uce58\uc5f4",
+    "2021-07-06": {
+      "price": "25100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200000c67f06f7c0fcbe"
+    },
+    "num": 871,
+    "song_title": "\uc5bc\uc74c\uaf43",
+    "song_artist": "\uc5d0\uc77c\ub9ac",
+    "2021-07-06": {
+      "price": "17300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200100c67f06f7c0fcbf"
+    },
+    "num": 872,
+    "song_title": "\ubc24\uc774 \ub450\ub824\uc6cc\uc9c4 \uac74",
+    "song_artist": "\uc815\ub3d9\ud558",
+    "2021-07-06": {
+      "price": "17600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200100c67f06f7c0fcc0"
+    },
+    "num": 873,
+    "song_title": "\uc27c\ud45c",
+    "song_artist": "\ud64d\ub300\uad11",
+    "2021-07-06": {
+      "price": "18500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200200c67f06f7c0fcc1"
+    },
+    "num": 874,
+    "song_title": "\uc0ac\ub791\ud588\ub2e4 \ubbf8\uc6cc\ud588\ub2e4",
+    "song_artist": "\ud669\uce58\uc5f4",
+    "2021-07-06": {
+      "price": "31900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200200c67f06f7c0fcc2"
+    },
+    "num": 875,
+    "song_title": "\ud0a4\ub2e4\ub9ac \uc544\uc800\uc528",
+    "song_artist": "\ubc31\uc544\uc5f0",
+    "2021-07-06": {
+      "price": "11500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200300c67f06f7c0fcc3"
+    },
+    "num": 877,
+    "song_title": "SO CURIOUS",
+    "song_artist": "IZ*ONE",
+    "2021-07-06": {
+      "price": "18100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200300c67f06f7c0fcc4"
+    },
+    "num": 878,
+    "song_title": "\uadf8\ub300",
+    "song_artist": "\ud669\uce58\uc5f4",
+    "2021-07-06": {
+      "price": "17800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200400c67f06f7c0fcc5"
+    },
+    "num": 879,
+    "song_title": "TONIGHT",
+    "song_artist": "BIGBANG",
+    "2021-07-06": {
+      "price": "31700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200400c67f06f7c0fcc6"
+    },
+    "num": 880,
+    "song_title": "\uc5b4\ub9b0\uc560",
+    "song_artist": "NATURE",
+    "2021-07-06": {
+      "price": "30400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200400c67f06f7c0fcc7"
+    },
+    "num": 881,
+    "song_title": "\uacf5\uc77c\uacf5",
+    "song_artist": "\uc774\uc6b0",
+    "2021-07-06": {
+      "price": "24400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200500c67f06f7c0fcc8"
+    },
+    "num": 883,
+    "song_title": "\ube14\ub8e8\uba54\uc774\uc988",
+    "song_artist": "\ud558\uc131\uc6b4",
+    "2021-07-06": {
+      "price": "17600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200500c67f06f7c0fcc9"
+    },
+    "num": 884,
+    "song_title": "ECLIPSE",
+    "song_artist": "GOT7",
+    "2021-07-06": {
+      "price": "9600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200600c67f06f7c0fcca"
+    },
+    "num": 885,
+    "song_title": "\ud654\ub4f1",
+    "song_artist": "\uae40\uc218\ud76c",
+    "2021-07-06": {
+      "price": "21600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200600c67f06f7c0fccb"
+    },
+    "num": 886,
+    "song_title": "Must Have Love",
+    "song_artist": "\uac00\uc778",
+    "2021-07-06": {
+      "price": "29000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200700c67f06f7c0fccc"
+    },
+    "num": 887,
+    "song_title": "\uc5f4\ub450 \uc2dc\uac00 \ub418\uba74",
+    "song_artist": "\uac00\uc778",
+    "2021-07-06": {
+      "price": "31500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200700c67f06f7c0fccd"
+    },
+    "num": 888,
+    "song_title": "\ucc98\uc74c \ubcf4\ub294 \ub098",
+    "song_artist": "Steady",
+    "2021-07-06": {
+      "price": "61500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200800c67f06f7c0fcce"
+    },
+    "num": 889,
+    "song_title": "\ubbf8\uc2a4\ud130\ub9ac",
+    "song_artist": "\ubc15\uc9c0\uc724",
+    "2021-07-06": {
+      "price": "33900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200800c67f06f7c0fccf"
+    },
+    "num": 890,
+    "song_title": "\uaf43\uc78e\uc810",
+    "song_artist": "PERC%NT",
+    "2021-07-06": {
+      "price": "42600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200900c67f06f7c0fcd0"
+    },
+    "num": 891,
+    "song_title": "Awoo",
+    "song_artist": "Lim Kim",
+    "2021-07-06": {
+      "price": "16100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200900c67f06f7c0fcd1"
+    },
+    "num": 892,
+    "song_title": "HONEY BEE",
+    "song_artist": "\ub8e8\ub098",
+    "2021-07-06": {
+      "price": "19300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200a00c67f06f7c0fcd2"
+    },
+    "num": 893,
+    "song_title": "\ub108\ub97c \uc0ac\ub791\ud558\uc9c4 \uc54a\uc544",
+    "song_artist": "\uc790\uc774\uc5b8\ud2b8\ud551\ud06c",
+    "2021-07-06": {
+      "price": "26600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200a00c67f06f7c0fcd3"
+    },
+    "num": 894,
+    "song_title": "\ubc14\ub78c\uc544",
+    "song_artist": "Lim Kim",
+    "2021-07-06": {
+      "price": "16100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200a00c67f06f7c0fcd4"
+    },
+    "num": 895,
+    "song_title": "\uc54c\uba74 \ub2e4\uccd0",
+    "song_artist": "Lim Kim",
+    "2021-07-06": {
+      "price": "11000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200b00c67f06f7c0fcd5"
+    },
+    "num": 896,
+    "song_title": "No more",
+    "song_artist": "Lim Kim",
+    "2021-07-06": {
+      "price": "12400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200b00c67f06f7c0fcd6"
+    },
+    "num": 897,
+    "song_title": "\uc798 \uc9c0\ub0b4",
+    "song_artist": "\uc790\uc774\uc5b8\ud2b8\ud551\ud06c",
+    "2021-07-06": {
+      "price": "20000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200c00c67f06f7c0fcd7"
+    },
+    "num": 898,
+    "song_title": "\uba3c\uc800 \ub9d0\ud574",
+    "song_artist": "Lim Kim",
+    "2021-07-06": {
+      "price": "9200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200c00c67f06f7c0fcd8"
+    },
+    "num": 899,
+    "song_title": "Upgrader",
+    "song_artist": "Lim Kim",
+    "2021-07-06": {
+      "price": "9800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200d00c67f06f7c0fcd9"
+    },
+    "num": 900,
+    "song_title": "\uc885\uc774\uc0c8",
+    "song_artist": "Lim Kim",
+    "2021-07-06": {
+      "price": "12700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200d00c67f06f7c0fcda"
+    },
+    "num": 901,
+    "song_title": "\ubaa9\uaca9\uc790",
+    "song_artist": "\ubc15\uc9c0\uc724",
+    "2021-07-06": {
+      "price": "37000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200e00c67f06f7c0fcdb"
+    },
+    "num": 902,
+    "song_title": "\uc606\uc5d0\ub3c4 \ub208\uc774 \ub2ec\ub838\uc5b4",
+    "song_artist": "\uc724\uc9c0\uc131",
+    "2021-07-06": {
+      "price": "8800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200e00c67f06f7c0fcdc"
+    },
+    "num": 903,
+    "song_title": "\uc6b0\ub9ac\uc758 \uc598\uae30\ub97c \uc4f0\uaca0\uc18c",
+    "song_artist": "SG \uc6cc\ub108\ube44",
+    "2021-07-06": {
+      "price": "27100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200f00c67f06f7c0fcdd"
+    },
+    "num": 904,
+    "song_title": "\ud30c\ub77c\ub2e4\uc774\uc2a4",
+    "song_artist": "\uae40\uc7ac\ud658",
+    "2021-07-06": {
+      "price": "21600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200f00c67f06f7c0fcde"
+    },
+    "num": 905,
+    "song_title": "\uadc0\uc21c",
+    "song_artist": "\ub300\uc131",
+    "2021-07-06": {
+      "price": "27400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3200f00c67f06f7c0fcdf"
+    },
+    "num": 906,
+    "song_title": "2U",
+    "song_artist": "\uac15\ub2e4\ub2c8\uc5d8",
+    "2021-07-06": {
+      "price": "51800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201100c67f06f7c0fce0"
+    },
+    "num": 907,
+    "song_title": "RUN AWAY",
+    "song_artist": "GOT7",
+    "2021-07-06": {
+      "price": "12200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201200c67f06f7c0fce1"
+    },
+    "num": 909,
+    "song_title": "\uc544\ubbf8\uac00\ub974 \ub808\uc2a4\ud1a0\ub791",
+    "song_artist": "\uc384\uc384\uc384",
+    "2021-07-06": {
+      "price": "23000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201200c67f06f7c0fce2"
+    },
+    "num": 910,
+    "song_title": "\uc624.\uaf2d.\ub9d0",
+    "song_artist": "\ud558\uc131\uc6b4",
+    "2021-07-06": {
+      "price": "13800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201300c67f06f7c0fce3"
+    },
+    "num": 911,
+    "song_title": "\uc800\uae30\uc694",
+    "song_artist": "\ud558\uc131\uc6b4",
+    "2021-07-06": {
+      "price": "13700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201300c67f06f7c0fce4"
+    },
+    "num": 913,
+    "song_title": "\uc0c8\ubcbd \uac00\ub85c\uc218\uae38",
+    "song_artist": "\ubc31\uc9c0\uc601",
+    "2021-07-06": {
+      "price": "26800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201400c67f06f7c0fce5"
+    },
+    "num": 914,
+    "song_title": "\ud638\ub791\ub098\ube44",
+    "song_artist": "\ubcf4\uc774\ube44",
+    "2021-07-06": {
+      "price": "14000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201400c67f06f7c0fce6"
+    },
+    "num": 915,
+    "song_title": "\uc624\ube60\ub9cc \ubbff\uc5b4",
+    "song_artist": "\ubc15\ud604\ube48",
+    "2021-07-06": {
+      "price": "30000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201500c67f06f7c0fce7"
+    },
+    "num": 916,
+    "song_title": "\ub0b4 \ub208\ubb3c\uc774 \ud558\ub294 \ub9d0",
+    "song_artist": "\uacac\uc6b0",
+    "2021-07-06": {
+      "price": "19500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201500c67f06f7c0fce8"
+    },
+    "num": 917,
+    "song_title": "Kiss Me",
+    "song_artist": "\uc0f5",
+    "2021-07-06": {
+      "price": "18700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201500c67f06f7c0fce9"
+    },
+    "num": 918,
+    "song_title": "\uc790\uafb8 \uc790\uafb8",
+    "song_artist": "\uc77c\uae30\uc608\ubcf4",
+    "2021-07-06": {
+      "price": "13500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201600c67f06f7c0fcea"
+    },
+    "num": 919,
+    "song_title": "\uc138\uc0c1 \ub2e8 \ud55c\ubc88\uc758 \uc0ac\ub791",
+    "song_artist": "\ud558\ub3d9\uade0",
+    "2021-07-06": {
+      "price": "13300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201600c67f06f7c0fceb"
+    },
+    "num": 920,
+    "song_title": "\ud1f4\uadfc\ubc84\uc2a4",
+    "song_artist": "\uc774\uc900\ud638",
+    "2021-07-06": {
+      "price": "25500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201700c67f06f7c0fcec"
+    },
+    "num": 922,
+    "song_title": "Perhaps Love",
+    "song_artist": "\uc5d0\ub9ad\ub0a8",
+    "2021-07-06": {
+      "price": "61500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201700c67f06f7c0fced"
+    },
+    "num": 923,
+    "song_title": "\uc624\ub298 \ubaa8\ud574",
+    "song_artist": "IKON",
+    "2021-07-06": {
+      "price": "18200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201800c67f06f7c0fcee"
+    },
+    "num": 925,
+    "song_title": "ONE&ONLY",
+    "song_artist": "ASTRO",
+    "2021-07-06": {
+      "price": "11400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201800c67f06f7c0fcef"
+    },
+    "num": 926,
+    "song_title": "\ud640\ub85c \ub41c\ub2e4\ub294 \uac83",
+    "song_artist": "\ubcc0\uc9c4\uc12d",
+    "2021-07-06": {
+      "price": "31000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201900c67f06f7c0fcf0"
+    },
+    "num": 932,
+    "song_title": "\ub108\ub97c \ubcf4\ub0b4\uba70",
+    "song_artist": "\uc81d\uc2a4\ud0a4\uc2a4",
+    "2021-07-06": {
+      "price": "13000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201900c67f06f7c0fcf1"
+    },
+    "num": 934,
+    "song_title": "Say",
+    "song_artist": "\uc81d\uc2a4\ud0a4\uc2a4",
+    "2021-07-06": {
+      "price": "10200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201900c67f06f7c0fcf2"
+    },
+    "num": 936,
+    "song_title": "\ub108 \uc5c6\uc778 \uc548\ub41c\ub2e4",
+    "song_artist": "\ube44\ud22c\ube44",
+    "2021-07-06": {
+      "price": "18600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201a00c67f06f7c0fcf3"
+    },
+    "num": 938,
+    "song_title": "Love Rain",
+    "song_artist": "\uc720\uc8fc",
+    "2021-07-06": {
+      "price": "18200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201a00c67f06f7c0fcf4"
+    },
+    "num": 947,
+    "song_title": "\ubd88\uaf43\ucc98\ub7fc",
+    "song_artist": "JBJ95",
+    "2021-07-06": {
+      "price": "21500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201b00c67f06f7c0fcf5"
+    },
+    "num": 948,
+    "song_title": "\uadf8\ub9ac\uc6cc\ud558\ub2e4",
+    "song_artist": "\ube44\ud22c\ube44",
+    "2021-07-06": {
+      "price": "31500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201b00c67f06f7c0fcf6"
+    },
+    "num": 949,
+    "song_title": "\ubcf4\ub984\ub2ec",
+    "song_artist": "\uc120\ubbf8",
+    "2021-07-06": {
+      "price": "37900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201c00c67f06f7c0fcf7"
+    },
+    "num": 950,
+    "song_title": "\uc2ec\ucff5\ud574",
+    "song_artist": "AOA",
+    "2021-07-06": {
+      "price": "27200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201c00c67f06f7c0fcf8"
+    },
+    "num": 951,
+    "song_title": "Ice Cream",
+    "song_artist": "\ud604\uc544",
+    "2021-07-06": {
+      "price": "20900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201d00c67f06f7c0fcf9"
+    },
+    "num": 952,
+    "song_title": "\uae34 \uc0dd\uba38\ub9ac \uadf8\ub140",
+    "song_artist": "\ud2f4\ud0d1",
+    "2021-07-06": {
+      "price": "29300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201d00c67f06f7c0fcfa"
+    },
+    "num": 953,
+    "song_title": "After Party",
+    "song_artist": "\uae40\uc7ac\ud658",
+    "2021-07-06": {
+      "price": "13500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201e00c67f06f7c0fcfb"
+    },
+    "num": 954,
+    "song_title": "Dream Girls",
+    "song_artist": "\uc544\uc774\uc624\uc544\uc774",
+    "2021-07-06": {
+      "price": "25600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201e00c67f06f7c0fcfc"
+    },
+    "num": 955,
+    "song_title": "\uc5b4\uca4c\ub2e4",
+    "song_artist": "\ube0c\ub77c\uc6b4\uc544\uc774\ub4dc\uac78\uc2a4",
+    "2021-07-06": {
+      "price": "29500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201f00c67f06f7c0fcfd"
+    },
+    "num": 956,
+    "song_title": "\uc774\ub984\uc774 \ubb50\uc608\uc694?",
+    "song_artist": "4minute",
+    "2021-07-06": {
+      "price": "25300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3201f00c67f06f7c0fcfe"
+    },
+    "num": 957,
+    "song_title": "Lonely Night",
+    "song_artist": "\ud558\uc131\uc6b4",
+    "2021-07-06": {
+      "price": "13600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202000c67f06f7c0fcff"
+    },
+    "num": 958,
+    "song_title": "\uc78a\uc9c0\ub9c8\uc694",
+    "song_artist": "\ud558\uc131\uc6b4",
+    "2021-07-06": {
+      "price": "19000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202000c67f06f7c0fd00"
+    },
+    "num": 959,
+    "song_title": "\ubb38\ub4dd",
+    "song_artist": "\ud558\uc131\uc6b4",
+    "2021-07-06": {
+      "price": "16400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202000c67f06f7c0fd01"
+    },
+    "num": 961,
+    "song_title": "\uc220 \ud55c\uc794 \ud574\uc694",
+    "song_artist": "\uc9c0\uc544",
+    "2021-07-06": {
+      "price": "39100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202100c67f06f7c0fd02"
+    },
+    "num": 962,
+    "song_title": "\uc0ac\ub791\uc740 \uc5b8\uc81c\ub098 \ubaa9\ub9c8\ub974\ub2e4",
+    "song_artist": "\uc720\ubbf8",
+    "2021-07-06": {
+      "price": "32500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202100c67f06f7c0fd03"
+    },
+    "num": 963,
+    "song_title": "\uadf8\ub0a8\uc790",
+    "song_artist": "\ud604\ube48",
+    "2021-07-06": {
+      "price": "17000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202200c67f06f7c0fd04"
+    },
+    "num": 964,
+    "song_title": "\ubc14\ubcf4\uc5d0\uac8c... \ubc14\ubcf4\uac00",
+    "song_artist": "\ubc15\uba85\uc218",
+    "2021-07-06": {
+      "price": "17600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202200c67f06f7c0fd05"
+    },
+    "num": 965,
+    "song_title": "\uadf8\uc5ec\uc790",
+    "song_artist": "\ubc31\uc9c0\uc601",
+    "2021-07-06": {
+      "price": "36400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202300c67f06f7c0fd06"
+    },
+    "num": 966,
+    "song_title": "\ubcc4\uc774 \ube5b\ub098\ub294 \ubc24\uc5d0",
+    "song_artist": "\uc6d0\ud22c",
+    "2021-07-06": {
+      "price": "16500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202300c67f06f7c0fd07"
+    },
+    "num": 967,
+    "song_title": "\ubd04",
+    "song_artist": "\ubc15\ubd04",
+    "2021-07-06": {
+      "price": "20700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202400c67f06f7c0fd08"
+    },
+    "num": 968,
+    "song_title": "Ma Boy",
+    "song_artist": "\uc528\uc2a4\ud0c019",
+    "2021-07-06": {
+      "price": "29200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202500c67f06f7c0fd09"
+    },
+    "num": 969,
+    "song_title": "\uac00\uc2dd\uac78",
+    "song_artist": "\uc528\uc2a4\ud0c0",
+    "2021-07-06": {
+      "price": "21500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202500c67f06f7c0fd0a"
+    },
+    "num": 970,
+    "song_title": "\uc815\uc2e0\uc774 \ub098\uac14\uc5c8\ub098\ubd10",
+    "song_artist": "\uc774\uc2b9\uae30",
+    "2021-07-06": {
+      "price": "24500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202600c67f06f7c0fd0b"
+    },
+    "num": 971,
+    "song_title": "\ub9cc\ub9cc\ud558\ub2c8",
+    "song_artist": "\uc720\ud0a4\uc2a4",
+    "2021-07-06": {
+      "price": "24400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202600c67f06f7c0fd0c"
+    },
+    "num": 973,
+    "song_title": "\uac70\uc9d3\ub9d0",
+    "song_artist": "BIGBANG",
+    "2021-07-06": {
+      "price": "49000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202600c67f06f7c0fd0d"
+    },
+    "num": 974,
+    "song_title": "\ub77c\ubc24\ubc14",
+    "song_artist": "\uc815\ubbf8\uc560",
+    "2021-07-06": {
+      "price": "15500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202700c67f06f7c0fd0e"
+    },
+    "num": 976,
+    "song_title": "\ud5e4\uc5b4\uc84c\ub2e4 \ub9cc\ub0ac\ub2e4",
+    "song_artist": "\ub2e4\ube44\uce58",
+    "2021-07-06": {
+      "price": "19100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202700c67f06f7c0fd0f"
+    },
+    "num": 977,
+    "song_title": "\uc77c\uae30\uc7a5",
+    "song_artist": "\uc774\uc2b9\ucca0",
+    "2021-07-06": {
+      "price": "14700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202800c67f06f7c0fd10"
+    },
+    "num": 978,
+    "song_title": "\ud558\ub298\uc704\ub85c",
+    "song_artist": "\ub809\uc2dc",
+    "2021-07-06": {
+      "price": "20500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202800c67f06f7c0fd11"
+    },
+    "num": 979,
+    "song_title": "Very Good",
+    "song_artist": "\uc6d0\ud22c",
+    "2021-07-06": {
+      "price": "11700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202900c67f06f7c0fd12"
+    },
+    "num": 980,
+    "song_title": "\ubc14\ub78c\ud544\ub798",
+    "song_artist": "\uc870\uc131\ubaa8",
+    "2021-07-06": {
+      "price": "11700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202900c67f06f7c0fd13"
+    },
+    "num": 981,
+    "song_title": "\uc785\uc220\uc790\uad6d",
+    "song_artist": "F-ve Dolls",
+    "2021-07-06": {
+      "price": "12000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202a00c67f06f7c0fd14"
+    },
+    "num": 982,
+    "song_title": "\uc751\uae09\uc2e4",
+    "song_artist": "izi",
+    "2021-07-06": {
+      "price": "64900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202a00c67f06f7c0fd15"
+    },
+    "num": 983,
+    "song_title": "\ubd04 \uac19\ub358 \uadf8\ub140\uac00 \ucda5\ub300",
+    "song_artist": "\uae40\uc7ac\ud658",
+    "2021-07-06": {
+      "price": "33000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202a00c67f06f7c0fd16"
+    },
+    "num": 987,
+    "song_title": "\ubbf8\ucce4\uc5b4",
+    "song_artist": "\uc190\ub2f4\ube44",
+    "2021-07-06": {
+      "price": "25700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202b00c67f06f7c0fd17"
+    },
+    "num": 988,
+    "song_title": "\ud22c\uac8c\ub354",
+    "song_artist": "DJ DOC",
+    "2021-07-06": {
+      "price": "15400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202b00c67f06f7c0fd18"
+    },
+    "num": 989,
+    "song_title": "\ud6c4\uc720\uc99d",
+    "song_artist": "\uc81c\uad6d\uc758\uc544\uc774\ub4e4",
+    "2021-07-06": {
+      "price": "41000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202c00c67f06f7c0fd19"
+    },
+    "num": 990,
+    "song_title": "\uc0ac\ub791\ud569\ub2c8\ub2e4",
+    "song_artist": "\ud300",
+    "2021-07-06": {
+      "price": "47500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202c00c67f06f7c0fd1a"
+    },
+    "num": 991,
+    "song_title": "\ucd94\uc5b5\uc18d\uc758 \uadf8\ub300",
+    "song_artist": "\uc774\uc2b9\uae30",
+    "2021-07-06": {
+      "price": "30700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202d00c67f06f7c0fd1b"
+    },
+    "num": 992,
+    "song_title": "\uc785\uc601\uc5f4\ucc28\uc548\uc5d0\uc11c",
+    "song_artist": "\uae40\ubbfc\uc6b0",
+    "2021-07-06": {
+      "price": "22200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202d00c67f06f7c0fd1c"
+    },
+    "num": 993,
+    "song_title": "\ubc18\uc9dd\ubc18\uc9dd",
+    "song_artist": "\uac78\uc2a4\ub370\uc774",
+    "2021-07-06": {
+      "price": "26200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202e00c67f06f7c0fd1d"
+    },
+    "num": 994,
+    "song_title": "\ud55c\ubc88\ub9cc \uc548\uc544\uc918",
+    "song_artist": "\uac78\uc2a4\ub370\uc774",
+    "2021-07-06": {
+      "price": "20700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202e00c67f06f7c0fd1e"
+    },
+    "num": 995,
+    "song_title": "\ud55c\ub208 \ud314\uc9c0\ub9c8!",
+    "song_artist": "\uac78\uc2a4\ub370\uc774",
+    "2021-07-06": {
+      "price": "14000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202f00c67f06f7c0fd1f"
+    },
+    "num": 996,
+    "song_title": "\ub098\ub97c \uc78a\uc9c0\ub9c8\uc694",
+    "song_artist": "\uac78\uc2a4\ub370\uc774",
+    "2021-07-06": {
+      "price": "15400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202f00c67f06f7c0fd20"
+    },
+    "num": 997,
+    "song_title": "\uae30\ub300\ud574",
+    "song_artist": "\uac78\uc2a4\ub370\uc774",
+    "2021-07-06": {
+      "price": "23000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3202f00c67f06f7c0fd21"
+    },
+    "num": 998,
+    "song_title": "\uc5ec\uc790 \ub300\ud1b5\ub839",
+    "song_artist": "\uac78\uc2a4\ub370\uc774",
+    "2021-07-06": {
+      "price": "14900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203000c67f06f7c0fd22"
+    },
+    "num": 1000,
+    "song_title": "\ubc18\uc9c0\ud558\ub098",
+    "song_artist": "\ud61c\ub839",
+    "2021-07-06": {
+      "price": "33900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203000c67f06f7c0fd23"
+    },
+    "num": 1001,
+    "song_title": "\uc778\uae30",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "37200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203100c67f06f7c0fd24"
+    },
+    "num": 1005,
+    "song_title": "\uc9c8\ud22c\ub098",
+    "song_artist": "\uac70\ubbf8",
+    "2021-07-06": {
+      "price": "22700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203100c67f06f7c0fd25"
+    },
+    "num": 1006,
+    "song_title": "\uad1c\ucc2e\uc744\uae4c",
+    "song_artist": "\ubc15\ubcf4\ub78c",
+    "2021-07-06": {
+      "price": "8500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203200c67f06f7c0fd26"
+    },
+    "num": 1007,
+    "song_title": "\ub10c is \ubb54\ub4e4",
+    "song_artist": "\ub9c8\ub9c8\ubb34",
+    "2021-07-06": {
+      "price": "100000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203200c67f06f7c0fd27"
+    },
+    "num": 1008,
+    "song_title": "\ucc3d\ud53c\ud574",
+    "song_artist": "\ubc15\ubd04",
+    "2021-07-06": {
+      "price": "9300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203300c67f06f7c0fd28"
+    },
+    "num": 1010,
+    "song_title": "\uc7a5\ub09c\uc544\ub0d0",
+    "song_artist": "\ud2f4\ud0d1",
+    "2021-07-06": {
+      "price": "40700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203300c67f06f7c0fd29"
+    },
+    "num": 1011,
+    "song_title": "Beverly 1lls",
+    "song_artist": "\uc218\ud37c\ube44",
+    "2021-07-06": {
+      "price": "20600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203400c67f06f7c0fd2a"
+    },
+    "num": 1012,
+    "song_title": "\uc9e7\uc740 \uce58\ub9c8",
+    "song_artist": "AOA",
+    "2021-07-06": {
+      "price": "34600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203400c67f06f7c0fd2b"
+    },
+    "num": 1013,
+    "song_title": "\uc6b8\uc5b4",
+    "song_artist": "V.O.S",
+    "2021-07-06": {
+      "price": "29000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203400c67f06f7c0fd2c"
+    },
+    "num": 1014,
+    "song_title": "EVERYDAY I LOVE YOU",
+    "song_artist": "\uc774\ub2ec\uc758\uc18c\ub140",
+    "2021-07-06": {
+      "price": "24100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203500c67f06f7c0fd2d"
+    },
+    "num": 1015,
+    "song_title": "\ud769\uc5b4\uc838",
+    "song_artist": "\uba3c\ub370\uc774 \ud0a4\uc988",
+    "2021-07-06": {
+      "price": "20800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203500c67f06f7c0fd2e"
+    },
+    "num": 1016,
+    "song_title": "Boo",
+    "song_artist": "\uc544\uc774\uc720",
+    "2021-07-06": {
+      "price": "74900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203600c67f06f7c0fd2f"
+    },
+    "num": 1017,
+    "song_title": "\ud589\ubcf5\ud574",
+    "song_artist": "\uc560\uc988\uc6d0",
+    "2021-07-06": {
+      "price": "12800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203600c67f06f7c0fd30"
+    },
+    "num": 1018,
+    "song_title": "Peek-A-Boo",
+    "song_artist": "\ubc15\uaddc\ub9ac",
+    "2021-07-06": {
+      "price": "11600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203700c67f06f7c0fd31"
+    },
+    "num": 1019,
+    "song_title": "\ubd88\uace0...",
+    "song_artist": "\uc9c0\uc544",
+    "2021-07-06": {
+      "price": "12600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203700c67f06f7c0fd32"
+    },
+    "num": 1020,
+    "song_title": "Angel Song",
+    "song_artist": "\uc5d0\uc774\ud504\ub9b4",
+    "2021-07-06": {
+      "price": "12400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203800c67f06f7c0fd33"
+    },
+    "num": 1021,
+    "song_title": "Mad",
+    "song_artist": "\ubc14\ub2e4",
+    "2021-07-06": {
+      "price": "16100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203900c67f06f7c0fd34"
+    },
+    "num": 1023,
+    "song_title": "\uc788\ub2e4 \uc5c6\uc73c\ub2c8\uae4c",
+    "song_artist": "\uc528\uc2a4\ud0c019",
+    "2021-07-06": {
+      "price": "36100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203a00c67f06f7c0fd35"
+    },
+    "num": 1024,
+    "song_title": "\ub6f0\ub6f0\ube75\ube75",
+    "song_artist": "\ube44\ud22c\ube44",
+    "2021-07-06": {
+      "price": "23400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203a00c67f06f7c0fd36"
+    },
+    "num": 1025,
+    "song_title": "4\uc2dc 44\ubd84",
+    "song_artist": "\ubc15\ubd04",
+    "2021-07-06": {
+      "price": "16700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203b00c67f06f7c0fd37"
+    },
+    "num": 1026,
+    "song_title": "\ub208\ubb3c\uc774 \uc8fc\ub974\ub975",
+    "song_artist": "\uc190\ub2f4\ube44",
+    "2021-07-06": {
+      "price": "22100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203b00c67f06f7c0fd38"
+    },
+    "num": 1027,
+    "song_title": "\ube59\uae00\ube59\uae00",
+    "song_artist": "\uc720\ud0a4\uc2a4",
+    "2021-07-06": {
+      "price": "20500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203c00c67f06f7c0fd39"
+    },
+    "num": 1029,
+    "song_title": "Flower",
+    "song_artist": "\uc724\ubbf8\ub798",
+    "2021-07-06": {
+      "price": "74000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203c00c67f06f7c0fd3a"
+    },
+    "num": 1031,
+    "song_title": "\uc5ec\uae30",
+    "song_artist": "\ubc31\uc608\ub9b0",
+    "2021-07-06": {
+      "price": "64200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203d00c67f06f7c0fd3b"
+    },
+    "num": 1032,
+    "song_title": "\ub0b4 \ub9c8\uc74c\uc758 \uc0ac\uc9c4",
+    "song_artist": "\uc1a1\uac00\uc778",
+    "2021-07-06": {
+      "price": "82600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203d00c67f06f7c0fd3c"
+    },
+    "num": 1035,
+    "song_title": "\uc624\ub298 \ubb50\ud574?!",
+    "song_artist": "\ud558\uc131\uc6b4",
+    "2021-07-06": {
+      "price": "13600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203e00c67f06f7c0fd3d"
+    },
+    "num": 1038,
+    "song_title": "\uc5ec\uae30\uc694",
+    "song_artist": "\ud64d\uc790",
+    "2021-07-06": {
+      "price": "22800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203e00c67f06f7c0fd3e"
+    },
+    "num": 1039,
+    "song_title": "Starry Night",
+    "song_artist": "\ubaa8\ubaa8\ub79c\ub4dc",
+    "2021-07-06": {
+      "price": "32400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203f00c67f06f7c0fd3f"
+    },
+    "num": 1041,
+    "song_title": "\ucd94\uc5b5\uc740 \ub208\uaf43\ucc98\ub7fc",
+    "song_artist": "\uac15\uc218\uc9c0",
+    "2021-07-06": {
+      "price": "15200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3203f00c67f06f7c0fd40"
+    },
+    "num": 1042,
+    "song_title": "\ud6d4\uccd0",
+    "song_artist": "Dok2",
+    "2021-07-06": {
+      "price": "19700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204000c67f06f7c0fd41"
+    },
+    "num": 1043,
+    "song_title": "Diva",
+    "song_artist": "\uc560\ud504\ud130\uc2a4\ucfe8",
+    "2021-07-06": {
+      "price": "37500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204000c67f06f7c0fd42"
+    },
+    "num": 1044,
+    "song_title": "\uc2ac\ud514\uc744 \ucc38\ub294 \uc138\uac00\uc9c0 \ubc29\ubc95",
+    "song_artist": "\ud61c\ub839",
+    "2021-07-06": {
+      "price": "58000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204100c67f06f7c0fd43"
+    },
+    "num": 1045,
+    "song_title": "\uc378\ub370\uc774",
+    "song_artist": "The One",
+    "2021-07-06": {
+      "price": "22500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204100c67f06f7c0fd44"
+    },
+    "num": 1046,
+    "song_title": "SEDANSOGU",
+    "song_artist": "\uc218\ud638",
+    "2021-07-06": {
+      "price": "25600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204200c67f06f7c0fd45"
+    },
+    "num": 1047,
+    "song_title": "\ucd9c",
+    "song_artist": "\ub9ac\uc0ac",
+    "2021-07-06": {
+      "price": "16600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204200c67f06f7c0fd46"
+    },
+    "num": 1048,
+    "song_title": "\ud3b8\ud55c \uc0ac\ub78c\uc774 \uc0dd\uacbc\uc5b4",
+    "song_artist": "\uc77c\ub77d",
+    "2021-07-06": {
+      "price": "17200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204200c67f06f7c0fd47"
+    },
+    "num": 1049,
+    "song_title": "Mazeltov",
+    "song_artist": "\uc81c\uad6d\uc758\uc544\uc774\ub4e4",
+    "2021-07-06": {
+      "price": "17400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204300c67f06f7c0fd48"
+    },
+    "num": 1050,
+    "song_title": "But I Love U",
+    "song_artist": "BIGBANG",
+    "2021-07-06": {
+      "price": "13100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204300c67f06f7c0fd49"
+    },
+    "num": 1053,
+    "song_title": "\uadf8\ub140\uc5d0\uac8c",
+    "song_artist": "\uc720\uc5d4",
+    "2021-07-06": {
+      "price": "17400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204400c67f06f7c0fd4a"
+    },
+    "num": 1054,
+    "song_title": "\ub208\ubb3c \ub0b4\ub9ac\ub294 \ub0a0",
+    "song_artist": "\uc870 \ud2b8\ub9ac\uc624",
+    "2021-07-06": {
+      "price": "17500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204400c67f06f7c0fd4b"
+    },
+    "num": 1055,
+    "song_title": "\ub178\ub294 \uac8c \uc81c\uc77c \uc88b\uc544",
+    "song_artist": "\ub8e8\ub098\uc194\ub77c",
+    "2021-07-06": {
+      "price": "20000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204500c67f06f7c0fd4c"
+    },
+    "num": 1056,
+    "song_title": "\uc0ac\ubfd0\uc0ac\ubfd0",
+    "song_artist": "AOA",
+    "2021-07-06": {
+      "price": "26400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204500c67f06f7c0fd4d"
+    },
+    "num": 1058,
+    "song_title": "\ub09c\ub9d0\uc57c",
+    "song_artist": "UNI.T",
+    "2021-07-06": {
+      "price": "14500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204600c67f06f7c0fd4e"
+    },
+    "num": 1059,
+    "song_title": "ONE",
+    "song_artist": "\uc0ac\ubb34\uc5d8",
+    "2021-07-06": {
+      "price": "8300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204600c67f06f7c0fd4f"
+    },
+    "num": 1060,
+    "song_title": "\ud558\uc774\ud790",
+    "song_artist": "\ube0c\ub808\uc774\ube0c\uac78\uc2a4",
+    "2021-07-06": {
+      "price": "170200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204600c67f06f7c0fd50"
+    },
+    "num": 1061,
+    "song_title": "\ub0b4 \uc774\ub984\uc740",
+    "song_artist": "\ud2f0\uc544\ub77c",
+    "2021-07-06": {
+      "price": "14600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204700c67f06f7c0fd51"
+    },
+    "num": 1062,
+    "song_title": "\ub9c8\uc9c0\ub9c9 \uc778\uc0ac",
+    "song_artist": "BIGBANG",
+    "2021-07-06": {
+      "price": "31900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204700c67f06f7c0fd52"
+    },
+    "num": 1063,
+    "song_title": "\uc65c\uadf8\ub798",
+    "song_artist": "\uae40\ud604\ucca0",
+    "2021-07-06": {
+      "price": "20000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204800c67f06f7c0fd53"
+    },
+    "num": 1064,
+    "song_title": "\ub864\ub9b0",
+    "song_artist": "\ube0c\ub808\uc774\ube0c\uac78\uc2a4",
+    "2021-07-06": {
+      "price": "685500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204800c67f06f7c0fd54"
+    },
+    "num": 1065,
+    "song_title": "\ub208\ubb3c\uc5d0 \uc5bc\uad74\uc744 \ubb3b\ub294\ub2e4",
+    "song_artist": "\uc7a5\ub098\ub77c",
+    "2021-07-06": {
+      "price": "12900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204900c67f06f7c0fd55"
+    },
+    "num": 1066,
+    "song_title": "I Swear",
+    "song_artist": "\uc528\uc2a4\ud0c0",
+    "2021-07-06": {
+      "price": "37000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204900c67f06f7c0fd56"
+    },
+    "num": 1067,
+    "song_title": "\uc544\ub984\ub2f5\uace0\ub3c4 \uc544\ud504\uad6c\ub098",
+    "song_artist": "\ube44\ud22c\ube44",
+    "2021-07-06": {
+      "price": "32400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204900c67f06f7c0fd57"
+    },
+    "num": 1068,
+    "song_title": "\ub0b4\uac00 \uadf8\ub9ac\uc6e0\ub2c8",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "17500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204a00c67f06f7c0fd58"
+    },
+    "num": 1069,
+    "song_title": "Lucky",
+    "song_artist": "EXO",
+    "2021-07-06": {
+      "price": "17500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204a00c67f06f7c0fd59"
+    },
+    "num": 1070,
+    "song_title": "WE LIKE 2 PARTY",
+    "song_artist": "BIGBANG",
+    "2021-07-06": {
+      "price": "27500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204b00c67f06f7c0fd5a"
+    },
+    "num": 1071,
+    "song_title": "\uc0ac\ub791\ube44",
+    "song_artist": "\uae40\ud0dc\uc6b0",
+    "2021-07-06": {
+      "price": "44000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204b00c67f06f7c0fd5b"
+    },
+    "num": 1072,
+    "song_title": "\ub0b4\uac00 \uc57c! \ud558\uba74 \ub10c \uc608!",
+    "song_artist": "\uae40\ud0dc\uc6b0",
+    "2021-07-06": {
+      "price": "18700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204c00c67f06f7c0fd5c"
+    },
+    "num": 1073,
+    "song_title": "\ud558\uace0\uc2f6\uc740 \ub9d0",
+    "song_artist": "\uae40\ud0dc\uc6b0",
+    "2021-07-06": {
+      "price": "14900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204d00c67f06f7c0fd5d"
+    },
+    "num": 1074,
+    "song_title": "\ube57\ubb3c\uc774 \ub0b4\ub824\uc11c",
+    "song_artist": "\uae40\ud0dc\uc6b0",
+    "2021-07-06": {
+      "price": "11300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204d00c67f06f7c0fd5e"
+    },
+    "num": 1075,
+    "song_title": "\uba54\uc544\ub9ac",
+    "song_artist": "\uae40\ud0dc\uc6b0",
+    "2021-07-06": {
+      "price": "11800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204e00c67f06f7c0fd5f"
+    },
+    "num": 1076,
+    "song_title": "\ud558\ub298\uc0c9 \ud48d\uc120",
+    "song_artist": "god",
+    "2021-07-06": {
+      "price": "28000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204e00c67f06f7c0fd60"
+    },
+    "num": 1077,
+    "song_title": "\uafc8\uc744 \uafb8\ub2e4",
+    "song_artist": "\uae40\ud0dc\uc6b0",
+    "2021-07-06": {
+      "price": "11800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204f00c67f06f7c0fd61"
+    },
+    "num": 1078,
+    "song_title": "\uadf8\ub300\ub77c\ub294 \ub0a0\uac1c",
+    "song_artist": "\uae40\ud0dc\uc6b0",
+    "2021-07-06": {
+      "price": "10300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204f00c67f06f7c0fd62"
+    },
+    "num": 1080,
+    "song_title": "\uc624\ub79c \ub0a0 \uc624\ub79c \ubc24",
+    "song_artist": "AKMU",
+    "2021-07-06": {
+      "price": "39800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3204f00c67f06f7c0fd63"
+    },
+    "num": 1082,
+    "song_title": "I Love You",
+    "song_artist": "AKMU",
+    "2021-07-06": {
+      "price": "30000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205000c67f06f7c0fd64"
+    },
+    "num": 1084,
+    "song_title": "Pretty",
+    "song_artist": "IZ*ONE",
+    "2021-07-06": {
+      "price": "38000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205000c67f06f7c0fd65"
+    },
+    "num": 1087,
+    "song_title": "\uc704\ub85c",
+    "song_artist": "\uae40\ubc94\uc218",
+    "2021-07-06": {
+      "price": "11500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205100c67f06f7c0fd66"
+    },
+    "num": 1088,
+    "song_title": "Give Love",
+    "song_artist": "AKMU",
+    "2021-07-06": {
+      "price": "30600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205100c67f06f7c0fd67"
+    },
+    "num": 1089,
+    "song_title": "\ud55c\uc0ac\ub78c\uc744 \uc0ac\ub791\ud558\uace0 \uc788\uc5b4",
+    "song_artist": "\ud654\uc0ac",
+    "2021-07-06": {
+      "price": "16800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205200c67f06f7c0fd68"
+    },
+    "num": 1090,
+    "song_title": "\uccb4\ub150",
+    "song_artist": "\ube45\ub9c8\ub9c8",
+    "2021-07-06": {
+      "price": "76400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205200c67f06f7c0fd69"
+    },
+    "num": 1093,
+    "song_title": "\uccb4\ub150 \u5f8c",
+    "song_artist": "\ube45\ub9c8\ub9c8",
+    "2021-07-06": {
+      "price": "24500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205200c67f06f7c0fd6a"
+    },
+    "num": 1094,
+    "song_title": "\ud63c\uc790\ub9cc \ud558\ub294 \uc0ac\ub791",
+    "song_artist": "\uac70\ubbf8",
+    "2021-07-06": {
+      "price": "20000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205300c67f06f7c0fd6b"
+    },
+    "num": 1095,
+    "song_title": "\uc798\ud560\uac8c",
+    "song_artist": "SE7EN",
+    "2021-07-06": {
+      "price": "13400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205300c67f06f7c0fd6c"
+    },
+    "num": 1097,
+    "song_title": "\uc778\uc5f0",
+    "song_artist": "\uac70\ubbf8",
+    "2021-07-06": {
+      "price": "13500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205400c67f06f7c0fd6d"
+    },
+    "num": 1098,
+    "song_title": "\uc0ac\ub791\ud574\uc11c\u2026",
+    "song_artist": "\ube45\ub9c8\ub9c8",
+    "2021-07-06": {
+      "price": "11700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205400c67f06f7c0fd6e"
+    },
+    "num": 1101,
+    "song_title": "\ubc24 \ub05d\uc5c6\ub294 \ubc24",
+    "song_artist": "AKMU",
+    "2021-07-06": {
+      "price": "81000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205500c67f06f7c0fd6f"
+    },
+    "num": 1102,
+    "song_title": "Don't Cry",
+    "song_artist": "\ub354 \ud06c\ub85c\uc2a4",
+    "2021-07-06": {
+      "price": "39300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205500c67f06f7c0fd70"
+    },
+    "num": 1103,
+    "song_title": "\ub5a0\ub098\uc9c0\ub9c8\uc694",
+    "song_artist": "\ub354 \ud06c\ub85c\uc2a4",
+    "2021-07-06": {
+      "price": "37400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205600c67f06f7c0fd71"
+    },
+    "num": 1104,
+    "song_title": "\ubc31\uc124\uacf5\uc8fc\ub97c \uc0ac\ub791\ud55c \ub09c\uc7a5\uc774",
+    "song_artist": "\ub354 \ud06c\ub85c\uc2a4",
+    "2021-07-06": {
+      "price": "30800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205600c67f06f7c0fd72"
+    },
+    "num": 1105,
+    "song_title": "\ub2f9\uc2e0\uc744 \uc704\ud558\uc5ec",
+    "song_artist": "\ub354 \ud06c\ub85c\uc2a4",
+    "2021-07-06": {
+      "price": "31800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205700c67f06f7c0fd73"
+    },
+    "num": 1107,
+    "song_title": "\ub098\uc758 \ubaa8\ub4e0 \ub0a0",
+    "song_artist": "\uc138\uc815",
+    "2021-07-06": {
+      "price": "35800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205700c67f06f7c0fd74"
+    },
+    "num": 1108,
+    "song_title": "\ub208\uc774 \ub0b4\ub9b0\ub2e4",
+    "song_artist": "god",
+    "2021-07-06": {
+      "price": "10300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205700c67f06f7c0fd75"
+    },
+    "num": 1109,
+    "song_title": "\uc77c\ub144\uc744 \ud558\ub8e8\uac19\uc774",
+    "song_artist": "\ubc14\ube44 \ud0b4",
+    "2021-07-06": {
+      "price": "26000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205800c67f06f7c0fd76"
+    },
+    "num": 1111,
+    "song_title": "Reason",
+    "song_artist": "\ubc14\ube44 \ud0b4",
+    "2021-07-06": {
+      "price": "22300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205800c67f06f7c0fd77"
+    },
+    "num": 1112,
+    "song_title": "\uc624\uc9c1 \uadf8\ub300\ub9cc",
+    "song_artist": "\ubc14\ube44 \ud0b4",
+    "2021-07-06": {
+      "price": "15000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205900c67f06f7c0fd78"
+    },
+    "num": 1113,
+    "song_title": "\uc601\uc6d0",
+    "song_artist": "\uc870\uad00\uc6b0",
+    "2021-07-06": {
+      "price": "15100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205900c67f06f7c0fd79"
+    },
+    "num": 1114,
+    "song_title": "\ub108\uc758 \uacc1\uc5d0",
+    "song_artist": "\ubcc0\uc9c4\uc12d",
+    "2021-07-06": {
+      "price": "12600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205a00c67f06f7c0fd7a"
+    },
+    "num": 1115,
+    "song_title": "\ub108\uc758 \uac00\uc2b4\uc73c\ub85c \uac00\ub294 \uae38",
+    "song_artist": "\uba3c\ub370\uc774 \ud0a4\uc988",
+    "2021-07-06": {
+      "price": "13600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205a00c67f06f7c0fd7b"
+    },
+    "num": 1116,
+    "song_title": "\uc870\uac15\uc9c0\ucc98\ud074\ub7fd 3",
+    "song_artist": "\uc774\ub8e8",
+    "2021-07-06": {
+      "price": "13600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205b00c67f06f7c0fd7c"
+    },
+    "num": 1117,
+    "song_title": "\uc0ac\ub791 \ubc14\ubcf4",
+    "song_artist": "\uc591\uc218\uacbd",
+    "2021-07-06": {
+      "price": "10000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205b00c67f06f7c0fd7d"
+    },
+    "num": 1118,
+    "song_title": "\uca50\uc758 \uc804\uc7c1 \ucd9c\uc0ac\ud45c",
+    "song_artist": "\uc194\ub85c\ubaac",
+    "2021-07-06": {
+      "price": "13600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205c00c67f06f7c0fd7e"
+    },
+    "num": 1121,
+    "song_title": "\ub0b4 \uafc8\uc774\uc5ec",
+    "song_artist": "\uc5e0\ud22c\uc5e0",
+    "2021-07-06": {
+      "price": "9500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205c00c67f06f7c0fd7f"
+    },
+    "num": 1122,
+    "song_title": "\uace0\ub9c8\uc6cc\uc694",
+    "song_artist": "\ubcc0\uc9c4\uc12d",
+    "2021-07-06": {
+      "price": "10500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205c00c67f06f7c0fd80"
+    },
+    "num": 1123,
+    "song_title": "Lonely",
+    "song_artist": "\uc724\ud558",
+    "2021-07-06": {
+      "price": "25900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205d00c67f06f7c0fd81"
+    },
+    "num": 1124,
+    "song_title": "La La",
+    "song_artist": "\uc815\uc138\uc6b4",
+    "2021-07-06": {
+      "price": "9500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205d00c67f06f7c0fd82"
+    },
+    "num": 1126,
+    "song_title": "My Tale",
+    "song_artist": "\ubc15\uc6d0",
+    "2021-07-06": {
+      "price": "18000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205e00c67f06f7c0fd83"
+    },
+    "num": 1127,
+    "song_title": "\ub098\ub3c4 \ubaa8\ub974\ub294 \ub178\ub798",
+    "song_artist": "\uae40\ud544",
+    "2021-07-06": {
+      "price": "21500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3205f00c67f06f7c0fd84"
+    },
+    "num": 1128,
+    "song_title": "\uc544\uc9c1 \ub108\uc758 \uc2dc\uac04\uc5d0 \uc0b4\uc544",
+    "song_artist": "\uc774\uc218\ud604",
+    "2021-07-06": {
+      "price": "33800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206000c67f06f7c0fd85"
+    },
+    "num": 1130,
+    "song_title": "\ud37c\uc990",
+    "song_artist": "\uc6a9\uc8fc",
+    "2021-07-06": {
+      "price": "17200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206100c67f06f7c0fd86"
+    },
+    "num": 1131,
+    "song_title": "\ub791\ub370\ubdf0",
+    "song_artist": "\uc591\ud61c\uc2b9",
+    "2021-07-06": {
+      "price": "12200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206100c67f06f7c0fd87"
+    },
+    "num": 1132,
+    "song_title": "\ud654\uc591\uc5f0\ud654",
+    "song_artist": "\uc774\ud0dc\uc885",
+    "2021-07-06": {
+      "price": "11400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206200c67f06f7c0fd88"
+    },
+    "num": 1134,
+    "song_title": "Wake Up",
+    "song_artist": "\uc77c\ub808\uc778",
+    "2021-07-06": {
+      "price": "20000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206200c67f06f7c0fd89"
+    },
+    "num": 1140,
+    "song_title": "\uc9d1\uc5d0 \uac00\uc9c0\ub9c8",
+    "song_artist": "GD&TOP",
+    "2021-07-06": {
+      "price": "17400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206200c67f06f7c0fd8a"
+    },
+    "num": 1141,
+    "song_title": "\ub098\ub97c \uc0ac\ub791\ud574\uc918",
+    "song_artist": "\uc11c\uc778\uc601",
+    "2021-07-06": {
+      "price": "9300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206300c67f06f7c0fd8b"
+    },
+    "num": 1145,
+    "song_title": "OPEN YOUR EYES",
+    "song_artist": "IZ*ONE",
+    "2021-07-06": {
+      "price": "14700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206300c67f06f7c0fd8c"
+    },
+    "num": 1146,
+    "song_title": "\uc774\ubcc4\uae4c\uc9c0\ub294 \uc0dd\uac01 \ubabb \ud588\uc5b4",
+    "song_artist": "\uc774\uc6b0",
+    "2021-07-06": {
+      "price": "12200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206400c67f06f7c0fd8d"
+    },
+    "num": 1147,
+    "song_title": "\uafc8",
+    "song_artist": "\uc1a1\uac00\uc778",
+    "2021-07-06": {
+      "price": "40000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206400c67f06f7c0fd8e"
+    },
+    "num": 1149,
+    "song_title": "\uadf8\ub300\uac00 \ub098\ub97c \ubcf8\ub2e4\uba74",
+    "song_artist": "\ubc18\ud558\ub098",
+    "2021-07-06": {
+      "price": "25800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206500c67f06f7c0fd8f"
+    },
+    "num": 1151,
+    "song_title": "Dream",
+    "song_artist": "\uc218\uc9c0",
+    "2021-07-06": {
+      "price": "36400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206500c67f06f7c0fd90"
+    },
+    "num": 1152,
+    "song_title": "\ub728\uac70\uc6b4 \uc124\ud0d5",
+    "song_artist": "\ud130\ubcf4",
+    "2021-07-06": {
+      "price": "16500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206600c67f06f7c0fd91"
+    },
+    "num": 1156,
+    "song_title": "\uac00\ub824\uc9c4 \uc2dc\uac04 \uc0ac\uc774\ub85c",
+    "song_artist": "\uc724\uc0c1",
+    "2021-07-06": {
+      "price": "19000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206600c67f06f7c0fd92"
+    },
+    "num": 1157,
+    "song_title": "\ubcf4\ub77c\ube5b \ud5a5\uae30",
+    "song_artist": "\uac15\uc218\uc9c0",
+    "2021-07-06": {
+      "price": "45000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206700c67f06f7c0fd93"
+    },
+    "num": 1158,
+    "song_title": "\uc77c\uc8fc\uc77c",
+    "song_artist": "\uc815\uae30\uace0",
+    "2021-07-06": {
+      "price": "9900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206700c67f06f7c0fd94"
+    },
+    "num": 1159,
+    "song_title": "\uc774\ubcc4\uc758 \uadf8\ub298",
+    "song_artist": "\uc724\uc0c1",
+    "2021-07-06": {
+      "price": "16100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206800c67f06f7c0fd95"
+    },
+    "num": 1160,
+    "song_title": "\ud769\uc5b4\uc9c4 \ub098\ub0a0\ub4e4",
+    "song_artist": "\uac15\uc218\uc9c0",
+    "2021-07-06": {
+      "price": "23100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206800c67f06f7c0fd96"
+    },
+    "num": 1162,
+    "song_title": "On My Way",
+    "song_artist": "Dok2",
+    "2021-07-06": {
+      "price": "16000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206800c67f06f7c0fd97"
+    },
+    "num": 1165,
+    "song_title": "\ud589\ubcf5\ud574",
+    "song_artist": "\uc1a1\ud558\uc608",
+    "2021-07-06": {
+      "price": "34500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206900c67f06f7c0fd98"
+    },
+    "num": 1166,
+    "song_title": "UN Village",
+    "song_artist": "\ubc31\ud604",
+    "2021-07-06": {
+      "price": "42000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206900c67f06f7c0fd99"
+    },
+    "num": 1167,
+    "song_title": "\ub208\uc774 \uba40\uc5c8\ub2e4",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "28000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206a00c67f06f7c0fd9a"
+    },
+    "num": 1169,
+    "song_title": "O Sole Mio",
+    "song_artist": "IZ*ONE",
+    "2021-07-06": {
+      "price": "56400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206a00c67f06f7c0fd9b"
+    },
+    "num": 1170,
+    "song_title": "\uad81\uae08's",
+    "song_artist": "\ud558\uc131\uc6b4",
+    "2021-07-06": {
+      "price": "19800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206b00c67f06f7c0fd9c"
+    },
+    "num": 1171,
+    "song_title": "\ub2e8 \ud558\ub8e8\ub77c\ub3c4 \ub098\ub85c \uc0b4\uc544\ubcf4\uba74",
+    "song_artist": "\ubbf8\uad50",
+    "2021-07-06": {
+      "price": "21200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206b00c67f06f7c0fd9d"
+    },
+    "num": 1172,
+    "song_title": "\uc88b\uc740 \uc774\ubcc4\uc774 \uc788\uc744 \ub9ac\uac00 \uc5c6\uc796\uc544",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "38700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206c00c67f06f7c0fd9e"
+    },
+    "num": 1176,
+    "song_title": "\ud0a4\uce5c OST",
+    "song_artist": "Various Artists",
+    "2021-07-06": {
+      "price": "8700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206c00c67f06f7c0fd9f"
+    },
+    "num": 1181,
+    "song_title": "\uc655\uc774 \ub41c \ub0a8\uc790 OST",
+    "song_artist": "Various Artists",
+    "2021-07-06": {
+      "price": "8200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206c00c67f06f7c0fda0"
+    },
+    "num": 1182,
+    "song_title": "\ub108\ub97c \uc9c0\uc6cc\uc57c\ub9cc \ub098 \uc0ac\ub294\ub370",
+    "song_artist": "\ub354 \ud06c\ub85c\uc2a4",
+    "2021-07-06": {
+      "price": "13500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206d00c67f06f7c0fda1"
+    },
+    "num": 1184,
+    "song_title": "DREAMLIKE",
+    "song_artist": "IZ*ONE",
+    "2021-07-06": {
+      "price": "17800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206d00c67f06f7c0fda2"
+    },
+    "num": 1185,
+    "song_title": "\ub0b4 \uc785\uc220 \ub530\ub73b\ud55c \ucee4\ud53c\ucc98\ub7fc",
+    "song_artist": "\uc5d0\ub514\ud0b4",
+    "2021-07-06": {
+      "price": "32300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206e00c67f06f7c0fda3"
+    },
+    "num": 1186,
+    "song_title": "\ub2c8\uac00 \ucc38 \uc88b\uc544",
+    "song_artist": "10CM",
+    "2021-07-06": {
+      "price": "22900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206e00c67f06f7c0fda4"
+    },
+    "num": 1187,
+    "song_title": "\ub208\uc744 \ubcf4\uace0 \ub9d0\ud574\uc694",
+    "song_artist": "\ub77c\ub514",
+    "2021-07-06": {
+      "price": "11300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206f00c67f06f7c0fda5"
+    },
+    "num": 1188,
+    "song_title": "\ud589\ubcf5\ud55c \ub098\ub97c",
+    "song_artist": "\uc3dc\uc560\ud50c",
+    "2021-07-06": {
+      "price": "11000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3206f00c67f06f7c0fda6"
+    },
+    "num": 1191,
+    "song_title": "\ubb3c\ub9dd\ucd08",
+    "song_artist": "MC\ubabd",
+    "2021-07-06": {
+      "price": "16900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207000c67f06f7c0fda7"
+    },
+    "num": 1192,
+    "song_title": "\uae30\uc801",
+    "song_artist": "\uc18c\ub780",
+    "2021-07-06": {
+      "price": "11000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207000c67f06f7c0fda8"
+    },
+    "num": 1193,
+    "song_title": "\ubaa8\ub450 \uc7a0\ub4e0 \ud6c4\uc5d0",
+    "song_artist": "\uae40\uc6d0\uc900",
+    "2021-07-06": {
+      "price": "16900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207100c67f06f7c0fda9"
+    },
+    "num": 1202,
+    "song_title": "\uc5f0\uc560 \uac19\uc740 \uac78 \ud558\ub2c8\uae4c",
+    "song_artist": "\uc18c\ub780",
+    "2021-07-06": {
+      "price": "17700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207100c67f06f7c0fdaa"
+    },
+    "num": 1208,
+    "song_title": "\ub108\ub97c \ubcf4\ub124",
+    "song_artist": "\uc18c\ub780",
+    "2021-07-06": {
+      "price": "14900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207200c67f06f7c0fdab"
+    },
+    "num": 1221,
+    "song_title": "\ub098\uc758 \ubd04",
+    "song_artist": "\ub178\ub9ac\ud50c\ub77c\uc774",
+    "2021-07-06": {
+      "price": "11000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207200c67f06f7c0fdac"
+    },
+    "num": 1230,
+    "song_title": "\ub108\uc5d0\uac8c",
+    "song_artist": "\ub178\ub9ac\ud50c\ub77c\uc774",
+    "2021-07-06": {
+      "price": "10200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207200c67f06f7c0fdad"
+    },
+    "num": 1238,
+    "song_title": "\ub09c \uc88b\uc544",
+    "song_artist": "\uc815\uc900\uc77c",
+    "2021-07-06": {
+      "price": "10400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207300c67f06f7c0fdae"
+    },
+    "num": 1259,
+    "song_title": "haaAakkKKK!!!",
+    "song_artist": "OurR",
+    "2021-07-06": {
+      "price": "12100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207300c67f06f7c0fdaf"
+    },
+    "num": 1285,
+    "song_title": "\ub0b4\uac00 \ub418\uc5c8\uc73c\uba74",
+    "song_artist": "\ub178\ub9ac\ud50c\ub77c\uc774",
+    "2021-07-06": {
+      "price": "12100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207400c67f06f7c0fdb0"
+    },
+    "num": 1318,
+    "song_title": "\uc5f4\uae30\uad6c",
+    "song_artist": "SURL",
+    "2021-07-06": {
+      "price": "13400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207500c67f06f7c0fdb1"
+    },
+    "num": 1331,
+    "song_title": "\uc815\uc0c1\uc744 \ud5a5\ud55c \ub3c5\uc8fc 2",
+    "song_artist": "\uc8fc\uc11d",
+    "2021-07-06": {
+      "price": "8900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207500c67f06f7c0fdb2"
+    },
+    "num": 1343,
+    "song_title": "\ud799\ud569 \ubba4\uc9c1",
+    "song_artist": "\uc8fc\uc11d",
+    "2021-07-06": {
+      "price": "14400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207600c67f06f7c0fdb3"
+    },
+    "num": 1344,
+    "song_title": "Tonight",
+    "song_artist": "\uad8c\uc21c\uad00",
+    "2021-07-06": {
+      "price": "10000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207600c67f06f7c0fdb4"
+    },
+    "num": 1346,
+    "song_title": "\ubd80\ub044\ub7fc",
+    "song_artist": "\uba5c\ub85c\ub9dd\uc2a4",
+    "2021-07-06": {
+      "price": "30300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207700c67f06f7c0fdb5"
+    },
+    "num": 1348,
+    "song_title": "\uc5ec\uc131\uc2dc\ub300",
+    "song_artist": "\uc528\uc57c",
+    "2021-07-06": {
+      "price": "19000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207700c67f06f7c0fdb6"
+    },
+    "num": 1350,
+    "song_title": "\uc6b0\ub9ac \uc0ac\ub791\ud588\uc796\uc544",
+    "song_artist": "\ub2e4\ube44\uce58",
+    "2021-07-06": {
+      "price": "14300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207700c67f06f7c0fdb7"
+    },
+    "num": 1351,
+    "song_title": "\uc601\uc6d0\ud55c \uc0ac\ub791",
+    "song_artist": "\uc528\uc57c",
+    "2021-07-06": {
+      "price": "11100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207800c67f06f7c0fdb8"
+    },
+    "num": 1353,
+    "song_title": "\ubaa8\ub974\uc2dc\ub098\uc694",
+    "song_artist": "\ub2e4\ube44\uce58",
+    "2021-07-06": {
+      "price": "14300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207800c67f06f7c0fdb9"
+    },
+    "num": 1356,
+    "song_title": "\uc544\ud37c",
+    "song_artist": "\uae30\ub9ac\ubcf4\uc774",
+    "2021-07-06": {
+      "price": "10000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207900c67f06f7c0fdba"
+    },
+    "num": 1367,
+    "song_title": "\ub4e4\uc5c8\ub2e4 \ub1a8\ub2e4",
+    "song_artist": "\ub370\uc774\ube0c\ub808\uc774\ud06c",
+    "2021-07-06": {
+      "price": "30000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207900c67f06f7c0fdbb"
+    },
+    "num": 1368,
+    "song_title": "A Fool Moon Night",
+    "song_artist": "\uce75\uc2a4",
+    "2021-07-06": {
+      "price": "17300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207a00c67f06f7c0fdbc"
+    },
+    "num": 1369,
+    "song_title": "\uc6d0\ub354\uc6b0\uba3c",
+    "song_artist": "\uc528\uc57c",
+    "2021-07-06": {
+      "price": "19600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207a00c67f06f7c0fdbd"
+    },
+    "num": 1375,
+    "song_title": "A Door",
+    "song_artist": "\uad8c\uc21c\uad00",
+    "2021-07-06": {
+      "price": "11000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207b00c67f06f7c0fdbe"
+    },
+    "num": 1376,
+    "song_title": "DAY BY DAY",
+    "song_artist": "\ud2f0\uc544\ub77c",
+    "2021-07-06": {
+      "price": "16900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207b00c67f06f7c0fdbf"
+    },
+    "num": 1377,
+    "song_title": "\uc544\ubb34\ub7f0 \ub9d0\ub4e4\ub3c4",
+    "song_artist": "\ubc31\uc9c0\uc601",
+    "2021-07-06": {
+      "price": "24800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207c00c67f06f7c0fdc0"
+    },
+    "num": 1378,
+    "song_title": "\uc544\uc9c0\ub791\uc774",
+    "song_artist": "\uc3dc\uc560\ud50c",
+    "2021-07-06": {
+      "price": "17100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207c00c67f06f7c0fdc1"
+    },
+    "num": 1379,
+    "song_title": "\uc090\ub6a4\uc5b4\uc84c\uc5b4",
+    "song_artist": "\uc120\uc6b0\uc815\uc544",
+    "2021-07-06": {
+      "price": "11100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207c00c67f06f7c0fdc2"
+    },
+    "num": 1380,
+    "song_title": "\uc774\ubcc4\uc790\ub9ac",
+    "song_artist": "\uc774\uc6b0",
+    "2021-07-06": {
+      "price": "43100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207d00c67f06f7c0fdc3"
+    },
+    "num": 1381,
+    "song_title": "View",
+    "song_artist": "\uc801\uc7ac",
+    "2021-07-06": {
+      "price": "9800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207e00c67f06f7c0fdc4"
+    },
+    "num": 1382,
+    "song_title": "\uc88b\ub2e4",
+    "song_artist": "\ub370\uc774\ube0c\ub808\uc774\ud06c",
+    "2021-07-06": {
+      "price": "28500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207e00c67f06f7c0fdc5"
+    },
+    "num": 1383,
+    "song_title": "\uc591\ud654\ub300\uad50",
+    "song_artist": "Zion.T",
+    "2021-07-06": {
+      "price": "31200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207f00c67f06f7c0fdc6"
+    },
+    "num": 1386,
+    "song_title": "\uc548\uc544\uc918\uc694",
+    "song_artist": "10CM",
+    "2021-07-06": {
+      "price": "23600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207f00c67f06f7c0fdc7"
+    },
+    "num": 1387,
+    "song_title": "\uc5ec\uae30\uc5d0 \uc788\uc790",
+    "song_artist": "SURL",
+    "2021-07-06": {
+      "price": "25400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3207f00c67f06f7c0fdc8"
+    },
+    "num": 1427,
+    "song_title": "\uc54c\uc544\uc694",
+    "song_artist": "\uc591\ud30c",
+    "2021-07-06": {
+      "price": "10800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208000c67f06f7c0fdc9"
+    },
+    "num": 1388,
+    "song_title": "\uc11c\uc6b8",
+    "song_artist": "\uc3dc\uc560\ud50c",
+    "2021-07-06": {
+      "price": "17800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208000c67f06f7c0fdca"
+    },
+    "num": 1420,
+    "song_title": "My Way",
+    "song_artist": "\uc774\uc218",
+    "2021-07-06": {
+      "price": "31300"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208100c67f06f7c0fdcb"
+    },
+    "num": 1421,
+    "song_title": "Something",
+    "song_artist": "\uac15\ub2e4\ub2c8\uc5d8",
+    "2021-07-06": {
+      "price": "20400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208100c67f06f7c0fdcc"
+    },
+    "num": 1422,
+    "song_title": "\uafc8\ucc98\ub7fc \ub0b4\ub9b0",
+    "song_artist": "\ub2e4\ube44\uce58",
+    "2021-07-06": {
+      "price": "23500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208200c67f06f7c0fdcd"
+    },
+    "num": 1423,
+    "song_title": "\ub18d\ub2f4 \ubc18 \uc9c4\ub2f4 \ubc18",
+    "song_artist": "\uc288\uac00\ubcfc",
+    "2021-07-06": {
+      "price": "11200"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208200c67f06f7c0fdce"
+    },
+    "num": 1428,
+    "song_title": "Sad",
+    "song_artist": "\uc190\uc2b9\uc5f0",
+    "2021-07-06": {
+      "price": "19000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208300c67f06f7c0fdcf"
+    },
+    "num": 1437,
+    "song_title": "\ub0b4 \uc0dd\uc5d0 \uc544\ub984\ub2e4\uc6b4",
+    "song_artist": "\ucf00\uc774\uc70c",
+    "2021-07-06": {
+      "price": "25000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208300c67f06f7c0fdd0"
+    },
+    "num": 1438,
+    "song_title": "\uce74\ud398\uc5d0 \uc549\uc544",
+    "song_artist": "\uc6d0 \ubaa8\uc5b4 \ucc2c\uc2a4",
+    "2021-07-06": {
+      "price": "11800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208300c67f06f7c0fdd1"
+    },
+    "num": 1439,
+    "song_title": "\ubc14\ub78c\uaf43",
+    "song_artist": "\uc774\uc120\ud76c",
+    "2021-07-06": {
+      "price": "21700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208400c67f06f7c0fdd2"
+    },
+    "num": 1440,
+    "song_title": "\uc624\ub298\ubc24\uc740 \uc5b4\ub460\uc774 \ubb34\uc11c\uc6cc\uc694",
+    "song_artist": "10cm",
+    "2021-07-06": {
+      "price": "15600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208400c67f06f7c0fdd3"
+    },
+    "num": 1441,
+    "song_title": "My Love",
+    "song_artist": "\uac70\ubbf8",
+    "2021-07-06": {
+      "price": "16000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208500c67f06f7c0fdd4"
+    },
+    "num": 1442,
+    "song_title": "\ub098\ud55c\ud14c \uc9d1\uc911\ud574",
+    "song_artist": "\uc288\uac00\ubcfc",
+    "2021-07-06": {
+      "price": "8900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208500c67f06f7c0fdd5"
+    },
+    "num": 1443,
+    "song_title": "\uacb0\ud63c\ud569\ub2c8\ub2e4",
+    "song_artist": "\uc9c0\ucc9c\ube44\ud654",
+    "2021-07-06": {
+      "price": "9600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208600c67f06f7c0fdd6"
+    },
+    "num": 1505,
+    "song_title": "\uc544\ub984\ub2e4\uc6b4 \ubc24\uc774\uc57c",
+    "song_artist": "\ube44\uc2a4\ud2b8",
+    "2021-07-06": {
+      "price": "15100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208600c67f06f7c0fdd7"
+    },
+    "num": 1506,
+    "song_title": "\ud589\ubcf5",
+    "song_artist": "\uc18c\ub780",
+    "2021-07-06": {
+      "price": "20400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208700c67f06f7c0fdd8"
+    },
+    "num": 1507,
+    "song_title": "I LUV U",
+    "song_artist": "\ud5e8\ub9ac",
+    "2021-07-06": {
+      "price": "9800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208700c67f06f7c0fdd9"
+    },
+    "num": 1508,
+    "song_title": "\ubc14\ub78c\uace0\uac1c",
+    "song_artist": "\uc9c4\ud574\uc131",
+    "2021-07-06": {
+      "price": "26000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208800c67f06f7c0fdda"
+    },
+    "num": 1509,
+    "song_title": "\ub10c \uc5b8\uc81c\ub098",
+    "song_artist": "\ub370\uc774\ube0c\ub808\uc774\ud06c",
+    "2021-07-06": {
+      "price": "19800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208800c67f06f7c0fddb"
+    },
+    "num": 1510,
+    "song_title": "\uc544\ub984\ub2e4\uc6b4 \uadf8\ub300",
+    "song_artist": "Crush",
+    "2021-07-06": {
+      "price": "9900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208900c67f06f7c0fddc"
+    },
+    "num": 1511,
+    "song_title": "\uc27d\uc9c0\uc54a\uc544",
+    "song_artist": "\ud2f4\ud0d1",
+    "2021-07-06": {
+      "price": "7900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208900c67f06f7c0fddd"
+    },
+    "num": 1539,
+    "song_title": "\ub0a0 \ubcf4\ub7ec\uc640\uc694",
+    "song_artist": "\uc624\uc720\uc9c4",
+    "2021-07-06": {
+      "price": "13800"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208a00c67f06f7c0fdde"
+    },
+    "num": 1540,
+    "song_title": "\ubcf4\ud1b5 \uac19\uc73c\uba74",
+    "song_artist": "\ud55c\ub3d9\uadfc",
+    "2021-07-06": {
+      "price": "20000"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208a00c67f06f7c0fddf"
+    },
+    "num": 1541,
+    "song_title": "\uc6b0\ub9ac \uc7a0\uae50 \uc26c\uc5b4\uac08\ub798\uc694",
+    "song_artist": "\uba5c\ub85c\ub9dd\uc2a4",
+    "2021-07-06": {
+      "price": "10700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208b00c67f06f7c0fde0"
+    },
+    "num": 1542,
+    "song_title": "\uc2dc\ud37c\ub7f0 \ubd04",
+    "song_artist": "\uc3dc\uc560\ud50c",
+    "2021-07-06": {
+      "price": "17900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208b00c67f06f7c0fde1"
+    },
+    "num": 1545,
+    "song_title": "\uc774\ubcc4\uc5d0 \uc544\ud30c\ud558\uae30 \uc2eb\uc5b4",
+    "song_artist": "\ubc31\uc9c0\uc601",
+    "2021-07-06": {
+      "price": "25400"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208c00c67f06f7c0fde2"
+    },
+    "num": 1546,
+    "song_title": "\uc0ac\ub791\ud574\uc694",
+    "song_artist": "\uae40\ubc94\uc218",
+    "2021-07-06": {
+      "price": "10900"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208c00c67f06f7c0fde3"
+    },
+    "num": 1550,
+    "song_title": "\uadf8 \uae38\uc5d0",
+    "song_artist": "\uc784\ud55c\ubcc4",
+    "2021-07-06": {
+      "price": "10700"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208d00c67f06f7c0fde4"
+    },
+    "num": 1551,
+    "song_title": "\ub108\ub97c",
+    "song_artist": "\uc774\uc6b0",
+    "2021-07-06": {
+      "price": "15500"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208d00c67f06f7c0fde5"
+    },
+    "num": 1556,
+    "song_title": "Hello",
+    "song_artist": "\uc18c\ud5a5",
+    "2021-07-06": {
+      "price": "17600"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208e00c67f06f7c0fde6"
+    },
+    "num": 1558,
+    "song_title": "\ub3cc\uc544\ubc84\ub9ac\uaca0\ub124",
+    "song_artist": "\uc544\uc6c3\ub81b",
+    "2021-07-06": {
+      "price": "16100"
+    }
+  },
+  {
+    "_id": {
+      "$oid": "60e3208e00c67f06f7c0fde7"
+    },
+    "num": 1559,
+    "song_title": "She's Gone",
+    "song_artist": "G-DRAGON",
+    "2021-07-06": {
+      "price": "11200"
+    }
+  }
+]
