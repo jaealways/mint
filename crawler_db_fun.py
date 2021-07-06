@@ -1,30 +1,26 @@
 from pymongo import MongoClient
 
+client = MongoClient('localhost', 27017)
+
 
 class DBRead:
-    def __init__(self, db_name=None, col_name=None):
-        self.client = MongoClient('localhost', 27017)
-        # self.db_exist()
-        self.db_read_value()
-        # self.db_in_value()
+    def __init__(self):
+        self.db_in_exist()
 
     # def db_exist(self):
     #     db_name = ['music_cow', 'daily_crawler', 'music_cow_back_up']
     #     list_col = dict((db, [collection for collection in client[db].list_collection_names()])
     #                    for db in db_name)
-    #     print(list_col)
+    # #     print(list_col)
 
-    def db_read_value(self, db_name, col_name):
-        read_db = self.client['%s' % db_name]
-        read_col = read_db['%s' % col_name]
-        read_list = read_col.find({})
+    def db_read_value(self, db, col):
+        read_list = client['%s' % db]['%s' % col].find({})
+        return read_list
 
-        for x in read_list:
-            print(x)
-
-    def db_check_value(self):
-        x = self.db_read_value()
-        print(x)
+    def db_check_exist(self, db, col, num):
+        num_check = client['%s' % db]['%s' % col].count_documents({'num': num})
+        to_check_list = client['%s' % db]['%s' % col].find({'num': num}, {'_id': 0, 'num': 1})
+        return num_check, to_check_list
 
 
 # 1. DB가 존재하는가
@@ -35,14 +31,9 @@ class DBRead:
 
 # class DBWrite:
 
-
-DBRead()
+#
+# DBRead()
 
 # list_col = dict((db, [collection for collection in client[db].list_collection_names()])
 #                for db in client.list_database_names())
 #
-# print(list_col)
-# db1 = client.music_cow
-# db2 = client.daily_crawler
-# col1 = db1.music_list
-# col2 = db2.music_list
