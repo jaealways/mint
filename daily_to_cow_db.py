@@ -18,7 +18,7 @@ class DailyToCowDB:
         # self.db_back_up()
 
     def export_json(self):
-        x = col4 # 각자 맡은 col 숫자 변경해서 입력
+        x = col6 # 각자 맡은 col 숫자 변경해서 입력
         list_db_daily = list(x.find({}))
         json_daily = dumps(list_db_daily, indent=2)
         # 날짜 지우고 update 시 제목에 날짜 추가
@@ -29,7 +29,7 @@ class DailyToCowDB:
     def push_github(self):
         message = 'Update_Daily_JSON_%s' % self.date_today
 
-        cmd.run("cd C:/Users/for/Documents/GitHub/music_cow", check=True, shell=True) # 각자 로컬에 저장한 곳 입력
+        cmd.run("cd C:/Users/ninay/Documents/GitHub/music_cow", check=True, shell=True) # 각자 로컬에 저장한 곳 입력
         cmd.run("git reset HEAD", check=True, shell=True)
         cmd.run("git add %s" % self.json_name, check=True, shell=True)
         # cmd.run("git config credential.helper store", check=True, shell=True)
@@ -38,7 +38,7 @@ class DailyToCowDB:
         cmd.run("git push -u origin master -f", check=True, shell=True)
 
     def pull_github(self):
-        cmd.run("cd C:/Users/for/Documents/GitHub/music_cow", check=True, shell=True) # 각자 로컬에 저장한 곳 입력
+        cmd.run("cd C:/Users/ninay/Documents/GitHub/music_cow", check=True, shell=True) # 각자 로컬에 저장한 곳 입력
         # cmd.run("git config core.sparseCheckout true", check=True, shell=True)
         # cmd.run("git remote add -f origin https://github.com/jaealways/music_cow.git", check=True, shell=True)
         cmd.run("git pull origin master")
