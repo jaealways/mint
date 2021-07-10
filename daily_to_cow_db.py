@@ -7,17 +7,21 @@ import json
 
 class DailyToCowDB:
     def __init__(self):
-        self.date_today = datetime.now().strftime('%Y-%m-%d')
-        # self.date_today = '2021-07-03'
+        # self.date_today = datetime.now().strftime('%Y-%m-%d')
+        self.date_today = '2021-07-10'
         self.export_json()
         self.push_github()
         # self.pull_github()
         # self.db_youtube()
         # self.db_genie()
         # self.db_music_cow()
-        # self.db_back_up()
+        # self.copy_db()
+
 
     def export_json(self):
+        cmd.run("cd C:/music_cow", check=True, shell=True) # 각자 로컬에 저장한 곳 입력
+        cmd.run("git pull origin master")
+
         x = col2 # 각자 맡은 col 숫자 변경해서 입력
         list_db_daily = list(x.find({}))
         json_daily = dumps(list_db_daily, indent=2)
@@ -59,9 +63,16 @@ class DailyToCowDB:
     def db_youtube(self):
         list_db_you_daily = col2.find({}, {'num': {"$slice": [1, 1]}})
         for x in list_db_you_daily:
-            video_num = x['video_num']
-            self.date_data = x['{0}'.format(self.date_today)]
-            col1.update_one({'video_num': video_num}, {'$set': {self.date_today: self.date_data}}, upsert=True)
+            list_youtube = {'title_video': x['title_video'],
+                            'id_video': x['id_video'],
+                            'video_num': x['video_num'],
+                            'song_title': x['song_title'],
+                            'song_artist': x['song_artist']}
+            if x['{0}'.format(self.date_today)] is None:
+                pass
+            else:
+                self.date_data = x['{0}'.format(self.date_today)]
+            col1.update_one(list_youtube, {'$set': {self.date_today: self.date_data}}, upsert=True)
         col2.delete_many({})
 
     def db_genie(self):
@@ -80,6 +91,10 @@ class DailyToCowDB:
             col5.update_one({'num': num}, {'$set': {self.date_today: self.date_data}}, upsert=True)
         col6.delete_many({})
 
+    def copy_db(self):
+        for x in col2.find():
+            col1.insert(x)
+            print(x)
 
 
 if __name__ == '__main__':
