@@ -17,9 +17,9 @@ class DailyToCowDB:
         # self.db_music_cow()
         # self.copy_db()
 
-
     def export_json(self):
         cmd.run("cd C:/music_cow", check=True, shell=True) # 각자 로컬에 저장한 곳 입력
+        cmd.run("git push -u origin LJH -f", check=True, shell=True)
         cmd.run("git pull origin master")
 
         x = col2 # 각자 맡은 col 숫자 변경해서 입력
@@ -36,6 +36,7 @@ class DailyToCowDB:
         cmd.run("cd C:/music_cow", check=True, shell=True) # 각자 로컬에 저장한 곳 입력
         cmd.run("git reset HEAD", check=True, shell=True)
         cmd.run("git add %s" % self.json_name, check=True, shell=True)
+        cmd.run("git checkout master", check=True, shell=True)
         # cmd.run("git config credential.helper store", check=True, shell=True)
         # cmd.run("git push https://github.com/jaealways/music_cow.git, check=True, shell=True)
         cmd.run("git commit -m {0}".format(message), check=True, shell=True)
