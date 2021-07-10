@@ -5,6 +5,8 @@ from bs4 import BeautifulSoup
 
 from crawler_v1 import *
 from crawler_db_fun import DBRead as Dr
+# from crawler_db_fun import DBWrite as Dw
+
 
 
 class CrawlerWeb:

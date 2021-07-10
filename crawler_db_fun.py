@@ -29,7 +29,8 @@ class DBRead:
 # 4.
 
 
-# class DBWrite:
+class DBWrite:
+    print('test')
 
 #
 # DBRead()
