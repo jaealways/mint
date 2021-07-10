@@ -3,7 +3,7 @@ from datetime import datetime
 from bson.json_util import dumps, loads
 import subprocess as cmd
 import json
-#import git
+import git
 
 class DailyToCowDB:
     def __init__(self):
