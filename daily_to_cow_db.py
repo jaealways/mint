@@ -11,10 +11,10 @@ class DailyToCowDB:
         # self.date_today = '2021-07-03'
         # self.export_json()
         # self.push_github()
-        # self.pull_github()
+        self.pull_github()
         # self.db_youtube()
         # self.db_genie()
-        self.db_music_cow()
+        # self.db_music_cow()
         # self.db_back_up()
 
     def export_json(self):
