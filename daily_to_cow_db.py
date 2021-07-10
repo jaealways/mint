@@ -46,7 +46,7 @@ class DailyToCowDB:
             # self.json_name = '%s#%s.json' % (x.name, self.date_today)
             # cmd.run("echo jaealways/music_cow/%s > c:/music_cow" % self.json_name)
             # cmd.run("vi ./git/info/sparse-checkout")
-        for x in [col2, col4, col6]:
+        for x in [col2, col4]:
             self.json_name = '%s.json' % x.name
             with open('%s' % self.json_name, 'r', encoding='UTF8') as file:
                 json_file = loads(file.read())
