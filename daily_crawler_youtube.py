@@ -12,7 +12,7 @@ class YoutubeDailyCrawler:
     def read_db(self):
         list_db_music = col1.find({}, {'num': {"$slice": [1, 1]}})
         for x in list_db_music:
-            for num_video_order in range(1, 11):
+            for num_video_order in range(1, len(x)-3):
                 self.link_video = x['video{0}'.format(num_video_order)]['link']
                 self.id_video = self.link_video.split('watch?v=')[1]
                 self.video_num = x['video{0}'.format(num_video_order)]['video_num']
@@ -21,7 +21,11 @@ class YoutubeDailyCrawler:
                 self.song_title = x['song_title']
 
                 if self.video_num > 0:
-                    self.crawling_daily()
+                    if self.video_num in [2849, 7824]:
+                        # num = 8142까지
+                        pass
+                    else:
+                        self.crawling_daily()
                 else:
                     pass
 
@@ -33,6 +37,7 @@ class YoutubeDailyCrawler:
         api_obj = build('youtube', 'v3', developerKey=api_key)
         response = api_obj.videos().list(part='statistics', id=video_id, maxResults=100).execute()
         date_today = datetime.now().strftime('%Y-%m-%d')
+
         if response['items'] == []:
             #에러뜨면 카톡오게, 에러뜨면 자동으로 삭제하고 다시
             winsound.Beep(2000, 1000)

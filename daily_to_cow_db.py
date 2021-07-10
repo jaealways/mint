@@ -7,18 +7,22 @@ import git
 
 class DailyToCowDB:
     def __init__(self):
-        self.date_today = datetime.now().strftime('%Y-%m-%d')
-        # self.date_today = '2021-07-03'
+        # self.date_today = datetime.now().strftime('%Y-%m-%d')
+        self.date_today = '2021-07-10'
         self.export_json()
         self.push_github()
         # self.pull_github()
         # self.db_youtube()
         # self.db_genie()
         # self.db_music_cow()
-        # self.db_back_up()
+        # self.copy_db()
 
     def export_json(self):
-        x = col4 # 각자 맡은 col 숫자 변경해서 입력
+        cmd.run("cd C:/music_cow", check=True, shell=True) # 각자 로컬에 저장한 곳 입력
+        cmd.run("git push -u origin LJH -f", check=True, shell=True)
+        cmd.run("git pull origin master")
+
+        x = col2 # 각자 맡은 col 숫자 변경해서 입력
         list_db_daily = list(x.find({}))
         json_daily = dumps(list_db_daily, indent=2)
         # 날짜 지우고 update 시 제목에 날짜 추가
@@ -29,16 +33,17 @@ class DailyToCowDB:
     def push_github(self):
         message = 'Update_Daily_JSON_%s' % self.date_today
 
-        cmd.run("cd C:/Users/for/Documents/GitHub/music_cow", check=True, shell=True) # 각자 로컬에 저장한 곳 입력
+        cmd.run("cd C:/music_cow", check=True, shell=True) # 각자 로컬에 저장한 곳 입력
         cmd.run("git reset HEAD", check=True, shell=True)
         cmd.run("git add %s" % self.json_name, check=True, shell=True)
+        cmd.run("git checkout master", check=True, shell=True)
         # cmd.run("git config credential.helper store", check=True, shell=True)
         # cmd.run("git push https://github.com/jaealways/music_cow.git, check=True, shell=True)
         cmd.run("git commit -m {0}".format(message), check=True, shell=True)
         cmd.run("git push -u origin master -f", check=True, shell=True)
 
     def pull_github(self):
-        cmd.run("cd C:/Users/for/Documents/GitHub/music_cow", check=True, shell=True) # 각자 로컬에 저장한 곳 입력
+        cmd.run("cd C:/music_cow", check=True, shell=True) # 각자 로컬에 저장한 곳 입력
         # cmd.run("git config core.sparseCheckout true", check=True, shell=True)
         # cmd.run("git remote add -f origin https://github.com/jaealways/music_cow.git", check=True, shell=True)
         cmd.run("git pull origin master")
@@ -59,9 +64,16 @@ class DailyToCowDB:
     def db_youtube(self):
         list_db_you_daily = col2.find({}, {'num': {"$slice": [1, 1]}})
         for x in list_db_you_daily:
-            video_num = x['video_num']
-            self.date_data = x['{0}'.format(self.date_today)]
-            col1.update_one({'video_num': video_num}, {'$set': {self.date_today: self.date_data}}, upsert=True)
+            list_youtube = {'title_video': x['title_video'],
+                            'id_video': x['id_video'],
+                            'video_num': x['video_num'],
+                            'song_title': x['song_title'],
+                            'song_artist': x['song_artist']}
+            if x['{0}'.format(self.date_today)] is None:
+                pass
+            else:
+                self.date_data = x['{0}'.format(self.date_today)]
+            col1.update_one(list_youtube, {'$set': {self.date_today: self.date_data}}, upsert=True)
         col2.delete_many({})
 
     def db_genie(self):
@@ -80,6 +92,10 @@ class DailyToCowDB:
             col5.update_one({'num': num}, {'$set': {self.date_today: self.date_data}}, upsert=True)
         col6.delete_many({})
 
+    def copy_db(self):
+        for x in col2.find():
+            col1.insert(x)
+            print(x)
 
 
 if __name__ == '__main__':
