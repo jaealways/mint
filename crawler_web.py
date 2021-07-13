@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 
 from crawler_v1 import *
 from crawler_db_fun import DBRead as Dr
-# from crawler_db_fun import DBWrite as Dw
+from crawler_db_fun import DBWrite as Dw
 
 
 
@@ -46,7 +46,7 @@ class CrawlerWeb:
             CrawlerV1()
 
     def list_music_cow(self):
-        for num in range(26, 27):
+        for num in range(24, 28):
             num_check, to_check_list = Dr.db_check_exist('music_cow', 'music_list', num)
             if num_check != 0:
                 for to_check in to_check_list:
@@ -58,19 +58,20 @@ class CrawlerWeb:
                         raise IndexError
             else:
                 page = "https://www.musicow.com/song/{0}?tab=info".format(num)
-                tag_music_list = {'song_artist': 'div.song_header > div.information > em, 1, 0',
-                                  'auc_date_{0}': 'div > div:nth-of-type({0}) > h2 > small, 2, 0',
-                                  'auc_stock_{0}': 'div.card_body > div > div:nth-of-type({0}) > dl > dd:nth-of-type(1), 2, 0',
-                                  'auc_price_{0}': 'div.card_body > div > div:nth-of-type({0}) > dl > dd:nth-of-type(4), 2, 0',
-                                  'song_release_date': 'div.card_body > div > dl > dd:nth-of-type(1), 1, 0',
-                                  'stock_num': 'div.card_body > div > dl > dd > p:nth-of-type(1), 1, 0',
-                                  'relevant_song_{0}': 'div.card_body > div > div.lst_rcmd.swiper-wrapper > div:nth-of-type({0}) > a:nth-of-type(2), 10, href'
-                                  }
+                tag_music_list = [['song_artist', 'div.song_header > div.information > em', 1, 0, 'NaN'],
+                                  ['auc_date_{0}', 'div > div:nth-of-type({0}) > h2 > small', 2, 0, 'NaN'],
+                                  ['auc_stock_{0}', 'div.card_body > div > div:nth-of-type({0}) > dl > dd:nth-of-type(1)', 2, 0, '주'],
+                                  ['auc_price_{0}', 'div.card_body > div > div:nth-of-type({0}) > dl > dd:nth-of-type(4)', 2, 0, '캐쉬'],
+                                  ['song_release_date', 'div.card_body > div > dl > dd:nth-of-type(1)', 1, 0, 'NaN'],
+                                  ['stock_num', 'div.card_body > div > dl > dd > p:nth-of-type(1)', 1, 0, '1/'],
+                                  ['copy_revenue_{0}', '#graph1 > span:nth-of-type({0})', 12, 'data_var_value', 'Nan'],
+                                  ['relevant_song_{0}', 'div.card_body > div > div.lst_rcmd.swiper-wrapper > div:nth-of-type({0}) > a:nth-of-type(2)', 10, 'href', '/song/']]
 
                 print("{0}번 곡 뮤직카우 크롤링 시작".format(num))
                 soup = self.crawl_soup(page=page)
-                self.crawl_variable(soup, tag_music_list, not_tag='song_artist', num=num)
-                # self.check_crawl_exist(tag, crawl_result, num, not_tag='song_artist')
+                out_music_list = dict(self.crawl_variable(soup, tag_music_list, not_tag='song_artist', num=num))
+                Dw.db_write_value(self, db='music_cow', col='music_list', dict_list=out_music_list, num=num)
+
 
         # [[print(num) for num in range(0, 2500) if num in read['num']] for read in read_list]
 
@@ -108,25 +109,25 @@ class CrawlerWeb:
         for tag in tag_list:
             if mode == 'pass':
                 break
-            val, iter_val, attr = tag_list[tag].split(',')
-            for n in range(1, int(iter_val)+1):
-                if attr.strip() == '0':
-                    soup_input = soup.select(val.format(n))
+            for n in range(1, tag[2]+1):
+                if tag[3] == 0:
+                    soup_input = soup.select(tag[1].format(n))
                 else:
-                    soup_input = soup.select(val.format(n))[0].attrs['%s' % attr.strip()]
-                crawl_result = re.sub('\<.+?>|\[|\'|\]|\,|\주|\캐쉬', '', str(soup_input)).replace('1/', '').strip()
-                tag_name = tag.format(n)
+                    soup_input = soup.select(tag[1].format(n))[0].attrs['%s' % tag[3]]
+                crawl_result = re.sub('\<.+?>|\[|\'|\]|\,', '', str(soup_input)).replace('%s' % tag[4], '').strip()
+                tag_name = tag[0].format(n)
                 if tag_name == not_tag:
                     if crawl_result == '':
                         print('%s 번은 존재하지 않는 곡입니다.' % num)
                         mode = 'pass'
                         break
                     else:
-                        print(tag_name, crawl_result)
-                        # 바로 딕셔너리 형태로 만들기
-                        # 단어 제외하는 함수 만들기
+                        tag_name, crawl_result
                 else:
-                    print(tag_name, crawl_result)
+                    tag_name, crawl_result
+                if crawl_result == '':
+                    pass
+                yield tag_name, crawl_result
 
 
 
@@ -153,8 +154,6 @@ class CrawlerWeb:
     #
     # def music_list_split(self):
     #     # ???
-
-
     # def check_exist(self):
     #     is_exist
 
