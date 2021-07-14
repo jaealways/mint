@@ -1,6 +1,7 @@
 import sys
 from datetime import datetime
 import crawler_web as cw
+import test2 as t2
 
 
 class CrawlerV1:
