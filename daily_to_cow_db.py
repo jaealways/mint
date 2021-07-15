@@ -7,12 +7,12 @@ import git
 
 class DailyToCowDB:
     def __init__(self):
-        # self.date_today = datetime.now().strftime('%Y-%m-%d')
-        self.date_today = '2021-07-10'
-        self.export_json()
-        self.push_github()
+        self.date_today = datetime.now().strftime('%Y-%m-%d')
+        # self.date_today = '2021-07-10'
+        # self.export_json()
+        # self.push_github()
         # self.pull_github()
-        # self.db_youtube()
+        self.db_youtube()
         # self.db_genie()
         # self.db_music_cow()
         # self.copy_db()
@@ -79,17 +79,24 @@ class DailyToCowDB:
     def db_genie(self):
         list_db_gen_daily = col4.find({}, {'num': {"$slice": [1, 1]}})
         for x in list_db_gen_daily:
-            link = x['link']
+            list_genie = {'song_num': x['song_num'],
+                          'link': x['link'],
+                          'song_title': x['song_title'],
+                          'song_artist': x['song_artist'],
+                          'song_name': x['song_name'], 'album_name': x['album_name'],
+                          'artist_name': x['artist_name'], 'genre_name': x['genre_name']}
             self.date_data = x['{0}'.format(self.date_today)]
-            col3.update_one({'link': link}, {'$set': {self.date_today: self.date_data}}, upsert=True)
+            col3.update_one(list_genie, {'$set': {self.date_today: self.date_data}}, upsert=True)
         col4.delete_many({})
 
     def db_music_cow(self):
         list_db_gen_daily = col6.find({}, {'num': {"$slice": [1, 1]}})
         for x in list_db_gen_daily:
-            num = x['num']
+            list_music_cow = {'num': x['num'],
+                              'song_title': x['song_title'],
+                              'song_artist': x['song_artist']}
             self.date_data = x['{0}'.format(self.date_today)]
-            col5.update_one({'num': num}, {'$set': {self.date_today: self.date_data}}, upsert=True)
+            col5.update_one(list_music_cow, {'$set': {self.date_today: self.date_data}}, upsert=True)
         col6.delete_many({})
 
     def copy_db(self):
