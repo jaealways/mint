@@ -21,8 +21,8 @@ class YoutubeDailyCrawler:
                 self.song_title = x['song_title']
 
                 if self.video_num > 0:
-                    if self.video_num in [596, 597, 600, 1586, 1845, 2413, 2849, 6252, 7824]:
-                        # num = 8146까지
+                    if self.video_num in [596, 597, 600, 1586, 1845, 2413, 2849, 4945, 6252, 7216, 7369, 7824]:
+                        # num = 8150까지
                         pass
                     else:
                         self.crawling_daily()
