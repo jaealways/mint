@@ -20,9 +20,9 @@ class MusicCowPriceRatio:
         for x in list_db_gen_daily:
             if x['num'] == 1388:   #### 임시 data 개수 맞지 않아 dataframe 으로 matching 안됨.
                 break
-            print('')
-            print(x['num'])
-            print('')     ## x -> 의 index 4번째 index 가 첫 곡이 된다 => idea
+            #print('')
+            #print(x['num'])
+            #print('')     ## x -> 의 index 4번째 index 가 첫 곡이 된다 => idea
 
             ratio = []
 
@@ -34,13 +34,31 @@ class MusicCowPriceRatio:
 
                 #print(self.rate_of_change)
 
-                col2.update_one({'num': x['num']}, {'$set': {list(x.keys())[price]: self.rate_of_change}}, upsert=True)
+                #col2.update_one({'num': x['num']}, {'$set': {list(x.keys())[price]: self.rate_of_change}}, upsert=True)
 
             df[x['num']] = ratio
 
 
         a = df.corr()
-        sns.heatmap(a, annot=True)
+
+        for i in range(0,783):
+            print('')
+            print('')
+            print('==================================================')
+            for j in range(0,783):
+                if j==i:
+                    continue
+                elif abs(a.iloc[j,i]) >= 0.7:
+                    print('{0}번 <-> {1}번'.format(a.columns[i],a.index[j]))
+                    print(a.iloc[j,i])
+                else:
+                    pass
+
+
+        # print(a)
+
+
+        # sns.heatmap(a, annot=True)
 
         # sns.heatmap(df, annot=True)
         # plt.title('heat map',fontsize = 20)
