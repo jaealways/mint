@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 import pandas as pd
 import pickle
+import matplotlib.pyplot as plt
 
 client = MongoClient('localhost', 27017)
 
@@ -18,7 +19,7 @@ def read_db():
     for x in list_db:
         for n in list(x)[2:]:
             if x[n] > 50:
-                result = {'song_num': x['num'], 'date' : n, 'price_ratio' : x[n]}
+                result = {'song_num': x['num'], 'date': n, 'price_ratio': x[n]}
                 print(result)
                 df = df.append(result, ignore_index=True)
             else:
@@ -50,21 +51,35 @@ def make_list():
     df1.to_pickle('df1.pkl')
 
 
-def make_plot():
+def to_make_plot():
     df = pd.read_pickle('df.pkl')
     df1 = pd.read_pickle('df1.pkl')
-    for num in range(0, len(df1)):
-        for vid_num in range(3, 13):
-            youtube_num = int(df1[num][vid_num])
-            print(youtube_num)
+    data = []
+    # dataframe에서 행 읽기 [song_num, date, price_ratio, video~]
+    for num in range(0, len(df1)+1):
+        vec = df1.loc[num]
+        date = vec[1]
+        for vid_num in range(3, len(vec)+1 - vec.isnull().sum()):
+            youtube_num = vec[vid_num]
             video_data = col3.find({'video_num': youtube_num})
+            df2 = pd.DataFrame(data, columns=['date', 'viewCount', 'likeCount', 'dislikeCount', 'favoriteCount', 'commentCount'])
             for x in video_data:
-                print(x)
-                print('ds')
+                video_info = {'title_video': x['title_video'], 'song_title': x['song_title'], 'song_artist': x['song_artist']}
+                for n in list(x)[6:]:
+                    result = {'date': n, 'viewCount': x[n]['viewCount'], 'likeCount': x[n]['likeCount'], 'dislikeCount': x[n]['dislikeCount'],
+                              'favoriteCount': x[n]['favoriteCount'], 'commentCount': x[n]['commentCount']}
+                    df2 = df2.append(result, ignore_index=True)
+                df2.set_index('date')
+                df2_num = df2.astype({'viewCount':int, 'likeCount':int, 'dislikeCount':int, 'favoriteCount':int, 'commentCount':int})
+                print(df2_num)
+                df2_num.plot(x='date', y='viewCount')
+                plt.show()
+                print('70퍼 상승:', date)
+
+            # youtube_num = int(df1[num][vid_num])
 
 
-
-# type(x[n])==int and
-read_db()
-make_list()
+# read_db()
+# make_list()
+to_make_plot()
 # make_plot()
