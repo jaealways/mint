@@ -1,5 +1,7 @@
 from pymongo import MongoClient
 import pandas as pd
+import numpy as np
+import math
 import pickle
 import matplotlib.pyplot as plt
 
@@ -59,14 +61,18 @@ def make_df():
         list_youtube = col2.find({'num': num})
         for x in list_youtube:
             result = {'vid_num': x['video_num']}
-            for n in list(x)[6:-1]:
+            for n in list(x)[6:]:
+                if n == 'num':
+                    continue
                 result[n] = x[n]['viewCount']
             df_youtube = df_youtube.append(result, ignore_index=True)
         df_genie = pd.DataFrame(data)
         list_genie = col3.find({'num': num})
         for y in list_genie:
             result = {'link': y['link'].split('xgnm=')[1]}
-            for n in list(y)[8:-1]:
+            for n in list(y)[8:]:
+                if n == 'num':
+                    continue
                 result[n] = y[n]['total_play']
             df_genie = df_genie.append(result, ignore_index=True)
         df_cow = pd.DataFrame(data)
@@ -77,13 +83,34 @@ def make_df():
                 result[n] = z[n]['price']
             df_cow = df_cow.append(result, ignore_index=True)
 
-        # 지수화하기
-        # for date in df_youtube[:-1]:
-        #     for num in df_youtube[date]:
-        #         if (df_youtube[date][num] or df_youtube[date][num+1]):
+        df_you_col = list(df_youtube.columns)
+        df_index_youtube = pd.DataFrame(data)
+        for date in df_you_col[1:-1]:
+            num_date = df_you_col.index(date)
+            date_yesterday = df_you_col[num_date - 1]
+            na_delete_you = pd.notna(df_youtube[date]) * pd.notna(df_youtube[date_yesterday])
+            date_log = [int(a) for a in (na_delete_you * df_youtube[date]).dropna() if a != '']
+            yesterday_log = [int(b) for b in (na_delete_you * df_youtube[date_yesterday]).dropna() if b != '']
+            # date_log, yesterday_log = list(map(int, df_youtube[date])), list(map(int, df_youtube[date_yesterday]))
+            data_log = np.log(date_log) - np.log(yesterday_log)
+            df_index_youtube[date] = [sum(data_log)/len(data_log)]
 
-        for date in df_youtube[:-1]:
-            index_youtube = df_youtube[date]
+        df_gen_col = list(df_genie.columns)
+        df_index_genie = pd.DataFrame(data)
+        for date in df_gen_col[1:-1]:
+            num_date = df_gen_col.index(date)
+            date_yesterday = df_gen_col[num_date - 1]
+            na_delete_gen = pd.notna(df_genie[date]) * pd.notna(df_genie[date_yesterday])
+            date_log = [int(c) for c in (na_delete_gen * df_genie[date]).dropna() if c != '']
+            yesterday_log = [int(d) for d in (na_delete_gen * df_genie[date_yesterday]).dropna() if d != '']
+            data_log = np.log(date_log) - np.log(yesterday_log)
+            df_index_genie[date] = [sum(data_log)/len(data_log)]
+
+        plt.plot(df_index_youtube.columns, df_index_youtube, df_index_genie.columns, df_index_genie, df_cow.columns, df_cow)
+        # plt.plot(df_index_genie.columns, df_index_genie)
+        # plt.plot(df_cow.columns, df_cow)
+        plt.show()
+
 
 # add_num()
 make_df()
