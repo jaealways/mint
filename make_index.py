@@ -56,32 +56,33 @@ def add_num():
 def make_df():
     df = pd.read_pickle('df_song_list.pkl')
     for num in df['num']:
+        num = 990
         data = []
         df_youtube = pd.DataFrame(data)
         list_youtube = col2.find({'num': num})
         for x in list_youtube:
-            result = {'vid_num': x['video_num']}
+            result_you = {'vid_num': x['video_num']}
             for n in list(x)[6:]:
                 if n == 'num':
                     continue
-                result[n] = x[n]['viewCount']
-            df_youtube = df_youtube.append(result, ignore_index=True)
+                result_you[n] = x[n]['viewCount']
+            df_youtube = df_youtube.append(result_you, ignore_index=True)
         df_genie = pd.DataFrame(data)
         list_genie = col3.find({'num': num})
         for y in list_genie:
-            result = {'link': y['link'].split('xgnm=')[1]}
+            result_gen = {'link': y['link'].split('xgnm=')[1]}
             for n in list(y)[8:]:
                 if n == 'num':
                     continue
-                result[n] = y[n]['total_play']
-            df_genie = df_genie.append(result, ignore_index=True)
+                result_gen[n] = y[n]['total_play']
+            df_genie = df_genie.append(result_gen, ignore_index=True)
         df_cow = pd.DataFrame(data)
         list_cow = col4.find({'num': num})
         for z in list_cow:
-            result['num'] = z['num']
+            result_cow = {'num': z['num']}
             for n in list(z)[4:]:
-                result[n] = z[n]['price']
-            df_cow = df_cow.append(result, ignore_index=True)
+                result_cow[n] = z[n]['price']
+            df_cow = df_cow.append(result_cow, ignore_index=True)
 
         df_you_col = list(df_youtube.columns)
         df_index_youtube = pd.DataFrame(data)
@@ -106,9 +107,28 @@ def make_df():
             data_log = np.log(date_log) - np.log(yesterday_log)
             df_index_genie[date] = [sum(data_log)/len(data_log)]
 
-        plt.plot(df_index_youtube.columns, df_index_youtube, df_index_genie.columns, df_index_genie, df_cow.columns, df_cow)
-        # plt.plot(df_index_genie.columns, df_index_genie)
-        # plt.plot(df_cow.columns, df_cow)
+        # 뮤카도 로그
+        df_cow_col = list(df_cow.columns)
+        df_index_cow = pd.DataFrame(data)
+        for date in df_cow_col[1:-1]:
+            num_date = df_cow_col.index(date)
+            date_yesterday = df_cow_col[num_date - 1]
+            na_delete_cow = pd.notna(df_cow[date]) * pd.notna(df_cow[date_yesterday])
+            date_log = [int(c) for c in (na_delete_cow * df_cow[date]).dropna() if c != '']
+            yesterday_log = [int(d) for d in (na_delete_cow * df_cow[date_yesterday]).dropna() if d != '']
+            data_log = np.log(date_log) - np.log(yesterday_log)
+            df_index_cow[date] = [sum(data_log)/len(data_log)]
+
+        columns_index = df_cow_col[:-1]
+        columns_index.extend(x for x in df_gen_col[:-1] if x not in columns_index)
+        columns_index.extend(x for x in df_you_col[:-1] if x not in columns_index)
+        columns_index = sorted(columns_index)
+        plt.plot(sorted(df_index_youtube.columns), df_index_youtube.loc[0,:], label='youtube')
+        plt.plot(sorted(df_index_genie.columns), df_index_genie.loc[0,:], label='genie')
+        plt.plot(sorted(df_index_cow.columns), df_index_cow.loc[0,:], label='music_cow')
+        plt.title('song_num {0}'.format(num))
+        plt.legend(loc='upper right')
+        plt.xticks(ticks=range(1, len(columns_index)), labels=columns_index[1:], rotation=90)
         plt.show()
 
 
