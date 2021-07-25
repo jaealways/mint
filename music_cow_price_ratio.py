@@ -148,10 +148,50 @@ class MusicCowPriceRatio:
         with open('compare_corr_to_related.pkl', 'rb') as f:
             compare_corr_to_related = pickle.load(f)
 
-        for keys in compare_corr_to_related.keys():
-            for songs in compare_corr_to_related[keys]:
-                print(col3.find({'num': songs}, {"song_artist":1}))
+        # res = pd.DataFrame.from_dict(compare_corr_to_related, orient='index')
+        # print(res)
 
+        compare_corr_to_related_dic = {}
+
+        for keys in compare_corr_to_related.keys():
+            if compare_corr_to_related[keys] == []:
+                continue
+            else:
+                song = []
+                for songs in compare_corr_to_related[keys]:
+                    list_songs = col3.find({'num': songs}, {"num":1, "song_artist":1, "_id" : 0})
+                    song.append(list(list_songs))
+
+                # col3 -> for -> list
+            compare_corr_to_related_dic[keys] = song
+
+        res = pd.DataFrame.from_dict(compare_corr_to_related_dic, orient='index')
+        compare_corr_to_related_df = res.transpose()
+
+        compare_corr_to_related_df.to_pickle('compare_corr_to_related_df.pkl')
+
+
+        # for x in list_db_gen_daily:
+        #     if x['num'] == 1388:   #### 임시 data 개수 맞지 않아 dataframe 으로 matching 안됨.
+        #         break
+        #
+        #     #print('')
+        #     #print(x['num'])
+        #     #print('')     ## x -> 의 index 4번째 index 가 첫 곡이 된다 => idea
+        #
+        #     ratio = []
+        #
+        #     for price in range(4,len(x)-1):
+        #         #print(list(x.values())[price].get('price'))
+        #         ratio.append(int(list(x.values())[price].get('price')))
+        #
+        #         self.rate_of_change = ((int(list(x.values())[price+1].get('price')) - int(list(x.values())[price].get('price'))) / int(list(x.values())[price].get('price'))) * 100
+        #
+        #         #print(self.rate_of_change)
+        #
+        #         #col2.update_one({'num': x['num']}, {'$set': {list(x.keys())[price]: self.rate_of_change}}, upsert=True)
+        #
+        #     df[x['num']] = ratio
 
 
 if __name__ == '__main__':
