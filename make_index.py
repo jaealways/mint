@@ -44,19 +44,24 @@ def add_num():
         list_youtube = col2.find({"$and": [{"song_artist": song_artist}, {"song_title": song_title}]})
         for x in list_youtube:
             print(x)
+            if 'num' in x.keys():
+                continue
             list_song_x = {"song_artist": x['song_artist'], "song_title": x['song_title']}
             col2.update_many(list_song_x, {'$set': {'num': num}}, upsert=True)
         list_genie = col3.find({"$and": [{"song_artist": song_artist}, {"song_title": song_title}]})
         for y in list_genie:
             print(y)
+            if 'num' in y.keys():
+                continue
             list_song_y = {"song_artist": y['song_artist'], "song_title": y['song_title']}
             col3.update_many(list_song_y, {'$set': {'num': num}}, upsert=True)
 
 
 def make_df():
     df = pd.read_pickle('df_song_list.pkl')
+    df_cow_all, df_you_all, df_gen_all = [], [], []
     for num in df['num']:
-        num = 990
+        num = 345
         data = []
         df_youtube = pd.DataFrame(data)
         list_youtube = col2.find({'num': num})
@@ -114,24 +119,39 @@ def make_df():
             num_date = df_cow_col.index(date)
             date_yesterday = df_cow_col[num_date - 1]
             na_delete_cow = pd.notna(df_cow[date]) * pd.notna(df_cow[date_yesterday])
-            date_log = [int(c) for c in (na_delete_cow * df_cow[date]).dropna() if c != '']
-            yesterday_log = [int(d) for d in (na_delete_cow * df_cow[date_yesterday]).dropna() if d != '']
+            date_log = [int(e) for e in (na_delete_cow * df_cow[date]).dropna() if e != '']
+            yesterday_log = [int(f) for f in (na_delete_cow * df_cow[date_yesterday]).dropna() if f != '']
             data_log = np.log(date_log) - np.log(yesterday_log)
             df_index_cow[date] = [sum(data_log)/len(data_log)]
 
-        columns_index = df_cow_col[:-1]
-        columns_index.extend(x for x in df_gen_col[:-1] if x not in columns_index)
-        columns_index.extend(x for x in df_you_col[:-1] if x not in columns_index)
-        columns_index = sorted(columns_index)
-        plt.plot(sorted(df_index_youtube.columns), df_index_youtube.loc[0,:], label='youtube')
-        plt.plot(sorted(df_index_genie.columns), df_index_genie.loc[0,:], label='genie')
-        plt.plot(sorted(df_index_cow.columns), df_index_cow.loc[0,:], label='music_cow')
-        plt.title('song_num {0}'.format(num))
-        plt.legend(loc='upper right')
-        plt.xticks(ticks=range(1, len(columns_index)), labels=columns_index[1:], rotation=90)
-        plt.show()
+        print('%s번 곡' % num)
+        print(df_index_cow)
+        print(df_index_youtube)
+        print(df_index_genie)
+
+        # columns_index = df_cow_col[:-1]
+        # columns_index.extend(x for x in df_gen_col[:-1] if x not in columns_index)
+        # columns_index.extend(x for x in df_you_col[:-1] if x not in columns_index)
+        # columns_index = sorted(columns_index)
+        # plt.plot(sorted(df_index_youtube.columns), df_index_youtube.loc[0,:], label='youtube')
+        # plt.plot(sorted(df_index_genie.columns), df_index_genie.loc[0,:], label='genie')
+        # plt.plot(sorted(df_index_cow.columns), df_index_cow.loc[0,:], label='music_cow')
+        # plt.title('song_num {0}'.format(num))
+        # plt.legend(loc='upper right')
+        # plt.xticks(ticks=range(1, len(columns_index)), labels=columns_index[1:], rotation=90)
+        # plt.show()
+
+        # df_cow_all = df_cow_all.append(df_index_cow)
+        # df_gen_all = df_gen_all.append(df_index_genie)
+        # df_you_all = df_you_all.append(df_index_youtube)
+
+# def get_index_corr():
+#     df_index_cow = df_index_cow
+#     df_index_genie = df_index_genie
+#     df_index_youtube = df_index_youtube
 
 
+# df_list()
 # add_num()
 make_df()
 
