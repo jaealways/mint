@@ -3,21 +3,23 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 import pickle
+from mpl_toolkits.mplot3d import Axes3D
 import re
 import matplotlib.pyplot as plt
 import seaborn as sns
 from datetime import datetime, timedelta
 from bson.json_util import dumps, loads
 import subprocess as cmd
+from sklearn.decomposition import PCA
 
 class MusicCowPriceRatio:
     def __init__(self):
         #self.date_today = datetime.strptime('2021-07-13', "%Y-%m-%d").date()
         #self.date_today = datetime.now().strftime('%Y-%m-%d')
         #self.related_songs()
-        #self.price_convert_to_ratio()
+        self.price_convert_to_ratio()
         #self.compare_corr_to_related()
-        self.make_into_dataframe()
+        # self.make_into_dataframe()
 
 
     def price_convert_to_ratio(self):
@@ -71,6 +73,34 @@ class MusicCowPriceRatio:
 
 
         # print(a)
+
+
+    def make_into_dataframe(self):
+
+        with open('compare_corr_to_related.pkl', 'rb') as f:
+            compare_corr_to_related = pickle.load(f)
+
+        # res = pd.DataFrame.from_dict(compare_corr_to_related, orient='index')
+        # print(res)
+
+        compare_corr_to_related_dic = {}
+
+        for keys in compare_corr_to_related.keys():
+            if compare_corr_to_related[keys] == []:
+                continue
+            else:
+                song = []
+                for songs in compare_corr_to_related[keys]:
+                    list_songs = col3.find({'num': songs}, {"num":1, "song_artist":1, "song_title":1, "_id" : 0})
+                    song.append(list(list_songs))
+
+                # col3 -> for -> list
+            compare_corr_to_related_dic[keys] = song
+
+        res = pd.DataFrame.from_dict(compare_corr_to_related_dic, orient='index')
+        compare_corr_to_related_df = res.transpose()
+
+        compare_corr_to_related_df.to_pickle('compare_corr_to_related_dataframes.pkl')
 
 
         # sns.heatmap(a, annot=True)
@@ -159,7 +189,7 @@ class MusicCowPriceRatio:
             else:
                 song = []
                 for songs in compare_corr_to_related[keys]:
-                    list_songs = col3.find({'num': songs}, {"num":1, "song_artist":1, "_id" : 0})
+                    list_songs = col3.find({'num': songs}, {"num":1, "song_artist":1, "song_title":1, "_id" : 0})
                     song.append(list(list_songs))
 
                 # col3 -> for -> list
@@ -168,7 +198,7 @@ class MusicCowPriceRatio:
         res = pd.DataFrame.from_dict(compare_corr_to_related_dic, orient='index')
         compare_corr_to_related_df = res.transpose()
 
-        compare_corr_to_related_df.to_pickle('compare_corr_to_related_df.pkl')
+        compare_corr_to_related_df.to_pickle('compare_corr_to_related_df2.pkl')
 
 
         # for x in list_db_gen_daily:
