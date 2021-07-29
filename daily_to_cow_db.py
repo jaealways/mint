@@ -8,7 +8,7 @@ import json
 class DailyToCowDB:
     def __init__(self):
         self.date_today = datetime.now().strftime('%Y-%m-%d')
-        # self.date_today = '2021-07-23'
+        # self.date_today = '2021-07-25'
         # self.export_json()
         # self.push_github()
         # self.pull_github()
