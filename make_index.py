@@ -2,6 +2,7 @@ from pymongo import MongoClient
 import pandas as pd
 import numpy as np
 from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
 import math
 import pickle
 import matplotlib.pyplot as plt
@@ -171,10 +172,33 @@ def make_df():
     df_gen_all.to_pickle('df_gen_all.pkl')
     df_you_all.to_pickle('df_you_all.pkl')
 
+def get_std_index():
+    df_cow_all = pd.read_pickle('df_cow_all.pkl')
+    df_gen_all = pd.read_pickle('df_gen_all.pkl')
+    df_you_all = pd.read_pickle('df_you_all.pkl')
+
+    df_index_youtube_std = mean_norm(df_you_all)
+    df_index_genie_std = mean_norm(df_gen_all)
+    df_index_cow_std = mean_norm(df_cow_all)
+
+    df_index_youtube_std.to_pickle('df_index_youtube_std.pkl')
+    df_index_genie_std.to_pickle('df_index_genie_std.pkl')
+    df_index_cow_std.to_pickle('df_index_cow_std.pkl')
+
+
+
+def mean_norm(df_input):
+    return df_input.apply(lambda x: (x-x.mean())/ x.std(), axis=0)
+
+
 def get_index_corr():
     df_cow_all = pd.read_pickle('df_cow_all.pkl')
     df_gen_all = pd.read_pickle('df_gen_all.pkl')
     df_you_all = pd.read_pickle('df_you_all.pkl')
+
+    # df_you_all = pd.read_pickle('df_index_youtube_std.pkl')
+    # df_gen_all = pd.read_pickle('df_index_genie_std.pkl')
+    # df_cow_all = pd.read_pickle('df_index_cow_std.pkl')
 
     # print('+cow+')
     # for col in range(len(df_cow_all)):
@@ -187,14 +211,14 @@ def get_index_corr():
     for col in range(len(df_you_all)):
         for row in range(len(df_you_all.columns)):
             price_you = df_you_all.iloc[col, row]
-            if price_you > 0.03:
+            if price_you > 20:
                 print(list(df_you_all.columns)[row], list(df_you_all.index)[col], price_you)
 
     print('+gen+')
     for col in range(len(df_gen_all)):
         for row in range(len(df_gen_all.columns)):
             price_gen = df_gen_all.iloc[col, row]
-            if price_gen > 0.03:
+            if price_gen > 20:
                 print(list(df_gen_all.columns)[row], list(df_gen_all.index)[col], price_gen)
 
     print('test')
@@ -203,4 +227,5 @@ def get_index_corr():
 # df_list()
 # add_num()
 # make_df()
+# get_std_index()
 get_index_corr()

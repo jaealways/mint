@@ -27,8 +27,16 @@ class DBRead:
 
 
 class DBWrite:
-    def db_write_value(self, db, col, dict_list=None, num=0):
-        dict_in_db = dict({'num': num}, **dict_list)
+    def db_create_value(self, db, col, dict_list=None):
+        db_in = client['%s' % db]['%s' % col].insert_one(dict_list).inserted_id
+        print(db_in)
+        return db_in
+
+    def db_add_value(self, db, col, dict_list=None, val_name=None, num=None):
+        """dict_list: 기존 document와 통합하려는 dict
+        val_name: 검색을 통해 리스트를 매칭하는 과정에서 기준이 되는 변수 이름
+        num: val_name을 통해 실제로 매칭을 원하는 값"""
+        dict_in_db = dict({'%s' % val_name: num}, **dict_list)
         db_in = client['%s' % db]['%s' % col].insert_one(dict_in_db).inserted_id
         print(db_in)
         return db_in
