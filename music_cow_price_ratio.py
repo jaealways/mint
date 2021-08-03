@@ -14,6 +14,99 @@ class MusicCowPriceRatio:
         self.price_convert_to_ratio()
 
     def price_convert_to_ratio(self):
+<<<<<<< Updated upstream
+=======
+        # list_db_gen_daily = col1.find({}, {'num': {"$slice": [1, 1]}})
+        # df = pd.DataFrame()
+        #
+        # for x in list_db_gen_daily:
+        #     if x['num'] == 1388:   #### 임시 data 개수 맞지 않아 dataframe 으로 matching 안됨.
+        #         break
+        #
+        #     #print('')
+        #     #print(x['num'])
+        #     #print('')     ## x -> 의 index 4번째 index 가 첫 곡이 된다 => idea
+        #
+        #     ratio = []
+        #
+        #     for price in range(4,len(x)-1):
+        #         #print(list(x.values())[price].get('price'))
+        #         ratio.append(int(list(x.values())[price].get('price')))
+        #
+        #         self.rate_of_change = ((int(list(x.values())[price+1].get('price')) - int(list(x.values())[price].get('price'))) / int(list(x.values())[price].get('price'))) * 100
+        #
+        #         #print(self.rate_of_change)
+        #
+        #         #col2.update_one({'num': x['num']}, {'$set': {list(x.keys())[price]: self.rate_of_change}}, upsert=True)
+        #
+        #     df[x['num']] = ratio
+        #
+        # a = df.corr()  # 상관계수 데이터프레임
+        #
+        # a.to_pickle('df_corr.pkl')
+        a = pd.read_pickle('df_corr.pkl')
+
+        self.corr = {}  #'함께구매한 곡과 비교하기 위한 상관계수 =>0.7 인 곡들 딕셔너리
+
+        for i in range(0,783):
+            #print('')
+            #print('')
+            #print('==================================================')
+            self.corr[a.columns[i]] = []
+            for j in range(0,783):
+                if j==i:
+                    continue
+                elif abs(a.iloc[j,i]) >= 0.7:
+                    #print('{0}번 <-> {1}번'.format(a.columns[i],a.index[j]))
+                    self.corr[a.columns[i]].append(a.index[j])
+                    #print(a.iloc[j,i])
+                else:
+                    pass
+
+
+
+        # print(a)
+
+
+    def make_into_dataframe(self):
+
+        with open('compare_corr_to_related.pkl', 'rb') as f:
+            compare_corr_to_related = pickle.load(f)
+
+        # res = pd.DataFrame.from_dict(compare_corr_to_related, orient='index')
+        # print(res)
+
+        compare_corr_to_related_dic = {}
+
+        for keys in compare_corr_to_related.keys():
+            if compare_corr_to_related[keys] == []:
+                continue
+            else:
+                song = []
+                for songs in compare_corr_to_related[keys]:
+                    list_songs = col3.find({'num': songs}, {"num":1, "song_artist":1, "song_title":1, "_id" : 0})
+                    song.append(list(list_songs))
+
+                # col3 -> for -> list
+            compare_corr_to_related_dic[keys] = song
+
+        res = pd.DataFrame.from_dict(compare_corr_to_related_dic, orient='index')
+        compare_corr_to_related_df = res.transpose()
+
+        compare_corr_to_related_df.to_pickle('compare_corr_to_related_dataframes.pkl')
+
+
+        # sns.heatmap(a, annot=True)
+
+        # sns.heatmap(df, annot=True)
+        # plt.title('heat map',fontsize = 20)
+        # plt.show()  ##
+
+
+
+    def related_songs(self):
+
+>>>>>>> Stashed changes
         list_db_gen_daily = col1.find({}, {'num': {"$slice": [1, 1]}})
         df = pd.DataFrame()
 
