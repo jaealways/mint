@@ -38,7 +38,7 @@ b = list(np.where(KM_label == 1))
 d = list(a.columns)   # a의 columns : 26, 27, 28 ... : song_num
 
 for n in list(b[0]):
-    print(d[n])        ## b 와 song_num 겹치는 거 출력.
+    print(d[n])        # b 와 song_num 겹치는 거 출력.
 
 
 
