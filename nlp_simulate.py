@@ -30,8 +30,7 @@ class ArticleNlp:
                       'article_title': x['article_title'], 'publish': x['publish'], 'text': x['text'], 'date': x['date']}
             df = df.append(result, ignore_index=True)
             sen = x['text'].replace('.', '')
-            nlp_article.append(re.sub(r'[^ ㄱ-ㅣ가-힣A-Za-z]', '', x['article_title']))
-            nlp_article.append(re.sub(r'[^ ㄱ-ㅣ가-힣A-Za-z]', '', sen))
+            nlp_article.append(re.sub(r'[^ ㄱ-ㅣ가-힣A-Za-z]', '', x['article_title']) + re.sub(r'[^ ㄱ-ㅣ가-힣A-Za-z]', '', sen))
             df_temp = pd.DataFrame(nlp_article)
             df_nlp = df_nlp.append(df_temp)
         df_nlp.columns = ['text']
