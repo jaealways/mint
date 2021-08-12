@@ -14,9 +14,9 @@ col1 = db1.article_text
 
 class ArticleNlp:
     def __init__(self):
-        self.db_read()
-        self.tokenization()
-        # self.after_token()
+        # self.db_read()
+        # self.tokenization()
+        self.after_token()
         # self.topic_modeling
 
     def db_read(self):
@@ -59,9 +59,9 @@ class ArticleNlp:
             tokenized_list.append(temp)
         df_nlp['after_token'] = tokenized_list
         index_new = [a for a in range(len(df_nlp))]
-        df_nlp.set_index([index_new])
+        df_nlp = df_nlp.set_index([index_new])
         tokenized_list = df_nlp['after_token'].apply(lambda x: [word for word in x if len(word) > 1])
-        index_new = [a for a in range(len(tokenized_list))]
+        index_new = [a for a in range(len(df_nlp['tokenized']))]
         tokenized_list.index = index_new
         print(tokenized_list[:5])
 
@@ -81,6 +81,10 @@ class ArticleNlp:
 
         for idx, topic in enumerate(lda_model.components_):
             print("Topic %d:" % (idx+1), [(terms[i], topic[i].round(2)) for i in topic.argsort()[:-15 - 1:-1]])
+
+        lda_top = pd.DataFrame(lda_top)
+        df_by_topic = pd.concat([df_nlp, lda_top], axis=1)
+        df_by_topic.to_pickle('df_by_topic.pkl')
 
 
 ArticleNlp()
