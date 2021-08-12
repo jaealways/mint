@@ -17,7 +17,7 @@ class ArticleNlp:
         # self.db_read()
         # self.tokenization()
         self.after_token()
-        # self.topic_modeling
+        # self.for_read_df()
 
     def db_read(self):
         data = []
@@ -54,7 +54,7 @@ class ArticleNlp:
             for j in i[0][0]:
                 if j[0] in ['co', 'kr', 'com']:
                     continue
-                if j[1] in ['NNG', 'NNP', 'NNB', 'NR', 'NP', 'VV', 'VA', 'VX', 'XR', 'SL']:
+                if j[1] in ['NNG', 'NNP', 'NNB', 'NR', 'NP', 'MM', 'MAG', 'VV', 'VA', 'VX', 'XR', 'SL']:
                     temp.append(j[0])
             tokenized_list.append(temp)
         df_nlp['after_token'] = tokenized_list
@@ -71,11 +71,11 @@ class ArticleNlp:
             detokenized_doc.append(t)
 
         df_nlp['tokenized'] = detokenized_doc
-        vectorizer = TfidfVectorizer(max_features=1000, min_df=8)
+        vectorizer = TfidfVectorizer(max_features=1000, min_df=15)
         X = vectorizer.fit_transform(df_nlp['tokenized'])
         X.shape
 
-        lda_model = LatentDirichletAllocation(n_components=5, learning_method='online', random_state=777, max_iter=1)
+        lda_model = LatentDirichletAllocation(n_components=4, learning_method='online', random_state=777, max_iter=1)
         lda_top = lda_model.fit_transform(X)
         terms = vectorizer.get_feature_names()
 
@@ -85,6 +85,10 @@ class ArticleNlp:
         lda_top = pd.DataFrame(lda_top)
         df_by_topic = pd.concat([df_nlp, lda_top], axis=1)
         df_by_topic.to_pickle('df_by_topic.pkl')
+
+    def for_read_df(self):
+        df_by_topic = pd.read_pickle('df_by_topic.pkl')
+        print('test')
 
 
 ArticleNlp()
