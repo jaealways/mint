@@ -3,7 +3,7 @@ from pymongo import MongoClient
 import re
 from kiwipiepy import Kiwi
 from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.decomposition import LatentDirichletAllocation
+from sklearn.decomposition import LatentDirichletAllocation, PCA
 
 
 client = MongoClient('localhost', 27017)
@@ -24,11 +24,13 @@ class ArticleNlp:
         article_list = col1.find({})
         df = pd.DataFrame(data)
         df_nlp = pd.DataFrame(data)
+        df_artist = []
         for x in article_list:
             nlp_article = []
             result = {'num': x['num'], 'song_title': x['song_title'], 'song_artist': x['song_artist'], 'link': x['link'],
                       'article_title': x['article_title'], 'publish': x['publish'], 'text': x['text'], 'date': x['date']}
             df = df.append(result, ignore_index=True)
+            df_artist.append(x['song_artist'])
             sen = x['text'].replace('.', '')
             nlp_article.append(re.sub(r'[^ ㄱ-ㅣ가-힣A-Za-z]', '', x['article_title']) + re.sub(r'[^ ㄱ-ㅣ가-힣A-Za-z]', '', sen))
             df_temp = pd.DataFrame(nlp_article)
