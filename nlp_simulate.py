@@ -10,14 +10,15 @@ client = MongoClient('localhost', 27017)
 
 db1 = client.music_cow
 col1 = db1.article_text
+col2 = db1.music_list_split
 
 
 class ArticleNlp:
     def __init__(self):
         # self.db_read()
         # self.tokenization()
-        self.after_token()
-        # self.for_read_df()
+        # self.after_token()
+        self.for_read_df()
 
     def db_read(self):
         data = []
@@ -49,12 +50,23 @@ class ArticleNlp:
         df_nlp.to_pickle('df_sens_article_after.pkl')
 
     def after_token(self):
+        db_artist_list = col2.find({})
+        artist_list = []
+        for y in db_artist_list:
+            if 'song_artist_main_kor1' in y['list_split']:
+                artist_list.append(y['list_split']['song_artist_main_kor1'])
+            else:
+                artist_list.append(y['list_split']['song_artist_main_eng1'])
+
         df_nlp = pd.read_pickle('df_sens_article_after.pkl')
         tokenized_list = []
         for i in df_nlp['tokenized']:
             temp = []
             for j in i[0][0]:
-                if j[0] in ['co', 'kr', 'com']:
+                if j[0] in artist_list:
+                    continue
+                if j[0] in ['co', 'kr', 'com', 'outlet', '아웃렛', '영기', '안성훈', '박성', 'msg워너비', 'msg워너', '유재석',
+                            '김신영', '임영웅', '이찬원', '김희재', '세븐틴', '장민호', '방탄소년단']:
                     continue
                 if j[1] in ['NNG', 'NNP', 'NNB', 'NR', 'NP', 'MM', 'MAG', 'VV', 'VA', 'VX', 'XR', 'SL']:
                     temp.append(j[0])
