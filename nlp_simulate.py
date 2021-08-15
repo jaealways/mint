@@ -17,8 +17,8 @@ class ArticleNlp:
     def __init__(self):
         # self.db_read()
         # self.tokenization()
-        # self.after_token()
-        self.for_read_df()
+        self.after_token()
+        # self.for_read_df()
 
     def db_read(self):
         data = []
@@ -32,8 +32,9 @@ class ArticleNlp:
                       'article_title': x['article_title'], 'publish': x['publish'], 'text': x['text'], 'date': x['date']}
             df = df.append(result, ignore_index=True)
             df_artist.append(x['song_artist'])
-            sen = x['text'].replace('.', '')
-            nlp_article.append(re.sub(r'[^ ㄱ-ㅣ가-힣A-Za-z]', '', x['article_title']) + re.sub(r'[^ ㄱ-ㅣ가-힣A-Za-z]', '', sen))
+            # sen = x['text'].replace('.', '')
+            nlp_article.append(re.sub(r'[^ ㄱ-ㅣ가-힣A-Za-z]', '', x['article_title']))
+            # + re.sub(r'[^ ㄱ-ㅣ가-힣A-Za-z]', '', sen))
             df_temp = pd.DataFrame(nlp_article)
             df_nlp = df_nlp.append(df_temp)
         df_nlp.columns = ['text']
@@ -89,7 +90,7 @@ class ArticleNlp:
         X = vectorizer.fit_transform(df_nlp['tokenized'])
         X.shape
 
-        lda_model = LatentDirichletAllocation(n_components=4, learning_method='online', random_state=777, max_iter=1)
+        lda_model = LatentDirichletAllocation(n_components=10, learning_method='online', random_state=777, max_iter=1)
         lda_top = lda_model.fit_transform(X)
         terms = vectorizer.get_feature_names()
 
