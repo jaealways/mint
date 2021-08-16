@@ -90,7 +90,7 @@ class ArticleNlp:
         X = vectorizer.fit_transform(df_nlp['tokenized'])
         X.shape
 
-        lda_model = LatentDirichletAllocation(n_components=10, learning_method='online', random_state=777, max_iter=1)
+        lda_model = LatentDirichletAllocation(n_components=4, learning_method='online', random_state=777, max_iter=1)
         lda_top = lda_model.fit_transform(X)
         terms = vectorizer.get_feature_names()
 
