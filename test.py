@@ -4,25 +4,29 @@ from datetime import datetime
 class DailyToCowDB:
     def __init__(self):
         # self.date_today = datetime.now().strftime('%Y-%m-%d')
-        self.date_today = '2021-06-29'
+        self.date_today = '2021-08-12'
         self.db_youtube()
 
 
     def db_youtube(self):
-        for num in range(7422, 7831):
+        for num in range(0, 8800):
             list_db_gen_daily = col1.find({'video_num': num})
             list_db_mc = col1.find({'video_num': num})
             for x in list_db_gen_daily:
-                self.date_data_0610 = x['2021-06-28']
+                if '2021-08-11' not in x.keys():
+                    continue
+                self.date_data_0610 = x['2021-08-11']
                 self.name_0610 = x['title_video']
 
                 break
             for y in list_db_mc:
-                self.date_data_0608 = y['2021-06-30']
+                if '2021-08-09' not in y.keys():
+                    continue
+                self.date_data_0608 = y['2021-08-09']
                 self.name_0608 = y['title_video']
 
-                if self.name_0608 is None:
-                    break
+                if '2021-08-10' in y.keys():
+                    continue
 
                 # if self.name_0608 != self.name_0610:
                 #     print('{0}번 비디오 에러!'.format(num))
@@ -31,13 +35,13 @@ class DailyToCowDB:
                 #     col1.insert_one(x).inserted_id
                 #     break
 
-                else:
-                    for z in self.date_data_0608:
-                        self.date_data_0609 = self.date_data_0608
-                        self.date_data_0609[z] = (int(self.date_data_0608[z]) + int(self.date_data_0610[z])) / 2
+                # else:
+                for z in self.date_data_0608:
+                    self.date_data_0609 = self.date_data_0608
+                    self.date_data_0609[z] = (int(self.date_data_0608[z]) + int(self.date_data_0610[z])) / 2
 
                 print('db에 {0}번 곡 업로드 중'.format(num))
-                col1.update_one({'video_num': num}, {'$set': {'2021-06-29': self.date_data_0609}}, upsert=True)
+                col1.update_one({'video_num': num}, {'$set': {'2021-08-10': self.date_data_0609}}, upsert=True)
 
 
 if __name__ == '__main__':
