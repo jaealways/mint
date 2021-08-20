@@ -16,10 +16,10 @@ col2 = db1.music_list_split
 class ArticleNlp:
     def __init__(self):
         # self.db_read()
-        self.tokenization()
+        # self.tokenization()
         # self.after_token()
         # self.for_read_df()
-        # self.test_topic3()
+        self.test_topic3()
 
     def db_read(self):
         data = []
@@ -162,8 +162,12 @@ class ArticleNlp:
         df_by_topic.to_pickle('df_by_topic_3.pkl')
 
     def test_topic3(self):
-        topic3 = pd.read_pickle('df_by_topic_title.pkl')
-        print(topic3)
+        df_by_topic = pd.read_pickle('df_by_topic_title.pkl')
+        list_id = []
+        for h_num in range(len(df_by_topic)):
+            df_id = pd.to_numeric(df_by_topic.iloc[h_num][3:7]).idxmax()
+            list_id.append(df_id)
+        print(list_id.count(0), list_id.count(1), list_id.count(2), list_id.count(3))
 
 ArticleNlp()
 
