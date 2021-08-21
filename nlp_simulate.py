@@ -4,6 +4,7 @@ import re
 from kiwipiepy import Kiwi
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import LatentDirichletAllocation, PCA
+from sklearn.cluster import KMeans
 
 
 client = MongoClient('localhost', 27017)
@@ -19,7 +20,8 @@ class ArticleNlp:
         # self.tokenization()
         # self.after_token()
         # self.for_read_df()
-        self.test_topic3()
+        # self.test_topic3()
+        self.document_clustering()
 
     def db_read(self):
         data = []
@@ -168,6 +170,85 @@ class ArticleNlp:
             df_id = pd.to_numeric(df_by_topic.iloc[h_num][3:7]).idxmax()
             list_id.append(df_id)
         print(list_id.count(0), list_id.count(1), list_id.count(2), list_id.count(3))
+
+    def document_clustering(self):
+        db_artist_list = col2.find({})
+        artist_list = []
+        for y in db_artist_list:
+            if 'song_artist_main_kor1' in y['list_split']:
+                artist_list.append(y['list_split']['song_artist_main_kor1'])
+            else:
+                artist_list.append(y['list_split']['song_artist_main_eng1'])
+
+        df_nlp = pd.read_pickle('df_sens_article_after.pkl')
+        tokenized_list = []
+        for i in df_nlp['tokenized']:
+            temp = []
+            for j in i[0][0]:
+                if j[0] in artist_list:
+                    continue
+                if j[0] in ['co', 'kr', 'com', 'outlet', '아웃렛', '영기', '안성훈', '박성', 'msg워너비', 'msg워너', '유재석',
+                            '김신영', '임영웅', '이찬원', '김희재', '세븐틴', '장민호', '방탄소년단']:
+                    continue
+                if j[1] in ['NNG', 'NNP', 'NNB', 'NR', 'NP', 'MM', 'MAG', 'VV', 'VA', 'VX', 'XR', 'SL']:
+                    temp.append(j[0])
+            tokenized_list.append(temp)
+        df_nlp['after_token'] = tokenized_list
+        index_new = [a for a in range(len(df_nlp))]
+        df_nlp = df_nlp.set_index([index_new])
+        tokenized_list = df_nlp['after_token'].apply(lambda x: [word for word in x if len(word) > 1])
+        index_new = [a for a in range(len(df_nlp['tokenized']))]
+        tokenized_list.index = index_new
+        print(tokenized_list[:5])
+
+        detokenized_doc = []
+        for i in range(len(tokenized_list)):
+            t = ' '.join(tokenized_list[i])
+            detokenized_doc.append(t)
+
+        df_nlp['tokenized'] = detokenized_doc
+        vectorizer = TfidfVectorizer(max_features=1000, min_df=15)
+        X = vectorizer.fit_transform(df_nlp['tokenized'])
+
+        km_cluster = KMeans(n_clusters=5, max_iter=10000, random_state=0)
+        km_cluster.fit(X)
+        cluster_label = km_cluster.labels_
+        cluster_centers = km_cluster.cluster_centers_
+
+        df_nlp['cluster_label'] = cluster_label
+        df_nlp.head()
+
+        df_nlp[df_nlp['cluster_label'] == 0]
+        df_nlp[df_nlp['cluster_label'] == 1]
+        df_nlp[df_nlp['cluster_label'] == 2]
+        df_nlp[df_nlp['cluster_label'] == 3]
+        df_nlp[df_nlp['cluster_label'] == 4]
+
+        df_nlp.to_pickle('df_document_clustering.pkl')
+
+    def main_word(self, cluster_model, cluster_data, feature_names, clusters_num, top_n_features=10):
+        cluster_details = {}
+        centroid_feature_ordered_ind = cluster_model.cluster_centers_.argsort()[:, ::-1]
+
+        for cluster_num in range(clusters_num):
+            cluster_details[cluster_num] = {}
+            cluster_details[cluster_num]['cluster'] = cluster_num
+
+            top_feature_indexes = centroid_feature_ordered_ind[cluster_num, :top_n_features]
+            top_features = [feature_names[ind] for ind in top_feature_indexes]
+
+            top_feature_values = cluster_model.cluster_centers_[cluster_num, top_feature_indexes].tolist()
+
+            cluster_details[cluster_num]['top_features'] = top_features
+            cluster_details[cluster_num]['top_features_value'] = top_feature_values
+            filenames = cluster_data[cluster_data['cluster_label'] == cluster_num]['filename']
+            filenames = filenames.values.tolist()
+
+            cluster_details[cluster_num]['filenames'] = filenames
+
+        return cluster_details
+
+
 
 ArticleNlp()
 
