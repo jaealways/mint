@@ -224,9 +224,11 @@ class ArticleNlp:
         df_nlp[df_nlp['cluster_label'] == 3]
         df_nlp[df_nlp['cluster_label'] == 4]
 
-        df_nlp.to_pickle('df_document_clustering.pkl')
-
-    def main_word(self, cluster_model, cluster_data, feature_names, clusters_num, top_n_features=10):
+        clusters_num = km_cluster.n_clusters
+        cluster_data = df_nlp['cluster_label']
+        cluster_model = km_cluster
+        top_n_features = 10
+        feature_names =
         cluster_details = {}
         centroid_feature_ordered_ind = cluster_model.cluster_centers_.argsort()[:, ::-1]
 
@@ -246,7 +248,7 @@ class ArticleNlp:
 
             cluster_details[cluster_num]['filenames'] = filenames
 
-        return cluster_details
+
 
 
 
