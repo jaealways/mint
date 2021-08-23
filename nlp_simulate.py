@@ -228,7 +228,7 @@ class ArticleNlp:
         cluster_data = df_nlp['cluster_label']
         cluster_model = km_cluster
         top_n_features = 10
-        feature_names =
+        feature_names = vectorizer.get_feature_names()
         cluster_details = {}
         centroid_feature_ordered_ind = cluster_model.cluster_centers_.argsort()[:, ::-1]
 
@@ -248,7 +248,7 @@ class ArticleNlp:
 
             cluster_details[cluster_num]['filenames'] = filenames
 
-
+        print('a')
 
 
 
