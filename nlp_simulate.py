@@ -210,7 +210,7 @@ class ArticleNlp:
         vectorizer = TfidfVectorizer(max_features=1000, min_df=15)
         X = vectorizer.fit_transform(df_nlp['tokenized'])
 
-        km_cluster = KMeans(n_clusters=5, max_iter=10000, random_state=0)
+        km_cluster = KMeans(n_clusters=4, max_iter=10000, random_state=0)
         km_cluster.fit(X)
         cluster_label = km_cluster.labels_
         cluster_centers = km_cluster.cluster_centers_
@@ -227,7 +227,7 @@ class ArticleNlp:
         clusters_num = km_cluster.n_clusters
         cluster_data = df_nlp['cluster_label']
         cluster_model = km_cluster
-        top_n_features = 10
+        top_n_features = 20
         feature_names = vectorizer.get_feature_names()
         cluster_details = {}
         centroid_feature_ordered_ind = cluster_model.cluster_centers_.argsort()[:, ::-1]
@@ -243,12 +243,8 @@ class ArticleNlp:
 
             cluster_details[cluster_num]['top_features'] = top_features
             cluster_details[cluster_num]['top_features_value'] = top_feature_values
-            filenames = cluster_data[cluster_data['cluster_label'] == cluster_num]['filename']
-            filenames = filenames.values.tolist()
 
-            cluster_details[cluster_num]['filenames'] = filenames
-
-        print('a')
+            print('{0} 번 군집: {1}'.format(cluster_details[cluster_num]['cluster'], cluster_details[cluster_num]['top_features']))
 
 
 
