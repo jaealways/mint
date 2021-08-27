@@ -17,11 +17,11 @@ col2 = db1.music_list_split
 class ArticleNlp:
     def __init__(self):
         # self.db_read()
-        # self.tokenization()
+        self.tokenization()
         # self.after_token()
         # self.for_read_df()
         # self.test_topic3()
-        self.document_clustering()
+        # self.document_clustering()
 
     def db_read(self):
         data = []
@@ -37,9 +37,10 @@ class ArticleNlp:
             df_artist.append(x['song_artist'])
             sen = x['text'].replace('.', '')
             nlp_article.append(re.sub(r'[^ ㄱ-ㅣ가-힣A-Za-z]', '', x['article_title']) + re.sub(r'[^ ㄱ-ㅣ가-힣A-Za-z]', '', sen))
-            df_temp = pd.DataFrame(nlp_article)
+            data = [[x['num'], x['song_title'], x['song_artist'], nlp_article]]
+            df_temp = pd.DataFrame(data)
             df_nlp = df_nlp.append(df_temp)
-        df_nlp.columns = ['text']
+        df_nlp.columns = ['num', 'song_title', 'song_artist', 'text']
         df.to_pickle('df_article.pkl')
         df_nlp.to_pickle('df_sens_article.pkl')
 
@@ -245,7 +246,6 @@ class ArticleNlp:
             cluster_details[cluster_num]['top_features_value'] = top_feature_values
 
             print('{0} 번 군집: {1}'.format(cluster_details[cluster_num]['cluster'], cluster_details[cluster_num]['top_features']))
-
 
 
 ArticleNlp()
