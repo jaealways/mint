@@ -23,9 +23,9 @@ class YoutubeDailyCrawler:
 
                 if self.video_num > 0:
                     if self.video_num in [17, 161, 176, 188, 319, 464, 539, 596, 597, 600, 709, 789, 813, 878, 931, 1019, 1204, 1506, 1510, 1561, 1586, 1747, 1845, 1974, 2314, 2413, 2514, 2671, 2764, 2826, 2849, 2889, 2934, 3007, 3033, 3046, 3067, 3074, 3088, 3130, 3158, 3249, 3328, 3595, 3702, 3706, 3812,
-                                          3879, 3905, 4008, 4056, 4178, 4184, 4210, 4288, 4378, 4440, 4482, 4499, 4538, 4866, 4945, 5133, 5164, 5305, 5463, 5649, 5766, 5804, 5809, 5939, 6015, 6059, 6252, 6286, 6367, 6368, 6480, 6561, 7184, 7216, 7290, 7352, 7363, 7369, 7394, 7510, 7660, 7685, 7734,
+                                          3879, 3905, 3923, 4008, 4056, 4178, 4184, 4210, 4288, 4378, 4440, 4482, 4485, 4499, 4538, 4866, 4874, 4945, 5133, 5164, 5305, 5463, 5649, 5766, 5804, 5809, 5939, 6015, 6059, 6252, 6286, 6367, 6368, 6480, 6561, 6653, 7184, 7216, 7290, 7352, 7363, 7369, 7394, 7510, 7660, 7685, 7734,
                                           7824, 7989, 8098, 8170]:
-                        # num = 8232까지
+                        # num = 8236까지
                         pass
                     else:
                         self.crawling_daily()
@@ -42,7 +42,6 @@ class YoutubeDailyCrawler:
         date_today = datetime.now().strftime('%Y-%m-%d')
 
         if response['items'] == []:
-            #에러뜨면 카톡오게, 에러뜨면 자동으로 삭제하고 다시
             winsound.Beep(2000, 1000)
             print('{0}번 오류 발생 - {1}'.format(self.video_num, self.id_video))
             print('{0} {1}'.format(self.song_artist, self.song_title))
@@ -60,7 +59,7 @@ class YoutubeDailyCrawler:
                 daily_crawl = item['statistics']
 
                 video_info['{0}'.format(date_today)] = daily_crawl
-                print(daily_crawl)
+                print(self.video_num, daily_crawl)
 
                 col2.insert_one(video_info).inserted_id
                 return video_info
