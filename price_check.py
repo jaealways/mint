@@ -18,7 +18,7 @@ def read_db():
     print(list_db)
     for x in list_db:
         for n in list(x)[2:]:
-            if x[n] > 50:
+            if abs(x[n]) > 50:
                 result = {'song_num': x['num'], 'date': n, 'price_ratio': x[n]}
                 print(result)
                 df = df.append(result, ignore_index=True)
