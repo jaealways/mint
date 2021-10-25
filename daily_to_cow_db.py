@@ -3,12 +3,12 @@ from datetime import datetime
 from bson.json_util import dumps, loads
 import subprocess as cmd
 import json
-import git
+# import git
 
 class DailyToCowDB:
     def __init__(self):
         self.date_today = datetime.now().strftime('%Y-%m-%d')
-        # self.date_today = '2021-07-10'
+        # self.date_today = '2021-08-10'
         # self.export_json()
         # self.push_github()
         # self.pull_github()
@@ -74,7 +74,7 @@ class DailyToCowDB:
             else:
                 self.date_data = x['{0}'.format(self.date_today)]
             col1.update_one(list_youtube, {'$set': {self.date_today: self.date_data}}, upsert=True)
-        col2.delete_many({})
+        # col2.delete_many({})
 
     def db_genie(self):
         list_db_gen_daily = col4.find({}, {'num': {"$slice": [1, 1]}})
