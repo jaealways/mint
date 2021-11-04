@@ -21,7 +21,7 @@ class YoutubeDailyCrawler:
                 self.song_artist = x['song_artist']
                 self.song_title = x['song_title']
 
-                if self.video_num > 3211:
+                if self.video_num > 0:
                     if self.video_num in [17, 161, 176, 188, 319, 464, 539, 596, 597, 600, 683, 709, 789, 813, 878, 931,
                                           1019, 1112, 1204, 1417, 1494, 1506, 1510, 1561, 1586, 1655, 1657, 1747, 1845, 1974, 2314, 2413, 2514,
                                           2671, 2764, 2826, 2849, 2889, 2934, 3007, 3033, 3046, 3067, 3074, 3088, 3130,
