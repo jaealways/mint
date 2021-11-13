@@ -20,7 +20,7 @@ class YoutubeDailyCrawler:
                 self.crawling_daily()
 
     def crawling_daily(self):
-        f = open("key.txt", 'r')
+        f = open("../key.txt", 'r')
         api_key = f.read()
         video_id = self.id_video
 
