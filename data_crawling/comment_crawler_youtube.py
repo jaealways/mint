@@ -6,9 +6,9 @@ class YoutubeDailyCrawler:
         self.read_db()
 
     def read_db(self):
-        list_db_music = col1.find({}, {'num': {"$slice": [1, 1]}})
+        list_db_music = col1.find({})
         for x in list_db_music:
-            for num_video_order in range(1, 11):
+            for num_video_order in range(1, len(x)-4):
                 # self.video_num = x['video_num']
                 # self.num_video += 1
                 self.link_video = x['video{0}'.format(num_video_order)]['link']
