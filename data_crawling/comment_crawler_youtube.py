@@ -1,5 +1,7 @@
 from googleapiclient.discovery import build
 from pymongo import MongoClient
+import json
+
 
 class YoutubeDailyCrawler:
     def __init__(self):
@@ -42,8 +44,9 @@ class YoutubeDailyCrawler:
                     self.crawling_daily()
 
     def crawling_daily(self):
-        f = open("../key.txt", 'r')
-        api_key = f.read()
+        with open("../storage/key.json", "r") as key:
+            key_dict = json.load(key)
+        api_key = key_dict["google_api"]
         video_id = self.id_video
         print('이번 비디오는 :', self.video_num)
 
