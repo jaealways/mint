@@ -2,6 +2,8 @@ from googleapiclient.discovery import build
 from pymongo import MongoClient
 from datetime import datetime
 import winsound
+import json
+
 
 # return 값 반환하는 형태로 대규모 개편하기
 
@@ -38,8 +40,9 @@ class YoutubeDailyCrawler:
                     pass
 
     def crawling_daily(self):
-        f = open("../key.txt", 'r')
-        api_key = f.read()
+        with open("../storage/key.json", "r") as key:
+            key_dict = json.load(key)
+        api_key = key_dict["google_api"]
         video_id = self.id_video
 
         api_obj = build('youtube', 'v3', developerKey=api_key)
