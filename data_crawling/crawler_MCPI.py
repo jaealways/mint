@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+import pandas as pd
 import selenium
 from selenium import webdriver
 import time
@@ -8,26 +9,28 @@ import time
 
 class MCPICrawler:
     def __init__(self):
-        #self.MCPI()
+        # self.MCPI()
         self.MCPI_to_Mongo()
 
     def MCPI_to_Mongo(self):
         with open('MCPI.pkl', 'rb') as f:
             MCPI = pickle.load(f)
+            MCPI_new = {}
+            for k, v in MCPI.items():
+                new_k = ('20' + k).replace('.', '-')
+                MCPI_new[new_k] = v
 
+            list_MCPI= {'num': 0, 'song_title': 'MCPI', 'song_artist': 'MCPI'}
+            MCPI_new.update(list_MCPI)
 
+            print(MCPI_new)
 
-            print(MCPI)
-
-        # col4.update_one({'Title': 'MCPI'},{'$set': MCPI}, upsert=True)
+        col1.insert_one(MCPI_new)
 
 
 
 
     def MCPI(self):
-
-        #list_db_gen_daily = col1.find({'num':{'$gte':204}})  204번 부터
-
         driver = webdriver.Chrome(executable_path='./chromedriver.exe')
 
 
@@ -146,13 +149,13 @@ class MCPICrawler:
         print('3')
 
         # 완성된 저작권료 딕셔너리 print
-        #print(self.copyright_price)
+        print(self.copyright_price)
 
 
 
         # pickle 로 만들기
-        #with open('copyright_price.pkl','wb') as f:
-            #pickle.dump(self.copyright_price, f)
+        with open('copyright_price.pkl','wb') as f:
+            pickle.dump(self.copyright_price, f)
 
 
 

@@ -1,5 +1,8 @@
 from pymongo import MongoClient
 from datetime import datetime
+import re
+import urllib.request as request
+from bs4 import BeautifulSoup
 from bson.json_util import dumps, loads
 import subprocess as cmd
 import json
@@ -7,7 +10,7 @@ import json
 class MusicCowDailyCrawler:
     def __init__(self):
         self.add_db()  #######
-        self.read_db()
+        # self.read_db()
 
 #########################################
     def add_db(self):
@@ -15,7 +18,7 @@ class MusicCowDailyCrawler:
 
         for i in range(0,2500):
 
-            html = urlopen("https://www.musicow.com/song/{0}?tab=price".format(i))
+            html = request.urlopen("https://www.musicow.com/song/{0}?tab=price".format(i))
             soup = BeautifulSoup(html, "html.parser")
 
             title = soup.find('p', attrs={'class': 'title'}).find('strong')
@@ -27,7 +30,7 @@ class MusicCowDailyCrawler:
                     else:
                         print("{0} 번곡은 music_list db에 없음. 신곡입니다.".format(i))
                         print("{0} 곡을 music_list 에 추가합니다.")
-                        crawl_link()
+                        self.crawl_link()
 
     def crawl_link(self):
         print("{0}번 곡 뮤직카우 크롤링 시작".format(self.num))
@@ -113,7 +116,7 @@ class MusicCowDailyCrawler:
                 self.crawling_daily()
 
     def crawling_daily(self):
-        html = urlopen("https://www.musicow.com/song/{0}?tab=price".format(self.num))
+        html = request.urlopen("https://www.musicow.com/song/{0}?tab=price".format(self.num))
         soup = BeautifulSoup(html, "html.parser")
 
         price = soup.find('strong', attrs = {'class' : 'amt_market_latest'})
