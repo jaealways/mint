@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from datetime import datetime
+import datetime
 from bson.json_util import dumps, loads
 import subprocess as cmd
 import json
@@ -7,7 +7,8 @@ import json
 
 class DailyToCowDB:
     def __init__(self):
-        self.date_today = datetime.now().strftime('%Y-%m-%d')
+        self.date_today = datetime.date.today().strftime('%Y-%m-%d')
+        self.date_tomorrow = (datetime.date.today() + datetime.timedelta(days=1)).strftime('%Y-%m-%d')
         # self.date_today = '2021-08-10'
         # self.export_json()
         # self.push_github()
@@ -73,7 +74,7 @@ class DailyToCowDB:
                 pass
             else:
                 self.date_data = x['{0}'.format(self.date_today)]
-            col1.update_one(list_youtube, {'$set': {self.date_today: self.date_data}}, upsert=True)
+            col1.update_one(list_youtube, {'$set': {self.date_tomorrow: self.date_data}}, upsert=True)
         # col2.delete_many({})
 
     def db_genie(self):
