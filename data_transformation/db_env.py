@@ -34,11 +34,7 @@ class DbEnv:
         conn.close()
 
     def create_table(self, conn, cursor, table_name, sql_col):
-        sql = f"""CREATE TABLE IF NOT EXISTS {table_name} 
-        (id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        email varchar(255) NOT NULL,
-        password varchar(255) NOT NULL
-        ) ENGINE=InnoDB DEFAULT CHARSET=utf8"""
+        sql = f"""CREATE TABLE IF NOT EXISTS {table_name} """
         cursor.execute(sql)
 
     def get_last_row(self, conn, cursor, table_name, row):
