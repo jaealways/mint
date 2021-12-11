@@ -11,6 +11,7 @@ class MongoToSQL:
         conn_mongo = DbEnv().connect_mongo('music_cow', 'daily_music_cow')
         conn_sql, cursor_sql = DbEnv().connect_sql()
 
+        #sql 컬럼 어떻게??
         sql_col = """id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
         email varchar(255) NOT NULL,
         password varchar(255) NOT NULL
