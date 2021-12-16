@@ -41,6 +41,13 @@ class DbEnv:
 
         return conn, cursor
 
+    def get_data_from_table(self, cursor, row, table_name, where_con):
+        sql_last_col = f"""SELECT {row} FROM {table_name} WHERE {where_con};"""
+        cursor.execute(sql_last_col)
+        data_sql = cursor.fetchall()
+
+        return data_sql
+
     def get_last_row(self, cursor, table_name, row):
         # 왜 빈 튜플이 나오지???
         sql_last_col = f"""SELECT {row}, IFNULL({row}, 0) AS {row} FROM {table_name} ORDER BY {row} DESC LIMIT 1;"""
