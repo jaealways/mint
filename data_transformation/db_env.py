@@ -41,9 +41,8 @@ class DbEnv:
 
         return conn, cursor
 
-    def get_data_from_table(self, cursor, row, table_name, where_con):
-        sql_last_col = f"""SELECT {row} FROM {table_name} WHERE {where_con};"""
-        cursor.execute(sql_last_col)
+    def get_data_from_table(self, cursor, sql):
+        cursor.execute(sql)
         data_sql = cursor.fetchall()
 
         return data_sql
@@ -71,3 +70,44 @@ class DbEnv:
 
         return conn, cursor
 
+
+class db:
+    def __init__(self, cur, args):
+        self.cur = cur
+        self.sql = args
+        self.search_data()
+        self.make_df()
+
+    def search_data(self):
+        self.cur.execute(self.sql)
+        self.results = self.cur.fetchall()
+        return self.results
+
+    def make_df(self):
+        import pandas as pd
+        self.list = []
+        for i in self.results:
+            self.list.append(i)
+        self.columns = self.sql
+        if ' FROM' in self.columns:
+            self.columns = self.sql.split(' FROM')
+            self.columns = self.columns[0]
+            self.columns = self.columns.split(' ')
+            self.columns.pop(0)
+            self.columns = ''.join(self.columns)
+            self.columns = self.columns.split(',')
+        else:
+            self.columns = self.sql.split(' from')
+            self.columns = self.columns[0]
+            self.columns = self.columns.split(' ')
+            self.columns.pop(0)
+            self.columns = ''.join(self.columns)
+            self.columns = self.columns.split(',')
+
+        self.dataframe = pd.DataFrame(self.list, columns=self.columns)
+
+        return self.dataframe
+
+    def disconnect(self):
+        self.cur.close()
+        self.conn.close()
