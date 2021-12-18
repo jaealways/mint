@@ -135,14 +135,19 @@ mongo_sql = MongoToSQL()
 
 DbEnv().create_db('mu_tech')
 
+
 last_col, col_list = mongo_sql.get_col_mcpi()
 mongo_sql.update_sql_daily_mcpi('daily_mcpi', 'daily_mcpi')
 
 # last_col, col_list = mongo_sql.get_col_daily_music_cow()
 # mongo_sql.update_sql_daily_music_cow('daily_music_cow', 'daily_music_cow')
+=======
+last_col, col_list = mongo_sql.get_col_daily_music_cow()
+mongo_sql.update_sql_daily_music_cow('daily_music_cow', 'daily_music_cow')
 
-# last_col, col_list = mongo_sql.get_col_daily_youtube()
-# mongo_sql.update_sql_daily_youtube('daily_youtube', 'daily_youtube', col_list)
+
+last_col, col_list = mongo_sql.get_col_daily_youtube()
+mongo_sql.update_sql_daily_youtube('daily_youtube', 'daily_youtube', col_list)
 
 # last_col, col_list = mongo_sql.get_col_daily_genie()
 # mongo_sql.update_sql_daily_genie('daily_genie', 'daily_genie', col_list)
