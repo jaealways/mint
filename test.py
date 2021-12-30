@@ -1,63 +1,124 @@
-from pymongo import MongoClient
-from datetime import datetime
+import random
+from copy import deepcopy
 
-class DailyToCowDB:
-    def __init__(self):
-        # self.date_today = datetime.now().strftime('%Y-%m-%d')
-        self.date_today = '2021-08-12'
-        self.db_youtube()
+import numpy as np
+import plotly.graph_objects as go
+from dtaidistance import dtw
+from plotly.subplots import make_subplots
+from scipy import interpolate
+import math
+import matplotlib.pyplot as plt
 
 
-    def db_youtube(self):
-        for num in range(0, 8800):
-            list_db_gen_daily = col1.find({'video_num': num})
-            list_db_mc = col1.find({'video_num': num})
-            for x in list_db_gen_daily:
-                if '2021-08-11' not in x.keys():
+NUM_OF_TRAJECTORIES = 100
+MIN_LEN_OF_TRAJECTORY = 16
+MAX_LEN_OF_TRAJECTORY = 40
+
+THRESHOLD = 1.0
+
+trajectoriesSet = {}
+
+for item in range(NUM_OF_TRAJECTORIES):
+    length = MAX_LEN_OF_TRAJECTORY
+    tempTrajectory = np.random.randint(low=-100, high=100, size=int(length / 4)).astype(float) / 100
+
+    oldScale = np.arange(0, int(length / 4))
+    interpolationFunction = interpolate.interp1d(oldScale, tempTrajectory)
+
+    newScale = np.linspace(0, int(length / 4) - 1, length)
+    tempTrajectory = interpolationFunction(newScale)
+
+    trajectoriesSet[(str(item),)] = [tempTrajectory]
+
+trajectories = deepcopy(trajectoriesSet)
+distanceMatrixDictionary = {}
+
+iteration = 1
+while True:
+    distanceMatrix = np.empty((len(trajectories), len(trajectories),))
+    distanceMatrix[:] = np.nan
+
+    for index1, (filter1, trajectory1) in enumerate(trajectories.items()):
+        tempArray = []
+
+        for index2, (filter2, trajectory2) in enumerate(trajectories.items()):
+
+            if index1 > index2:
+                continue
+
+            elif index1 == index2:
+                continue
+
+            else:
+                unionFilter = filter1 + filter2
+                sorted(unionFilter)
+
+                if unionFilter in distanceMatrixDictionary.keys():
+                    distanceMatrix[index1][index2] = distanceMatrixDictionary.get(unionFilter)
+
                     continue
-                self.date_data_0610 = x['2021-08-11']
-                self.name_0610 = x['title_video']
 
-                break
-            for y in list_db_mc:
-                if '2021-08-09' not in y.keys():
-                    continue
-                self.date_data_0608 = y['2021-08-09']
-                self.name_0608 = y['title_video']
+                metric = []
+                for subItem1 in trajectory1:
 
-                if '2021-08-10' in y.keys():
-                    continue
+                    for subItem2 in trajectory2:
+                        metric.append(dtw.distance(subItem1, subItem2, psi=1))
 
-                # if self.name_0608 != self.name_0610:
-                #     print('{0}번 비디오 에러!'.format(num))
-                #     # raise IndexError
-                #     col1.delete_one({'video_num': num})
-                #     col1.insert_one(x).inserted_id
-                #     break
+                metric = max(metric)
 
-                # else:
-                for z in self.date_data_0608:
-                    self.date_data_0609 = self.date_data_0608
-                    self.date_data_0609[z] = (int(self.date_data_0608[z]) + int(self.date_data_0610[z])) / 2
+                distanceMatrix[index1][index2] = metric
+                distanceMatrixDictionary[unionFilter] = metric
 
-                print('db에 {0}번 곡 업로드 중'.format(num))
-                col1.update_one({'video_num': num}, {'$set': {'2021-08-10': self.date_data_0609}}, upsert=True)
+    minValue = np.min(list(distanceMatrixDictionary.values()))
 
+    if minValue > THRESHOLD:
+        break
 
-if __name__ == '__main__':
-    client = MongoClient('localhost', 27017)
-    db1 = client.music_cow
-    db2 = client.daily_crawler
-    # daily youtube update
-    col1 = db1.daily_youtube
-    col2 = db2.daily_youtube
-    # daily genie update
-    col3 = db1.daily_genie
-    col4 = db2.daily_genie
-    # daily youtube update
-    col5 = db1.daily_music_cow
-    col6 = db2.daily_music_cow
+    minIndices = np.where(distanceMatrix == minValue)
+    minIndices = list(zip(minIndices[0], minIndices[1]))
 
-    DailyToCowDB()
+    minIndex = minIndices[0]
 
+    filter1 = list(trajectories.keys())[minIndex[0]]
+    filter2 = list(trajectories.keys())[minIndex[1]]
+
+    trajectory1 = trajectories.get(filter1)
+    trajectory2 = trajectories.get(filter2)
+
+    unionFilter = filter1 + filter2
+    sorted(unionFilter)
+
+    trajectoryGroup = trajectory1 + trajectory2
+
+    trajectories = {key: value for key, value in trajectories.items()
+                    if all(value not in unionFilter for value in key)}
+
+    distanceMatrixDictionary = {key: value for key, value in distanceMatrixDictionary.items()
+                                if all(value not in unionFilter for value in key)}
+
+    trajectories[unionFilter] = trajectoryGroup
+
+    print(iteration, 'finished!')
+    iteration += 1
+
+    if len(list(trajectories.keys())) == 1:
+        break
+
+for key, _ in trajectories.items():
+    print(key)
+
+dtw_x = dtw_y = math.ceil(math.sqrt(len(trajectories)))
+dtw_n = [(x, y) for x in range(dtw_x) for y in range(dtw_y)][:len(trajectories)]
+
+fig, axs = plt.subplots(dtw_x, dtw_y, figsize=(25, 25))
+fig.suptitle('Clusters')
+
+for value, dtw_cluster in zip(trajectories.values(), dtw_n):
+    for index, subValue in enumerate(value):
+        axs[dtw_cluster].plot(subValue, c="gray", alpha=0.5)
+    axs[dtw_cluster].plot(np.average(np.vstack(value), axis=0), c="blue")
+    cluster_number = dtw_cluster[0] * dtw_y + dtw_cluster[1] + 1
+    axs[dtw_cluster].set_title(f"Cluster {cluster_number}")
+
+plt.show()
 
