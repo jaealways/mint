@@ -94,7 +94,6 @@ class MusicCowDailyCrawler:
             'stock_num': self.stock_num
         }
 
-#################################################
 
     def read_db(self):
         list_db_music = col1.find({}, {'num': {"$slice": [1, 1]}})
