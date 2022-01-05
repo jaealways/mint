@@ -33,7 +33,15 @@ class DataPreprocess:
         df_scaled.columns = list_df_droped
         df_scaled.index = df.index
 
-        return df_scaled, array_scaled
+        return df_scaled
+
+    def scale_array(self, array, method='Standard'):
+        if method == 'MinMax':
+            array_scaled = MinMaxScaler().fit_transform(array)
+        else:
+            array_scaled = StandardScaler().fit_transform(array)
+
+        return array_scaled
 
     def smooth_time_series(self, df_time, method="exp", level=0.3):
         """
@@ -43,24 +51,12 @@ class DataPreprocess:
         """
         array_time = df_time.to_numpy()
         array_time_t = np.transpose(array_time)
-        array_time_smooth_t = np.empty(np.shape(array_time_t))
 
         if method == "exp":
-            array_time_smooth_t = SimpleExpSmoothing(array_time_smooth_t).fit(smoothing_level=level)
+            list_time_smooth_t = [SimpleExpSmoothing(x).fit(smoothing_level=level).fittedvalues for x in array_time_t]
         elif method == "holt":
-            array_time_smooth_t = Holt(array_time_smooth_t)
+            list_time_smooth_t = [Holt(x).fit(smoothing_level=level).fittedvalues for x in array_time_t]
+        array_time_smooth = np.array(list_time_smooth_t).transpose()
 
-        return array_time_smooth_t
-
-
-
-df_price = pd.read_pickle('../storage/df_price.pkl')
-df_mcpi = pd.read_pickle('../storage/df_mcpi.pkl')
-
-df_price_droped, df_mcpi_droped, list_price_droped = DataPreprocess().make_df_nan_same(df_price, df_mcpi, 'date')
-
-df_price_scaled, array_price_scaled = DataPreprocess().scale_df(df=df_price_droped)
-df_mcpi_scaled, array_mcpi_scaled = DataPreprocess().scale_df(df=df_mcpi_droped)
-
-array_price_smooth03_t = DataPreprocess().smooth_time_series(df_time=df_price_scaled)
+        return array_time_smooth
 
