@@ -44,3 +44,12 @@ class TimeSeriesClustering:
 
         return df_cluster_dst
 
+    def plot_time_series_denoise(self, list_music_num, rand_num_list, plt_dn_list_scaled, name_denoise_list, color_den_list):
+        fig, axs = plt.subplots(len(rand_num_list), 1, figsize=(25, 25))
+        for idx, x in enumerate(rand_num_list):
+            for plt_dn, name_dn, col_dn in zip(plt_dn_list_scaled, name_denoise_list, color_den_list):
+                axs[(idx,)].plot(plt_dn[x], c=col_dn, label=f'{name_dn}')
+            plt.legend()
+            axs[(idx,)].set_title(f"song_num {list_music_num[x]}")
+        plt.show()
+
