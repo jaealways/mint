@@ -10,14 +10,15 @@ class TimeSeriesClustering:
     def plot_result_som(self, df, cluster_n, df_trend='False'):
         import math
         som_x = som_y = math.ceil(math.sqrt(cluster_n))
+        list_index = list(df.index)
 
-        df = df.dropna(axis=0)
+        df = df.dropna(axis=1)
         array = df.to_numpy()
-        win_map = TimeSeriesClustering().make_cluster_minisom(array, som_x, som_y)
+        win_map, df_cluster = TimeSeriesClustering().make_cluster_minisom(array, som_x, som_y, list_index)
         TimeSeriesClustering().plot_som_series_averaged_center(som_x, som_y, win_map, df_trend=df_trend)
         df_cluster_dis = TimeSeriesClustering().plot_som_cluster_distribution(som_x, som_y, win_map)
 
-        return df_cluster_dis
+        return df_cluster_dis, df_cluster
 
     def plot_som_series_averaged_center(self, som_x, som_y, win_map, df_trend):
         fig, axs = plt.subplots(som_x, som_y, figsize=(25, 25))
@@ -67,34 +68,45 @@ class TimeSeriesClustering:
             axs[(idx,)].set_title(f"song_num {list_music_num[x]}")
         plt.show()
 
-    def make_cluster_minisom(self, array, som_x, som_y):
-        array_t = np.transpose(array)
-        som = MiniSom(som_x, som_y, len(array_t[0]), sigma=0.3, learning_rate=0.1)
+    def make_cluster_minisom(self, array, som_x, som_y, list_index):
+        som = MiniSom(som_x, som_y, len(array[0]), sigma=0.3, learning_rate=0.1)
 
-        som.random_weights_init(array_t)
-        som.train(array_t, 100000)
+        som.random_weights_init(array)
+        som.train(array, 100000)
 
-        return som.win_map(array_t)
+        cluster_map = []
+        for idx in range(len(array)):
+            winner_node = som.winner(array[idx])
+            cluster_map.append((list_index[idx], f"Cluster {winner_node[0] * som_y + winner_node[1] + 1}"))
+
+        df_cluster = pd.DataFrame(cluster_map, columns=["Series", "Cluster"]).sort_values(by="Cluster").set_index("Series")
+
+        return som.win_map(array), df_cluster
 
     def decompose_time_series(self, df, model='additive'):
         """model: 'additive', 'multiplicative'"""
+        import copy
+
+        df_copy = copy.copy(df)
 
         # 작업을 위해 index를 시계열 format으로 변환
-
         from datetime import datetime
 
         date = []
-        for i in df.index:
+        for i in df_copy.columns:
             date.append(datetime.strptime(i, '%Y-%m-%d'))
-        df.index = date
+        df_copy.columns = date
+        df_t = np.transpose(df_copy)
 
         from statsmodels.tsa.seasonal import seasonal_decompose
 
-        df_resid = df.apply(lambda x: seasonal_decompose(x, model=model).resid)
-        df_trend = df.apply(lambda x: seasonal_decompose(x, model=model).trend)
-        df_season = df.apply(lambda x: seasonal_decompose(x, model=model).seasonal)
+        df_temp = df_t.apply(lambda x: seasonal_decompose(x, model=model))
+        df_resid, df_trend, df_seasonal = df_temp.apply(lambda x: x.resid), df_temp.apply(lambda x: x.trend), df_temp.apply(lambda x: x.seasonal)
 
-        return df_resid, df_trend, df_season
+        #?? 같은 동작 3번 수행. 간단하게 가능??
+        df_resid, df_trend, df_seasonal = df_resid.dropna(axis=1), df_trend.dropna(axis=1), df_seasonal.dropna(axis=1)
+
+        return df_resid, df_trend, df_seasonal
 
 
 
