@@ -141,7 +141,7 @@ mongo_sql.update_sql_daily_mcpi('daily_mcpi', 'daily_mcpi')
 
 # last_col, col_list = mongo_sql.get_col_daily_music_cow()
 # mongo_sql.update_sql_daily_music_cow('daily_music_cow', 'daily_music_cow')
-=======
+
 last_col, col_list = mongo_sql.get_col_daily_music_cow()
 mongo_sql.update_sql_daily_music_cow('daily_music_cow', 'daily_music_cow')
 
