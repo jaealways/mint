@@ -95,6 +95,7 @@ class db:
             self.columns = self.columns.split(' ')
             self.columns.pop(0)
             self.columns = ''.join(self.columns)
+            self.columns = self.columns.replace('DISTINCT', '')
             self.columns = self.columns.split(',')
         else:
             self.columns = self.sql.split(' from')
@@ -102,6 +103,7 @@ class db:
             self.columns = self.columns.split(' ')
             self.columns.pop(0)
             self.columns = ''.join(self.columns)
+            self.columns = self.columns.replace('DISTINCT', '')
             self.columns = self.columns.split(',')
 
         self.dataframe = pd.DataFrame(self.list, columns=self.columns)
