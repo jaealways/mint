@@ -19,7 +19,7 @@ class DataTidying:
     def get_df_price(self, list_num, cursor, str_date='2017-01-01', end_date='2023-12-31'):
         df_price = pd.DataFrame()
         for num in tqdm(list_num):
-            sql = "SELECT DISTINCT date, price FROM daily_music_cow WHERE (num = '%s') AND (date BETWEEN '%s' AND '%s')" % (num, str_date, end_date)
+            sql = "SELECT DISTINCT date, price_close FROM daily_music_cow WHERE (num = '%s') AND (date BETWEEN '%s' AND '%s')" % (num, str_date, end_date)
             df_temp = db(cursor, sql).dataframe
             # df_temp.rename(columns={'DISTINCTdate': 'date'}, inplace=True)
             df_temp = df_temp.set_index('date')
