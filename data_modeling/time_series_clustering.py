@@ -5,8 +5,13 @@ from tqdm import tqdm
 from tensorflow import keras
 from minisom import MiniSom
 
+from data_transformation.db_env import DbEnv, db
+
 
 class TimeSeriesClustering:
+    def __init__(self, str_date, end_date, model):
+        self.str_date, self.end_date, self.model = str_date, end_date, model
+
     def plot_result_som(self, df, cluster_n, df_trend='False'):
         import math
         som_x = som_y = math.ceil(math.sqrt(cluster_n))
@@ -15,8 +20,8 @@ class TimeSeriesClustering:
         df = df.dropna(axis=1)
         array = df.to_numpy()
         win_map, df_cluster = self.make_cluster_minisom(array, som_x, som_y, list_index)
-        TimeSeriesClustering().plot_som_series_averaged_center(som_x, som_y, win_map, df_trend=df_trend)
-        df_cluster_dis = TimeSeriesClustering().plot_som_cluster_distribution(som_x, som_y, win_map)
+        self.plot_som_series_averaged_center(som_x, som_y, win_map, df_trend=df_trend)
+        df_cluster_dis = self.plot_som_cluster_distribution(som_x, som_y, win_map)
 
         return df_cluster_dis, df_cluster
 
@@ -34,7 +39,12 @@ class TimeSeriesClustering:
                     axs[cluster].plot(np.average(np.vstack(win_map[cluster]), axis=0), c="blue")
                 cluster_number = x * som_y + y + 1
                 axs[cluster].set_title(f"Cluster {cluster_number}")
-        plt.show()
+
+        plt.savefig('../storage/plt_ts_clst/plt_clst_%s_%s_%s.png' % (self.model, self.str_date, self.end_date))
+        plt.show(block=False)
+
+        plt.pause(3)
+        plt.close()
 
     def plot_som_cluster_distribution(self, som_x, som_y, win_map):
         cluster_c = []
@@ -52,10 +62,17 @@ class TimeSeriesClustering:
         plt.figure(figsize=(25, 5))
         plt.title("Cluster Distribution for SOM")
         plt.bar(cluster_n, cluster_c)
-        plt.show()
+
+        plt.savefig('../storage/plt_ts_clst/plt_clst_dst_%s_%s_%s.png' % (self.model, self.str_date, self.end_date))
+        plt.show(block=False)
+
+        plt.pause(3)
+        plt.close()
 
         df_cluster_dst = pd.DataFrame([cluster_n, cluster_c], index=['clu_name', 'clu_num'])
+
         df_cluster_dst = np.transpose(df_cluster_dst)
+        df_cluster_dst['clu_ratio'] = df_cluster_dst['clu_num']/df_cluster_dst['clu_num'].sum()
 
         return df_cluster_dst
 
@@ -66,7 +83,12 @@ class TimeSeriesClustering:
                 axs[(idx,)].plot(plt_dn[x], c=col_dn, label=f'{name_dn}')
             plt.legend()
             axs[(idx,)].set_title(f"song_num {list_music_num[x]}")
-        plt.show()
+        plt.savefig('../storage/plt_ts_clst/plt_ts_compare_%s_%s_%s.png' % (self.str_date, self.end_date))
+        plt.show(block=False)
+
+        plt.pause(3)
+        plt.close()
+
 
     def make_cluster_minisom(self, array, som_x, som_y, list_index):
         som = MiniSom(som_x, som_y, len(array[0]), sigma=0.3, learning_rate=0.1)
@@ -108,8 +130,24 @@ class TimeSeriesClustering:
 
         return df_resid, df_trend, df_seasonal
 
+    def make_df_clst_arst_song(self, col, colunms, df_cluster):
+        df_clst_artist_song = pd.DataFrame([], index=colunms)
+        conn = DbEnv().connect_mongo('music_cow', col)
+        list_clst = df_cluster.Cluster.drop_duplicates().values.tolist()
+        for cl_n in list_clst:
+            index_cl_n = df_cluster[df_cluster['Cluster'] == cl_n].index.tolist()
+            print('%s 번 클러스터 - %s' % (cl_n, index_cl_n))
+            for song_num in index_cl_n:
+                list_song = conn.find({'num': int(song_num)})
+                for x in list_song:
+                    print('title:', x['song_title'], '---', 'artist:', x['song_artist'])
+                    df_temp = pd.DataFrame([x['song_title'], x['song_artist'], cl_n, song_num], index=colunms)
+                    df_clst_artist_song = pd.concat([df_clst_artist_song, df_temp], axis=1)
 
+        df_clst_artist_song = np.transpose(df_clst_artist_song)
+        df_clst_artist_song.to_pickle("../storage/df_ts_clst/df_clst_artist_song_%s_%s_%s.pkl" % (self.model, self.str_date, self.end_date))
 
+        return df_clst_artist_song
 #
 #
 # np.random.seed(813306)
