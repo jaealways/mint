@@ -14,7 +14,7 @@ class TimeSeriesClustering:
 
         df = df.dropna(axis=1)
         array = df.to_numpy()
-        win_map, df_cluster = TimeSeriesClustering().make_cluster_minisom(array, som_x, som_y, list_index)
+        win_map, df_cluster = self.make_cluster_minisom(array, som_x, som_y, list_index)
         TimeSeriesClustering().plot_som_series_averaged_center(som_x, som_y, win_map, df_trend=df_trend)
         df_cluster_dis = TimeSeriesClustering().plot_som_cluster_distribution(som_x, som_y, win_map)
 
