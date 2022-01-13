@@ -7,7 +7,11 @@ class MongoToSQL:
         conn_sql, cursor_sql = DbEnv().connect_sql()
         sql_col = """num int(11) NOT NULL,
         date varchar(255) NOT NULL,
-        price int(11) NOT NULL"""
+        price_high int(11) NOT NULL,
+        price_low int(11) NOT NULL,
+        price_close int(11) NOT NULL,
+        price_ratio float(11) NOT NULL,
+        volume int(11) NOT NULL"""
         conn_sql, cursor_sql = DbEnv().create_table(conn_sql, cursor_sql, 'daily_music_cow', sql_col)
         col_list = DbEnv().get_col_list(cursor_sql, 'daily_music_cow')
         col_list = [item[0] for item in col_list]
@@ -65,16 +69,17 @@ class MongoToSQL:
         conn_mongo = DbEnv().connect_mongo('music_cow', col_mongo)
         conn_sql, cursor_sql = DbEnv().connect_sql()
         dict_col = conn_mongo.find()
-        list_col = "num, date, price"
+        list_col = "num, date, price_high, price_low, price_close, price_ratio, volume"
         for x in dict_col:
             num = x['num']
             for index, (key, elem) in enumerate(x.items()):
                 if str(type(elem)) == "<class 'dict'>":
                     if key > str(last_col):
-                        tuple_data = (num, key, int(elem['price']))
+                        tuple_data = (num, key, int(elem['price_high']), int(elem['price_low']), int(elem['price_close']),
+                                      float(elem['pct_price_change']), int(elem['cnt_units_traded']))
                         DbEnv.insert_data_to_table(self, conn=conn_sql, cursor=cursor_sql, list_col=list_col,
                                                    table_sql=table_sql, tuple_data=tuple_data)
-                        print(key, num, int(elem['price']))
+                        print(key, num, int(elem['price_high']))
 
     def update_sql_daily_mcpi(self, col_mongo, table_sql):
         conn_mongo = DbEnv().connect_mongo('music_cow', col_mongo)
@@ -136,18 +141,16 @@ mongo_sql = MongoToSQL()
 DbEnv().create_db('mu_tech')
 
 
-last_col, col_list = mongo_sql.get_col_mcpi()
-mongo_sql.update_sql_daily_mcpi('daily_mcpi', 'daily_mcpi')
+# last_col, col_list = mongo_sql.get_col_mcpi()
+# mongo_sql.update_sql_daily_mcpi('daily_mcpi', 'daily_mcpi')
 
-# last_col, col_list = mongo_sql.get_col_daily_music_cow()
-# mongo_sql.update_sql_daily_music_cow('daily_music_cow', 'daily_music_cow')
 
 last_col, col_list = mongo_sql.get_col_daily_music_cow()
 mongo_sql.update_sql_daily_music_cow('daily_music_cow', 'daily_music_cow')
 
 
-last_col, col_list = mongo_sql.get_col_daily_youtube()
-mongo_sql.update_sql_daily_youtube('daily_youtube', 'daily_youtube', col_list)
+# last_col, col_list = mongo_sql.get_col_daily_youtube()
+# mongo_sql.update_sql_daily_youtube('daily_youtube', 'daily_youtube', col_list)
 
 # last_col, col_list = mongo_sql.get_col_daily_genie()
 # mongo_sql.update_sql_daily_genie('daily_genie', 'daily_genie', col_list)
