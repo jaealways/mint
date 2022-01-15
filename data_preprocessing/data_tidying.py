@@ -65,6 +65,7 @@ class DataTidying:
 
         df_mcpi_volume = np.transpose(pd.DataFrame(df_song_volume.sum()))
         df_fng_index = pd.concat([df_mcpi, df_mcpi_volume], axis=0)
+        df_fng_index.index = ['mcpi', 'total_volume']
 
         df_mcpi_volume.to_pickle("../storage/df_raw_data/df_mcpi_volume_%s_%s.pkl" % (str_date, end_date))
         df_fng_index.to_pickle("../storage/df_raw_data/df_fng_index_%s_%s.pkl" % (str_date, end_date))
