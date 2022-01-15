@@ -4,7 +4,7 @@ class FearandGreedIndex:
     def __init__(self):
         print('s')
 
-    def numpy_ewma_vectorized(slef, df, alpha):
+    def numpy_ewma_vectorized(self, df, alpha):
         data = np.array(df.T)
         alpha_rev = 1 - alpha
         n = data.shape[0]
