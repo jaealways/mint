@@ -9,8 +9,7 @@ from tqdm import tqdm
 class DataTidying:
     """모든 데이터프레임 생성시 column: date, row: num으로 되게 통일하기"""
 
-    def get_list_music_num(self, cursor):
-        sql = "SELECT DISTINCT num FROM daily_music_cow"
+    def get_list_from_sql(self, cursor, sql):
         list_music_num = DbEnv().get_data_from_table(cursor, sql)
         list_music_num = [item[0] for item in list_music_num]
 
@@ -71,4 +70,8 @@ class DataTidying:
         df_fng_index.to_pickle("../storage/df_raw_data/df_fng_index_%s_%s.pkl" % (str_date, end_date))
 
         return df_mcpi_volume, df_fng_index
+
+# from gensim.models.word2vec import Word2Vec
+# tmp=Word2Vec.load('../storage/word_dictionary/w2v_model.model')
+# tmp.wv.most_similar('롤린')
 
