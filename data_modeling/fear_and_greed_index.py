@@ -16,13 +16,12 @@ import matplotlib.pyplot as plt
 from data_transformation.db_env import DbEnv, db
 from data_preprocessing.data_tidying import DataTidying
 from data_preprocessing.data_preprocess import DataPreprocess
-from data_modeling.fear_and_greed_index import FearandGreedIndex
 
 
 # 노래 번호 리스트 출력
 conn, cursor = DbEnv().connect_sql()
-list_music_num = DataTidying().get_list_music_num(cursor=cursor)
-
+sql = "SELECT DISTINCT num FROM daily_music_cow ORDER BY num"
+list_music_num = DataTidying().get_list_from_sql(cursor, sql)
 
 # 데이터 프레임 생성
 # df_song_volume = DataTidying().get_df_song_volume(cursor)
@@ -197,7 +196,7 @@ df_mcpi_x_short = df_x_temp_short_t.T.apply(lambda x: (x[0]-x[1])/x[1]).T
 
 print('# Eq 2-3')
 
-c = 16.387308
+c = 30
 df_score_moment_temp_t = pd.concat([df_l_long_t, df_mcpi_x_long, df_l_short_t, df_mcpi_x_short], axis=1)
 df_score_moment_temp_t.columns = [0, 1, 2, 3]
 df_score_momentum = df_score_moment_temp_t.T.apply(lambda x: c*(x[0]*x[1]+x[2]*x[3])/10)
@@ -228,7 +227,10 @@ df_mcpi_beta_t = df_mcpi_w_ewm_t.T.apply(lambda x: 2+abs(x)-(4/(1+math.exp(abs(-
 
 list_idx_w = df_mcpi_w_ewm_t
 
+df_fng_index_t['mcpi']
 
-
+# plt_temp = df_fng_index_t['mcpi'].plot(x='index', y='mcpi', c='b')
+# df_fng_index_temp.plot(ax=plt_temp, x='index', y='mcpi_ewm', c='r')
+# plt.show()
 
 
