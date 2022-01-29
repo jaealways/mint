@@ -15,17 +15,19 @@ class DataTidying:
 
         return list_music_num
 
-    def get_df_price(self, list_num, cursor, str_date='17-01-01', end_date='23-12-31'):
+    def get_df_price(self, cursor, str_date='17-01-01', end_date='23-12-31'):
         df_price = pd.DataFrame()
-        for num in tqdm(list_num):
-            sql = "SELECT DISTINCT date, price_close FROM daily_music_cow WHERE (num = '%s') AND (date BETWEEN '%s' AND '%s') ORDER BY date" % (num, '20'+str_date, '20'+end_date)
+        df_mcpi = pd.read_pickle("../storage/df_raw_data/df_mcpi_17-01-01_23-12-31.pkl")
+        list_mcpi_date = df_mcpi.loc[:, '20' + str_date: '20' + end_date].columns.tolist()
+
+        for date in tqdm(list_mcpi_date):
+            sql = "SELECT DISTINCT num, price_close FROM daily_music_cow WHERE date='%s' ORDER BY num" % (date)
             df_temp = db(cursor, sql).dataframe
-            df_temp = df_temp.set_index('date')
-            df_temp.columns = ["%d" % num]
+            df_temp = df_temp.set_index('num')
+            df_temp.columns = ["%s" % date]
 
             df_price = pd.concat([df_price, df_temp], axis=1)
 
-        df_price = np.transpose(df_price)
         df_price.to_pickle("../storage/df_raw_data/df_price_%s_%s.pkl" % (str_date, end_date))
 
         return df_price
@@ -59,7 +61,7 @@ class DataTidying:
         return df_song_volume
 
     def get_df_fng_index(self, str_date='17-01-01', end_date='23-12-31'):
-        df_mcpi = pd.read_pickle("../storage/df_raw_data/df_mcpi_17-01-01_23-12-31.pkl")
+        df_mcpi = pd.read_pickle("../../fear-and-greed/df_mcpi_17-01-01_23-12-31.pkl")
         df_song_volume = pd.read_pickle("../storage/df_raw_data/df_song_volume_17-01-01_23-12-31.pkl")
 
         df_mcpi_volume = np.transpose(pd.DataFrame(df_song_volume.sum()))
@@ -75,3 +77,5 @@ class DataTidying:
 # tmp=Word2Vec.load('../storage/word_dictionary/w2v_model.model')
 # tmp.wv.most_similar('롤린')
 
+conn, cursor = DbEnv().connect_sql()
+list_music_num = DataTidying().get_df_price(cursor)
