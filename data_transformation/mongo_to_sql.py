@@ -20,6 +20,20 @@ class MongoToSQL:
 
         return last_col, col_list
 
+    def get_col_list_song_artist(self):
+        conn_sql, cursor_sql = DbEnv().connect_sql()
+        sql_col = """num int(11) NOT NULL,
+        title varchar(255) NOT NULL,
+        artist varchar(255) NOT NULL"""
+        conn_sql, cursor_sql = DbEnv().create_table(conn_sql, cursor_sql, 'list_song_artist', sql_col)
+        col_list = DbEnv().get_col_list(cursor_sql, 'list_song_artist')
+        col_list = [item[0] for item in col_list]
+        last_col = DbEnv().get_last_row(cursor_sql, 'list_song_artist', 'num')
+        print(col_list, last_col)
+
+        return last_col, col_list
+
+
     def get_col_mcpi(self):
         conn_sql, cursor_sql = DbEnv().connect_sql()
         sql_col = """date varchar(255) NOT NULL,
@@ -80,6 +94,18 @@ class MongoToSQL:
                         DbEnv.insert_data_to_table(self, conn=conn_sql, cursor=cursor_sql, list_col=list_col,
                                                    table_sql=table_sql, tuple_data=tuple_data)
                         print(key, num, int(elem['price_high']))
+
+    def update_sql_list_song_artist(self, col_mongo, table_sql):
+        conn_mongo = DbEnv().connect_mongo('music_cow', col_mongo)
+        conn_sql, cursor_sql = DbEnv().connect_sql()
+        dict_col = conn_mongo.find()
+        list_col = "num, title, artist"
+        for x in dict_col:
+            num, title, artist = x['num'], x['song_title'], x['song_artist']
+            tuple_data = (num, title, artist)
+            DbEnv.insert_data_to_table(self, conn=conn_sql, cursor=cursor_sql, list_col=list_col,
+                                       table_sql=table_sql, tuple_data=tuple_data)
+            print(num, title, artist)
 
     def update_sql_daily_mcpi(self, col_mongo, table_sql):
         conn_mongo = DbEnv().connect_mongo('music_cow', col_mongo)
@@ -145,8 +171,11 @@ DbEnv().create_db('mu_tech')
 # mongo_sql.update_sql_daily_mcpi('daily_mcpi', 'daily_mcpi')
 
 
-last_col, col_list = mongo_sql.get_col_daily_music_cow()
-mongo_sql.update_sql_daily_music_cow('daily_music_cow', 'daily_music_cow')
+# last_col, col_list = mongo_sql.get_col_daily_music_cow()
+# mongo_sql.update_sql_daily_music_cow('daily_music_cow', 'daily_music_cow')
+
+last_col, col_list = mongo_sql.get_col_list_song_artist()
+mongo_sql.update_sql_list_song_artist('daily_music_cow', 'list_song_artist')
 
 
 # last_col, col_list = mongo_sql.get_col_daily_youtube()

@@ -44,6 +44,15 @@ class DataTidying:
 
         return df_mcpi
 
+    def get_list_song_artist(self, cursor):
+        sql = "SELECT DISTINCT num, title, artist FROM list_song_artist ORDER BY num"
+        df_list = db(cursor, sql).dataframe
+
+        df_list = df_list.set_index('num')
+        df_list.to_pickle("../storage/df_raw_data/df_list_song_artist.pkl")
+
+        return df_list
+
     def get_df_song_volume(self, cursor, str_date='17-01-01', end_date='23-12-31'):
         df_song_volume = pd.DataFrame()
         df_mcpi = pd.read_pickle("../storage/df_raw_data/df_mcpi_17-01-01_23-12-31.pkl")
@@ -115,4 +124,4 @@ class DataTidying:
 
 
 conn, cursor = DbEnv().connect_sql()
-list_music_num = DataTidying().get_df_copyright()
+list_music_num = DataTidying().get_list_song_artist(cursor)
