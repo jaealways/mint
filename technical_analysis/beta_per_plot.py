@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import MinMaxScaler
 
 
 df_beta = pd.read_pickle("../storage/df_raw_data/df_beta.pkl")
@@ -29,13 +30,19 @@ fig, ax = plt.subplots(1)
 ax.scatter(df_plot.T['beta'], df_plot.T['per'])
 
 def onclick(event):
-    df_temp['beta'] = (df_plot.T['beta']-event.xdata).abs() * 45
-    df_temp['per'] = (df_temp['per'] - event.ydata).abs()
+    df_temp['beta'] = (df_plot.T['beta']- event.xdata).abs()
+    df_temp['per'] = (df_plot.T['per'] - event.ydata).abs()
 
-    song_num = df_plot.T.iloc[df_temp.sum(axis=1).argsort()[:1]].index[0]
+    min_max_scaler = MinMaxScaler()
+    fitted = min_max_scaler.fit(df_temp)
+    output = min_max_scaler.transform(df_temp)
+    df_output = pd.DataFrame(output, columns=df_temp.columns, index=list(df_temp.index.values))
+    song_num = df_plot.columns.tolist()[df_output.sum(axis=1).argsort().iloc[0]]
+
     temp = df_list.loc[song_num].tolist()
     title, artist = temp[0], temp[1]
     print('song_num=%s, artist=%s, title=%s beta=%f, per=%f' % (song_num, artist, title, event.xdata, event.ydata))
+
 
 plt.xlabel('BETA')
 plt.ylabel('PER')
