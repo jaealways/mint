@@ -73,9 +73,46 @@ class DataTidying:
 
         return df_mcpi_volume, df_fng_index
 
-# from gensim.models.word2vec import Word2Vec
-# tmp=Word2Vec.load('../storage/word_dictionary/w2v_model.model')
-# tmp.wv.most_similar('롤린')
+    def get_df_copyright(self):
+        # 곡 출시되기 이전 정보는 nan 처리하는 로직 만들기
+
+        copyright_prices = pd.read_pickle("../storage/df_raw_data/copyright_prices.pkl")
+        list_ym = ['num']
+
+        for y in range(2017, 2022):
+            for m in range(1, 13):
+                s_y, s_m = str(y), str(m)
+                if len(s_m) == 1:
+                    s_m = "0" + s_m
+                list_ym.append(s_y + '-' + s_m )
+
+        df_copyright_prices = pd.DataFrame([])
+
+        for key, val in copyright_prices.items():
+            list_temp = [key]
+            mode = 'zero'
+            for idx_y, val_y in enumerate(val):
+                for idx_m, val_m in enumerate(val_y):
+                    if len(list_temp) == 1:
+                        if val_m == '0':
+                            mode = 'nan'
+                    if val_m != '0':
+                        mode = 'zero'
+                    if mode == 'nan':
+                        val_m = np.nan
+                    else:
+                        val_m = int(val_m.replace(',', ''))
+                    list_temp.append(val_m)
+
+            df_temp = pd.DataFrame(list_temp).T
+            df_copyright_prices = pd.concat([df_copyright_prices, df_temp])
+
+        df_copyright_prices.columns = list_ym
+        df_copyright_prices = df_copyright_prices.set_index('num')
+        df_copyright_prices.to_pickle("../storage/df_raw_data/df_copyright.pkl")
+
+        return df_copyright_prices
+
 
 conn, cursor = DbEnv().connect_sql()
-list_music_num = DataTidying().get_df_price(cursor)
+list_music_num = DataTidying().get_df_copyright()

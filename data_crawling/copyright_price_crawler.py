@@ -17,7 +17,7 @@ class CopyrightPriceCrawler:
         list_db_gen_daily = col1.find({}, {'num': {"$slice": [1, 1]}})
         #list_db_gen_daily = col1.find({'num':{'$gte':204}})  204번 부터
 
-        driver = webdriver.Chrome(executable_path='data_crawling/chromedriver.exe')
+        driver = webdriver.Chrome()
 
         song_num = []
 
