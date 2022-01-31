@@ -29,7 +29,7 @@ fig, ax = plt.subplots(1)
 ax.scatter(df_plot.T['beta'], df_plot.T['per'])
 
 def onclick(event):
-    df_temp['beta'] = (df_plot.T['beta']-event.xdata).abs() * 10
+    df_temp['beta'] = (df_plot.T['beta']-event.xdata).abs() * 45
     df_temp['per'] = (df_temp['per'] - event.ydata).abs()
 
     song_num = df_plot.T.iloc[df_temp.sum(axis=1).argsort()[:1]].index[0]
@@ -41,3 +41,4 @@ plt.xlabel('BETA')
 plt.ylabel('PER')
 fig.canvas.callbacks.connect('button_press_event', onclick)
 plt.show()
+
