@@ -84,7 +84,7 @@ class DataTidying:
                 s_y, s_m = str(y), str(m)
                 if len(s_m) == 1:
                     s_m = "0" + s_m
-                list_ym.append(s_y + '-' + s_m)
+                list_ym.append(s_y + '-' + s_m )
 
         df_copyright_prices = pd.DataFrame([])
 
@@ -100,6 +100,8 @@ class DataTidying:
                         mode = 'zero'
                     if mode == 'nan':
                         val_m = np.nan
+                    else:
+                        val_m = int(val_m.replace(',', ''))
                     list_temp.append(val_m)
 
             df_temp = pd.DataFrame(list_temp).T
