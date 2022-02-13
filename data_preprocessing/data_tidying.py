@@ -3,6 +3,7 @@ import numpy as np
 from data_transformation.db_env import DbEnv, db
 
 import pandas as pd
+from pymongo import MongoClient
 from tqdm import tqdm
 
 
@@ -122,6 +123,27 @@ class DataTidying:
 
         return df_copyright_prices
 
+    def get_df_song_genre(self):
+        df_genre = pd.DataFrame()
 
-conn, cursor = DbEnv().connect_sql()
-list_music_num = DataTidying().get_list_song_artist(cursor)
+        client = MongoClient('localhost', 27017)
+        col = client['music_cow']['genre']
+        list_db = col.find({})
+        for x in list_db:
+            song_num, genre = x['num'], x['genre']
+            genre = genre.split('/')[-1].replace(' ', '')
+            df_temp = pd.DataFrame([song_num, genre]).T
+            df_genre = pd.concat([df_genre, df_temp])
+
+        df_genre.columns = ['num', 'genre']
+        df_genre = df_genre.set_index('num')
+        df_genre.to_pickle("../storage/df_raw_data/df_genre.pkl")
+
+        return df_genre
+
+
+# conn, cursor = DbEnv().connect_sql()
+# list_music_num = DataTidying().get_list_song_artist(cursor)
+
+DataTidying().get_df_song_genre()
+

@@ -14,7 +14,7 @@ class Beta:
         list_date = df_mcpi_temp.columns.tolist()
 
         array_mcpi, array_price = df_mcpi_temp.to_numpy(), df_price_temp.to_numpy()
-        array_corr, array_std, array_beta = array_price[:, duration:].copy(), array_price[:, duration:].copy(), array_price[:, duration:].copy()
+        array_corr, array_var, array_beta = array_price[:, duration:].copy(), array_price[:, duration:].copy(), array_price[:, duration:].copy()
         array_diff_mcpi, array_diff_price = np.diff(array_mcpi), np.diff(array_price)
 
         array_return_mcpi = np.true_divide(array_diff_mcpi, array_mcpi[:, 1:])
@@ -22,8 +22,8 @@ class Beta:
 
         for idx in range(array_return_price.shape[1] - duration+1):
             array_corr[:, idx] = np.corrcoef(array_return_mcpi[:, idx:idx+duration][0], array_return_price[:, idx:idx+duration])[0, 1:]
-            array_std[:, idx] = np.std(array_return_price[:, idx:idx+duration], axis=1)
-            array_beta[:, idx] = np.multiply(array_corr[:, idx], array_std[:, idx] / np.std(array_return_mcpi[0, idx:idx+duration]))
+            array_var[:, idx] = np.var(array_return_price[:, idx:idx+duration], axis=1)
+            array_beta[:, idx] = np.multiply(array_corr[:, idx], array_var[:, idx] / np.var(array_return_mcpi[0, idx:idx+duration]))
 
         df_beta = pd.DataFrame(array_beta)
         df_beta.columns, df_beta.index = list_date[duration:], list_song
