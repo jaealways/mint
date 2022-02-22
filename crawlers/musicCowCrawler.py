@@ -1,30 +1,20 @@
+# << 뮤직카우 관련 데이터 크롤링 & 신곡감지 & 새로 등록된 가수 감지 코드 >>
+# 작성자 : 정예원
+#
 # 코드 설명
-# 1. [[ 현재일자 전날 까지의 뮤직카우의 거래량, 최저/최고가, 하루마감가격, 전날대비증감률 크롤링 코드 ]] 를 각 곡 마다 이전 크롤링 이후의 날짜 부터 누적되어 저장됩니다.
-# 2. 새로 추가된 곡들을 감지하여 디비에 새로 등록 저장합니다.
-# 3. 이후 nlp 에 쓰일 가수 이름을 위해 뮤직카우에 새로 등장한 가수명을 감지하여, 코드 수행 종료 후 조회해 볼 수 있습니다.
+# [[ 현재일자 전날 까지의 뮤직카우의 거래량, 최저/최고가, 하루마감가격, 전날대비증감률 크롤링 코드 ]]
+# 1. 두 함수 내의 'headers information' 부분의 user-Agent 를 자신의 주소로 변경해야 합니다.
 #
-# * 코드 수행 전 : 두 함수 내의 'headers information' 부분의 user-Agent 를 자신의 주소로 변경해야 합니다.
+# - 현재 일자 전날 까지의 데이터가 디비에 저장됩니다.
+# - 2000번 ~ 3000번 중에서 새로 추가된 곡을 감지하여 필드가 추가됩니다.
+# - pickle 로 담고자 하면 dictionary ={} 에 할당된 내용을 맨 아래 코드의 주석을 풀어 pickle 로 만들면 됩니다.
+# - 코드 수행 시간 : 16분
 #
-# - 현재 일자 전날 까지의 데이터가 갱신되어 디비에 누적 저장됩니다.
-# - 2000~3000 번 중에서 새로 추가된 곡을 감지하여 필드가 추가됩니다. (2000번 이전에는 크롤링을 몇번 시도해도 신곡이 아예 없어서 시간 단축 위해 2000 이후를 크롤링)
-# - pickle 로 담고자 하면 mainCrawler.py 에서 musicCowData 객체의 dictionary 멤버변수를 참조하셔서 딕셔너리인 musicCowData.dictionary를 pickle로 만드시면 됩니다.
-# - 새로운 가수명단은 musicCowData.newArtistList 로 참조하시면 됩니다.
-#
-# - 코드 수행 시간 :  
-
-
 # 코드 개선사항
 # 1. 여러 스레드로 코드수행시간 단축
 # 2. 신곡말고, 기존에 있었는데 삭제된 곡들도 감지
 # 3. 이미 갱신 완료됐는데 또 코드 돌리려고 할 때 예외처리
-# 4. 신곡 등록이 됐지만, 등록된지 얼마 되지 않아 아직 price 데이터가 누적되지 않은 경우 예외처리 if문  (개선 완료)
-# 5. 2000~ 3000 번 으로 변경 (개선 완료)
 
-
-# 코드 오류사항 (현재 오류 수정 중)
-# songCrawlerNew 의 첫번째 for 문의 remove 가 안되는 이슈 => 
-# 기존 디비 : 2000, 2001, 2006, 2007, ...
-# 2002, 2003, 2004, 2005, 2008, ... 이렇게 수집돼야 하는데 대체 왜........안되는지.....
 
 from pymongo import MongoClient
 import requests as r
@@ -44,10 +34,15 @@ class MusicCowCrawler:
         self.musicCowSongNumListCurrent = musicCowSongNumListCurrent
         self.musicCowArtistListCurrent = musicCowArtistListCurrent
         self.dictionary = {}  # 피클로 만들 때 필요한 딕셔너리형 자료형 선언 (피클로 만들지 않을 시 필요없음)
-        self.newArtistList = []
+        self.newSongList = {}
+        self.newSongNumList = []
+
+        for x in self.musicCowSongNumListCurrent:
+            if x['num'] in self.list:
+                self.list.remove(x['num'])
 
 
-    # 2000~3000 중 새로 추가된 곡 (songCrawlerNew) 코드 수행시간 : 20분
+    # 2000~3000 중 새로 추가된 곡 (songCrawlerAdditional) 코드 수행시간 : 10분
     def songCrawlerNew(self):
 
         option = Options()
@@ -58,10 +53,6 @@ class MusicCowCrawler:
 
 
         print("========== << 2000 ~ 3000 중 새로 추가된 곡 크롤링을 시작합니다 >> =========")
-        for x in self.musicCowSongNumListCurrent:
-            if x['num'] in self.list:
-                self.list.remove(x['num'])
-
 
         for x in self.list:
 
@@ -115,11 +106,12 @@ class MusicCowCrawler:
                     'song_artist': "{}".format(song_artist_add)
                 }
 
-                # 새로 등록된 가수 명단 누적
-                if song_artist_add in self.musicCowArtistListCurrent:
-                    pass
-                else:
-                    self.newArtistList.append(song_artist_add)
+                # # 새로 등록된 가수 명단 누적
+                # if song_artist_add in self.musicCowArtistListCurrent:
+                #     pass
+                # else:
+                #     self.newArtistList.append(song_artist_add)
+
 
                 # 신곡 등록이 됐지만, 등록된지 얼마 되지 않아 아직 price 데이터가 누적되지 않은 경우
                 if df.empty:
@@ -129,12 +121,17 @@ class MusicCowCrawler:
                     dict1.update(dict2)
 
                 self.dictionary[x] = dict1
+                self.newSongList[x] = dict1
+
+                # 새로 추가된 곡 번호 리스트에 추가
+                self.newSongNumList.append(x)
 
                 # 디비 업데이트
                 self.col1.insert_one(dict1).inserted_id
 
                 print(x, "번 곡 종료")
 
+        driver.close()
         print("\n\n========== << 총 {} 개 신곡 크롤링을 마쳤습니다 >> ==========".format(detectedSongNumber))
 
     # 기존 db에 있는 곡 크롤링 (songCrawler) 코드 수행시간 : 6분
