@@ -1,13 +1,18 @@
 import pandas as pd
 import pymysql
+import json
+
 
 from db_env import DbEnv
 from mongo_to_sql import MongoToSQL
 
 class LocalToAWS:
     def connect_sql(self):
+        with open("../storage/key.json", "r") as env:
+            env_dict = json.load(env)
+        aws_db_pw = env_dict["aws_password"]
         conn = pymysql.connect(host='kuggle.csr6lxslx7sg.ap-northeast-2.rds.amazonaws.com', user='kuggle',
-                               password='musiccow', db='mu_tech', charset='utf8')
+                               password=aws_db_pw, db='mu_tech', charset='utf8')
         cursor = conn.cursor()
         conn.commit()
 
