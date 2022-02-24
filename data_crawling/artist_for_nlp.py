@@ -122,5 +122,4 @@ list_artist_dict = ['앤씨아', '견우', '이우', 'JBJ', '헤일로', '네이
 
 df_artist_nlp = pd.DataFrame([list_artist_mc, list_artist_query, list_artist_dict], index=['music_cow', 'nlp_query', 'nlp_dict']).T
 df_artist_nlp.to_pickle("../storage/df_raw_data/df_artist_nlp.pkl")
-df_artist_nlp
 
