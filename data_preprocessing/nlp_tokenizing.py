@@ -86,16 +86,16 @@ class NLPTokenize:
     #     #
     #     # len(tokenizer.word_index)**0.25
 
-    def update_mecab_dict(self, list_update):
+    def update_mecab_dict(self):
         client = MongoClient('localhost', 27017)
         db = client.music_cow
-        col = db.genie_list
+        col = db.musicCowDataTemp
 
-        data = col.find({}, {'num': {'$slice': [1, 1]}})
-        append = list(map(lambda x: x['song_title'], data))
+        dict_title = col.find({}, {'song_title': {'$slice': [1, 1]}})
+        list_title = list(map(lambda x: x['song_title'], dict_title))
         f = open('C:/mecab/user-dic/nnp.csv', 'w', newline='', encoding='utf8')
 
-        for i in append:
+        for i in list_title:
             print(i)
             text = '{0},,,,NNP,*,F,{0},*,*,*,*,*'.format(i)
             wr = csv.writer(f, delimiter=' ', escapechar=' ', quoting=csv.QUOTE_NONE)
@@ -117,23 +117,41 @@ class NLPTokenize:
         wr = csv.writer(f)
         wr.writerows(lines)
 
-        data = col.find({}, {'num': {'$slice': [1, 1]}})
-        append = list(map(lambda x: x['song_artist'], data))
-        append = set(append)
+        dict_artist = col.find({}, {'song_artist': {'$slice': [1, 1]}})
+        list_artist = list(map(lambda x: x['song_artist'], dict_artist))
+        list_artist_temp = set(list_artist)
+
+        df_artist_nlp = pd.read_pickle("../storage/df_raw_data/df_artist_nlp.pkl")
+
+        list_df_artist_nlp = df_artist_nlp['music_cow'].to_list()
+
+        list_diff = list(set(list_artist_temp) - set(list_df_artist_nlp))
+
+        if len(list_diff) != 0:
+            print(list_diff)
+            quit()
+        else:
+            pass
+
+        list_artist = list(map(lambda x: df_artist_nlp[df_artist_nlp['music_cow'] == x]['nlp_dict'].values[0], list_artist_temp))
+
         f = open('C:/mecab/user-dic/person.csv', 'w', newline='', encoding='utf8')
-        for i in append:
+        for i in list_artist:
             print(i)
             text = '{0},,,,NNP,*,F,{0},*,*,*,*,*'.format(i)
             wr = csv.writer(f, delimiter=' ', escapechar=' ', quoting=csv.QUOTE_NONE)
             wr.writerow([text])
 
 
-str_date, end_date = '2020-12-20', '2022-01-20'
-df_article = NLPTokenize().db_to_article(str_date, end_date)
-df_article = pd.read_pickle("../storage/df_raw_data/df_article_%s_%s.pkl" % (str_date, end_date))
+# str_date, end_date = '2020-12-20', '2022-01-20'
+# df_article = NLPTokenize().db_to_article(str_date, end_date)
+# df_article = pd.read_pickle("../storage/df_raw_data/df_article_%s_%s.pkl" % (str_date, end_date))
 
-df_sen = NLPTokenize().article_to_sen(df_article, str_date, end_date)
-df_sen = pd.read_pickle("../storage/df_raw_data/df_sen_%s_%s.pkl" % (str_date, end_date))
+# df_sen = NLPTokenize().article_to_sen(df_article, str_date, end_date)
+# df_sen = pd.read_pickle("../storage/df_raw_data/df_sen_%s_%s.pkl" % (str_date, end_date))
 
 # artist = '별'
 # df_NNP, df_NNG = NLPKeyword().sen_to_token(df_sen, str_date, end_date, artist)
+
+NLPTokenize().update_mecab_dict()
+
