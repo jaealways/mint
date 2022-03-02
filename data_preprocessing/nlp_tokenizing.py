@@ -4,10 +4,12 @@ import itertools
 from konlpy.tag import Mecab
 import numpy as np
 from collections import Counter
+import csv
+
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
-class NLPKeyword:
+class NLPTokenize:
     def __init__(self):
         client = MongoClient('localhost', 27017)
         db = client.article
@@ -84,11 +86,53 @@ class NLPKeyword:
     #     #
     #     # len(tokenizer.word_index)**0.25
 
+    def update_mecab_dict(self, list_update):
+        client = MongoClient('localhost', 27017)
+        db = client.music_cow
+        col = db.genie_list
+
+        data = col.find({}, {'num': {'$slice': [1, 1]}})
+        append = list(map(lambda x: x['song_title'], data))
+        f = open('C:/mecab/user-dic/nnp.csv', 'w', newline='', encoding='utf8')
+
+        for i in append:
+            print(i)
+            text = '{0},,,,NNP,*,F,{0},*,*,*,*,*'.format(i)
+            wr = csv.writer(f, delimiter=' ', escapechar=' ', quoting=csv.QUOTE_NONE)
+            wr.writerow([text])
+
+        f.close()
+
+        f = open('C:/mecab/user-dic/nnp.csv', 'r', newline='', encoding='utf8')
+
+        rdr = csv.reader(f)
+        lines = []
+        for line in rdr:
+            line[0] = line[0].replace('  ', ' ')
+            line[7] = line[7].replace('  ', ' ')
+            print(line)
+            lines.append(line)
+
+        f = open('C:/mecab/user-dic/nnp.csv', 'w', newline='', encoding='utf8')
+        wr = csv.writer(f)
+        wr.writerows(lines)
+
+        data = col.find({}, {'num': {'$slice': [1, 1]}})
+        append = list(map(lambda x: x['song_artist'], data))
+        append = set(append)
+        f = open('C:/mecab/user-dic/person.csv', 'w', newline='', encoding='utf8')
+        for i in append:
+            print(i)
+            text = '{0},,,,NNP,*,F,{0},*,*,*,*,*'.format(i)
+            wr = csv.writer(f, delimiter=' ', escapechar=' ', quoting=csv.QUOTE_NONE)
+            wr.writerow([text])
+
+
 str_date, end_date = '2020-12-20', '2022-01-20'
-df_article = NLPKeyword().db_to_article(str_date, end_date)
+df_article = NLPTokenize().db_to_article(str_date, end_date)
 df_article = pd.read_pickle("../storage/df_raw_data/df_article_%s_%s.pkl" % (str_date, end_date))
 
-df_sen = NLPKeyword().article_to_sen(df_article, str_date, end_date)
+df_sen = NLPTokenize().article_to_sen(df_article, str_date, end_date)
 df_sen = pd.read_pickle("../storage/df_raw_data/df_sen_%s_%s.pkl" % (str_date, end_date))
 
 # artist = '별'
