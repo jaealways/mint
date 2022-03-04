@@ -1,4 +1,4 @@
-## << MCPI 지수 크롤링 코드 >>
+# << MCPI 지수 크롤링 코드 >>
 # 작성자 : 정예원
 #
 # [ 코드설명 ]
@@ -128,3 +128,4 @@ if __name__ == '__main__':
     db2 = client.daily_crawler
     # music cow
     col2 =  db1.mcpi
+
