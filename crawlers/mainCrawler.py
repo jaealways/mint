@@ -1,29 +1,31 @@
 # << 메인 크롤링 코드 >>
 # 작성자 : 정예원
 #
-# [코드 설명]
-# 1. 먼저, musicCowData 콜렉션에 미리 저장되어있던 곡들을 대상으로 뮤직카우 데이터를 크롤링합니다 (?분) (이전에 크롤링을 언제 돌렸는지에 따라 상이)
-# 2. 그 다음, 뮤직카우 신곡을 감지해 크롤링을 하여 musicCowData 콜렉션에 추가합니다 (10분) 
-# 3. 신곡 크롤링까지 마친 musicCowData 에 있는 곡들을 대상으로, 현재 musicInfo 콜렉션에 없는 곡들에 대하여 곡 정보를 musicInfo 에 저장합니다. (5분)
-# 
-# 코드 수행 시간 : 약 20분 내외
+# [ 코드 설명 ]
+# <Track 1> , <Track 2> , <Track 3> 으로 이루어져 멀티 프로세싱 방식으로 진행되어야 합니다.
 #
-# [현재 코드 완료 진행상황]
-# 기존곡 크롤링(songCrawler) -> 신곡 감지 크롤링(songCrawlerNew) -> 곡 info 크롤링 (musicInfoCrawler) 순으로 크롤링이 진행됩니다.
+# <Track 1> - musicCowCrawler3 , musicInfoCrawler, copyrigihtPriceCrawler, naverCrawler 로 이루어짐.
+# : 현재 musicCowData 에 있는 곡들을 대상으로 'musicCow 크롤링' , 'musicInfo 크롤링' , 'copyright 크롤링' , 'naver 크롤링' 을 병렬적으로 진행합니다.
 #
+# <Track 2> - songCralwerNew, songSeparator
+# : 2000 ~ 3000 사이의 신곡을 탐색하고, 가수명과 곡명에 split 을 적용합니다.
+#
+# <Track 3> - mcpiCrawler 로 이루어짐
+# : mcpi 지수를 크롤링 합니다.
 #
 # [아직 못한 것들]
-# 가수명/노래제목 split 적용, mcpiCrawler 연결, copyrightCrawler 연결(연결은 됐으나, 시간소요문제와 디비 저장 오류 수정중) , naverCrawler 연결
+# 가수명/노래제목 split 적용, copyrightCrawler 디비 연결 오류 , naverCrawler 연결, songCrawlerNew, songSeparator 미완성, multiprocessing
 
 # modules
 import musicCowCrawler
 import songSeparator
-import copyrightPriceCrawler
+import copyrightCrawler
 import musicInfoCrawler
+import mcpiCrawler
 
-import multiprocessing
 from pymongo import MongoClient
-
+import os
+from multiprocessing import Process
 
  # == 몽고디비 ==
 client = MongoClient('localhost', 27017)
@@ -39,45 +41,35 @@ col4 = db1.musicInfo
 # article
 col5 = db2.articleInfo
 
-musicCowSongNumListCurrent = col1.find({}, {'num': {"$slice": [1, 1]}})   # 현재까지 수집한 뮤직카우 콜렉션에 있는 곡 리스트
-musicCowArtistListCurrent = col1.find({}, {'song_artist': {"$slice": [1, 1]}})  # 현재까지 수집한 뮤직카우 콜렉션에 있는 가수 리스트
+# === 크롤링 ===
 
-
-# == 크롤링 ==
-
-# 1. 뮤직카우 데이터 크롤링
+# ====================================== << Track 1 >> : 현재 musicCowData 디비에 있는 곡들 기준 크롤링 =========================================
+# 1. 현재 musicCowData 디비에 있는 곡들 / 가수들
+# 1-1. DB에 있는 곡들 대상으로 뮤직카우 데이터 크롤링
 print("<< 뮤직카우 데이터 크롤링을 시작합니다 >>")
-musicCowData = musicCowCrawler.MusicCowCrawler(col1, musicCowSongNumListCurrent, musicCowArtistListCurrent)
-musicCowData.songCrawler()      # 뮤직카우 디비에 있는 기존 곡들 크롤링
-musicCowData.songCrawlerNew()   # 뮤직카우에 새로 등록된 곡들 크롤링
-# print("< DB에 새로 등록된 가수명과 노래제목의 separate 를 시작합니다 >")
-# songSeparated = songSeparator.SongSeparator(col1, musicCowData.newSongNumList)
-# songSeparated.read_db()
-# print("뮤직카우에 새로 등록된 가수 명단입니다")
-# print(songSeparated.newArtistList)
+musicCowCrawler.songCrawler(col1)      # 뮤직카우 디비에 있는 기존 곡들 크롤링
 
-
-# # 2. 저작권료 크롤링 (오류 수정중)
-#print("<< 저작권료 크롤링을 시작합니다 >> ")
-# copyrightPriceData = copyrightPriceCrawler.CopyrightPriceCrawler(col1, col3)
-# pool = multiprocessing.Pool(processes=4)
-# pool.map(copyrightPriceData.copyrightPrice(), copyrightPriceData.musicCowSongNumListCurrent)
-# pool.close()
-# pool.join()
-
-
-
-# # 3. 곡 information 크롤링
+# 1-2. musicInfo 크롤링
 print("<< 곡 information 크롤링을 시작합니다 >> ")
-musicInfoData = musicInfoCrawler.MusicInfoCrawler(col1, col4)
-musicInfoData.identify_link()
+musicInfoCrawler.musicInfoCrawler(col1, col4)
+
+# 1-3. copyrightPrice 크롤링
+print("<< 저작권료 크롤링을 시작합니다 >> ")
+copyrightCrawler.copyrightCrawler(col1, col3)
+
+# 1-4. Naver 크롤링
+#print("<< Naver 크롤링을 시작합니다 >> ")
 
 
-# # 4. mcpi 크롤링
-# print("<< mcpi 크롤링을 시작합니다 >> ")
-#
-#
-# # 5. article + article_text 크롤링
-# print("<< article 크롤링을 시작합니다 >> ")
-# print("<< article_text 크롤링을 시작합니다 >> ")
-#
+
+# ======================================================== << Track 2 >> : 신곡 크롤링 ==================================================
+
+print("<< 신곡 크롤링을 시작합니다 >>")
+newSongList = musicCowCrawler.songCrawlerNew(col1)
+print(newSongList)
+
+# ======================================================== << Track 3 >> : mcpi 크롤링 ==================================================
+print("<< mcpi 크롤링을 시작합니다 >> ")
+mcpiCrawler.mcpiCrawler(col2)         # mcpi 지수 크롤링
+
+
