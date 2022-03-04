@@ -6,142 +6,109 @@
 # 1. 곡 페이지 링크, 1,2 차 옥션 결과 , 공표일자, 저작권료 지분  을 크롤링 합니다.
 # 2. 크롤링된 데이터는 musicInfo 명의 콜렉션으로 디비에 저장됩니다.
 # 3. 한번 크롤링된 데이터는 변동되지 않으므로 다시 크롤링 할 필요가 없기 때문에,
-#    musicCowCralwer 클래스의 songCrawlerNew 메소드드 통해 뮤직카우에 새로 추가된 곡들에 대해서만 크롤링을 합니다.
+#    musicCowData에 있는, 그러나 musicInfo에 없는 곡들에 대해서만 크롤링을 합니다.
+# 4. musicInfo 에 저장되는 song_title과 song_artist는 따로 split 을 거치지 않은 뮤직카우 에 등록된 곡명과 가수명 입니다.
+# 5. 크롤링 완료 후 다시 코드를 돌리면 "이미 musicInfo에 모든 데이터가 들어있습니다" 메시지를 print 합니다.
 #
 # 코드 수행시간 : 5분
-#
-# 코드 실행 전
-# 1. musicInfo 콜렉션 생성 후 이전 814곡 대상으로 이미 크롤링 완료한 musicInfo_814.json 파일을 넣어 두어야,
-#    814 곡에서 이후 추가된 곡들의 info 를 크롤링해 크롤링 시간을 단축할 수 있습니다.
-
 
 import requests
 import re
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
 
+def musicInfoCrawler(col1, col4):
+
+    musicInfoSongNumListCurrent = col4.find({}, {'num': {"$slice": [1, 1]}})  # 현재 musicInfoData 디비에 있는 곡 번호 리스트
+    musicCowSongNumListCurrent = col1.find({}, {'num': {"$slice": [1, 1]}})
+    # 현재 musicCowData <-> musicInfoData 디비 비교했을 때, "musicCowData에 있는, 그러나 musicInfo에 없는 곡"들을 정확히 찾아내기 위해
+    # 정확히 지금 현재 시점에서 musicCowData 에 있는 곡들을 다시 한번 탐색하여 self.musicCowSongNumCurrent 변수에 할당.
 
 
-
-class MusicInfoCrawler:
-    def __init__(self, col1, col4):
-        # 뮤직카우 크롤링 시작
-        self.col1 = col1
-        self.col4 = col4
-        self.musicCowSongNumListCurrent = self.col1.find({}, {'num': {"$slice": [1, 1]}})
-        self.musicInfoSongNumListCurrent = self.col4.find({}, {'num': {"$slice": [1, 1]}})
-        self.songList = []
-
-        for x in self.musicCowSongNumListCurrent:
-            self.songList.append(x['num'])
-
-        for x in self.musicInfoSongNumListCurrent:
-            if x['num'] in self.songList:
-                self.songList.remove(x['num'])
+    songList = []  # musicCowData에 있는, 그러나 musicInfo에 없는 곡
+    for x in musicCowSongNumListCurrent:
+        songList.append(x['num'])
+    for x in musicInfoSongNumListCurrent:
+        if x['num'] in songList:
+            songList.remove(x['num'])
 
 
+    if len(songList) == 0:
+        print("이미 musicInfo에 모든 데이터가 들어있습니다")
+    else:
+        for x in songList:
+            page = "https://www.musicow.com/song/{0}?tab=info".format(x)
+            url = requests.get(page)
+            html = url.text
+            soup = BeautifulSoup(html, 'html.parser')
 
-    def read_db(self):
-        # DB에 곡이 이미 존재하면 크롤링 하기 전에 패스
-        is_exist = col1.find({'num': self.num}, {'_id': 0, 'num': 1})
-        if col1.count_documents({'num': self.num}) != 0:
-            # if 문에 for x in is_exist 쓰면, x가 존재하지 않는 경우(즉 db)에 저장된 값이 없으면 에러 발생
-            for x in is_exist:
-                if x['num'] == self.num:
-                    print("{0}번 곡은 이미 DB에 존재합니다.".format(x['num']))
-                    pass
-                else:
-                    raise IndexError
-                    print("DB 입력 값 {0}과 홈페이지 넘버 {1}이 일치하지 않습니다.".format(x['num'], self.num))
-        else:
-            print("{0}번 곡은 DB에 없습니다. 크롤링 시작.".format(self.num))
-            self.identify_link()
-
-    def identify_link(self):
-
-        for x in self.songList:
-            self.page = "https://www.musicow.com/song/{0}?tab=info".format(x)
-            self.url = requests.get(self.page)
-            self.html = self.url.text
-            self.soup = BeautifulSoup(self.html, 'html.parser')
-
-            self.song_title = str(self.soup.select('div.song_header > div.information > p > strong'))
-            self.song_title = re.sub('\<.+?>|\[|\]', '', self.song_title, 0).replace('&amp;', '&').strip()
+            song_title = str(soup.select('div.song_header > div.song_header--bar.song_header--bar_1 > div.song_header--title.txt_ellipsis > strong'))
+            song_title = re.sub('\<.+?>|\[|\]', '', song_title, 0).replace('&amp;', '&').strip()
 
             #print("{0}번 곡 확인 중".format(x))
 
-            self.crawl_link(x)
+            crawl_link(x, col4, soup, page, song_title)
 
         print("========= << 곡 information 크롤링을 마쳤습니다 >> ========== ")
-            # # 노래 제목이 없을 경우 비어있는 페이지이므로 pass
-            # if self.song_title[0:-1] == '':
-            #     print("{0}번 곡은 존재하지 않습니다.".format(x))
-            #     pass
-            # else:
-            #     self.crawl_link(x)
 
-    def crawl_link(self, x):
-        print("{0}번 곡 뮤직카우 크롤링 시작".format(x))
-        self.song_artist = str(self.soup.select('div.song_header > div.information > em'))
-        self.song_artist = re.sub('\<.+?>|\[|\'|\]', '', self.song_artist, 0).replace('&amp;', '&').strip()
+def crawl_link(x, col4, soup, page, song_title):
+    print("{0}번 곡 뮤직카우 크롤링 시작".format(x))
 
-        self.auc_date_1 = str(self.soup.select('div:nth-child(1) > h2 > small'))
-        self.auc_date_1 = re.sub('\<.+?>|\[|\'|\]', '', self.auc_date_1, 0).strip()
-        self.auc_date_1_start = self.auc_date_1.split('~')[0].strip()
-        self.auc_date_1_end = self.auc_date_1.split('~')[1].strip()
+    song_artist = str(soup.select('div.card_body > div > dl > dd:nth-child(4)'))
+    song_artist = re.sub('\<.+?>|\[|\'|\]', '', song_artist, 0).replace('&amp;', '&').strip()
 
-        self.auc_stock_1 = str(self.soup.select('div.card_body > div > div:nth-child(1) > dl > dd:nth-child(2)'))
-        self.auc_stock_1 = re.sub('\<.+?>|\[|\'|\]|\,', '', self.auc_stock_1, 0).replace('주','').strip()
-        self.auc_price_1 = str(self.soup.select('div.card_body > div > div:nth-child(1) > dl > dd:nth-child(8)'))
-        self.auc_price_1 = re.sub('\<.+?>|\[|\'|\]|\,', '', self.auc_price_1, 0).replace('캐쉬','').strip()
+    auc_date_1 = str(soup.select('div:nth-child(1) > h2 > small'))
+    auc_date_1 = re.sub('\<.+?>|\[|\'|\]', '', auc_date_1, 0).strip()
+    auc_date_1_start = auc_date_1.split('~')[0].strip()
+    auc_date_1_end = auc_date_1.split('~')[1].strip()
 
-        self.auc_date_2 = str(self.soup.select('div:nth-child(2) > h2 > small'))
-        self.auc_date_2 = re.sub('\<.+?>|\[|\'|\]', '', self.auc_date_2, 0).strip()
-        if self.auc_date_2[0:-1] == '':
-            # None 말고 NaN과 0 이라는 값 넣은 이유는 string과 int로 type 통일하기 위해서
-            self.auc_date_2_start = 'NaN'; self.auc_date_2_end = 'NaN'
-            self.auc_stock_2 = 0; self.auc_price_2 = 0
-        else:
-            self.auc_date_2_start = self.auc_date_2.split('~')[0].strip()
-            self.auc_date_2_end = self.auc_date_2.split('~')[1].strip()
+    auc_stock_1 = str(soup.select('div.card_body > div > div:nth-child(1) > dl > dd:nth-child(2)'))
+    auc_stock_1 = re.sub('\<.+?>|\[|\'|\]|\,', '', auc_stock_1, 0).replace('주','').strip()
+    auc_price_1 = str(soup.select('div.card_body > div > div:nth-child(1) > dl > dd:nth-child(8)'))
+    auc_price_1 = re.sub('\<.+?>|\[|\'|\]|\,', '', auc_price_1, 0).replace('캐쉬','').strip()
 
-        self.auc_stock_2 = str(self.soup.select('div.card_body > div > div:nth-child(2) > dl > dd:nth-child(2)'))
-        self.auc_stock_2 = re.sub('\<.+?>|\[|\'|\]|\,', '', self.auc_stock_2, 0).replace('주','').strip()
-        self.auc_price_2 = str(self.soup.select('div.card_body > div > div:nth-child(2) > dl > dd:nth-child(8)'))
-        self.auc_price_2 = re.sub('\<.+?>|\[|\'|\]|\,', '', self.auc_price_2, 0).replace('캐쉬','').strip()
+    auc_date_2 = str(soup.select('div:nth-child(2) > h2 > small'))
+    auc_date_2 = re.sub('\<.+?>|\[|\'|\]', '', auc_date_2, 0).strip()
+    if auc_date_2[0:-1] == '':
+        # None 말고 NaN과 0 이라는 값 넣은 이유는 string과 int로 type 통일하기 위해서
+        auc_date_2_start = 'NaN'; auc_date_2_end = 'NaN'
+        auc_stock_2 = 0; auc_price_2 = 0
+    else:
+        auc_date_2_start = auc_date_2.split('~')[0].strip()
+        auc_date_2_end = auc_date_2.split('~')[1].strip()
 
-        self.song_release_date = str(self.soup.select('div.card_body > div > dl > dd:nth-child(2)'))
-        self.song_release_date = re.sub('\<.+?>|\[|\'|\]', '', self.song_release_date, 0).strip()
+    auc_stock_2 = str(soup.select('div.card_body > div > div:nth-child(2) > dl > dd:nth-child(2)'))
+    auc_stock_2 = re.sub('\<.+?>|\[|\'|\]|\,', '', auc_stock_2, 0).replace('주','').strip()
+    auc_price_2 = str(soup.select('div.card_body > div > div:nth-child(2) > dl > dd:nth-child(8)'))
+    auc_price_2 = re.sub('\<.+?>|\[|\'|\]|\,', '', auc_price_2, 0).replace('캐쉬','').strip()
 
-        # stock_num 앞뒤 공백 제거 후 숫자만 추출
-        self.stock_num = str(self.soup.select('div.lst_copy_info dd p')).split('2차적')[0]
-        self.stock_num = re.sub('\<.+?>|\[|\'|\]|\t|\n|\,', '', self.stock_num, 0).replace('1/','').strip()
+    song_release_date = str(soup.select('div.card_body > div > dl > dd:nth-child(2)'))
+    song_release_date = re.sub('\<.+?>|\[|\'|\]', '', song_release_date, 0).strip()
 
-        #self.classify_name()
-        self.collect_db(x)
+    # stock_num 앞뒤 공백 제거 후 숫자만 추출
+    stock_num = str(soup.select('div.lst_copy_info dd p')).split('2차적')[0]
+    stock_num = re.sub('\<.+?>|\[|\'|\]|\t|\n|\,', '', stock_num, 0).replace('1/','').strip()
 
-    #def classify_name(self):
+    print("{0}번 곡 DB 입력 중".format(x))
+
+    list_music = {
+        'num': x,
+        'song_title': song_title,
+        'song_artist': song_artist,
+        'page': page,
+        'auc1_info': {
+            'auc_start_date': auc_date_1_start, 'auc_end_date': auc_date_1_end,
+            'auc_stock': auc_stock_1, 'auc_price': auc_price_1},
+        'auc2_info': {
+            'auc_start_date': auc_date_2_start, 'auc_end_date': auc_date_2_end,
+            'auc_stock': auc_stock_2, 'auc_price': auc_price_2},
+        'song_release_date': song_release_date,
+        'stock_num': stock_num
+    }
+
+    col4.insert_one(list_music).inserted_id
 
 
-    def collect_db(self, x):
-        print("{0}번 곡 DB 입력 중".format(x))
-
-        list_music = {
-            'num': x,
-            'song_title': self.song_title,
-            'song_artist': self.song_artist,
-            'page': self.page,
-            'auc1_info': {
-                'auc_start_date': self.auc_date_1_start, 'auc_end_date': self.auc_date_1_end,
-                'auc_stock': self.auc_stock_1, 'auc_price': self.auc_price_1},
-            'auc2_info': {
-                'auc_start_date': self.auc_date_2_start, 'auc_end_date': self.auc_date_2_end,
-                'auc_stock': self.auc_stock_2, 'auc_price': self.auc_price_2},
-            'song_release_date': self.song_release_date,
-            'stock_num': self.stock_num
-        }
-
-        self.col4.insert_one(list_music).inserted_id
 
 
 if __name__ == '__main__':
@@ -150,3 +117,4 @@ if __name__ == '__main__':
     db2 = client.daily_crawler
     col1 = db1.music_list
     col2 = db2.music_list
+
