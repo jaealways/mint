@@ -27,7 +27,7 @@ from pymongo import MongoClient
 import os
 from multiprocessing import Process
 
- # == 몽고디비 ==
+# == 몽고디비 ==
 client = MongoClient('localhost', 27017)
 db1 = client.music_cow
 db2 = client.article
@@ -58,8 +58,7 @@ print("<< 저작권료 크롤링을 시작합니다 >> ")
 copyrightCrawler.copyrightCrawler(col1, col3)
 
 # 1-4. Naver 크롤링
-#print("<< Naver 크롤링을 시작합니다 >> ")
-
+print("<< Naver 크롤링을 시작합니다 >> ")
 
 
 # ======================================================== << Track 2 >> : 신곡 크롤링 ==================================================
@@ -67,9 +66,9 @@ copyrightCrawler.copyrightCrawler(col1, col3)
 print("<< 신곡 크롤링을 시작합니다 >>")
 newSongList = musicCowCrawler.songCrawlerNew(col1)
 print(newSongList)
+songSeparator.SongSeparator(col1, newSongList.keys())
 
 # ======================================================== << Track 3 >> : mcpi 크롤링 ==================================================
 print("<< mcpi 크롤링을 시작합니다 >> ")
 mcpiCrawler.mcpiCrawler(col2)         # mcpi 지수 크롤링
-
 
