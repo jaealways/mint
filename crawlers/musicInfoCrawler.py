@@ -108,13 +108,3 @@ def crawl_link(x, col4, soup, page, song_title):
 
     col4.insert_one(list_music).inserted_id
 
-
-
-
-if __name__ == '__main__':
-    client = MongoClient('localhost', 27017)
-    db1 = client.music_cow
-    db2 = client.daily_crawler
-    col1 = db1.music_list
-    col2 = db2.music_list
-
