@@ -37,28 +37,28 @@
 
 from pymongo import MongoClient
 import requests as r
-from pandas.io.json import json_normalize
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+import pandas as pd
 
 # 2000~3000 중 새로 추가된 곡 코드 수행시간 : 10분
-def songCrawlerNew(col1):
+def songCrawlerNew(col, musicCowSongNumListCurrent):
 
     newSongList = {}  # 신곡의 뮤직카우 데이터 모음
 
-    musicCowSongNumListCurrent = col1.find({}, {'num': {"$slice": [1, 1]}})
+    # musicCowSongNumListCurrent = col.find({}, {'num': {"$slice": [1, 1]}})
 
-    song_list = list(range(2000, 3001))  # 2000~3000 까지 신곡들 검사할 list
+    song_list = list(range(0, 3001))  # 2000~3000 까지 신곡들 검사할 list
     for x in musicCowSongNumListCurrent:
         if x['num'] in song_list:
             song_list.remove(x['num'])
 
     option = Options()
     option.headless = False
-    driver = webdriver.Chrome(options=option)
+    driver = webdriver.Chrome(options=option, executable_path='crawlers/chromedriver.exe')
 
     detectedSongNumber = 0      # 감지한 신곡 개수
 
@@ -71,7 +71,7 @@ def songCrawlerNew(col1):
         my_url = 'https://www.musicow.com/song/{}'.format(x)
         driver.get(my_url)
 
-        song_title = driver.find_element_by_xpath('/ html / body / div[2] / div[1] / div[2] / div[1] / div[2] / div[1] / strong').text
+        song_title = driver.find_element(By.XPATH, '/ html / body / div[2] / div[1] / div[2] / div[1] / div[2] / div[1] / strong').text
 
         if song_title == "":
             pass
@@ -104,7 +104,7 @@ def songCrawlerNew(col1):
 
             # normalize data with Brazilian gold values
             song_prices = res_post.json()["prices"]
-            df = json_normalize(song_prices)
+            df = pd.json_normalize(song_prices)
 
             # song_title_add, song_artist_add
             song_title_add = WebDriverWait(driver,20).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[2]/div[1]/div[2]/div[1]/strong'))).text
@@ -138,18 +138,17 @@ def songCrawlerNew(col1):
             newSongList[x] = dict1
 
             # 디비 업데이트
-            # col1.insert_one(dict1).inserted_id
+            col.insert_one(dict1).inserted_id
 
             print(x, "번 곡 종료")
 
     driver.close()
     print("\n\n========== << 총 {} 개 신곡 크롤링을 마쳤습니다 >> ==========".format(detectedSongNumber))
 
-
-    return newSongList
+    return newSongList.keys()
 
 # 기존 db에 있는 곡 크롤링 (songCrawler) 코드 수행시간 : 매일 돌릴다고 했을 때 1137곡 기준으로 8분
-def songCrawler(col1):
+def songCrawler(col, musicCowSongNumListCurrent):
 
     print("========== << 기존 db에 있는 곡 크롤링을 시작합니다 >> ==========")
 
@@ -166,7 +165,7 @@ def songCrawler(col1):
     headers = {
         'user-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36"}
 
-    musicCowSongNumListCurrent = col1.find({}, {'num': {"$slice": [1, 1]}})
+    # musicCowSongNumListCurrent = col.find({}, {'num': {"$slice": [1, 1]}})
                                 # 호출하고 for문에서 한번 사용시 소멸되는 듯 하니, for문에서 쓰기 전마다 한 번씩 호출하여 지역변수로 선언하기로 함.
 
     for x in musicCowSongNumListCurrent:
@@ -183,7 +182,7 @@ def songCrawler(col1):
 
         # normalize data with song prices
         song_prices = res_post.json()["prices"]
-        df = json_normalize(song_prices)
+        df = pd.json_normalize(song_prices)
 
         list_music_cow = {
             'num': x['num'],
@@ -199,14 +198,22 @@ def songCrawler(col1):
         # cnt_unit_trade : 거래량
 
         # 현재까지 모은 데이터 날짜 확인
-        currentData = col1.find({'num': x['num']})
-        df2 = json_normalize(currentData)
-        currentDate = df2.columns[len(df2.columns)-1].split(".")[0]
+        currentData = col.find_one({'num': x['num']})
+
+        # df2 = pd.json_normalize(currentData)
+        # currentDate = df2.columns[len(df2.columns)-1].split(".")[0]
+
+        list_currentDate = currentData.keys()
+        list_currentDate = list(set(list_currentDate) - set(['_id', 'num', 'song_title', 'song_artist']))
+        list_currentDate.sort()
+
+        if len(list_currentDate) > 0:
+            currentDate = list_currentDate[-1]
+        else:
+            pass
 
         # currentData 이후 시점부터 ymd 를 인덱스로 하여 딕셔너리 만들기
-        if currentDate == 'song_artist':  # 몽고디비에 아직 이전 price 데이터가 등록되지 않은 경우 (그동안 뮤카에 price 데이터가 없어서 몽고디비에는 곡등록 (O), 데이터 (X) 이나, 그동안 뮤직카우에 데이터가 쌓인경우)
-            dict1 = df.iloc[:, :].set_index('ymd').T.to_dict()
-        elif currentDate == df.iloc[len(df.index)-1, 0]:        # 이미 디비에 가장 최근 데이터로 갱신이 완료된 경우
+        if currentDate == df.iloc[len(df.index)-1, 0]:        # 이미 디비에 가장 최근 데이터로 갱신이 완료된 경우
             print("  - 이미 가장 최근 데이터가 저장되어있습니다.")
             print(x['num'], "번 곡 종료")
             continue
@@ -215,7 +222,7 @@ def songCrawler(col1):
             dict1 = df.iloc[index+1 :, :].set_index('ymd').T.to_dict()
 
         # db 업데이트
-        col1.update_one(list_music_cow, {'$set': dict1}, upsert=True)
+        col.update_one(list_music_cow, {'$set': dict1}, upsert=True)
 
         print(x['num'], "번 곡 종료")
 
@@ -223,14 +230,12 @@ def songCrawler(col1):
 
 
 
+client = MongoClient('localhost', 27017)
+db1 = client.music_cow
 
-if __name__ == '__main__':
-    client = MongoClient('localhost', 27017)
-    db1 = client.music_cow
+# music cow
+col = db1.musicCow_Volume
+list_db_gen_daily = col.find({}, {'num': {"$slice": [1, 1]}})
 
-    # music cow
-    col = db1.musicCow_Volume
-    list_db_gen_daily = col.find({}, {'num': {"$slice": [1, 1]}})
-
-    #MusicCowCrawler()
+#MusicCowCrawler()
 

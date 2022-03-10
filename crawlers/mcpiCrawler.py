@@ -14,11 +14,15 @@ from pymongo import MongoClient
 from selenium import webdriver
 import time
 from pandas.io.json import json_normalize
+from selenium.webdriver.common.by import By
+import pandas as pd
+from selenium.webdriver.chrome.options import Options
+
 
 # 현재 mcpi 디비에 있는 데이터 조회
 def readDB(col2):
     currentData = col2.find({})
-    df = json_normalize(currentData)
+    df = pd.json_normalize(currentData)
     if df.empty:
         currentDate = None     # 현재 디비에 mcpi 데이터가 하나도 없는 경우 (mcpi 크롤링이 처음인 경우)
         return currentDate
@@ -30,21 +34,25 @@ def readDB(col2):
 # mcpi 크롤링
 def mcpiCrawler(col2):
 
+    options = Options()
+
     mcpiDict = {}                   # 크롤링한 mcpi 지수가 저장되는 딕셔너리
     currentDate = readDB(col2)      # 객체 생성과 동시에 이전에 크롤링한 mcpi 데이터가 현재 디비에 있는지/없는지 디비를 read함.
 
-    driver = webdriver.Chrome(executable_path='./chromedriver.exe')
+    driver = webdriver.Chrome(executable_path='crawlers/chromedriver.exe')
+
+    driver.maximize_window()
     URL = 'https://www.musicow.com/mcpi'
     driver.get(url=URL)
     time.sleep(1)
 
     buttons = [
-        driver.find_element_by_xpath('//*[@id="tbl_mcpi"]/div[2]/a[2]'),
-        driver.find_element_by_xpath('//*[@id="tbl_mcpi"]/div[2]/a[3]'),
-        driver.find_element_by_xpath('//*[@id="tbl_mcpi"]/div[2]/a[4]'),
-        driver.find_element_by_xpath('//*[@id="tbl_mcpi"]/div[2]/a[5]'),
-        driver.find_element_by_xpath('//*[@id="tbl_mcpi"]/div[2]/a[6]'),
-        driver.find_element_by_class_name('num_box')
+        driver.find_element(By.XPATH, '//*[@id="tbl_mcpi"]/div[2]/a[2]'),
+        driver.find_element(By.XPATH, '//*[@id="tbl_mcpi"]/div[2]/a[3]'),
+        driver.find_element(By.XPATH, '//*[@id="tbl_mcpi"]/div[2]/a[4]'),
+        driver.find_element(By.XPATH, '//*[@id="tbl_mcpi"]/div[2]/a[5]'),
+        driver.find_element(By.XPATH, '//*[@id="tbl_mcpi"]/div[2]/a[6]'),
+        driver.find_element(By.CLASS_NAME, 'num_box')
     ]
 
     p = 0       # 크롤링 완료한 페이지 count
@@ -54,17 +62,19 @@ def mcpiCrawler(col2):
 
         flag = 0
 
-        for i in range(0,5):
+        for i in range(0, 5):
 
             # tbl_mcpi > table > tbody > tr:nth-child(2) > td.mcpi
             # tbl_mcpi > table > tbody > tr:nth-child(2) > td.date.only_pc
-            date_list = driver.find_elements_by_class_name('date.only_pc')
-            mcpi_list = driver.find_elements_by_class_name('mcpi')
+            # date_list = driver.find_elements(By.CSS_SELECTOR, '#tbl_mcpi > table > tbody > tr')[1:-1]
+            date_list = driver.find_elements(By.CLASS_NAME, 'date.only_pc')
+            mcpi_list = driver.find_elements(By.CLASS_NAME, 'mcpi')
 
-            for k in range(0,len(date_list)):
+            for k in range(len(date_list)):
+            # for k in date_list:
 
                 # 이미 가장 최근 데이터가 저장되어있는 경우
-                if currentDate == date_list[0].text:
+                if currentDate == date_list[k].text:
                     print("  - 이미 가장 최근 데이터가 저장되어있습니다.")
                     print("========== << mcpi 크롤링을 마쳤습니다 >> ==========")
                     return
@@ -87,7 +97,7 @@ def mcpiCrawler(col2):
                 print('======')
 
             # 2019/01/01 날짜까지 크롤링 (19.01.01 ~ 현재 일자 데이터밖에 없기 때문)
-            if date_list[len(date_list)-1].text == '19.01.01' :
+            if date_list[len(date_list)-1].text == '19.01.01':
                 flag = 1
                 break
 
@@ -127,5 +137,5 @@ if __name__ == '__main__':
     db1 = client.music_cow
     db2 = client.daily_crawler
     # music cow
-    col2 =  db1.mcpi
+    col2 = db1.mcpi
 

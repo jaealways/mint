@@ -18,44 +18,43 @@ class SongSeparator:
         self.col1 = col1
         self.newSongNums = newSongNums
         self.newArtistList = {}
+        self.read_db()
 
 
     def read_db(self):
         list_db_music = self.col1.find({'num':{"$in":self.newSongNums}})
+        # list_db_music = self.newSongList
+
         for x in list_db_music:
             print("= {} 번곡 분리 시작 =".format(x['num']))
 
-            self.num = x['num']
-            if self.num < 0:
-                pass
+            self.num_feat_kor, self.num_feat_eng, self.num_main_kor, \
+            self.num_main_eng, self.num_sub_kor, self.num_sub_eng = 0, 0, 0, 0, 0, 0
+            self.music_list = x
+            self.list_split = {}
+            self.song_artist = x['song_artist']
+            self.song_artist = self.song_artist.replace('(', ', (')
+            temp_art0 = re.search('\(([^)]+)', self.song_artist)
+            if temp_art0 != None:
+                temp_art1 = re.search('\(([^)]+)', self.song_artist).regs[0]
+                temp_art2 = self.song_artist[temp_art1[0]:temp_art1[1]].replace(',', '#')
+                self.song_artist = re.sub('\(([^)]+)', temp_art2, self.song_artist).split(',')
             else:
-                self.num_feat_kor, self.num_feat_eng, self.num_main_kor, \
-                self.num_main_eng, self.num_sub_kor, self.num_sub_eng = 0, 0, 0, 0, 0, 0
-                self.music_list = x
-                self.list_split = {}
-                self.song_artist = x['song_artist']
-                self.song_artist = self.song_artist.replace('(', ', (')
-                temp_art0 = re.search('\(([^)]+)', self.song_artist)
-                if temp_art0 != None:
-                    temp_art1 = re.search('\(([^)]+)', self.song_artist).regs[0]
-                    temp_art2 = self.song_artist[temp_art1[0]:temp_art1[1]].replace(',', '#')
-                    self.song_artist = re.sub('\(([^)]+)', temp_art2, self.song_artist).split(',')
-                else:
-                    self.song_artist = list(self.song_artist.split(','))
+                self.song_artist = list(self.song_artist.split(','))
 
-                # 괄호 안 만 컴마 있어도 split 영향 안 받게??
-                self.song_title = x['song_title']
-                self.song_title = self.song_title.replace('(', ', (')
-                temp_tit0 = re.search('\(([^)]+)', self.song_title)
-                if temp_tit0 != None:
-                    temp_tit1 = re.search('\(([^)]+)', self.song_title).regs[0]
-                    temp_tit2 = self.song_title[temp_tit1[0]:temp_tit1[1]].replace(',', '#')
-                    self.song_title = re.sub('\(([^)]+)', temp_tit2, self.song_title).split(',')
-                else:
-                    self.song_title = list(self.song_title.split(','))
+            # 괄호 안 만 컴마 있어도 split 영향 안 받게??
+            self.song_title = x['song_title']
+            self.song_title = self.song_title.replace('(', ', (')
+            temp_tit0 = re.search('\(([^)]+)', self.song_title)
+            if temp_tit0 != None:
+                temp_tit1 = re.search('\(([^)]+)', self.song_title).regs[0]
+                temp_tit2 = self.song_title[temp_tit1[0]:temp_tit1[1]].replace(',', '#')
+                self.song_title = re.sub('\(([^)]+)', temp_tit2, self.song_title).split(',')
+            else:
+                self.song_title = list(self.song_title.split(','))
 
-                self.spliting_song()
-                self.collect_db(x)
+            self.spliting_song()
+            self.collect_db(x)
 
     def spliting_song(self):
         for title in self.song_title:
@@ -134,11 +133,3 @@ class SongSeparator:
         else:
             self.col1.visits.update({'num': x}, {'$set': {'song_artist': self.list_split["song_artist_main_eng1"]}})
             self.newArtistList[x] = self.list_split["song_artist_main_eng1"]
-
-if __name__ == '__main__':
-    client = MongoClient('localhost', 27017)
-    db1 = client.music_cow
-    col1 = db1.music_list
-    col2 = db1.music_list_split
-
-    #SongSpliter()
