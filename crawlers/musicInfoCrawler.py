@@ -16,6 +16,7 @@ import requests
 import re
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
+import numpy as np
 
 def musicInfoCrawler(col1, col4):
 
@@ -71,8 +72,8 @@ def crawl_link(x, col4, soup, page, song_title):
     auc_date_2 = re.sub('\<.+?>|\[|\'|\]', '', auc_date_2, 0).strip()
     if auc_date_2[0:-1] == '':
         # None 말고 NaN과 0 이라는 값 넣은 이유는 string과 int로 type 통일하기 위해서
-        auc_date_2_start = 'NaN'; auc_date_2_end = 'NaN'
-        auc_stock_2 = 0; auc_price_2 = 0
+        auc_date_2_start = np.nan; auc_date_2_end = np.nan
+        auc_stock_2 = np.nan; auc_price_2 = np.nan
     else:
         auc_date_2_start = auc_date_2.split('~')[0].strip()
         auc_date_2_end = auc_date_2.split('~')[1].strip()
