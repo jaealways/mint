@@ -20,6 +20,8 @@
 
 from pymongo import MongoClient
 from selenium import webdriver
+from dateutil.relativedelta import relativedelta
+import datetime
 import time
 import pandas as pd
 from pandas.io.json import json_normalize
@@ -27,15 +29,13 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 
-def copyrightCrawler(col1, col3):
+def copyrightCrawler(col3, dateToday, musicCowSongNumList):
 
-    driver = webdriver.Chrome(executable_path='chromedriver.exe')
+    driver = webdriver.Chrome(executable_path='crawlers/chromedriver.exe')
 
     song_num = []       # musicCowData 에 있는 곡 번호 리스트
 
-    musicCowSongNumListCurrent = col1.find({}, {'num': {"$slice": [1, 1]}})
-
-    for x in musicCowSongNumListCurrent:
+    for x in musicCowSongNumList:
         song_num.append(x['num'])
 
     # musicCowData 에 있는 곡 번호를 대상으로 저작권료 크롤링 진행
@@ -48,7 +48,7 @@ def copyrightCrawler(col1, col3):
         df = pd.json_normalize(currentData)
 
         if df.empty:        # 그동안의 저작권료가 하나도 안 쌓인 경우 (저작권료를 처음 긁는 곡인 경우)
-            currentYear = 2018  # 2018년
+            currentYear = int((dateToday - relativedelta(years=4)).strftime('%Y')) # 2018년
             currentMonth = 1    # 1월 부터 긁는다 (현재 2022년 이고, 5년치 데이터를 긁으므로, 2018년 1월 데이터 부터 긁음)
         else:
             currentYear = int(df.columns[len(df.columns) - 1].split("-")[0])      # 몇 년 데이터까지 모았는지 (년)
@@ -56,7 +56,7 @@ def copyrightCrawler(col1, col3):
 
         URL = 'https://www.musicow.com/song/{}?tab=price'.format(x)
         driver.get(url=URL)
-        time.sleep(1)
+        # time.sleep(1)
         button = driver.find_element(By.CSS_SELECTOR, 'div.container.song_body > nav > ul > li.t_i > a')
         button.click()
 
@@ -82,7 +82,7 @@ def copyrightCrawler(col1, col3):
                 if j == 13:     # 해가 넘어갔으면 다시 1월부터 긁기 위해 yearChanged 를 True 로 함.
                     yearChanged = True
 
-                if len(j-1) == 1:
+                if len(str(j-1)) == 1:
                     year = "0" + str(j-1)
                 col3.update_one({'num': x}, {'$set': {'{0}-{1}'.format(i, year) : price}},upsert=True)       # 디비에 누적
 
