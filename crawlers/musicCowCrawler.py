@@ -45,11 +45,11 @@ from selenium.webdriver.common.by import By
 import pandas as pd
 
 # 2000~3000 중 새로 추가된 곡 코드 수행시간 : 10분
-def songCrawlerNew(col):
+def songCrawlerNew(col, musicCowSongNumListCurrent):
 
     newSongList = {}  # 신곡의 뮤직카우 데이터 모음
 
-    musicCowSongNumListCurrent = col.find({}, {'num': {"$slice": [1, 1]}})
+    # musicCowSongNumListCurrent = col.find({}, {'num': {"$slice": [1, 1]}})
 
     song_list = list(range(0, 3001))  # 2000~3000 까지 신곡들 검사할 list
     for x in musicCowSongNumListCurrent:
@@ -58,7 +58,7 @@ def songCrawlerNew(col):
 
     option = Options()
     option.headless = False
-    driver = webdriver.Chrome(options=option)
+    driver = webdriver.Chrome(options=option, executable_path='crawlers/chromedriver.exe')
 
     detectedSongNumber = 0      # 감지한 신곡 개수
 
@@ -71,7 +71,7 @@ def songCrawlerNew(col):
         my_url = 'https://www.musicow.com/song/{}'.format(x)
         driver.get(my_url)
 
-        song_title = driver.find_element_by_xpath('/ html / body / div[2] / div[1] / div[2] / div[1] / div[2] / div[1] / strong').text
+        song_title = driver.find_element(By.XPATH, '/ html / body / div[2] / div[1] / div[2] / div[1] / div[2] / div[1] / strong').text
 
         if song_title == "":
             pass
@@ -145,11 +145,10 @@ def songCrawlerNew(col):
     driver.close()
     print("\n\n========== << 총 {} 개 신곡 크롤링을 마쳤습니다 >> ==========".format(detectedSongNumber))
 
-
-    return newSongList
+    return newSongList.keys()
 
 # 기존 db에 있는 곡 크롤링 (songCrawler) 코드 수행시간 : 매일 돌릴다고 했을 때 1137곡 기준으로 8분
-def songCrawler(col):
+def songCrawler(col, musicCowSongNumListCurrent):
 
     print("========== << 기존 db에 있는 곡 크롤링을 시작합니다 >> ==========")
 
@@ -166,7 +165,7 @@ def songCrawler(col):
     headers = {
         'user-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36"}
 
-    musicCowSongNumListCurrent = col.find({}, {'num': {"$slice": [1, 1]}})
+    # musicCowSongNumListCurrent = col.find({}, {'num': {"$slice": [1, 1]}})
                                 # 호출하고 for문에서 한번 사용시 소멸되는 듯 하니, for문에서 쓰기 전마다 한 번씩 호출하여 지역변수로 선언하기로 함.
 
     for x in musicCowSongNumListCurrent:
@@ -207,7 +206,11 @@ def songCrawler(col):
         list_currentDate = currentData.keys()
         list_currentDate = list(set(list_currentDate) - set(['_id', 'num', 'song_title', 'song_artist']))
         list_currentDate.sort()
-        currentDate = list_currentDate[-1]
+
+        if len(list_currentDate) > 0:
+            currentDate = list_currentDate[-1]
+        else:
+            pass
 
         # currentData 이후 시점부터 ymd 를 인덱스로 하여 딕셔너리 만들기
         if currentDate == df.iloc[len(df.index)-1, 0]:        # 이미 디비에 가장 최근 데이터로 갱신이 완료된 경우
