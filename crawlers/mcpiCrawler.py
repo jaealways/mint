@@ -39,7 +39,7 @@ def mcpiCrawler(col2):
     mcpiDict = {}                   # 크롤링한 mcpi 지수가 저장되는 딕셔너리
     currentDate = readDB(col2)      # 객체 생성과 동시에 이전에 크롤링한 mcpi 데이터가 현재 디비에 있는지/없는지 디비를 read함.
 
-    driver = webdriver.Chrome(executable_path='./chromedriver.exe')
+    driver = webdriver.Chrome(executable_path='crawlers/chromedriver.exe')
 
     driver.maximize_window()
     URL = 'https://www.musicow.com/mcpi'
@@ -137,5 +137,5 @@ if __name__ == '__main__':
     db1 = client.music_cow
     db2 = client.daily_crawler
     # music cow
-    col2 =  db1.mcpi
+    col2 = db1.mcpi
 
