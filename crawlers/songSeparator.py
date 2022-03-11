@@ -12,24 +12,25 @@
 
 import re
 from pymongo import MongoClient
+import numpy as np
+import pandas as pd
 
 class SongSeparator:
     def __init__(self, col1, newSongNums):
         self.col1 = col1
         self.newSongNums = newSongNums
-        self.newArtistList = {}
+        self.newArtistList = []
         self.read_db()
 
-
     def read_db(self):
-        list_db_music = self.col1.find({'num':{"$in":self.newSongNums}})
+        # list_db_music = self.col1.find({'num':{"$in":self.newSongNums}})
         # list_db_music = self.newSongList
 
-        for x in list_db_music:
+        for x in self.newSongNums:
             print("= {} 번곡 분리 시작 =".format(x['num']))
 
             self.num_feat_kor, self.num_feat_eng, self.num_main_kor, \
-            self.num_main_eng, self.num_sub_kor, self.num_sub_eng = 0, 0, 0, 0, 0, 0
+            self.num_main_eng, self.num_sub_kor, self.num_sub_eng = 0,0,0,0,0,0
             self.music_list = x
             self.list_split = {}
             self.song_artist = x['song_artist']
@@ -55,6 +56,16 @@ class SongSeparator:
 
             self.spliting_song()
             self.collect_db(x)
+
+        df_list = pd.read_pickle("./storage/df_raw_data/df_list_song_artist.pkl")
+        self.newArtistList = set(self.newArtistList) - set(df_list['artist'].values.tolist())
+
+        f = open("./storage/check_new/newArtistList.txt", 'w')
+        [f.write("%s\n" % i) for i in self.newArtistList]
+        f.close()
+
+        return self.newArtistList
+
 
     def spliting_song(self):
         for title in self.song_title:
@@ -115,9 +126,9 @@ class SongSeparator:
         # song_title_main_kor == 화
         # => 화 로 등록
         if "song_title_main_kor" in self.list_split.keys():
-            self.col1.visits.update({'num': x},{'$set': {'song_title': self.list_split["song_title_main_kor"]}})
+            self.col1.update_one({'num': x['num']}, {'$set': {'song_title': self.list_split["song_title_main_kor"]}})
         else:
-            self.col1.visits.update({'num': x}, {'$set': {'song_title': self.list_split["song_title_main_eng"]}})
+            self.col1.update_one({'num': x['num']}, {'$set': {'song_title': self.list_split["song_title_main_eng"]}})
 
         # 한국어 가수명 > 영어 가수명
         # ex) Dream (Prod. by 박근태) //  수지 (SUZY), 백현 (BAEKHYUN)
@@ -128,8 +139,10 @@ class SongSeparator:
         # => 수지만 등록
 
         if "song_artist_main_kor1" in self.list_split.keys():
-            self.col1.visits.update({'num': x}, {'$set': {'song_artist': self.list_split["song_artist_main_kor1"]}})
-            self.newArtistList[x] = self.list_split["song_artist_main_kor1"]
+            self.col1.update_one({'num': x['num']}, {'$set': {'song_artist': self.list_split["song_artist_main_kor1"]}})
+            self.newArtistList = self.list_split["song_artist_main_kor1"]
         else:
-            self.col1.visits.update({'num': x}, {'$set': {'song_artist': self.list_split["song_artist_main_eng1"]}})
-            self.newArtistList[x] = self.list_split["song_artist_main_eng1"]
+            self.col1.update_one({'num': x['num']}, {'$set': {'song_artist': self.list_split["song_artist_main_eng1"]}})
+            self.newArtistList = self.list_split["song_artist_main_eng1"]
+
+
