@@ -45,8 +45,6 @@ col5 = db2.articleInfo
 
 # === 크롤링 ===
 
-
-
 def track1(SongNumListCurrent):
     # ====================================== << Track 1 >> : 현재 musicCowData 디비에 있는 곡들 기준 크롤링 =========================================
     # 1. 현재 musicCowData 디비에 있는 곡들 / 가수들
@@ -74,7 +72,8 @@ def track3(SongNumListCurrent):
     print("<< 신곡 크롤링을 시작합니다 >>")
     newSongList = musicCowCrawler.songCrawlerNew(col1, SongNumListCurrent)
     print(newSongList)
-    songSeparator.SongSeparator(col1, newSongList)
+    newArtistList = songSeparator.SongSeparator(col1, newSongList)
+    print(newArtistList)
 
     # 3-2. musicInfo 크롤링
     print("<< 곡 information 크롤링을 시작합니다 >> ")
@@ -105,6 +104,11 @@ if __name__ == '__main__':
     print("{0} 크롤링 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
 
     SongNumListCurrent = list(col1.find({}, {'num': {"$slice": [1, 1]}}))
+
+    with open("storage/check_new/newArtistList.txt", 'w') as f:
+        pass
+    with open("storage/check_new/newSongList.txt", 'w') as f:
+        pass
 
     p1 = Process(target=track1(SongNumListCurrent))
     p1.start()
