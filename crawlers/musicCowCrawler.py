@@ -47,11 +47,11 @@ import pandas as pd
 # 2000~3000 중 새로 추가된 곡 코드 수행시간 : 10분
 def songCrawlerNew(col, musicCowSongNumListCurrent):
 
-    newSongList = {}  # 신곡의 뮤직카우 데이터 모음
+    newSongList = []  # 신곡의 뮤직카우 데이터 모음
 
     # musicCowSongNumListCurrent = col.find({}, {'num': {"$slice": [1, 1]}})
 
-    song_list = list(range(0, 3001))  # 2000~3000 까지 신곡들 검사할 list
+    song_list = list(range(0, 3000))  # 2000~3000 까지 신곡들 검사할 list
     for x in musicCowSongNumListCurrent:
         if x['num'] in song_list:
             song_list.remove(x['num'])
@@ -135,7 +135,7 @@ def songCrawlerNew(col, musicCowSongNumListCurrent):
                 dict2 = df.set_index('ymd').T.to_dict()
                 dict1.update(dict2)
 
-            newSongList[x] = dict1
+            newSongList.append(dict1)
 
             # 디비 업데이트
             col.insert_one(dict1).inserted_id
@@ -145,7 +145,11 @@ def songCrawlerNew(col, musicCowSongNumListCurrent):
     driver.close()
     print("\n\n========== << 총 {} 개 신곡 크롤링을 마쳤습니다 >> ==========".format(detectedSongNumber))
 
-    return newSongList.keys()
+    f = open("./storage/check_new/newSongList.txt", 'w')
+    [f.write("%d %s %s \n" % (i['num'], i['song_title'], i['song_artist'])) for i in newSongList]
+    f.close()
+
+    return newSongList
 
 # 기존 db에 있는 곡 크롤링 (songCrawler) 코드 수행시간 : 매일 돌릴다고 했을 때 1137곡 기준으로 8분
 def songCrawler(col, musicCowSongNumListCurrent):

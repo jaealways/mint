@@ -44,15 +44,19 @@ def copyrightCrawler(col3, dateToday, musicCowSongNumList):
         print('{} 번 시작'.format(x))
 
         # 몇월까지 데이터 모았는지 확인
-        currentData = col3.find({'num': x})
-        df = pd.json_normalize(currentData)
+        try:
+            listcurrentMonth = list(col3.find_one({'num': x}))
+        except TypeError:
+            listcurrentMonth = []
+        [listcurrentMonth.remove(key) for key in ['_id', 'num'] if key in listcurrentMonth]
+        listcurrentMonth.sort()
 
-        if df.empty:        # 그동안의 저작권료가 하나도 안 쌓인 경우 (저작권료를 처음 긁는 곡인 경우)
+        if len(listcurrentMonth) == 0:        # 그동안의 저작권료가 하나도 안 쌓인 경우 (저작권료를 처음 긁는 곡인 경우)
             currentYear = int((dateToday - relativedelta(years=4)).strftime('%Y')) # 2018년
             currentMonth = 1    # 1월 부터 긁는다 (현재 2022년 이고, 5년치 데이터를 긁으므로, 2018년 1월 데이터 부터 긁음)
         else:
-            currentYear = int(df.columns[len(df.columns) - 1].split("-")[0])      # 몇 년 데이터까지 모았는지 (년)
-            currentMonth = int(df.columns[len(df.columns) - 1].split("-")[1])     # 몇 월 데이터까지 모았는지 (월)
+            currentYear = int(listcurrentMonth[-1].split("-")[0])      # 몇 년 데이터까지 모았는지 (년)
+            currentMonth = int(listcurrentMonth[-1].split("-")[1])     # 몇 월 데이터까지 모았는지 (월)
 
         URL = 'https://www.musicow.com/song/{}?tab=price'.format(x)
         driver.get(url=URL)

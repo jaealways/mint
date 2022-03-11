@@ -117,7 +117,7 @@ if __name__ == '__main__':
     col1 = db1.music_list
     col2 = db2.music_list
 
-    for num in range(0, 2000):
+    for num in range(0, 3000):
         MusicList(num)
 
 # 메모

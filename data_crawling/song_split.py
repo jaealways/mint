@@ -5,7 +5,6 @@ class SongSpliter:
     def __init__(self):
         self.read_db()
 
-
     def read_db(self):
         list_db_music = col1.find({}, {'num': {"$slice": [1, 1]}})
         for x in list_db_music:
@@ -93,13 +92,24 @@ class SongSpliter:
 
     def collect_db(self):
         print(self.list_split)
-        self.music_list['list_split'] = self.list_split
-        col2.insert_one(self.music_list).inserted_id
+        if 'song_artist_main_kor1' in self.list_split:
+            self.song_artist = self.list_split['song_artist_main_kor1']
+        else:
+            self.song_artist = self.list_split['song_artist_main_eng1']
+        if 'song_title_main_kor' in self.list_split:
+            self.song_title = self.list_split['song_title_main_kor']
+        else:
+            self.song_title = self.list_split['song_title_main_eng']
+
+        # col1.insert_one(self.music_list).inserted_id
+        col2.update_one({"song_artist": self.music_list['song_artist']}, {"$set": {"song_artist": self.song_artist}})
+        col2.update_one({"song_title": self.music_list['song_title']}, {"$set": {"song_title": self.song_title}})
+
 
 if __name__ == '__main__':
     client = MongoClient('localhost', 27017)
     db1 = client.music_cow
-    col1 = db1.music_list
-    col2 = db1.music_list_split
+    col1 = db1.musicCowData
+    col2 = db1.musicCowDataTemp
 
     SongSpliter()
