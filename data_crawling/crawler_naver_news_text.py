@@ -8,14 +8,14 @@ from multiprocessing import Pool
 
 
 class update_article_info:
-    def __init__(self, ArtistList):
-        self.text_crawler(ArtistList)
+    def __init__(self, col5, ArtistList):
+        self.text_crawler(col5, ArtistList)
 
-    def text_crawler(self, ArtistList):
+    def text_crawler(self, col5, ArtistList):
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"}
         for db_artist in ArtistList:
-            articles = col.find({'artist': db_artist,'text': {'$exists': False}})
+            articles = col5.find({'artist': db_artist,'text': {'$exists': False}})
             for doc in articles:
                 link = doc['link']
                 #             print(doc['link_num'])
@@ -61,25 +61,18 @@ class update_article_info:
                     elif 'wikitree' in link:
                         text = soup.select_one('div#wikicon').text
                     else:
-                        text = ''
+                        text = ' '
                 except:
 
                     print('오류난 링크 :', link)
                     error.append(link)
+                    text = ' '
                     continue
-                col.update({'link': doc['link']}, {'$set': {'text': text}}, upsert=True)
+                col5.update({'link': doc['link']}, {'$set': {'text': text}}, upsert=True)
 
 
 error = []
 
-if __name__ == '__main__':
-    client = MongoClient('localhost', 27017)
-
-    db = client.article
-    col = db.article_info
-
-    pool = Pool(processes=4)
-    pool.map(update_article_info())
 
 
 
