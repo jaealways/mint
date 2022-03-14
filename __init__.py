@@ -52,7 +52,7 @@ def track1(NewsArtistListCurrent):
     print("<< Naver 크롤링을 시작합니다 >> ")
 
     crawler_naver_news_link.daily_Naver(col5, NewsArtistListCurrent, NewsArtistListLong, NewsDateListLong)
-    crawler_naver_news_text.update_article_info(NewsArtistListCurrent)
+    crawler_naver_news_text.update_article_info(col5, NewsArtistListCurrent)
 
 def track2(SongNumListCurrent):
     # ====================================== << Track 1 >> : 현재 musicCowData 디비에 있는 곡들 기준 크롤링 =========================================
@@ -75,7 +75,7 @@ def track3(SongNumListCurrent, NewsArtistListCurrent):
 
     print("<< 신곡 Naver 크롤링을 시작합니다 >> ")
     crawler_naver_news_link.daily_Naver(col5, NewsArtistListNew, NewsArtistListLong, NewsDateListLong)
-    crawler_naver_news_text.update_article_info(NewsArtistListNew)
+    crawler_naver_news_text.update_article_info(col5, NewsArtistListNew)
 
     # # 3-2. newSong 크롤링
     # print("<< track3 시작 >>")
