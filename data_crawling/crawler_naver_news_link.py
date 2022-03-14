@@ -22,7 +22,7 @@ class daily_Naver:
             self.num = idx
             # self.num = 30
             self.keyword = artist
-            print('{0}검색 시작'.format(artist))
+            print('{0} 검색 시작'.format(artist))
             self.listing_article(NewsArtistListLong, NewsDateListLong)
 
     def listing_article(self, NewsArtistListLong, NewsDateListLong):
@@ -128,6 +128,16 @@ class daily_Naver:
                                     print('{0}.번째 링크 정보 기입됨'.format(self.link_num))
 
                             except:
+                                self.articles = {
+                                    'num': self.num,
+                                    'link_num': self.link_num,
+                                    'artist': self.keyword,
+                                    'link': " ",
+                                    'article_title': " ",
+                                    'publish': " ",
+                                    'date': today.strftime('%Y-%m-%d')
+                                }
+                                self.col.insert_one(self.articles).inserted_id
                                 pass
                         self.link_num += 1
 
