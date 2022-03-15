@@ -142,4 +142,14 @@ class daily_Naver:
                         self.link_num += 1
 
                 else:
+                    self.articles = {
+                        'num': self.num,
+                        'link_num': self.link_num,
+                        'artist': self.keyword,
+                        'link': " ",
+                        'article_title': " ",
+                        'publish': " ",
+                        'date': today.strftime('%Y-%m-%d')
+                    }
+                    self.col.insert_one(self.articles).inserted_id
                     break
