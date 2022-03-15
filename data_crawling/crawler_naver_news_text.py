@@ -22,53 +22,55 @@ class update_article_info:
                 if doc['link_num'] % 100 == 0:
                     print(doc['link_num'])
 
-                req = requests.get(link, headers=headers)
-                soup = BeautifulSoup(req.text, 'html.parser')
                 try:
-                    if '/news.naver' in link:
-                        try:
-                            text = soup.select_one('div#articleBodyContents').text
-                        except:
+                    req = requests.get(link, headers=headers)
+                    soup = BeautifulSoup(req.text, 'html.parser')
+                    try:
+                        if '/news.naver' in link:
                             try:
-                                text = soup.select_one('div#articeBody').text
+                                text = soup.select_one('div#articleBodyContents').text
                             except:
+                                try:
+                                    text = soup.select_one('div#articeBody').text
+                                except:
 
-                                print('오류난 링크 :', link)
-                                error.append(link)
-                                continue
-                    elif 'sports.news.naver' in link:
-                        text = soup.select_one('div#newsEndContents').text
-                    elif 'entertain.naver' in link:
-                        text = soup.select_one('div#articeBody').text
-                    elif 'topstarnews' in link:
-                        text = soup.select_one('div#article-view-content-div div.article-view-page').text
-                    elif 'slist.kr' in link:
-                        text = soup.select_one('article.grid.body').text
-                    elif 'isplus' in link:
-                        text = soup.select_one('div#adiContents').text
-                    elif 'topdaily' in link:
-                        text = soup.select_one('div#article-view-content-div').text
-                    elif 'breaknews' in link:
-                        text = soup.select_one('div#CLtag').text
-                    elif 'gukjenews' in link:
-                        text = soup.select_one('article#article-view-content-div').text
-                    elif 'etoday' in link:
-                        text = soup.select_one('div#articleBody').text
-                    elif 'joynews24' in link:
-                        text = soup.select_one('article#articleBody').text
-                    elif 'onews' in link:
-                        text = soup.select_one('article#article-view-content-div').text
-                    elif 'wikitree' in link:
-                        text = soup.select_one('div#wikicon').text
-                    else:
+                                    print('오류난 링크 :', link)
+                                    error.append(link)
+                                    continue
+                        elif 'sports.news.naver' in link:
+                            text = soup.select_one('div#newsEndContents').text
+                        elif 'entertain.naver' in link:
+                            text = soup.select_one('div#articeBody').text
+                        elif 'topstarnews' in link:
+                            text = soup.select_one('div#article-view-content-div div.article-view-page').text
+                        elif 'slist.kr' in link:
+                            text = soup.select_one('article.grid.body').text
+                        elif 'isplus' in link:
+                            text = soup.select_one('div#adiContents').text
+                        elif 'topdaily' in link:
+                            text = soup.select_one('div#article-view-content-div').text
+                        elif 'breaknews' in link:
+                            text = soup.select_one('div#CLtag').text
+                        elif 'gukjenews' in link:
+                            text = soup.select_one('article#article-view-content-div').text
+                        elif 'etoday' in link:
+                            text = soup.select_one('div#articleBody').text
+                        elif 'joynews24' in link:
+                            text = soup.select_one('article#articleBody').text
+                        elif 'onews' in link:
+                            text = soup.select_one('article#article-view-content-div').text
+                        elif 'wikitree' in link:
+                            text = soup.select_one('div#wikicon').text
+                        else:
+                            text = ' '
+                    except:
+                        print('오류난 링크 :', link)
+                        error.append(link)
                         text = ' '
+                        continue
+                    col5.update({'_id': doc['_id']}, {'$set': {'text': text}}, upsert=True)
                 except:
-
-                    print('오류난 링크 :', link)
-                    error.append(link)
-                    text = ' '
-                    continue
-                col5.update({'link': doc['link']}, {'$set': {'text': text}}, upsert=True)
+                    pass
 
 
 error = []
