@@ -8,14 +8,14 @@ from multiprocessing import Pool
 
 
 class update_article_info:
-    def __init__(self, col5, ArtistList):
-        self.text_crawler(col5, ArtistList)
+    def __init__(self, dateToday, col5, ArtistList):
+        self.text_crawler(dateToday, col5, ArtistList)
 
-    def text_crawler(self, col5, ArtistList):
+    def text_crawler(self, dateToday, col5, ArtistList):
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"}
         for db_artist in ArtistList:
-            articles = col5.find({'artist': db_artist,'text': {'$exists': False}})
+            articles = col5.find({'artist': db_artist, 'date': {'$gte': "2021-12-01"}, 'text': {'$exists': False}})
             for doc in articles:
                 link = doc['link']
                 #             print(doc['link_num'])
@@ -68,13 +68,10 @@ class update_article_info:
                         error.append(link)
                         text = ' '
                         continue
-                    col5.update({'_id': doc['_id']}, {'$set': {'text': text}}, upsert=True)
+                    col5.update({'_id': doc['_id']}, {'$set': {'text': text, 'date_crawler': dateToday.strftime('%Y-%m-%d')}}, upsert=True)
+
                 except:
                     pass
 
 
 error = []
-
-
-
-
