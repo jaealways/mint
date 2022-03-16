@@ -17,10 +17,14 @@ class NLPTokenize:
 
     def db_to_article(self, str_date, end_date):
         df_artist_nlp = pd.read_pickle("../storage/df_raw_data/df_artist_nlp.pkl")
+
         articles1 = list(self.col.find({'$and': [{'text': {'$exists': True}}, {'date': {'$gte': str_date, '$lte': end_date}}]}))
         title1 = list(map(lambda x: x['article_title'], articles1))
         text1 = list(map(lambda x: x['text'], articles1))
         artist1 = list(map(lambda x: x['artist'], articles1))
+
+        # list_temp = set(artist1) - set(df_artist_nlp['nlp_query'].values)
+
         artist2 = list(map(lambda x: df_artist_nlp[df_artist_nlp['nlp_query'] == x]['nlp_dict'].values[0], artist1))
 
         date1 = list(map(lambda x: x['date'], articles1))
@@ -32,20 +36,22 @@ class NLPTokenize:
 
     def article_to_sen(self, df_article, str_date, end_date):
         df_article = df_article[(df_article['date'] >= str_date) & (df_article['date'] <= end_date)]
-        df_sen = pd.DataFrame([])
+        df_article = df_article.sort_values(["artist", "date"])
+
         df_article['text2'] = list(map(lambda x: x.split('. '), df_article['text1']))
+        list(map(lambda x, y: x.append(y), df_article['text2'], df_article['title']))
+        df_article['len_text'] = list(map(lambda x: len(x), df_article['text2']))
 
-        for x in df_article.iterrows():
-            sen_list = [y for y in x[-1]['text2']]
-            sen_list.append(x[-1]['title'])
-            sen_df_artist, sen_df_date = x[-1]['artist'], x[-1]['date']
-            df_temp = pd.DataFrame(sen_list, columns=['text'])
-            df_temp['artist'], df_temp['date'] = sen_df_artist, sen_df_date
+        list_sen, list_artist, list_date = [], [], []
 
-            df_sen = pd.concat([df_sen, df_temp])
+        list(map(lambda x: list_sen.extend(x), df_article['text2']))
+        list(map(lambda x, y: list_artist.extend([x for z in range(y)]), df_article['artist'], df_article['len_text']))
+        list(map(lambda x, y: list_date.extend([x for z in range(y)]), df_article['date'], df_article['len_text']))
+
+        df_sen = pd.DataFrame([list_sen, list_artist, list_date], index=['text', 'artist', 'date']).T
 
         pre_sentences = list(map(lambda x: x.replace("[^A-za-z가-힣ㄱ-ㅎㅏㅡㅣ ]", "").strip(), df_sen['text']))
-        pre_sentences = list(map(lambda x: x.replace("""[|]|"|'|\n|\t""", ''), pre_sentences))
+        pre_sentences = list(map(lambda x: x.replace("""[|]|\n|\t""", ''), pre_sentences))
 
         df_sen['text'] = pre_sentences
         df_sen.to_pickle("../storage/df_raw_data/df_sen_%s_%s.pkl" % (str_date, end_date))
@@ -64,7 +70,13 @@ class NLPTokenize:
 
         mecab = Mecab(dicpath=r'C:\mecab\mecab-ko-dic')
         df_token['token'] = df_sen.text.apply(lambda x: mecab.pos(x))
+        df_token['artist'], df_token['date'] = df_sen['artist'], df_sen['date']
 
+        print('sen_to_token')
+
+        return df_token
+
+    def token_to_tag(self, df_token):
         df_NNP_temp = df_token['token'].apply(lambda x: [y[0] for y in x if y[1]=="NNP"])
         df_NNG_temp = df_token['token'].apply(lambda x: [y[0] for y in x if y[1]=="NNG"])
 
@@ -75,6 +87,9 @@ class NLPTokenize:
         count_NNP, count_NNG = Counter(list_NNP), Counter(list_NNG)
         df_NNP = pd.DataFrame.from_dict(count_NNP, orient='index').reset_index()
         df_NNG = pd.DataFrame.from_dict(count_NNG, orient='index').reset_index()
+
+        df_NNP.to_pickle("../storage/df_raw_data/df_NNP_%s_%s.pkl" % (str_date, end_date))
+        df_NNG.to_pickle("../storage/df_raw_data/df_NNG_%s_%s.pkl" % (str_date, end_date))
 
         return df_NNP, df_NNG
 
@@ -143,15 +158,17 @@ class NLPTokenize:
             wr.writerow([text])
 
 
-# str_date, end_date = '2020-12-20', '2022-01-20'
+str_date, end_date = '2020-12-20', '2022-03-15'
 # df_article = NLPTokenize().db_to_article(str_date, end_date)
-# df_article = pd.read_pickle("../storage/df_raw_data/df_article_%s_%s.pkl" % (str_date, end_date))
+df_article = pd.read_pickle("../storage/df_raw_data/df_article_%s_%s.pkl" % (str_date, end_date))
 
 # df_sen = NLPTokenize().article_to_sen(df_article, str_date, end_date)
-# df_sen = pd.read_pickle("../storage/df_raw_data/df_sen_%s_%s.pkl" % (str_date, end_date))
+df_sen = pd.read_pickle("../storage/df_raw_data/df_sen_%s_%s.pkl" % (str_date, end_date))
 
-# artist = '별'
-# df_NNP, df_NNG = NLPKeyword().sen_to_token(df_sen, str_date, end_date, artist)
+artist = 'all'
+str_date, end_date = '2021-12-13', '2022-03-15'
 
-NLPTokenize().update_mecab_dict()
+df_token = NLPTokenize().sen_to_token(df_sen, str_date, end_date, artist)
+df_NNP, df_NNG = NLPTokenize().token_to_tag(df_token)
+# NLPTokenize().update_mecab_dict()
 
