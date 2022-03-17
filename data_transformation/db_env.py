@@ -15,7 +15,7 @@ class DbEnv:
         with open("../storage/key.json", "r") as env:
             env_dict = json.load(env)
         sql_db_pw = env_dict["sql_password"]
-        conn = pymysql.connect(host='127.0.0.1', user='root', password=sql_db_pw, db='mu_tech', charset='utf8')
+        conn = pymysql.connect(host='127.0.0.1', user='root', password=sql_db_pw, db='mu_tech', charset='utf8mb4')
         cursor = conn.cursor()
         conn.commit()
 

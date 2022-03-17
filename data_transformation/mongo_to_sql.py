@@ -3,35 +3,56 @@ from db_env import DbEnv
 # mongodb 저장 형식을 sql 형식으로 옮기기, 연산처리 빠르게
 
 class MongoToSQL:
-    def get_col_daily_music_cow(self):
+    def create_table_daily_music_cow(self):
         conn_sql, cursor_sql = DbEnv().connect_sql()
         sql_col = """num int(11) NOT NULL,
         date varchar(255) NOT NULL,
         price_high int(11) NOT NULL,
         price_low int(11) NOT NULL,
+        price_open int(11) NOT NULL,
         price_close int(11) NOT NULL,
         price_ratio float(11) NOT NULL,
         volume int(11) NOT NULL"""
-        conn_sql, cursor_sql = DbEnv().create_table(conn_sql, cursor_sql, 'daily_music_cow', sql_col)
-        col_list = DbEnv().get_col_list(cursor_sql, 'daily_music_cow')
-        col_list = [item[0] for item in col_list]
-        last_col = DbEnv().get_last_row(cursor_sql, 'daily_music_cow', 'date')
-        print(col_list, last_col)
+        DbEnv().create_table(conn_sql, cursor_sql, 'musicCowData', sql_col)
 
-        return last_col, col_list
+    def create_table_news_token(self, conn, cursor):
+        sql_col = """token varchar(10000) NOT NULL,
+        artist varchar(255) NOT NULL,
+        date varchar(255) NOT NULL,
+        date_crawler varchar(255) NOT NULL"""
+        DbEnv().create_table(conn, cursor, 'newsToken', sql_col)
+        sql = """ALTER DATABASE mu_tech CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;"""
+        cursor.execute(sql)
+        sql = """ALTER TABLE newstoken CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"""
+        cursor.execute(sql)
 
-    def get_col_list_song_artist(self):
-        conn_sql, cursor_sql = DbEnv().connect_sql()
-        sql_col = """num int(11) NOT NULL,
-        title varchar(255) NOT NULL,
-        artist varchar(255) NOT NULL"""
-        conn_sql, cursor_sql = DbEnv().create_table(conn_sql, cursor_sql, 'list_song_artist', sql_col)
-        col_list = DbEnv().get_col_list(cursor_sql, 'list_song_artist')
-        col_list = [item[0] for item in col_list]
-        last_col = DbEnv().get_last_row(cursor_sql, 'list_song_artist', 'num')
-        print(col_list, last_col)
+        # sql = "ALTER TABLE newstoken CHANGE token TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
+        # cursor.execute(sql)
 
-        return last_col, col_list
+    def create_table_news_sen(self, conn, cursor):
+        sql_col = """sen varchar(10000) NOT NULL,
+        artist varchar(255) NOT NULL,
+        date varchar(255) NOT NULL,
+        date_crawler varchar(255) NOT NULL"""
+        DbEnv().create_table(conn, cursor, 'newsSen', sql_col)
+        sql = """ALTER DATABASE mu_tech CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;"""
+        cursor.execute(sql)
+        sql = """ALTER TABLE newssen CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"""
+        cursor.execute(sql)
+        # sql = "ALTER TABLE newssen CHANGE sen TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
+        # cursor.execute(sql)
+
+    def update_daily_music_cow(self, tuple_mongo, tuple_sql):
+        tuple_mongo_temp = [(x, y) for x, y, z in tuple_mongo]
+        tuple_update = list(set(tuple_mongo_temp) - set(tuple_sql))
+        tuple_update.sort()
+
+        # 튜플 수정하기
+        tuple_update_idx = [tuple_mongo[idx] for idx, val in enumerate(tuple_mongo_temp) if val in tuple_update]
+        tuple_update_idx = []
+
+        DbEnv.insert_data_to_table(self, conn=conn_sql, cursor=cursor_sql, list_col=list_col,
+                                   table_sql=table_sql, tuple_data=tuple_data)
 
 
     def get_col_mcpi(self):
@@ -46,38 +67,25 @@ class MongoToSQL:
 
         return last_col, col_list
 
-    def get_col_daily_youtube(self):
-        conn_sql, cursor_sql = DbEnv().connect_sql()
-        sql_col = """song_num int(11) NOT NULL,
-        video_num int(11) NOT NULL,
-        date varchar(255) NOT NULL,
-        viewCount int(11) NOT NULL,
-        likeCount int(11) NOT NULL,
-        dislikeCount int(11) NOT NULL,
-        favoriteCount int(11) NOT NULL,
-        commentCount int(11) NOT NULL"""
-        conn_sql, cursor_sql = DbEnv().create_table(conn_sql, cursor_sql, 'daily_youtube', sql_col)
-        col_list = DbEnv().get_col_list(cursor_sql, 'daily_youtube')
-        col_list = [item[0] for item in col_list]
-        last_col = DbEnv().get_last_row(cursor_sql, 'daily_youtube', 'date')
-        print(col_list, last_col)
+    def make_tuple_mongo_daily_music_cow(self):
+        conn_mongo = DbEnv().connect_mongo('music_cow', 'musicCowData')
+        list_num, list_date, list_price, list_temp = [], [], [], []
+        list_mongo = list(conn_mongo.find())
+        list(map(lambda x: list_num.extend([x['num'] for z in range(len(set(list(x.keys())) - set(['_id', 'num', 'song_title', 'song_artist'])))]), list_mongo))
+        list(map(lambda x: list_temp.extend([(k, v) for k, v in x.items() if k not in {'_id', 'num', 'song_title', 'song_artist'}]), list_mongo))
+        list_date.extend([k for k, v in list_temp])
+        list_price.extend(tuple(list(v.values())) for k, v in list_temp)
+        tuple_mongo = list(zip(list_num, list_date, list_price))
 
-        return last_col, col_list
+        return tuple_mongo
 
-    def get_col_daily_genie(self):
-        conn_sql, cursor_sql = DbEnv().connect_sql()
-        sql_col = """song_id int(11) NOT NULL,
-        date varchar(255) NOT NULL,
-        total_listener int(11) NOT NULL,
-        total_play int(11) NOT NULL,
-        total_like int(11) NOT NULL"""
-        conn_sql, cursor_sql = DbEnv().create_table(conn_sql, cursor_sql, 'daily_genie', sql_col)
-        col_list = DbEnv().get_col_list(cursor_sql, 'daily_genie')
-        col_list = [item[0] for item in col_list]
-        last_col = DbEnv().get_last_row(cursor_sql, 'daily_genie', 'date')
-        print(col_list, last_col)
+    def make_tuple_sql_daily_music_cow(self):
+        conn, cursor = DbEnv().connect_sql()
+        sql = "SELECT DISTINCT num, date FROM musicCowData ORDER BY num"
+        cursor.execute(sql)
+        tuple_sql = list(cursor.fetchall())
 
-        return last_col, col_list
+        return tuple_sql
 
     def update_sql_daily_music_cow(self, col_mongo, table_sql):
         conn_mongo = DbEnv().connect_mongo('music_cow', col_mongo)
@@ -164,19 +172,23 @@ class MongoToSQL:
 # daily routine
 mongo_sql = MongoToSQL()
 
-DbEnv().create_db('mu_tech')
+# DbEnv().create_db('mu_tech')
+conn, cursor = DbEnv().connect_sql()
+mongo_sql.create_table_news_token(conn, cursor)
+mongo_sql.create_table_news_sen(conn, cursor)
 
+tuple_mongo = mongo_sql.make_tuple_mongo_daily_music_cow()
+tuple_sql = mongo_sql.make_tuple_sql_daily_music_cow()
+mongo_sql.update_daily_music_cow(tuple_mongo, tuple_sql)
 
 # last_col, col_list = mongo_sql.get_col_mcpi()
 # mongo_sql.update_sql_daily_mcpi('daily_mcpi', 'daily_mcpi')
 
-
 # last_col, col_list = mongo_sql.get_col_daily_music_cow()
 # mongo_sql.update_sql_daily_music_cow('daily_music_cow', 'daily_music_cow')
 
-last_col, col_list = mongo_sql.get_col_list_song_artist()
-mongo_sql.update_sql_list_song_artist('daily_music_cow', 'list_song_artist')
-
+# last_col, col_list = mongo_sql.get_col_list_song_artist()
+# mongo_sql.update_sql_list_song_artist('daily_music_cow', 'list_song_artist')
 
 # last_col, col_list = mongo_sql.get_col_daily_youtube()
 # mongo_sql.update_sql_daily_youtube('daily_youtube', 'daily_youtube', col_list)

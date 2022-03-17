@@ -8,13 +8,13 @@ from data_crawling import artist_for_nlp
 
 
 class daily_Naver:
-    def __init__(self, col, ArtistList, NewsArtistListLong, NewsDateListLong):
+    def __init__(self, dateToday, col, ArtistList, NewsArtistListLong, NewsDateListLong):
         self.article_num = 0
         self.count = 0
         self.col = col
-        self.read_db(ArtistList, NewsArtistListLong, NewsDateListLong)
+        self.read_db(dateToday, ArtistList, NewsArtistListLong, NewsDateListLong)
 
-    def read_db(self, ArtistList, NewsArtistListLong, NewsDateListLong):
+    def read_db(self, dateToday, ArtistList, NewsArtistListLong, NewsDateListLong):
         self.link_num = 0
         artist_list = ArtistList
 
@@ -23,9 +23,9 @@ class daily_Naver:
             # self.num = 30
             self.keyword = artist
             print('{0} 검색 시작'.format(artist))
-            self.listing_article(NewsArtistListLong, NewsDateListLong)
+            self.listing_article(dateToday, NewsArtistListLong, NewsDateListLong)
 
-    def listing_article(self, NewsArtistListLong, NewsDateListLong):
+    def listing_article(self, dateToday, NewsArtistListLong, NewsDateListLong):
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"}
         today = datetime.date.today()
@@ -103,7 +103,8 @@ class daily_Naver:
                                         'article_title': title.text,
                                         'publish': press.text,
                                         'text': text.text,
-                                        'date': today.strftime('%Y-%m-%d')
+                                        'date': today.strftime('%Y-%m-%d'),
+                                        'date_crawler': dateToday.strftime('%Y-%m-%d')
                                     }
                                     self.col.insert_one(self.articles).inserted_id
                                     print(self.articles)
@@ -121,7 +122,8 @@ class daily_Naver:
                                         'link': link,
                                         'article_title': title.text,
                                         'publish': press.text,
-                                        'date': today.strftime('%Y-%m-%d')
+                                        'date': today.strftime('%Y-%m-%d'),
+                                        'date_crawler': dateToday.strftime('%Y-%m-%d')
                                     }
                                     self.col.insert_one(self.articles).inserted_id
                                     print(self.articles)
@@ -142,4 +144,14 @@ class daily_Naver:
                         self.link_num += 1
 
                 else:
+                    self.articles = {
+                        'num': self.num,
+                        'link_num': self.link_num,
+                        'artist': self.keyword,
+                        'link': " ",
+                        'article_title': " ",
+                        'publish': " ",
+                        'date': today.strftime('%Y-%m-%d')
+                    }
+                    self.col.insert_one(self.articles).inserted_id
                     break

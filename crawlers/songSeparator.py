@@ -15,18 +15,25 @@ from pymongo import MongoClient
 import numpy as np
 import pandas as pd
 
+from data_crawling.artist_for_nlp import list_artist_NNP
+
+
 class SongSeparator:
-    def __init__(self, col1, newSongNums):
+    def __init__(self, col1):
         self.col1 = col1
-        self.newSongNums = newSongNums
         self.newArtistList = []
+        self.newArtistNNPList = []
         self.read_db()
 
     def read_db(self):
         # list_db_music = self.col1.find({'num':{"$in":self.newSongNums}})
         # list_db_music = self.newSongList
 
-        for x in self.newSongNums:
+        df_artist_nlp = pd.read_pickle("../storage/df_raw_data/df_artist_nlp.pkl")
+        mongoSeparator = list(self.col1.find({}))
+        # separatorList = set(list(map(lambda x: x['song_artist'], mongoSeparator))) - set(df_artist_nlp['list_artist_mc'].values)
+
+        for x in mongoSeparator:
             print("= {} 번곡 분리 시작 =".format(x['num']))
 
             self.num_feat_kor, self.num_feat_eng, self.num_main_kor, \
@@ -57,12 +64,17 @@ class SongSeparator:
             self.spliting_song()
             self.collect_db(x)
 
-        df_list = pd.read_pickle("./storage/df_raw_data/df_list_song_artist.pkl")
+        df_list = pd.read_pickle("../storage/df_raw_data/df_list_song_artist.pkl")
         self.newArtistList = set(self.newArtistList) - set(df_list['artist'].values.tolist())
 
-        f = open("./storage/check_new/newArtistList.txt", 'w')
+        f = open("../storage/check_new/newArtistList.txt", 'w')
         [f.write("%s\n" % i) for i in self.newArtistList]
         f.close()
+
+        # self.newArtistNNPList = set(self.newArtistNNPList) - set(list_artist_NNP)
+        # f = open("../storage/check_new/newArtistNNPList.txt", 'w')
+        # [f.write("%s\n" % i) for i in self.newArtistNNPList]
+        # f.close()
 
         return self.newArtistList
 
@@ -145,4 +157,14 @@ class SongSeparator:
             self.col1.update_one({'num': x['num']}, {'$set': {'song_artist': self.list_split["song_artist_main_eng1"]}})
             self.newArtistList = self.list_split["song_artist_main_eng1"]
 
+        # self.newArtistNNPList
 
+
+from pymongo import MongoClient
+
+client = MongoClient('localhost', 27017)
+db1 = client.music_cow
+db2 = client.article
+col1 = db1.musicCowData
+
+SongSeparator(col1)

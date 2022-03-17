@@ -107,8 +107,8 @@ def songCrawlerNew(col, musicCowSongNumListCurrent):
             df = pd.json_normalize(song_prices)
 
             # song_title_add, song_artist_add
-            song_title_add = WebDriverWait(driver,20).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[2]/div[1]/div[2]/div[1]/strong'))).text
-            song_artist_add = WebDriverWait(driver,20).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[2]/div[1]/div[2]/div[2]/div'))).text
+            song_title_add = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[2]/div[1]/div[2]/div[1]/strong'))).text
+            song_artist_add = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[2]/div[1]/div[2]/div[2]/div'))).text
 
             dict1 = {
                 'num': x,

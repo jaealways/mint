@@ -51,8 +51,8 @@ def track1(NewsArtistListCurrent):
     print("<< track1 시작 >>")
     print("<< Naver 크롤링을 시작합니다 >> ")
 
-    crawler_naver_news_link.daily_Naver(col5, NewsArtistListCurrent, NewsArtistListLong, NewsDateListLong)
-    crawler_naver_news_text.update_article_info(col5, NewsArtistListCurrent)
+    crawler_naver_news_link.daily_Naver(dateToday, col5, NewsArtistListCurrent, NewsArtistListLong, NewsDateListLong)
+    crawler_naver_news_text.update_article_info(dateToday, col5, NewsArtistListCurrent)
 
 def track2(SongNumListCurrent):
     # ====================================== << Track 1 >> : 현재 musicCowData 디비에 있는 곡들 기준 크롤링 =========================================
@@ -74,17 +74,17 @@ def track3(SongNumListCurrent, NewsArtistListCurrent):
     NewsArtistListNew.remove(np.nan)
 
     print("<< 신곡 Naver 크롤링을 시작합니다 >> ")
-    crawler_naver_news_link.daily_Naver(col5, NewsArtistListNew, NewsArtistListLong, NewsDateListLong)
-    crawler_naver_news_text.update_article_info(col5, NewsArtistListNew)
+    crawler_naver_news_link.daily_Naver(dateToday, col5, NewsArtistListNew, NewsArtistListLong, NewsDateListLong)
+    crawler_naver_news_text.update_article_info(dateToday, col5, NewsArtistListNew)
 
-    # # 3-2. newSong 크롤링
+    # 3-2. newSong 크롤링
     # print("<< track3 시작 >>")
     # print("<< 신곡 크롤링을 시작합니다 >>")
     # newSongList = musicCowCrawler.songCrawlerNew(col1, SongNumListCurrent)
     # print(newSongList)
-    # newArtistList = songSeparator.SongSeparator(col1, newSongList)
+    # newArtistList = songSeparator.SongSeparator(col1)
     # print(newArtistList)
-    #
+
     # # 3-3. musicInfo 크롤링
     # print("<< 곡 information 크롤링을 시작합니다 >> ")
     # musicInfoCrawler.musicInfoCrawler(col1, col4)
@@ -128,16 +128,25 @@ if __name__ == '__main__':
     with open("storage/check_new/newSongList.txt", 'w') as f:
         pass
 
+
     p1 = Process(target=track1(NewsArtistListCurrent))
     p1.start()
-    # p2 = Process(target=track2(SongNumListCurrent))
-    # p2.start()
     p3 = Process(target=track3(SongNumListCurrent, NewsArtistListCurrent))
     p3.start()
-    # p4 = Process(target=track4(SongNumListCurrent))
+
+    # # 크롤링
+    # p2 = Process(target=track2(NewsArtistListCurrent))
+    # p2.start()
+    # p4 = Process(target=track4(SongNumListCurrent, NewsArtistListCurrent))
     # p4.start()
-    #
+
+    # 수집
+    p2 = Process(target=track2(SongNumListCurrent))
+    p2.start()
+    p4 = Process(target=track4(SongNumListCurrent))
+    p4.start()
+
     p1.join()
-    # p2.join()
+    p2.join()
     p3.join()
-    # p4.join()
+    p4.join()
