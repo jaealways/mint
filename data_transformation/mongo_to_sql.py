@@ -13,22 +13,46 @@ class MongoToSQL:
         price_close int(11) NOT NULL,
         price_ratio float(11) NOT NULL,
         volume int(11) NOT NULL"""
-        DbEnv().create_table(conn_sql, cursor_sql, 'daily_music_cow', sql_col)
+        DbEnv().create_table(conn_sql, cursor_sql, 'musicCowData', sql_col)
+
+    def create_table_news_token(self, conn, cursor):
+        sql_col = """token varchar(10000) NOT NULL,
+        artist varchar(255) NOT NULL,
+        date varchar(255) NOT NULL,
+        date_crawler varchar(255) NOT NULL"""
+        DbEnv().create_table(conn, cursor, 'newsToken', sql_col)
+        sql = """ALTER DATABASE mu_tech CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;"""
+        cursor.execute(sql)
+        sql = """ALTER TABLE newstoken CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"""
+        cursor.execute(sql)
+
+        # sql = "ALTER TABLE newstoken CHANGE token TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
+        # cursor.execute(sql)
+
+    def create_table_news_sen(self, conn, cursor):
+        sql_col = """sen varchar(10000) NOT NULL,
+        artist varchar(255) NOT NULL,
+        date varchar(255) NOT NULL,
+        date_crawler varchar(255) NOT NULL"""
+        DbEnv().create_table(conn, cursor, 'newsSen', sql_col)
+        sql = """ALTER DATABASE mu_tech CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;"""
+        cursor.execute(sql)
+        sql = """ALTER TABLE newssen CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"""
+        cursor.execute(sql)
+        # sql = "ALTER TABLE newssen CHANGE sen TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
+        # cursor.execute(sql)
 
     def update_daily_music_cow(self, tuple_mongo, tuple_sql):
         tuple_mongo_temp = [(x, y) for x, y, z in tuple_mongo]
         tuple_update = list(set(tuple_mongo_temp) - set(tuple_sql))
-        tuple_update.sort(), tuple_mongo.sort()
+        tuple_update.sort()
 
+        # 튜플 수정하기
         tuple_update_idx = [tuple_mongo[idx] for idx, val in enumerate(tuple_mongo_temp) if val in tuple_update]
+        tuple_update_idx = []
 
-
-        conn_mongo = DbEnv().connect_mongo('music_cow', 'musicCowData')
-        list_mongo = list(conn_mongo.find())
-
-        for x in list_mongo:
-            test = x.values()
-            print(x)
+        DbEnv.insert_data_to_table(self, conn=conn_sql, cursor=cursor_sql, list_col=list_col,
+                                   table_sql=table_sql, tuple_data=tuple_data)
 
 
     def get_col_mcpi(self):
@@ -50,14 +74,14 @@ class MongoToSQL:
         list(map(lambda x: list_num.extend([x['num'] for z in range(len(set(list(x.keys())) - set(['_id', 'num', 'song_title', 'song_artist'])))]), list_mongo))
         list(map(lambda x: list_temp.extend([(k, v) for k, v in x.items() if k not in {'_id', 'num', 'song_title', 'song_artist'}]), list_mongo))
         list_date.extend([k for k, v in list_temp])
-        list_price.extend([list(v.values()) for k, v in list_temp])
+        list_price.extend(tuple(list(v.values())) for k, v in list_temp)
         tuple_mongo = list(zip(list_num, list_date, list_price))
 
         return tuple_mongo
 
     def make_tuple_sql_daily_music_cow(self):
         conn, cursor = DbEnv().connect_sql()
-        sql = "SELECT DISTINCT num, date FROM daily_music_cow ORDER BY num"
+        sql = "SELECT DISTINCT num, date FROM musicCowData ORDER BY num"
         cursor.execute(sql)
         tuple_sql = list(cursor.fetchall())
 
@@ -148,10 +172,15 @@ class MongoToSQL:
 # daily routine
 mongo_sql = MongoToSQL()
 
-DbEnv().create_db('mu_tech')
+# DbEnv().create_db('mu_tech')
+conn, cursor = DbEnv().connect_sql()
+mongo_sql.create_table_news_token(conn, cursor)
+mongo_sql.create_table_news_sen(conn, cursor)
+
 tuple_mongo = mongo_sql.make_tuple_mongo_daily_music_cow()
 tuple_sql = mongo_sql.make_tuple_sql_daily_music_cow()
 mongo_sql.update_daily_music_cow(tuple_mongo, tuple_sql)
+
 # last_col, col_list = mongo_sql.get_col_mcpi()
 # mongo_sql.update_sql_daily_mcpi('daily_mcpi', 'daily_mcpi')
 
