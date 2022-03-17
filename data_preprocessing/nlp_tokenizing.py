@@ -177,7 +177,11 @@ list_article = NLPTokenize().db_to_article()
 # df_article = pd.read_pickle("../storage/df_raw_data/df_article_%s_%s.pkl" % (str_date, end_date))
 
 df_sen = NLPTokenize().article_to_sen(list_article, conn, cursor)
+
 # df_sen = pd.read_pickle("../storage/df_raw_data/df_sen_%s_%s.pkl" % (str_date, end_date))
+# #
+artist = '브레이브걸스'
+df_sen = pd.read_pickle("../storage/df_raw_data/df_sen_%s_%s.pkl" % ("2021-12-20", "2021-12-21"))
 
 # artist = 'all'
 # str_date, end_date = '2021-12-13', '2022-03-15'
@@ -185,4 +189,5 @@ df_sen = NLPTokenize().article_to_sen(list_article, conn, cursor)
 # df_token = NLPTokenize().sen_to_token(df_sen, str_date, end_date, artist)
 # df_NNP, df_NNG = NLPTokenize().token_to_tag(df_token)
 # # NLPTokenize().update_mecab_dict()
+
 
