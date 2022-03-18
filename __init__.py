@@ -50,8 +50,8 @@ def track1(NewsArtistListCurrent):
     # ======================================================== << Track 2 >> : 기사 크롤링 ==================================================
     print("<< track1 시작 >>")
     print("<< Naver 크롤링을 시작합니다 >> ")
-
     crawler_naver_news_link.daily_Naver(dateToday, col5, NewsArtistListCurrent, NewsArtistListLong, NewsDateListLong)
+    print("<< Naver  본문 크롤링을 시작합니다 >> ")
     crawler_naver_news_text.update_article_info(dateToday, col5, NewsArtistListCurrent)
 
 def track2(SongNumListCurrent):
@@ -75,6 +75,7 @@ def track3(SongNumListCurrent, NewsArtistListCurrent):
 
     print("<< 신곡 Naver 크롤링을 시작합니다 >> ")
     crawler_naver_news_link.daily_Naver(dateToday, col5, NewsArtistListNew, NewsArtistListLong, NewsDateListLong)
+    print("<< 신곡 Naver 본문 크롤링을 시작합니다 >> ")
     crawler_naver_news_text.update_article_info(dateToday, col5, NewsArtistListNew)
 
     # 3-2. newSong 크롤링
@@ -131,22 +132,22 @@ if __name__ == '__main__':
 
     p1 = Process(target=track1(NewsArtistListCurrent))
     p1.start()
-    p3 = Process(target=track3(SongNumListCurrent, NewsArtistListCurrent))
-    p3.start()
+    # p3 = Process(target=track3(SongNumListCurrent, NewsArtistListCurrent))
+    # p3.start()
 
-    # # 크롤링
+    # 기사 크롤링
     # p2 = Process(target=track2(NewsArtistListCurrent))
     # p2.start()
     # p4 = Process(target=track4(SongNumListCurrent, NewsArtistListCurrent))
     # p4.start()
 
-    # 수집
-    p2 = Process(target=track2(SongNumListCurrent))
-    p2.start()
-    p4 = Process(target=track4(SongNumListCurrent))
-    p4.start()
+    # # 수집
+    # p2 = Process(target=track2(SongNumListCurrent))
+    # p2.start()
+    # p4 = Process(target=track4(SongNumListCurrent))
+    # p4.start()
 
     p1.join()
-    p2.join()
-    p3.join()
-    p4.join()
+    # p2.join()
+    # p3.join()
+    # p4.join()
