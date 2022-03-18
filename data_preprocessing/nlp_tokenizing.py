@@ -19,10 +19,10 @@ class NLPTokenize:
         db = client.article
         self.col = db.article_info
 
-    def db_to_article(self):
+    def db_to_article(self, date_crawler):
         df_artist_nlp = pd.read_pickle("../storage/df_raw_data/df_artist_nlp.pkl")
 
-        articles1 = list(self.col.find({'date_crawler': '2022-03-16'}))
+        articles1 = list(self.col.find({'date_crawler': date_crawler, 'text': {'$exists': True}}))
         title1 = list(map(lambda x: x['article_title'], articles1))
         text1 = list(map(lambda x: x['text'], articles1))
         artist1 = list(map(lambda x: x['artist'], articles1))
@@ -36,11 +36,11 @@ class NLPTokenize:
 
         # df_article = pd.DataFrame(list(zip(title1, text1, artist2, date1)), columns=['title', 'text1', 'artist', 'date'])
         # df_article.to_pickle("../storage/df_raw_data/df_article_%s_%s.pkl" % (str_date, end_date))
-        print("df_article")
+        print("list_article")
 
         return list_article
 
-    def article_to_sen(self, list_article, conn, cursor):
+    def article_to_sen(self, list_article, conn, cursor, date_crawler):
         article_split = list(map(lambda x: x[1].split('. '), list_article))
         list(map(lambda x, y: x.append(y[0]), article_split, list_article))
         len_article = list(map(lambda x: len(x), article_split))
@@ -53,40 +53,53 @@ class NLPTokenize:
 
         pre_sentences = list(map(lambda x: x.replace("[^A-za-z가-힣ㄱ-ㅎㅏㅡㅣ ]", "").strip(), list_sen))
         pre_sentences = list(map(lambda x: x.replace("[|]|\n|\t|\\", ""), pre_sentences))
-        pre_sentences = list(map(lambda x: re.compile("""["
+        pre_sentences = list(map(lambda x: x.replace("""["
         u"\U0001F600-\U0001F64F"  # emoticons
         u"\U0001F300-\U0001F5FF"  # symbols & pictographs
         u"\U0001F680-\U0001F6FF"  # transport & map symbols
         u"\U0001F1E0-\U0001F1FF"  # flags (iOS)
-                           "]+""", flags=re.UNICODE).sub(r'', x), pre_sentences))
+                           "]+""", ""), pre_sentences))
         list_sen = pre_sentences
-        list_date_crawler = ['2022-03-16' for x in range(len(list_sen))]
+        list_date_crawler = [date_crawler for x in range(len(list_sen))]
 
-        list_sens = list(zip(list_sen, list_artist, list_date, list_date_crawler))
-        # df_sen.to_pickle("../storage/df_raw_data/df_sen_%s_%s.pkl" % (str_date, end_date))
-
+        list_sens_temp = list(zip(list_sen, list_artist, list_date, list_date_crawler))
         sql = "INSERT INTO newssen VALUES (%s, %s, %s, %s)"
-        cursor.executemany(sql, list_sens)
-        conn.commit()
+        list_sens = list(map(lambda x: self.sql_exclude(x, sql, conn, cursor), list_sens_temp))
+        print("list_sens")
 
-        print("df_sen")
+        return list_sens
 
-
-    def sen_to_token(self, df_sen, cursor, conn):
-        df_token = pd.DataFrame([])
-
-        if artist == 'all':
-            df_sen = df_sen[(df_sen['date'] >= str_date) & (df_sen['date'] <= end_date)]
+    def sql_exclude(self, x, sql, conn, cursor):
+        try:
+            cursor.execute(sql, x)
+            conn.commit()
+        except:
+            print(x)
+            pass
         else:
-            df_sen = df_sen[(df_sen['artist'] == artist) & (df_sen['date'] >= str_date) & (df_sen['date'] <= end_date)]
+            return x
 
+    def sen_to_token(self, list_sens, conn, cursor):
         mecab = Mecab(dicpath=r'C:\mecab\mecab-ko-dic')
-        df_token['token'] = df_sen.text.apply(lambda x: mecab.pos(x))
-        df_token['artist'], df_token['date'] = df_sen['artist'], df_sen['date']
+        list_tokens_temp = list(map(lambda x: self.token_exclude_mecab(mecab, x), list_sens))
+        sql = "INSERT INTO newstoken VALUES (%s, %s, %s, %s)"
+        list_tokens = list(map(lambda x: self.sql_exclude(x, sql, conn, cursor), list_tokens_temp))
 
-        print('sen_to_token')
+        print('list_tokens')
 
-        return df_token
+        return list_tokens
+
+    def token_exclude_mecab(self, mecab, x):
+        try:
+            # [(), ()] 형태 어떻게 db에 저장?
+            temp = mecab.pos(x[0])
+            token = '), '.join(temp)
+        except:
+            print(x)
+            pass
+        else:
+            tuple_token = (token, x[1], x[2], x[3])
+            return tuple_token
 
     def token_to_tag(self, df_token):
         df_NNP_temp = df_token['token'].apply(lambda x: [y[0] for y in x if y[1]=="NNP"])
@@ -170,13 +183,19 @@ class NLPTokenize:
             wr.writerow([text])
 
 
+date_crawler = "2022-03-16"
 conn, cursor = DbEnv().connect_sql()
 
 str_date, end_date = '2018-12-20', '2023-03-15'
-list_article = NLPTokenize().db_to_article()
+list_article = NLPTokenize().db_to_article(date_crawler)
 # df_article = pd.read_pickle("../storage/df_raw_data/df_article_%s_%s.pkl" % (str_date, end_date))
 
+<<<<<<< Updated upstream
 df_sen = NLPTokenize().article_to_sen(list_article, conn, cursor)
+=======
+list_sens = NLPTokenize().article_to_sen(list_article, conn, cursor, date_crawler)
+list_token = NLPTokenize().sen_to_token(list_sens, conn, cursor)
+>>>>>>> Stashed changes
 
 # df_sen = pd.read_pickle("../storage/df_raw_data/df_sen_%s_%s.pkl" % (str_date, end_date))
 # #
