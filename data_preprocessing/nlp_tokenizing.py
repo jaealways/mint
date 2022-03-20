@@ -80,26 +80,33 @@ class NLPTokenize:
             return x
 
     def sen_to_token(self, list_sens, conn, cursor):
+        sql = "SELECT sen, artist, date, date_crawler FROM newssen WHERE date BETWEEN '2021-09-01' AND '2022-03-20'"
+        cursor.execute(sql)
+        conn.commit()
+        list_sens = cursor.fetchall()
+
         mecab = Mecab(dicpath=r'C:\mecab\mecab-ko-dic')
-        list_tokens_temp = list(map(lambda x: self.token_exclude_mecab(mecab, x), list_sens))
-        sql = "INSERT INTO newstoken VALUES (%s, %s, %s, %s)"
-        list_tokens = list(map(lambda x: self.sql_exclude(x, sql, conn, cursor), list_tokens_temp))
+        # list_tokens_temp = list(map(lambda x: self.token_exclude_mecab(mecab, x), list_sens))        list_tokens_temp = list(map(lambda x: self.token_exclude_mecab(mecab, x), list_sens))
+        array_token_temp = list(map(lambda x: np.asarray(mecab.pos(x[0])), list_sens))
+        array_token_tp = list(map(lambda x: x.T, array_token_temp))
+        tuple_tokens = tuple(map(lambda x, y: self.token_exclude_split(x, y), array_token_tp, list_sens))
+
+        sql = "INSERT INTO newstokentemp VALUES (%s, %s, %s, %s, %s)"
+        list_tokens = list(map(lambda x: self.sql_exclude(x, sql, conn, cursor), tuple_tokens))
 
         print('list_tokens')
 
         return list_tokens
 
-    def token_exclude_mecab(self, mecab, x):
+    def token_exclude_split(self, x, y):
         try:
-            # [(), ()] 형태 어떻게 db에 저장?
-            temp = mecab.pos(x[0])
-            token = '), '.join(temp)
+            x[0]
         except:
-            print(x)
             pass
         else:
-            tuple_token = (token, x[1], x[2], x[3])
-            return tuple_token
+            token, tag = ", ".join(x[0]), ", ".join(x[1])
+            tuple_temp = (token, tag, y[1], y[2], y[3])
+            return tuple_temp
 
     def token_to_tag(self, df_token):
         df_NNP_temp = df_token['token'].apply(lambda x: [y[0] for y in x if y[1]=="NNP"])
@@ -183,19 +190,17 @@ class NLPTokenize:
             wr.writerow([text])
 
 
-date_crawler = "2022-03-16"
+date_crawler = "2022-03-19"
 conn, cursor = DbEnv().connect_sql()
 
 str_date, end_date = '2018-12-20', '2023-03-15'
-list_article = NLPTokenize().db_to_article(date_crawler)
+# list_article = NLPTokenize().db_to_article(date_crawler)
 # df_article = pd.read_pickle("../storage/df_raw_data/df_article_%s_%s.pkl" % (str_date, end_date))
 
-<<<<<<< Updated upstream
-df_sen = NLPTokenize().article_to_sen(list_article, conn, cursor)
-=======
-list_sens = NLPTokenize().article_to_sen(list_article, conn, cursor, date_crawler)
+
+# list_sens = NLPTokenize().article_to_sen(list_article, conn, cursor, date_crawler)
+list_sens = []
 list_token = NLPTokenize().sen_to_token(list_sens, conn, cursor)
->>>>>>> Stashed changes
 
 # df_sen = pd.read_pickle("../storage/df_raw_data/df_sen_%s_%s.pkl" % (str_date, end_date))
 # #
