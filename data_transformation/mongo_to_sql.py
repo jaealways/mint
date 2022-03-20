@@ -17,17 +17,11 @@ class MongoToSQL:
 
     def create_table_news_token(self, conn, cursor):
         sql_col = """token varchar(10000) NOT NULL,
+        tag varchar(10000) NOT NULL,
         artist varchar(255) NOT NULL,
         date varchar(255) NOT NULL,
         date_crawler varchar(255) NOT NULL"""
-        DbEnv().create_table(conn, cursor, 'newsToken', sql_col)
-        sql = """ALTER DATABASE mu_tech CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;"""
-        cursor.execute(sql)
-        sql = """ALTER TABLE newstoken CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"""
-        cursor.execute(sql)
-
-        # sql = "ALTER TABLE newstoken CHANGE token TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
-        # cursor.execute(sql)
+        DbEnv().create_table(conn, cursor, 'newstoken', sql_col)
 
     def create_table_news_sen(self, conn, cursor):
         sql_col = """sen varchar(10000) NOT NULL,
@@ -175,7 +169,7 @@ mongo_sql = MongoToSQL()
 # DbEnv().create_db('mu_tech')
 conn, cursor = DbEnv().connect_sql()
 mongo_sql.create_table_news_token(conn, cursor)
-mongo_sql.create_table_news_sen(conn, cursor)
+# mongo_sql.create_table_news_sen(conn, cursor)
 
 tuple_mongo = mongo_sql.make_tuple_mongo_daily_music_cow()
 tuple_sql = mongo_sql.make_tuple_sql_daily_music_cow()
