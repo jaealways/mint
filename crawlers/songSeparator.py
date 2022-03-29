@@ -29,7 +29,7 @@ class SongSeparator:
         # list_db_music = self.col1.find({'num':{"$in":self.newSongNums}})
         # list_db_music = self.newSongList
 
-        df_artist_nlp = pd.read_pickle("../storage/df_raw_data/df_artist_nlp.pkl")
+        df_artist_nlp = pd.read_pickle("./storage/df_raw_data/df_artist_nlp.pkl")
         mongoSeparator = list(self.col1.find({}))
         # separatorList = set(list(map(lambda x: x['song_artist'], mongoSeparator))) - set(df_artist_nlp['list_artist_mc'].values)
 
@@ -64,10 +64,10 @@ class SongSeparator:
             self.spliting_song()
             self.collect_db(x)
 
-        df_list = pd.read_pickle("../storage/df_raw_data/df_list_song_artist.pkl")
+        df_list = pd.read_pickle("./storage/df_raw_data/df_list_song_artist.pkl")
         self.newArtistList = set(self.newArtistList) - set(df_list['artist'].values.tolist())
 
-        f = open("../storage/check_new/newArtistList.txt", 'w')
+        f = open("./storage/check_new/newArtistList.txt", 'w')
         [f.write("%s\n" % i) for i in self.newArtistList]
         f.close()
 
@@ -160,11 +160,11 @@ class SongSeparator:
         # self.newArtistNNPList
 
 
-from pymongo import MongoClient
-
-client = MongoClient('localhost', 27017)
-db1 = client.music_cow
-db2 = client.article
-col1 = db1.musicCowData
-
-SongSeparator(col1)
+# from pymongo import MongoClient
+#
+# client = MongoClient('localhost', 27017)
+# db1 = client.music_cow
+# db2 = client.article
+# col1 = db1.musicCowData
+#
+# SongSeparator(col1)
