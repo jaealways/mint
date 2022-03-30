@@ -44,15 +44,17 @@ col4 = db1.musicInfo
 
 # article
 col5 = db2.article_info
+dateToday = datetime.datetime.today()
 
-# === 크롤링 ===
+
 def track1(NewsArtistListCurrent):
     # ======================================================== << Track 2 >> : 기사 크롤링 ==================================================
     print("<< track1 시작 >>")
     print("<< Naver 크롤링을 시작합니다 >> ")
-    crawler_naver_news_link.daily_Naver(dateToday, col5, NewsArtistListCurrent, NewsArtistListLong, NewsDateListLong)
+    crawler_naver_news_link.daily_Naver(dateToday, col5, NewsArtistListCurrent)
     print("<< Naver  본문 크롤링을 시작합니다 >> ")
     crawler_naver_news_text.update_article_info(dateToday, col5, NewsArtistListCurrent)
+
 
 def track2(SongNumListCurrent):
     # ====================================== << Track 1 >> : 현재 musicCowData 디비에 있는 곡들 기준 크롤링 =========================================
@@ -60,46 +62,45 @@ def track2(SongNumListCurrent):
     # 1-1. DB에 있는 곡들 대상으로 뮤직카우 데이터 크롤링
     print("<< track2 시작 >>")
     print("<< 뮤직카우 데이터 크롤링을 시작합니다 >>")
-    musicCowCrawler.songCrawler(col1, SongNumListCurrent)      # 뮤직카우 디비에 있는 기존 곡들 크롤링
+    musicCowCrawler.songCrawler(col1, SongNumListCurrent)  # 뮤직카우 디비에 있는 기존 곡들 크롤링
 
     # 1-2. copyrightPrice 크롤링
     print("<< 저작권료 크롤링을 시작합니다 >> ")
     copyrightCrawler.copyrightCrawler(col3, dateToday, SongNumListCurrent)
 
+def track3(SongNumListCurrent):
+    # ======================================================== << Track 4 >> : mcpi 크롤링 ==================================================
+    print("<< track4 시작 >>")
+    print("<< mcpi 크롤링을 시작합니다 >> ")
+    mcpiCrawler.mcpiCrawler(col2)  # mcpi 지수 크롤링
 
-def track3(SongNumListCurrent, NewsArtistListCurrent):
+def track4(SongNumListCurrent, NewsArtistListCurrent):
     # ======================================================== << Track 3 >> : 신곡 크롤링 ==================================================
-    # 3-1. newNaver 크롤링
     NewsArtistListNew = list(set(artist_for_nlp.list_artist_query) - set(NewsArtistListCurrent))
     NewsArtistListNew.remove(np.nan)
 
+    # 3-1. newNaver 크롤링
     print("<< 신곡 Naver 크롤링을 시작합니다 >> ")
-    crawler_naver_news_link.daily_Naver(dateToday, col5, NewsArtistListNew, NewsArtistListLong, NewsDateListLong)
+    crawler_naver_news_link.daily_Naver(dateToday, col5, NewsArtistListNew)
     print("<< 신곡 Naver 본문 크롤링을 시작합니다 >> ")
     crawler_naver_news_text.update_article_info(dateToday, col5, NewsArtistListNew)
 
     # 3-2. newSong 크롤링
-    # print("<< track3 시작 >>")
-    # print("<< 신곡 크롤링을 시작합니다 >>")
-    # newSongList = musicCowCrawler.songCrawlerNew(col1, SongNumListCurrent)
-    # print(newSongList)
-    # newArtistList = songSeparator.SongSeparator(col1)
-    # print(newArtistList)
+    print("<< track3 시작 >>")
+    print("<< 신곡 크롤링을 시작합니다 >>")
+    newSongList = musicCowCrawler.songCrawlerNew(col1, SongNumListCurrent)
+    print(newSongList)
+    newArtistList = songSeparator.SongSeparator(col1)
+    print(newArtistList)
 
-    # # 3-3. musicInfo 크롤링
-    # print("<< 곡 information 크롤링을 시작합니다 >> ")
-    # musicInfoCrawler.musicInfoCrawler(col1, col4)
-    #
-    # # 3-4. copyrightPrice 크롤링
-    # print("<< 저작권료 크롤링을 시작합니다 >> ")
-    # copyrightCrawler.copyrightCrawler(col3, dateToday, newSongList)
+    # 3-3. musicInfo 크롤링
+    print("<< 곡 information 크롤링을 시작합니다 >> ")
+    musicInfoCrawler.musicInfoCrawler(col1, col4)
 
+    # 3-4. copyrightPrice 크롤링
+    print("<< 저작권료 크롤링을 시작합니다 >> ")
+    copyrightCrawler.copyrightCrawler(col3, dateToday, newSongList)
 
-def track4(SongNumListCurrent):
-    # ======================================================== << Track 4 >> : mcpi 크롤링 ==================================================
-    print("<< track4 시작 >>")
-    print("<< mcpi 크롤링을 시작합니다 >> ")
-    mcpiCrawler.mcpiCrawler(col2)         # mcpi 지수 크롤링
 
 
 # schedule.every().day.at("15:23").do(test_function)
@@ -111,43 +112,66 @@ def track4(SongNumListCurrent):
 #     schedule.run_pending()
 #     time.sleep(1)
 
+
 if __name__ == '__main__':
-    dateToday = datetime.datetime.today()
     print("{0} 크롤링 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
 
     artist_for_nlp
 
-    SongNumListCurrent = list(col1.find({}, {'num': {"$slice": [1, 1]}}))
-    NewsListCurrent = list(col5.find({}))
-    NewsArtistListLong = list(map(lambda x: x['artist'], NewsListCurrent))
-    NewsDateListLong = list(map(lambda x: x['date'], NewsListCurrent))
 
-    NewsArtistListCurrent = list(set(NewsArtistListLong))
+    # === 크롤링 ===
+
+
+    SongNumListCurrent = list(col1.find({}, {'num': {"$slice": [1, 1]}}))
+    # NewsListCurrent = list(col5.find({}))
+    # NewsArtistListLong = list(map(lambda x: x['artist'], NewsListCurrent))
+    # NewsDateListLong = list(map(lambda x: x['date'], NewsListCurrent))
+
+    NewsArtistListCurrent = list(col5.find({}).distinct("artist"))
+
+    # NewsArtistListCurrent = list(set(NewsArtistListLong))
 
     with open("storage/check_new/newArtistList.txt", 'w') as f:
         pass
     with open("storage/check_new/newSongList.txt", 'w') as f:
         pass
 
+    pl = Pool(4)
 
-    p1 = Process(target=track1(NewsArtistListCurrent))
-    p1.start()
+    # with pool(4) as pl:
+    pl.apply_async(track1, (NewsArtistListCurrent, ))
+    pl.apply_async(track2, (SongNumListCurrent, ))
+    pl.apply_async(track3, (SongNumListCurrent, ))
+    pl.apply_async(track4, (SongNumListCurrent, NewsArtistListCurrent, ))
+
+    # p1.get()
+    # p2.get()
+    # p3.get()
+    # p4.get()
+
+    pl.close()
+    pl.join()
+
+    # pool = Pool(processes=4)
+    #
+    # p1 = Process(target=track1(NewsArtistListCurrent))
     # p3 = Process(target=track3(SongNumListCurrent, NewsArtistListCurrent))
-    # p3.start()
-
-    # 기사 크롤링
-    # p2 = Process(target=track2(NewsArtistListCurrent))
-    # p2.start()
-    # p4 = Process(target=track4(SongNumListCurrent, NewsArtistListCurrent))
-    # p4.start()
-
-    # # 수집
+    #
+    # # 기사 크롤링
+    # # p2 = Process(target=track2(NewsArtistListCurrent))
+    # # p2.start()
+    # # p4 = Process(target=track4(SongNumListCurrent, NewsArtistListCurrent))
+    # # p4.start()
+    # # # 수집
     # p2 = Process(target=track2(SongNumListCurrent))
-    # p2.start()
     # p4 = Process(target=track4(SongNumListCurrent))
+    #
+    # p1.start()
+    # p2.start()
+    # p3.start()
     # p4.start()
-
-    p1.join()
+    #
+    # p1.join()
     # p2.join()
     # p3.join()
     # p4.join()
