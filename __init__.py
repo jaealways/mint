@@ -44,8 +44,9 @@ col4 = db1.musicInfo
 
 # article
 col5 = db2.article_info
+dateToday = datetime.datetime.today()
 
-# === 크롤링 ===
+
 def track1(NewsArtistListCurrent):
     # ======================================================== << Track 2 >> : 기사 크롤링 ==================================================
     print("<< track1 시작 >>")
@@ -54,20 +55,26 @@ def track1(NewsArtistListCurrent):
     print("<< Naver  본문 크롤링을 시작합니다 >> ")
     crawler_naver_news_text.update_article_info(dateToday, col5, NewsArtistListCurrent)
 
+
 def track2(SongNumListCurrent):
     # ====================================== << Track 1 >> : 현재 musicCowData 디비에 있는 곡들 기준 크롤링 =========================================
     # 1. 현재 musicCowData 디비에 있는 곡들 / 가수들
     # 1-1. DB에 있는 곡들 대상으로 뮤직카우 데이터 크롤링
     print("<< track2 시작 >>")
     print("<< 뮤직카우 데이터 크롤링을 시작합니다 >>")
-    musicCowCrawler.songCrawler(col1, SongNumListCurrent)      # 뮤직카우 디비에 있는 기존 곡들 크롤링
+    musicCowCrawler.songCrawler(col1, SongNumListCurrent)  # 뮤직카우 디비에 있는 기존 곡들 크롤링
 
     # 1-2. copyrightPrice 크롤링
     print("<< 저작권료 크롤링을 시작합니다 >> ")
     copyrightCrawler.copyrightCrawler(col3, dateToday, SongNumListCurrent)
 
+def track3(SongNumListCurrent):
+    # ======================================================== << Track 4 >> : mcpi 크롤링 ==================================================
+    print("<< track4 시작 >>")
+    print("<< mcpi 크롤링을 시작합니다 >> ")
+    mcpiCrawler.mcpiCrawler(col2)  # mcpi 지수 크롤링
 
-def track3(SongNumListCurrent, NewsArtistListCurrent):
+def track4(SongNumListCurrent, NewsArtistListCurrent):
     # ======================================================== << Track 3 >> : 신곡 크롤링 ==================================================
     NewsArtistListNew = list(set(artist_for_nlp.list_artist_query) - set(NewsArtistListCurrent))
     NewsArtistListNew.remove(np.nan)
@@ -95,12 +102,6 @@ def track3(SongNumListCurrent, NewsArtistListCurrent):
     copyrightCrawler.copyrightCrawler(col3, dateToday, newSongList)
 
 
-def track4(SongNumListCurrent):
-    # ======================================================== << Track 4 >> : mcpi 크롤링 ==================================================
-    print("<< track4 시작 >>")
-    print("<< mcpi 크롤링을 시작합니다 >> ")
-    mcpiCrawler.mcpiCrawler(col2)         # mcpi 지수 크롤링
-
 
 # schedule.every().day.at("15:23").do(test_function)
 # schedule.every().day.at("15:20").do(test_function2)
@@ -113,10 +114,13 @@ def track4(SongNumListCurrent):
 
 
 if __name__ == '__main__':
-    dateToday = datetime.datetime.today()
     print("{0} 크롤링 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
 
     artist_for_nlp
+
+
+    # === 크롤링 ===
+
 
     SongNumListCurrent = list(col1.find({}, {'num': {"$slice": [1, 1]}}))
     # NewsListCurrent = list(col5.find({}))
@@ -132,17 +136,21 @@ if __name__ == '__main__':
     with open("storage/check_new/newSongList.txt", 'w') as f:
         pass
 
-    with Pool(4) as pl:
-        p1 = pl.apply_async(track1, (NewsArtistListCurrent, ))
-        p2 = pl.apply_async(track2, (SongNumListCurrent, ))
-        p3 = pl.apply_async(track3, (SongNumListCurrent, NewsArtistListCurrent, ))
-        p4 = pl.apply_async(track4, (SongNumListCurrent, ))
+    pl = Pool(4)
 
-        p1.get()
-        p2.get()
-        p3.get()
-        p4.get()
+    # with pool(4) as pl:
+    pl.apply_async(track1, (NewsArtistListCurrent, ))
+    pl.apply_async(track2, (SongNumListCurrent, ))
+    pl.apply_async(track3, (SongNumListCurrent, ))
+    pl.apply_async(track4, (SongNumListCurrent, NewsArtistListCurrent, ))
 
+    # p1.get()
+    # p2.get()
+    # p3.get()
+    # p4.get()
+
+    pl.close()
+    pl.join()
 
     # pool = Pool(processes=4)
     #
