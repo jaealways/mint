@@ -8,35 +8,30 @@ from data_crawling import artist_for_nlp
 
 
 class daily_Naver:
-    def __init__(self, dateToday, col, ArtistList, NewsArtistListLong, NewsDateListLong):
-        self.article_num = 0
+    def __init__(self, dateToday, col, ArtistList):
         self.count = 0
         self.col = col
-        self.read_db(dateToday, ArtistList, NewsArtistListLong, NewsDateListLong)
+        self.link_num = col.count_documents({})
+        self.read_db(dateToday, ArtistList)
 
-    def read_db(self, dateToday, ArtistList, NewsArtistListLong, NewsDateListLong):
-        self.link_num = 0
-        artist_list = ArtistList
-
-        for idx, artist in enumerate(artist_list):
-            self.num = idx
-            # self.num = 30
+    def read_db(self, dateToday, ArtistList):
+        for idx, artist in enumerate(ArtistList):
             self.keyword = artist
             print('{0} 검색 시작'.format(artist))
-            self.listing_article(dateToday, NewsArtistListLong, NewsDateListLong)
 
-    def listing_article(self, dateToday, NewsArtistListLong, NewsDateListLong):
+            self.listing_article(dateToday)
+
+    def listing_article(self, dateToday):
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"}
         today = datetime.date.today()
         # today = datetime.date(2020, 8, 9)
         try:
             # mongoDate = list(map(lambda x: x['date'], list(self.col.find({'artist': self.keyword}))))
-            idx_list = list(filter(lambda x: NewsArtistListLong[x] == self.keyword, range(len(NewsArtistListLong))))
-            list_date = [NewsDateListLong[x] for x in idx_list]
-            liststop = list(set(list_date))
-            liststop.sort()
-            stop = liststop[-1]
+            # idx_list = list(filter(lambda x: NewsArtistListLong[x] == self.keyword, range(len(NewsArtistListLong))))
+            NewsDateListCurrent = list(self.col.find({'artist': self.keyword}).distinct("date"))
+            NewsDateListCurrent.sort()
+            stop = NewsDateListCurrent[-1]
         except:
             stop = '2019-01-01'
 
@@ -59,7 +54,7 @@ class daily_Naver:
                 cons = temp_soup.select('ul.list_news li')
                 if cons != []:
                     for num, con in enumerate(cons):
-
+                        self.link_num += 1
                         print('{}번째 con'.format(num + 1))
                         try:
                             temp = con.select('a.info')[1]
@@ -71,8 +66,7 @@ class daily_Naver:
                             print('네이버 검색 페이지: ', article_link)
                             print('기사 링크: ', link)
                             self.articles = {
-                                'num': self.num,
-                                'link_num': self.link_num,
+                                'doc_num': self.link_num,
                                 'artist': self.keyword,
                                 'link': link,
                                 'article_title': title.text,
@@ -96,8 +90,7 @@ class daily_Naver:
                                     print('네이버 검색 페이지: ', article_link)
                                     print('기사 링크: ', link)
                                     self.articles = {
-                                        'num': self.num,
-                                        'link_num': self.link_num,
+                                        'doc_num': self.link_num,
                                         'artist': self.keyword,
                                         'link': link,
                                         'article_title': title.text,
@@ -116,8 +109,7 @@ class daily_Naver:
                                     print('네이버 검색 페이지: ', article_link)
                                     print('기사 링크: ', link)
                                     self.articles = {
-                                        'num': self.num,
-                                        'link_num': self.link_num,
+                                        'doc_num': self.link_num,
                                         'artist': self.keyword,
                                         'link': link,
                                         'article_title': title.text,
@@ -131,27 +123,26 @@ class daily_Naver:
 
                             except:
                                 self.articles = {
-                                    'num': self.num,
-                                    'link_num': self.link_num,
+                                    'doc_num': self.link_num,
                                     'artist': self.keyword,
                                     'link': " ",
                                     'article_title': " ",
                                     'publish': " ",
-                                    'date': today.strftime('%Y-%m-%d')
+                                    'date': today.strftime('%Y-%m-%d'),
+                                    'date_crawler': dateToday.strftime('%Y-%m-%d')
                                 }
                                 self.col.insert_one(self.articles).inserted_id
                                 pass
-                        self.link_num += 1
 
                 else:
                     self.articles = {
-                        'num': self.num,
-                        'link_num': self.link_num,
+                        'doc_num': self.link_num,
                         'artist': self.keyword,
                         'link': " ",
                         'article_title': " ",
                         'publish': " ",
-                        'date': today.strftime('%Y-%m-%d')
+                        'date': today.strftime('%Y-%m-%d'),
+                        'date_crawler': dateToday.strftime('%Y-%m-%d')
                     }
                     self.col.insert_one(self.articles).inserted_id
                     break
