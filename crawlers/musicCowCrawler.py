@@ -176,7 +176,7 @@ def songCrawler(col, musicCowSongNumListCurrent):
         print(x['num'], "번 곡 시작")
 
         # post method data
-        post_data = {"song_id": "{}".format(x['num']),"period": "60"}
+        post_data = {"song_id": "{}".format(x['num']), "period": "60"}
 
         # request post data
         res_post = r.post(action_postURL, data = post_data, cookies = search_cookies, headers = headers)
