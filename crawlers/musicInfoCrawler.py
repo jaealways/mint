@@ -19,7 +19,6 @@ from pymongo import MongoClient
 import numpy as np
 
 def musicInfoCrawler(col1, col4):
-
     musicInfoSongNumListCurrent = col4.find({}, {'num': {"$slice": [1, 1]}})  # 현재 musicInfoData 디비에 있는 곡 번호 리스트
     musicCowSongNumListCurrent = col1.find({}, {'num': {"$slice": [1, 1]}})
     # 현재 musicCowData <-> musicInfoData 디비 비교했을 때, "musicCowData에 있는, 그러나 musicInfo에 없는 곡"들을 정확히 찾아내기 위해
