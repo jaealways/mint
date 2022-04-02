@@ -12,24 +12,24 @@ class daily_Naver:
         self.count = 0
         self.col = col
         self.link_num = col.count_documents({})
-        self.read_db(dateToday, ArtistList)
+        [self.listing_article(dateToday, artist) for artist in ArtistList]
+    #     self.read_db(dateToday, ArtistList)
+    #
+    # def read_db(self, dateToday, ArtistList):
+    #     [self.listing_article(dateToday, artist) for artist in ArtistList]
+    #     # for idx, artist in enumerate(ArtistList):
+    #     #     self.keyword = artist
+    #     #
+    #     #     self.listing_article(dateToday)
 
-    def read_db(self, dateToday, ArtistList):
-        for idx, artist in enumerate(ArtistList):
-            self.keyword = artist
-            print('{0} 검색 시작'.format(artist))
 
-            self.listing_article(dateToday)
-
-    def listing_article(self, dateToday):
+    def listing_article(self, dateToday, artist):
+        print('{0} 검색 시작'.format(artist))
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"}
         today = datetime.date.today()
-        # today = datetime.date(2020, 8, 9)
         try:
-            # mongoDate = list(map(lambda x: x['date'], list(self.col.find({'artist': self.keyword}))))
-            # idx_list = list(filter(lambda x: NewsArtistListLong[x] == self.keyword, range(len(NewsArtistListLong))))
-            NewsDateListCurrent = list(self.col.find({'artist': self.keyword}).distinct("date"))
+            NewsDateListCurrent = list(self.col.find({'artist': artist}).distinct("date"))
             NewsDateListCurrent.sort()
             stop = NewsDateListCurrent[-1]
         except:
@@ -41,7 +41,7 @@ class daily_Naver:
                 break
 
             self.page = 'https://search.naver.com/search.naver?where=news&sm=tab_pge&query={0}&sort=1&photo=0&field=0&pd=3&ds={1}&de={1}&mynews=0&office_type=0&office_section_code=0&news_office_checked=&nso=so:dd,p:from20210603to20210713,a:all&start='.format(
-                self.keyword, today.strftime('%Y.%m.%d'))
+                artist, today.strftime('%Y.%m.%d'))
             #             print(self.page)
             print('날짜:', today.strftime('%Y.%m.%d'))
             for page in range(1, 10000, 10):
@@ -61,13 +61,13 @@ class daily_Naver:
                             press = con.select_one('a.info.press')
                             title = con.select_one('a.news_tit')
                             link = temp.attrs['href']
-                            print('{0} 검색 결과 ----------------------------------------------------'.format(self.keyword))
+                            print('{0} 검색 결과 ----------------------------------------------------'.format(artist))
                             print('날짜 {0}'.format(today.strftime('%Y-%m-%d')))
                             print('네이버 검색 페이지: ', article_link)
                             print('기사 링크: ', link)
                             self.articles = {
                                 'doc_num': self.link_num,
-                                'artist': self.keyword,
+                                'artist': artist,
                                 'link': link,
                                 'article_title': title.text,
                                 'publish': press.text,
@@ -85,13 +85,13 @@ class daily_Naver:
                                                       '조이뉴스24', '열린뉴스통신', '위키트리']:
                                     text = con.select_one('a.api_txt_lines.dsc_txt_wrap')
                                     print('{0} 검색 결과 ----------------------------------------------------'.format(
-                                        self.keyword))
+                                        artist))
                                     print('{0}번째 기사'.format(self.link_num))
                                     print('네이버 검색 페이지: ', article_link)
                                     print('기사 링크: ', link)
                                     self.articles = {
                                         'doc_num': self.link_num,
-                                        'artist': self.keyword,
+                                        'artist': artist,
                                         'link': link,
                                         'article_title': title.text,
                                         'publish': press.text,
@@ -104,13 +104,13 @@ class daily_Naver:
                                     print('{0}.번째 링크 정보 기입됨'.format(self.link_num))
                                 else:
                                     print('{0} 검색 결과 ----------------------------------------------------'.format(
-                                        self.keyword))
+                                        artist))
                                     print('{0}번째 기사'.format(self.link_num))
                                     print('네이버 검색 페이지: ', article_link)
                                     print('기사 링크: ', link)
                                     self.articles = {
                                         'doc_num': self.link_num,
-                                        'artist': self.keyword,
+                                        'artist': artist,
                                         'link': link,
                                         'article_title': title.text,
                                         'publish': press.text,
@@ -124,7 +124,7 @@ class daily_Naver:
                             except:
                                 self.articles = {
                                     'doc_num': self.link_num,
-                                    'artist': self.keyword,
+                                    'artist': artist,
                                     'link': " ",
                                     'article_title': " ",
                                     'publish': " ",
@@ -137,7 +137,7 @@ class daily_Naver:
                 else:
                     self.articles = {
                         'doc_num': self.link_num,
-                        'artist': self.keyword,
+                        'artist': artist,
                         'link': " ",
                         'article_title': " ",
                         'publish': " ",
