@@ -6,14 +6,18 @@ from konlpy.tag import Mecab
 import numpy as np
 from collections import Counter
 import csv
-from data_transformation.db_env import DbEnv, db
 import re
 import time
 from bs4 import BeautifulSoup
 from tqdm import tqdm
+import subprocess, sys
+from jamo import h2j, j2hcj
 
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+
+from data_transformation.db_env import DbEnv, db
+import data_crawling.artist_event_rule as aer
 
 
 class NLPTokenize:
@@ -95,15 +99,15 @@ class NLPTokenize:
         else:
             return x
 
-    def sen_to_token(self, list_sens, conn, cursor):
-        if len(list_sens) == 0:
-            sql = "SELECT sen, doc_num, artist, date, date_crawler FROM newssen WHERE date BETWEEN '2021-09-01' AND '2022-03-20'"
-            cursor.execute(sql)
-            conn.commit()
-            list_sens = cursor.fetchall()
+    def sen_to_token(self, conn, cursor):
+        sql = "SELECT sen, doc_num, artist, date, date_crawler FROM newssen WHERE date >='2022-01-01'"
+        cursor.execute(sql)
+        conn.commit()
+        list_sens = cursor.fetchall()
 
         mecab = Mecab(dicpath=r'C:\mecab\mecab-ko-dic')
-        # list_tokens_temp = list(map(lambda x: self.token_exclude_mecab(mecab, x), list_sens))        list_tokens_temp = list(map(lambda x: self.token_exclude_mecab(mecab, x), list_sens))
+        # list_tokens_temp = list(map(lambda x: self.token_exclude_mecab(mecab, x), list_sens))
+        # list_tokens_temp = list(map(lambda x: self.token_exclude_mecab(mecab, x), list_sens))
         array_token_temp = list(map(lambda x: np.asarray(mecab.pos(x[0])), list_sens))
         array_token_tp = list(map(lambda x: x.T, array_token_temp))
         tuple_tokens = tuple(map(lambda x, y: self.token_exclude_split(x, y), array_token_tp, list_sens))
@@ -151,89 +155,98 @@ class NLPTokenize:
         for i in huge_list:
             yield [list(itertools.chain(i[0], i[1], i[2])), i[3]]
 
-    def token_to_tag(self, df_token):
-        df_NNP_temp = df_token['token'].apply(lambda x: [y[0] for y in x if y[1]=="NNP"])
-        df_NNG_temp = df_token['token'].apply(lambda x: [y[0] for y in x if y[1]=="NNG"])
+    def update_powershell(self):
+        subprocess.run(["powershell", "-Command", "cd C:\\mecab"], capture_output=True)
+        subprocess.run(["powershell", "-Command", ".\\tools\\add-userdic-win.ps1"], capture_output=True)
+        subprocess.run(["powershell", "-Command", "Set-ExecutionPolicy Unrestricted"], capture_output=True)
+        subprocess.run(["powershell", "-Command", ".\\tools\\add-userdic-win.ps1"], capture_output=True)
+        subprocess.run(["powershell", "-Command", "!make install"], capture_output=True)
 
-        list_NNP, list_NNG = [], []
-        [list_NNP.extend(x) for x in df_NNP_temp.to_list()]
-        [list_NNG.extend(x) for x in df_NNG_temp.to_list()]
+    def get_jongsung_TF(self, sample_text):
+        sample_text_list = list(sample_text)
 
-        count_NNP, count_NNG = Counter(list_NNP), Counter(list_NNG)
-        df_NNP = pd.DataFrame.from_dict(count_NNP, orient='index').reset_index()
-        df_NNG = pd.DataFrame.from_dict(count_NNG, orient='index').reset_index()
+        last_word = sample_text_list[-1]
+        last_word_jamo_list = list(j2hcj(h2j(last_word)))
+        last_jamo = last_word_jamo_list[-1]
+        jongsung_TF = "T"
+        if last_jamo in ['ㅏ', 'ㅑ', 'ㅓ', 'ㅕ', 'ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ', 'ㅣ', 'ㅘ', 'ㅚ', 'ㅙ', 'ㅝ', 'ㅞ', 'ㅢ', 'ㅐ,ㅔ', 'ㅟ', 'ㅖ',
+                         'ㅒ']: jongsung_TF = "F"
+        return jongsung_TF
 
-        df_NNP.to_pickle("../storage/df_raw_data/df_NNP_%s_%s.pkl" % (str_date, end_date))
-        df_NNG.to_pickle("../storage/df_raw_data/df_NNG_%s_%s.pkl" % (str_date, end_date))
 
-        return df_NNP, df_NNG
-
-    # def token_to_tag(self, df_token):
-    #     mecab = Mecab(dicpath=r'C:\mecab\mecab-ko-dic')
-    #     df_sen['pre_text'] = df_token.text.apply(lambda x: mecab.nouns(x))
-    #     # tokenizer = Tokenizer()
-    #     # tokenizer.fit_on_texts(df_sen['pre_text'])
-    #     #
-    #     # len(tokenizer.word_index)**0.25
-
-    def update_mecab_dict(self):
+    def update_mecab_dict_nnp(self):
         client = MongoClient('localhost', 27017)
         db = client.music_cow
-        col = db.musicCowDataTemp
+        col = db.musicCowData
 
-        dict_title = col.find({}, {'song_title': {'$slice': [1, 1]}})
-        list_title = list(map(lambda x: x['song_title'], dict_title))
-        f = open('C:/mecab/user-dic/nnp.csv', 'w', newline='', encoding='utf8')
+        list_db_title = list(col.find({}).distinct("song_title"))
 
-        for i in list_title:
-            print(i)
-            text = '{0},,,,NNP,*,F,{0},*,*,*,*,*'.format(i)
-            wr = csv.writer(f, delimiter=' ', escapechar=' ', quoting=csv.QUOTE_NONE)
-            wr.writerow([text])
+        with open('C:/mecab/user-dic/nnp.csv', 'r', newline='', encoding='utf8') as f:
+            reader = csv.reader(f)
+            list_nnp_dict = [row[0] for row in reader]
+            f.close()
 
-        f.close()
 
-        f = open('C:/mecab/user-dic/nnp.csv', 'r', newline='', encoding='utf8')
+        set_total_title = set(aer.nnp_place) | set(aer.nnp_event) | set(aer.nnp_pro) | set(list_db_title)
+        list_title_update = list(set_total_title - set(list_nnp_dict))
+        print('업데이트 해야할 제목 리스트:')
 
-        rdr = csv.reader(f)
-        lines = []
-        for line in rdr:
-            line[0] = line[0].replace('  ', ' ')
-            line[7] = line[7].replace('  ', ' ')
-            print(line)
-            lines.append(line)
+        with open("C:/mecab/user-dic/nnp.csv", 'r', encoding='utf-8') as f:
+            file_data = f.readlines()
 
-        f = open('C:/mecab/user-dic/nnp.csv', 'w', newline='', encoding='utf8')
-        wr = csv.writer(f)
-        wr.writerows(lines)
+        for word in list_title_update:
+            print(word)
+            jongsung_TF = self.get_jongsung_TF(word)
+            line = '{},,,,NNP,*,{},{},*,*,*,*,*\n'.format(word, jongsung_TF, word)
+            file_data.append(line)
 
-        dict_artist = col.find({}, {'song_artist': {'$slice': [1, 1]}})
-        list_artist = list(map(lambda x: x['song_artist'], dict_artist))
-        list_artist_temp = set(list_artist)
+        with open("C:/mecab/user-dic/nnp.csv", 'w', encoding='utf-8') as f:
+            for line in file_data:
+                f.write(line)
 
+
+    def update_mecab_dict_person(self):
+        client = MongoClient('localhost', 27017)
+        db = client.music_cow
+        col = db.musicCowData
+
+        with open('C:/mecab/user-dic/person.csv', 'r', newline='', encoding='utf8') as f:
+            reader = csv.reader(f)
+            list_person_dict = [row[0] for row in reader]
+            f.close()
+
+
+        list_artist_db = list(col.find({}).distinct("song_artist"))
         df_artist_nlp = pd.read_pickle("../storage/df_raw_data/df_artist_nlp.pkl")
+        list_artist, list_to_update_df_dict = [], []
 
-        list_df_artist_nlp = df_artist_nlp['music_cow'].to_list()
+        for x in list_artist_db:
+            try:
+                value = df_artist_nlp[df_artist_nlp['music_cow'] == x]['nlp_dict'].values[0]
+                list_artist.append(value)
+            except:
+                list_to_update_df_dict.append(x)
 
-        list_diff = list(set(list_artist_temp) - set(list_df_artist_nlp))
+        print('데이터프레임 업데이트 해야할 아티스트 리스트: %s' % list_to_update_df_dict)
 
-        if len(list_diff) != 0:
-            print(list_diff)
-            quit()
-        else:
-            pass
+        set_total_artist = set(list_artist) | set(aer.nnp_artist)
+        list_artist_update = list(set_total_artist - set(list_person_dict))
+        list_artist_update = [x for x in list_artist_update if str(x) != 'nan']
+        print('업데이트 해야할 아티스트 리스트:')
 
-        list_artist = list(map(lambda x: df_artist_nlp[df_artist_nlp['music_cow'] == x]['nlp_dict'].values[0], list_artist_temp))
+        with open("C:/mecab/user-dic/person.csv", 'r', encoding='utf-8') as f:
+            file_data = f.readlines()
 
-        f = open('C:/mecab/user-dic/person.csv', 'w', newline='', encoding='utf8')
-        for i in list_artist:
-            print(i)
-            text = '{0},,,,NNP,*,F,{0},*,*,*,*,*'.format(i)
-            wr = csv.writer(f, delimiter=' ', escapechar=' ', quoting=csv.QUOTE_NONE)
-            wr.writerow([text])
+        for word in list_artist_update:
+            print(word)
+            jongsung_TF = self.get_jongsung_TF(word)
+            line = '{},,,,NNP,*,{},{},*,*,*,*,*\n'.format(word, jongsung_TF, word)
+            file_data.append(line)
 
+        with open("C:/mecab/user-dic/person.csv", 'w', encoding='utf-8') as f:
+            for line in file_data:
+                f.write(line)
 
-from multiprocessing import Process, Pool
 
 start = time.time()
 conn, cursor = DbEnv().connect_sql()
@@ -241,24 +254,35 @@ conn, cursor = DbEnv().connect_sql()
 
 # '2022-03-07' ~ '2022-03-21'
 
-list_date_crawler = ['2022-03-08', '2022-03-09', '2022-03-10', '2022-03-11', '2022-03-12',
-                    '2022-03-13', '2022-03-14', '2022-03-15'"2022-03-16", "2022-03-17", "2022-03-18", "2022-03-19",
-                     "2022-03-20", "2022-03-21"]
-
-for date_crawler in tqdm(list_date_crawler):
-    list_article = NLPTokenize().db_to_article(date_crawler)
-    list_sens = NLPTokenize().article_to_sen(list_article, conn, cursor, date_crawler)
+# list_date_crawler = ['2022-03-08', '2022-03-09', '2022-03-10', '2022-03-11', '2022-03-12',
+#                     '2022-03-13', '2022-03-14', '2022-03-15'"2022-03-16", "2022-03-17", "2022-03-18", "2022-03-19",
+#                      "2022-03-20", "2022-03-21"]
 
 
 # df_article = pd.read_pickle("../storage/df_raw_data/df_article_%s_%s.pkl" % (str_date, end_date))
 
 # list_sens = NLPTokenize().article_to_sen(list_article, conn, cursor, date_crawler)
 # list_sens = []
-# list_token = NLPTokenize().sen_to_token(list_sens, conn, cursor)
+# list_token = NLPTokenize().sen_to_token(conn, cursor)
 
 # list_token = NLPTokenize().sql_to_token(conn, cursor)
 
-print("time :", time.time() - start)
 
+
+# 사전 추가
+NLPTokenize().update_mecab_dict_nnp()
+NLPTokenize().update_mecab_dict_person()
+NLPTokenize().update_powershell()
+
+list_token = NLPTokenize().sen_to_token(conn, cursor)
+
+print("time :", time.time() - start)
+# mecab test
+#
+# from konlpy.tag import Mecab
+#
+# mecab = Mecab(dicpath=r'C:\mecab\mecab-ko-dic')
+# m = mecab.pos("LG유플러스 노래 좋다.")
+# print(m)
 
 

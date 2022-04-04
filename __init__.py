@@ -53,7 +53,7 @@ def track1(SongNumListCurrent, start):
     # 1-1. DB에 있는 곡들 대상으로 뮤직카우 데이터 크롤링
     start1 = time.time()
 
-    print("<< track2 시작 >>")
+    print("<< track1 시작 >>")
     print("<< 뮤직카우 데이터 크롤링을 시작합니다 >>")
     musicCowCrawler.songCrawler(col1, SongNumListCurrent)  # 뮤직카우 디비에 있는 기존 곡들 크롤링
     time_musicCow = time.time()
@@ -147,9 +147,9 @@ def track4(SongNumListCurrent, NewsArtistListCurrent, start):
           time_musicInfo-time_newSong, time_copyrightPrice-time_musicInfo)
 
 
-def init():
+if __name__ == '__main__':
     start = time.time()
-    print("{0} 크롤링 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
+    print("{0} 작업 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
 
     artist_for_nlp
 
@@ -166,18 +166,21 @@ def init():
         pass
 
     pl = Pool(4)
+    print("{0} 크롤링 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
 
-    pl.apply_async(track1, (SongNumListCurrent, start,))
-    pl.apply_async(track2, (NewsArtistListFirst, start,))
-    pl.apply_async(track3, (NewsArtistListSecond, start, ))
-    pl.apply_async(track4, (SongNumListCurrent, NewsArtistListCurrent, start, ))
 
-    pl.start()
+    pl.apply_async(track1(SongNumListCurrent, start))
+    pl.apply_async(track2(NewsArtistListFirst, start,))
+    pl.apply_async(track3(NewsArtistListSecond, start,))
+    pl.apply_async(track4(SongNumListCurrent, NewsArtistListCurrent, start, ))
+
+    pl.close()
     pl.join()
 
 
-schedule.every().day.at("00:01").do(init)
+# while True:
+#     schedule.run_pending()
+#     time.sleep(1)
 
-while True:
-    schedule.run_pending()
-    time.sleep(1)
+
+
