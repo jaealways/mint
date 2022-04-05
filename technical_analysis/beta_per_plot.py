@@ -7,7 +7,7 @@ import seaborn as sns
 import time
 from gensim.models.word2vec import Word2Vec
 
-from data_modeling.nlp_clustering import NLPClustering
+from data_modeling.nlp_modeling import NLPClustering
 
 
 class BetaPlot:
