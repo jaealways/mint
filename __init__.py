@@ -26,7 +26,6 @@ import os
 from multiprocessing import Process, Pool
 import numpy as np
 
-
 from crawlers import musicCowCrawler, songSeparator, copyrightCrawler, musicInfoCrawler, mcpiCrawler
 from data_crawling import artist_for_nlp, crawler_naver_news_link, crawler_naver_news_text
 
@@ -89,6 +88,13 @@ def track2(NewsArtistListCurrent, start):
     print("start2, time_naverLink_1, time_naverText_1")
     print(start2-start, time_naverLink_1-start2, time_naverText_1-time_naverLink_1)
 
+    # track2_5()
+
+def track2_5(start2, start3):
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
+
 def track3(NewsArtistListCurrent, start):
     start3 = time.time()
 
@@ -146,6 +152,23 @@ def track4(SongNumListCurrent, NewsArtistListCurrent, start):
     print(start4-start, time_newNaverLink-start4, time_newNaverText-time_newNaverLink, time_newSong-time_newNaverText,
           time_musicInfo-time_newSong, time_copyrightPrice-time_musicInfo)
 
+def multi_process(start):
+    SongNumListCurrent = list(col1.find({}, {'num': {"$slice": [1, 1]}}))
+    NewsArtistListCurrent = list(col5.find({}).distinct("artist"))
+    NewsArtistListFirst = NewsArtistListCurrent[:len(NewsArtistListCurrent) // 2]
+    NewsArtistListSecond = NewsArtistListCurrent[len(NewsArtistListCurrent) // 2:]
+
+    pl = Pool(4)
+    print("{0} 크롤링 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
+
+    pl.apply_async(track1, (SongNumListCurrent, start, ))
+    pl.apply_async(track2, (NewsArtistListFirst, start,))
+    pl.apply_async(track3, (NewsArtistListSecond, start,))
+    pl.apply_async(track4, (SongNumListCurrent, NewsArtistListCurrent, start, ))
+
+    pl.close()
+    pl.join()
+
 
 if __name__ == '__main__':
     start = time.time()
@@ -155,32 +178,17 @@ if __name__ == '__main__':
 
     # === 크롤링 ===
 
-    SongNumListCurrent = list(col1.find({}, {'num': {"$slice": [1, 1]}}))
-    NewsArtistListCurrent = list(col5.find({}).distinct("artist"))
-    NewsArtistListFirst = NewsArtistListCurrent[:len(NewsArtistListCurrent) // 2]
-    NewsArtistListSecond = NewsArtistListCurrent[len(NewsArtistListCurrent) // 2:]
-
     with open("storage/check_new/newArtistList.txt", 'w') as f:
         pass
     with open("storage/check_new/newSongList.txt", 'w') as f:
         pass
 
-    pl = Pool(4)
-    print("{0} 크롤링 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
+    # multi_process(start)
+    schedule.every().day.at("00:01").do(multi_process, (start, ))
 
-
-    pl.apply_async(track1(SongNumListCurrent, start))
-    pl.apply_async(track2(NewsArtistListFirst, start,))
-    pl.apply_async(track3(NewsArtistListSecond, start,))
-    pl.apply_async(track4(SongNumListCurrent, NewsArtistListCurrent, start, ))
-
-    pl.close()
-    pl.join()
-
-
-# while True:
-#     schedule.run_pending()
-#     time.sleep(1)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
 
 
