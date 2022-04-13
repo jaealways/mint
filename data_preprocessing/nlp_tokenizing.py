@@ -18,6 +18,7 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 
 from data_transformation.db_env import DbEnv, db
 import data_crawling.artist_event_rule as aer
+import data_crawling.artist_for_nlp as afn
 
 
 class NLPTokenize:
@@ -27,9 +28,9 @@ class NLPTokenize:
         self.col = db.article_info
 
     def db_to_article(self, date_crawler):
-        df_artist_nlp = pd.read_pickle("../storage/df_raw_data/df_artist_nlp.pkl")
+        df_artist_nlp = afn.df_nlp()
 
-        articles1 = list(self.col.find({'date_crawler': date_crawler, 'text': {'$exists': True}, 'doc_num': {'$gte': 601189}}))
+        articles1 = list(self.col.find({'date_crawler': date_crawler, 'text': {'$exists': True}}))
         # articles1 = list(self.col.find({'text': {'$exists': True}}))
 
         title1 = list(map(lambda x: x['article_title'], articles1))
@@ -99,15 +100,14 @@ class NLPTokenize:
         else:
             return x
 
-    def sen_to_token(self, conn, cursor):
-        sql = "SELECT sen, doc_num, artist, date, date_crawler FROM newssen WHERE date >='2022-01-01'"
+    def sen_to_token(self, conn, cursor, date_crawler):
+        sql = "SELECT sen, doc_num, artist, date, date_crawler FROM newssen WHERE date_crawler = %s" % date_crawler
         cursor.execute(sql)
         conn.commit()
         list_sens = cursor.fetchall()
 
         mecab = Mecab(dicpath=r'C:\mecab\mecab-ko-dic')
-        # list_tokens_temp = list(map(lambda x: self.token_exclude_mecab(mecab, x), list_sens))
-        # list_tokens_temp = list(map(lambda x: self.token_exclude_mecab(mecab, x), list_sens))
+
         array_token_temp = list(map(lambda x: np.asarray(mecab.pos(x[0])), list_sens))
         array_token_tp = list(map(lambda x: x.T, array_token_temp))
         tuple_tokens = tuple(map(lambda x, y: self.token_exclude_split(x, y), array_token_tp, list_sens))
@@ -131,7 +131,7 @@ class NLPTokenize:
 
     def sql_to_token(self, conn, cursor):
         # sql = "SELECT token, tag, doc_num, artist, date, date_crawler FROM newstoken"
-        sql = "SELECT token, tag, artist, date, date_crawler FROM newstokentemp"
+        sql = "SELECT token, tag, artist, date, date_crawler FROM newstoken"
 
         cursor.execute(sql)
         conn.commit()
@@ -248,41 +248,42 @@ class NLPTokenize:
                 f.write(line)
 
 
-start = time.time()
-conn, cursor = DbEnv().connect_sql()
+if __name__ == '__main__':
+    start = time.time()
+    conn, cursor = DbEnv().connect_sql()
 
 
-# '2022-03-07' ~ '2022-03-21'
+    # '2022-03-07' ~ '2022-03-21'
 
-# list_date_crawler = ['2022-03-08', '2022-03-09', '2022-03-10', '2022-03-11', '2022-03-12',
-#                     '2022-03-13', '2022-03-14', '2022-03-15'"2022-03-16", "2022-03-17", "2022-03-18", "2022-03-19",
-#                      "2022-03-20", "2022-03-21"]
-
-
-# df_article = pd.read_pickle("../storage/df_raw_data/df_article_%s_%s.pkl" % (str_date, end_date))
-
-# list_sens = NLPTokenize().article_to_sen(list_article, conn, cursor, date_crawler)
-# list_sens = []
-# list_token = NLPTokenize().sen_to_token(conn, cursor)
-
-# list_token = NLPTokenize().sql_to_token(conn, cursor)
+    # list_date_crawler = ['2022-03-08', '2022-03-09', '2022-03-10', '2022-03-11', '2022-03-12',
+    #                     '2022-03-13', '2022-03-14', '2022-03-15'"2022-03-16", "2022-03-17", "2022-03-18", "2022-03-19",
+    #                      "2022-03-20", "2022-03-21"]
 
 
+    # df_article = pd.read_pickle("../storage/df_raw_data/df_article_%s_%s.pkl" % (str_date, end_date))
 
-# 사전 추가
-NLPTokenize().update_mecab_dict_nnp()
-NLPTokenize().update_mecab_dict_person()
-NLPTokenize().update_powershell()
+    # list_sens = NLPTokenize().article_to_sen(list_article, conn, cursor, date_crawler)
+    # list_sens = []
+    # list_token = NLPTokenize().sen_to_token(conn, cursor)
 
-list_token = NLPTokenize().sen_to_token(conn, cursor)
+    # list_token = NLPTokenize().sql_to_token(conn, cursor)
 
-print("time :", time.time() - start)
-# mecab test
-#
-# from konlpy.tag import Mecab
-#
-# mecab = Mecab(dicpath=r'C:\mecab\mecab-ko-dic')
-# m = mecab.pos("LG유플러스 노래 좋다.")
-# print(m)
+
+
+    # 사전 추가
+    # NLPTokenize().update_mecab_dict_nnp()
+    # NLPTokenize().update_mecab_dict_person()
+    # NLPTokenize().update_powershell()
+    #
+    # list_token = NLPTokenize().sen_to_token(conn, cursor)
+    #
+    # print("time :", time.time() - start)
+    # mecab test
+    #
+    # from konlpy.tag import Mecab
+    #
+    # mecab = Mecab(dicpath=r'C:\mecab\mecab-ko-dic')
+    # m = mecab.pos("LG유플러스 노래 좋다.")
+    # print(m)
 
 
