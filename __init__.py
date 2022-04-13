@@ -27,7 +27,10 @@ from multiprocessing import Process, Pool
 import numpy as np
 
 from crawlers import musicCowCrawler, songSeparator, copyrightCrawler, musicInfoCrawler, mcpiCrawler
-from data_crawling import artist_for_nlp, crawler_naver_news_link, crawler_naver_news_text
+from data_crawling import artist_for_nlp
+from data_preprocessing.nlp_tokenizing import db_to_article, article_to_token
+from data_crawling.crawler_naver_news_link import listing_article
+from data_crawling.crawler_naver_news_text import text_crawler
 
 
 # == 몽고디비 ==
@@ -46,12 +49,10 @@ col5 = db2.article_info
 dateToday = datetime.datetime.today()
 
 
-def track1(SongNumListCurrent, start):
+def track1(SongNumListCurrent):
     # ====================================== << Track 1 >> : 현재 musicCowData 디비에 있는 곡들 기준 크롤링 =========================================
     # 1. 현재 musicCowData 디비에 있는 곡들 / 가수들
     # 1-1. DB에 있는 곡들 대상으로 뮤직카우 데이터 크롤링
-    start1 = time.time()
-
     print("<< track1 시작 >>")
     print("<< 뮤직카우 데이터 크롤링을 시작합니다 >>")
     musicCowCrawler.songCrawler(col1, SongNumListCurrent)  # 뮤직카우 디비에 있는 기존 곡들 크롤링
@@ -69,65 +70,9 @@ def track1(SongNumListCurrent, start):
 
     print("time track1")
     print("start1, time_musicCow, time_copyrightPrice, time_mcpi")
-    print(start1-start, time_musicCow-start1, time_copyrightPrice-time_musicCow, time_mcpi-time_copyrightPrice)
 
-def track2(NewsArtistListCurrent, start):
-    start2 = time.time()
+    ##### 기존 곡 분석 모델
 
-    # ======================================================== << Track 2 >> : 기사 크롤링 ==================================================
-    print("<< track2 시작 >>")
-    print("<< Naver 크롤링 전반을 시작합니다 >> ")
-    crawler_naver_news_link.daily_Naver(dateToday, col5, NewsArtistListCurrent)
-    time_naverLink_1 = time.time()
-
-    print("<< Naver  본문 크롤링 전반을 시작합니다 >> ")
-    crawler_naver_news_text.update_article_info(dateToday, col5, NewsArtistListCurrent)
-    time_naverText_1 = time.time()
-
-    print("time track2")
-    print("start2, time_naverLink_1, time_naverText_1")
-    print(start2-start, time_naverLink_1-start2, time_naverText_1-time_naverLink_1)
-
-    # track2_5()
-
-def track2_5(start2, start3):
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
-
-def track3(NewsArtistListCurrent, start):
-    start3 = time.time()
-
-    # ======================================================== << Track 3 >> : mcpi 크롤링 ==================================================
-    print("<< track3 시작 >>")
-    print("<< Naver 크롤링 후반을 시작합니다 >> ")
-    crawler_naver_news_link.daily_Naver(dateToday, col5, NewsArtistListCurrent)
-    time_naverLink_2 = time.time()
-
-    print("<< Naver  본문 크롤링 후반을 시작합니다 >> ")
-    crawler_naver_news_text.update_article_info(dateToday, col5, NewsArtistListCurrent)
-    time_naverText_2 = time.time()
-
-    print("time track3")
-    print("start3, time_naverLink_2, time_naverText_2")
-    print(start3-start, time_naverLink_2-start3, time_naverText_2-time_naverLink_2)
-
-def track4(SongNumListCurrent, NewsArtistListCurrent, start):
-    start4 = time.time()
-
-    # ======================================================== << Track 4 >> : 신곡 크롤링 ==================================================
-    print("<< track4 시작 >>")
-
-    NewsArtistListNew = list(set(artist_for_nlp.list_artist_query) - set(NewsArtistListCurrent))
-    NewsArtistListNew.remove(np.nan)
-
-    # 4-1. newNaver 크롤링
-    print("<< 신곡 Naver 크롤링을 시작합니다 >> ")
-    crawler_naver_news_link.daily_Naver(dateToday, col5, NewsArtistListNew)
-    time_newNaverLink = time.time()
-    print("<< 신곡 Naver 본문 크롤링을 시작합니다 >> ")
-    crawler_naver_news_text.update_article_info(dateToday, col5, NewsArtistListNew)
-    time_newNaverText = time.time()
 
     # 4-2. newSong 크롤링
     print("<< 신곡 크롤링을 시작합니다 >>")
@@ -135,36 +80,58 @@ def track4(SongNumListCurrent, NewsArtistListCurrent, start):
     print(newSongList)
     newArtistList = songSeparator.SongSeparator(col1)
     print(newArtistList)
-    time_newSong = time.time()
 
     # 4-3. musicInfo 크롤링
     print("<< 곡 information 크롤링을 시작합니다 >> ")
     musicInfoCrawler.musicInfoCrawler(col1, col4)
-    time_musicInfo = time.time()
 
     # 4-4. copyrightPrice 크롤링
     print("<< 저작권료 크롤링을 시작합니다 >> ")
     copyrightCrawler.copyrightCrawler(col3, dateToday, newSongList)
-    time_copyrightPrice = time.time()
 
-    print("time track4")
-    print("start4, time_newNaverLink, time_newNaverText, time_newSong, time_musicInfo, time_copyrightPrice")
-    print(start4-start, time_newNaverLink-start4, time_newNaverText-time_newNaverLink, time_newSong-time_newNaverText,
-          time_musicInfo-time_newSong, time_copyrightPrice-time_musicInfo)
 
-def multi_process(start):
+def track2(NewsArtistListCurrent):
+    # ======================================================== << Track 2 >> : 기사 크롤링 ==================================================
+    print("<< track2 시작 >>")
+    print("<< Naver 크롤링을 시작합니다 >> ")
+    pool = Pool(10)
+    # pool.map(listing_article, NewsArtistListCurrent)
+    #
+    # print("<< Naver 크롤링 링크 기록을 시작합니다 >> ")
+    # articles = list(col5.find({'date_crawler': dateToday.strftime('%Y-%m-%d')}))
+    # article_num = col5.count_documents({'date_crawler': {'$lt': dateToday.strftime('%Y-%m-%d')}}) + 1
+    # [col5.update_one({'_id': val['_id']}, {'$set': {'doc_num': idx+article_num}}) for idx, val in enumerate(articles)]
+    #
+    # print("<< Naver 본문 크롤링을 시작합니다 >> ")
+    # articles = list(col5.find({'date_crawler': dateToday.strftime('%Y-%m-%d'), 'text': {'$exists': False}}))
+
+    # pool = Pool(10)
+    # pool.map(text_crawler, articles)
+
+    articles = list(col5.find({'date_crawler': dateToday.strftime('%Y-%m-%d')}))
+
+    list_article = db_to_article(articles)
+    list_token = article_to_token(list_article)
+
+
+    print("<< NLP 전처리 시작합니다 >> ")
+
+
+def track3():
+    print('test')
+    ######### NLP 분석
+
+def multi_process():
     SongNumListCurrent = list(col1.find({}, {'num': {"$slice": [1, 1]}}))
-    NewsArtistListCurrent = list(col5.find({}).distinct("artist"))
-    NewsArtistListFirst = NewsArtistListCurrent[:len(NewsArtistListCurrent) // 2]
-    NewsArtistListSecond = NewsArtistListCurrent[len(NewsArtistListCurrent) // 2:]
+    NewsArtistListCurrent = artist_for_nlp.list_artist_query
+    track2(NewsArtistListCurrent,)
 
-    pl = Pool(4)
+    pl = Pool(2)
     print("{0} 크롤링 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
 
-    pl.apply_async(track1, (SongNumListCurrent, start, ))
-    pl.apply_async(track2, (NewsArtistListFirst, start,))
-    pl.apply_async(track3, (NewsArtistListSecond, start,))
-    pl.apply_async(track4, (SongNumListCurrent, NewsArtistListCurrent, start, ))
+    pl.apply_async(track1, (SongNumListCurrent,))
+    # pl.apply_async(track3)
+    pl.apply_async(track3)
 
     pl.close()
     pl.join()
@@ -174,7 +141,7 @@ if __name__ == '__main__':
     start = time.time()
     print("{0} 작업 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
 
-    artist_for_nlp
+    # artist_for_nlp
 
     # === 크롤링 ===
 
@@ -183,8 +150,8 @@ if __name__ == '__main__':
     with open("storage/check_new/newSongList.txt", 'w') as f:
         pass
 
-    # multi_process(start)
-    schedule.every().day.at("00:01").do(multi_process, (start, ))
+    multi_process()
+    # schedule.every().day.at("00:01").do(multi_process, (start, ))
 
     while True:
         schedule.run_pending()
