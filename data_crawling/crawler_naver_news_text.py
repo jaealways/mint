@@ -136,6 +136,8 @@ def text_crawler(doc):
         col5.update_one({'_id': doc['_id']}, {'$set': {'text': text}}, upsert=True)
 
     except:
+        text = ' '
+        col5.update_one({'_id': doc['_id']}, {'$set': {'text': text}}, upsert=True)
         pass
 
 
@@ -143,10 +145,10 @@ if __name__ == '__main__':
     # list_date = ['2022-03-29', '2022-03-30', '2022-04-01', '2022-04-03', '2022-04-05', '2022-04-06', '2022-04-07', '2022-04-08', '2022-04-09', '2022-04-10', '2022-04-11', '2022-04-12']
     from multiprocessing import Process, Pool, Queue
 
-    list_blank = list(col5.find({'text': ' '}))
-    print(len(list_blank))
+    list_blank = list(col5.find({'text': ''}))
+
     #
     # # [temp_text(x) for x in list_doc_num]
     #
-    # pool = Pool(20)
-    # pool.map(text_crawler, list_blank)
+    pool = Pool(20)
+    pool.map(text_crawler, list_blank)
