@@ -1,4 +1,6 @@
 from db_env import DbEnv
+from pymongo import MongoClient
+from tqdm import tqdm
 
 # mongodb 저장 형식을 sql 형식으로 옮기기, 연산처리 빠르게
 
@@ -15,16 +17,34 @@ class MongoToSQL:
         volume int(11) NOT NULL"""
         DbEnv().create_table(conn_sql, cursor_sql, 'musicCowData', sql_col)
 
+    def create_table_daily_mcpi(self):
+        conn_sql, cursor_sql = DbEnv().connect_sql()
+        sql_col = """date varchar(255) NOT NULL,
+        price int(11) NOT NULL,
+        volume int(11) NOT NULL"""
+        DbEnv().create_table(conn_sql, cursor_sql, 'dailyMCPI', sql_col)
+
     def create_table_news_token(self, conn, cursor):
         sql_col = """token varchar(10000) NOT NULL,
         tag varchar(10000) NOT NULL,
+        doc_num varchar(255) NOT NULL,
         artist varchar(255) NOT NULL,
         date varchar(255) NOT NULL,
         date_crawler varchar(255) NOT NULL"""
         DbEnv().create_table(conn, cursor, 'newstoken', sql_col)
 
+    def create_table_news_sen_token(self, conn, cursor):
+        sql_col = """token TEXT NOT NULL,
+        tag TEXT NOT NULL,
+        doc_num varchar(255) NOT NULL,
+        artist varchar(255) NOT NULL,
+        date varchar(255) NOT NULL,
+        date_crawler varchar(255) NOT NULL"""
+        DbEnv().create_table(conn, cursor, 'newssentoken', sql_col)
+
     def create_table_news_sen(self, conn, cursor):
         sql_col = """sen varchar(10000) NOT NULL,
+        doc_num varchar(255) NOT NULL,
         artist varchar(255) NOT NULL,
         date varchar(255) NOT NULL,
         date_crawler varchar(255) NOT NULL"""
@@ -36,157 +56,72 @@ class MongoToSQL:
         # sql = "ALTER TABLE newssen CHANGE sen TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
         # cursor.execute(sql)
 
-    def update_daily_music_cow(self, tuple_mongo, tuple_sql):
-        tuple_mongo_temp = [(x, y) for x, y, z in tuple_mongo]
-        tuple_update = list(set(tuple_mongo_temp) - set(tuple_sql))
-        tuple_update.sort()
+    def update_daily_music_cow(self):
+        list_mongo = col1.find({})
+        for mongo_song in tqdm(list_mongo):
+            sql = """SELECT date FROM mu_tech.musiccowdata WHERE num = '%s'""" % mongo_song['num']
+            cursor.execute(sql)
+            tuple_sql = cursor.fetchall()
+            set_sql = set([x[0] for x in tuple_sql])
+            set_mongo = set(mongo_song.keys()) - set(['_id', 'num', 'song_title', 'song_artist'])
+            list_insert = list(set_mongo - set_sql)
 
-        # 튜플 수정하기
-        tuple_update_idx = [tuple_mongo[idx] for idx, val in enumerate(tuple_mongo_temp) if val in tuple_update]
-        tuple_update_idx = []
+            for key_date in list_insert:
+                set_mongo_song = mongo_song[key_date]
+                tuple_insert = (mongo_song['num'], key_date, int(set_mongo_song['price_high']), int(set_mongo_song['price_low']),
+                                int(set_mongo_song['price_close']), float(set_mongo_song['pct_price_change']), int(set_mongo_song['cnt_units_traded']))
 
-        DbEnv.insert_data_to_table(self, conn=conn_sql, cursor=cursor_sql, list_col=list_col,
-                                   table_sql=table_sql, tuple_data=tuple_data)
+                sql = f"""INSERT INTO mu_tech.musiccowdata (num, date, price_high, price_low, price_close, price_ratio, volume)
+                 VALUES {tuple_insert}"""
+                cursor.execute(sql)
+                conn.commit()
 
+    def update_daily_mcpi(self):
+        list_mongo = col2.find({})
+        for mongo_mcpi in list_mongo:
+            sql = """SELECT date FROM mu_tech.dailyMCPI"""
+            cursor.execute(sql)
+            tuple_sql = cursor.fetchall()
+            set_sql = set([x[0] for x in tuple_sql])
+            set_mongo = set(mongo_mcpi.keys()) - set(['_id'])
+            list_insert = list(set_mongo - set_sql)
 
-    def get_col_mcpi(self):
-        conn_sql, cursor_sql = DbEnv().connect_sql()
-        sql_col = """date varchar(255) NOT NULL,
-        price float(10, 4) NOT NULL"""
-        conn_sql, cursor_sql = DbEnv().create_table(conn_sql, cursor_sql, 'daily_mcpi', sql_col)
-        col_list = DbEnv().get_col_list(cursor_sql, 'daily_mcpi')
-        col_list = [item[0] for item in col_list]
-        last_col = DbEnv().get_last_row(cursor_sql, 'daily_mcpi', 'date')
-        print(col_list, last_col)
+            for key_date in list_insert:
+                sql = """SELECT volume FROM mu_tech.musiccowdata WHERE date = '%s'""" % key_date
+                cursor.execute(sql)
+                tuple_sql = cursor.fetchall()
+                list_sql = [x[0] for x in tuple_sql]
+                sum_sql = sum(list_sql)
 
-        return last_col, col_list
+                set_mongo_song = mongo_mcpi[key_date]
+                tuple_insert = (key_date, float(set_mongo_song), int(sum_sql))
 
-    def make_tuple_mongo_daily_music_cow(self):
-        conn_mongo = DbEnv().connect_mongo('music_cow', 'musicCowData')
-        list_num, list_date, list_price, list_temp = [], [], [], []
-        list_mongo = list(conn_mongo.find())
-        list(map(lambda x: list_num.extend([x['num'] for z in range(len(set(list(x.keys())) - set(['_id', 'num', 'song_title', 'song_artist'])))]), list_mongo))
-        list(map(lambda x: list_temp.extend([(k, v) for k, v in x.items() if k not in {'_id', 'num', 'song_title', 'song_artist'}]), list_mongo))
-        list_date.extend([k for k, v in list_temp])
-        list_price.extend(tuple(list(v.values())) for k, v in list_temp)
-        tuple_mongo = list(zip(list_num, list_date, list_price))
-
-        return tuple_mongo
-
-    def make_tuple_sql_daily_music_cow(self):
-        conn, cursor = DbEnv().connect_sql()
-        sql = "SELECT DISTINCT num, date FROM musicCowData ORDER BY num"
-        cursor.execute(sql)
-        tuple_sql = list(cursor.fetchall())
-
-        return tuple_sql
-
-    def update_sql_daily_music_cow(self, col_mongo, table_sql):
-        conn_mongo = DbEnv().connect_mongo('music_cow', col_mongo)
-        conn_sql, cursor_sql = DbEnv().connect_sql()
-        dict_col = conn_mongo.find()
-        list_col = "num, date, price_high, price_low, price_close, price_ratio, volume"
-        for x in dict_col:
-            num = x['num']
-            for index, (key, elem) in enumerate(x.items()):
-                if str(type(elem)) == "<class 'dict'>":
-                    if key > str(last_col):
-                        tuple_data = (num, key, int(elem['price_high']), int(elem['price_low']), int(elem['price_close']),
-                                      float(elem['pct_price_change']), int(elem['cnt_units_traded']))
-                        DbEnv.insert_data_to_table(self, conn=conn_sql, cursor=cursor_sql, list_col=list_col,
-                                                   table_sql=table_sql, tuple_data=tuple_data)
-                        print(key, num, int(elem['price_high']))
-
-    def update_sql_list_song_artist(self, col_mongo, table_sql):
-        conn_mongo = DbEnv().connect_mongo('music_cow', col_mongo)
-        conn_sql, cursor_sql = DbEnv().connect_sql()
-        dict_col = conn_mongo.find()
-        list_col = "num, title, artist"
-        for x in dict_col:
-            num, title, artist = x['num'], x['song_title'], x['song_artist']
-            tuple_data = (num, title, artist)
-            DbEnv.insert_data_to_table(self, conn=conn_sql, cursor=cursor_sql, list_col=list_col,
-                                       table_sql=table_sql, tuple_data=tuple_data)
-            print(num, title, artist)
-
-    def update_sql_daily_mcpi(self, col_mongo, table_sql):
-        conn_mongo = DbEnv().connect_mongo('music_cow', col_mongo)
-        conn_sql, cursor_sql = DbEnv().connect_sql()
-        dict_col = conn_mongo.find()
-        list_col = "date, price"
-        for x in dict_col:
-            for index, (key, elem) in enumerate(x.items()):
-                if str(type(elem)) != "<class 'bson.objectid.ObjectId'>":
-                    if key > str(last_col):
-                        tuple_data = (key, elem)
-                        DbEnv.insert_data_to_table(self, conn=conn_sql, cursor=cursor_sql, list_col=list_col,
-                                                   table_sql=table_sql, tuple_data=tuple_data)
-                        print(key, elem)
-
-    def update_sql_daily_youtube(self, col_mongo, table_sql):
-        conn_mongo = DbEnv().connect_mongo('music_cow', col_mongo)
-        conn_sql, cursor_sql = DbEnv().connect_sql()
-        dict_col = conn_mongo.find()
-        list_col = "song_num, video_num, date, viewCount, likeCount, dislikeCount, favoriteCount, commentCount"
-        for x in dict_col:
-            song_num, video_num = x['num'], x['video_num']
-            for index, (key, elem) in enumerate(x.items()):
-                if str(type(elem)) == "<class 'dict'>":
-                    if key > str(last_col):
-                        for col in col_list:
-                            if col not in elem.keys():
-                                elem[col] = 0
-                        tuple_data = (song_num, video_num, key, int(elem['viewCount']), int(elem['likeCount']),
-                                      int(elem['dislikeCount']), int(elem['favoriteCount']), int(elem['commentCount']))
-                        DbEnv.insert_data_to_table(self, conn=conn_sql, cursor=cursor_sql, list_col=list_col,
-                                                   table_sql=table_sql, tuple_data=tuple_data)
-                        print(song_num, video_num, key, int(elem['viewCount']), int(elem['likeCount']),
-                                      int(elem['dislikeCount']), int(elem['favoriteCount']), int(elem['commentCount']))
-
-    def update_sql_daily_genie(self, col_mongo, table_sql, col_list):
-        conn_mongo = DbEnv().connect_mongo('music_cow', col_mongo)
-        conn_sql, cursor_sql = DbEnv().connect_sql()
-        dict_col = conn_mongo.find()
-        list_col = "song_id, date, total_listener, total_play, total_like"
-        for x in dict_col:
-            song_id = x['link'].split('xgnm=')[1]
-            for index, (key, elem) in enumerate(x.items()):
-                # 각 변수에 맞게 할당하기
-                if str(type(elem)) == "<class 'dict'>":
-                    if key > str(last_col):
-                        for col in col_list:
-                            if col not in elem.keys():
-                                elem[col] = 0
-                        tuple_data = (song_id, key, int(elem['total_listener']), int(elem['total_play']), int(elem['like']))
-                        DbEnv.insert_data_to_table(self, conn=conn_sql, cursor=cursor_sql, list_col=list_col,
-                                                   table_sql=table_sql, tuple_data=tuple_data)
-                        print(song_id, key, int(elem['total_listener']), int(elem['total_play']), int(elem['like']))
+                sql = f"""INSERT INTO mu_tech.dailyMCPI (date, price, volume) VALUES {tuple_insert}"""
+                cursor.execute(sql)
+                conn.commit()
 
 
 # daily routine
-mongo_sql = MongoToSQL()
-
-# DbEnv().create_db('mu_tech')
 conn, cursor = DbEnv().connect_sql()
-mongo_sql.create_table_news_token(conn, cursor)
-# mongo_sql.create_table_news_sen(conn, cursor)
 
-tuple_mongo = mongo_sql.make_tuple_mongo_daily_music_cow()
-tuple_sql = mongo_sql.make_tuple_sql_daily_music_cow()
-mongo_sql.update_daily_music_cow(tuple_mongo, tuple_sql)
+# == 몽고디비 ==
+client = MongoClient('localhost', 27017)
+db1 = client.music_cow
+db2 = client.article
 
-# last_col, col_list = mongo_sql.get_col_mcpi()
-# mongo_sql.update_sql_daily_mcpi('daily_mcpi', 'daily_mcpi')
+# music cow
+col1 = db1.musicCowData
+col2 = db1.mcpi
+col3 = db1.copyright_price
+col4 = db1.musicInfo
 
-# last_col, col_list = mongo_sql.get_col_daily_music_cow()
-# mongo_sql.update_sql_daily_music_cow('daily_music_cow', 'daily_music_cow')
+# article
+col5 = db2.article_info
 
-# last_col, col_list = mongo_sql.get_col_list_song_artist()
-# mongo_sql.update_sql_list_song_artist('daily_music_cow', 'list_song_artist')
+if __name__ == '__main__':
+    mongo_sql = MongoToSQL()
 
-# last_col, col_list = mongo_sql.get_col_daily_youtube()
-# mongo_sql.update_sql_daily_youtube('daily_youtube', 'daily_youtube', col_list)
+    mongo_sql.update_daily_mcpi()
 
-# last_col, col_list = mongo_sql.get_col_daily_genie()
-# mongo_sql.update_sql_daily_genie('daily_genie', 'daily_genie', col_list)
+
 

@@ -25,12 +25,14 @@ from pymongo import MongoClient
 import os
 from multiprocessing import Process, Pool
 import numpy as np
+import math
 
 from crawlers import musicCowCrawler, songSeparator, copyrightCrawler, musicInfoCrawler, mcpiCrawler
 from data_crawling import artist_for_nlp
-from data_preprocessing.nlp_tokenizing import db_to_article, article_to_token
+from data_preprocessing.nlp_tokenizing import article_to_token, update_mecab_dict_nnp, update_mecab_dict_person, update_powershell
 from data_crawling.crawler_naver_news_link import listing_article
 from data_crawling.crawler_naver_news_text import text_crawler
+from data_transformation.mongo_to_sql import MongoToSQL
 
 
 # == 몽고디비 ==
@@ -56,22 +58,41 @@ def track1(SongNumListCurrent):
     print("<< track1 시작 >>")
     print("<< 뮤직카우 데이터 크롤링을 시작합니다 >>")
     musicCowCrawler.songCrawler(col1, SongNumListCurrent)  # 뮤직카우 디비에 있는 기존 곡들 크롤링
-    time_musicCow = time.time()
 
     # 1-2. copyrightPrice 크롤링
     print("<< 저작권료 크롤링을 시작합니다 >> ")
     copyrightCrawler.copyrightCrawler(col3, dateToday, SongNumListCurrent)
-    time_copyrightPrice = time.time()
 
     # 1-3. mcpi 크롤링
     print("<< mcpi 크롤링을 시작합니다 >> ")
     mcpiCrawler.mcpiCrawler(col2)  # mcpi 지수 크롤링
-    time_mcpi = time.time()
 
-    print("time track1")
-    print("start1, time_musicCow, time_copyrightPrice, time_mcpi")
+    # 1-4. mongoDB to SQL 크롤링
+    print("<<  mongoDB to SQL을 시작합니다 >> ")
+    tuple_mongo = MongoToSQL().make_tuple_mongo_daily_music_cow()
+    tuple_sql = MongoToSQL().make_tuple_sql_daily_music_cow()
+
+
 
     ##### 기존 곡 분석 모델
+    # 2-1. 시총 계산
+    print("<< 시가총액 계산을 시작합니다 >> ")
+
+
+    # 2-2. PER 계산
+    print("<< PER 계산을 시작합니다 >> ")
+
+
+    # 2-3. 베타 계산
+    print("<< 베타 계산을 시작합니다 >> ")
+
+
+    # 2-4. 공포탐욕지수 계산
+    print("<< 공탐지수 계산을 시작합니다 >> ")
+
+    # 2-5. 턴오버 계산
+    print("<< 턴오버 계산을 시작합니다 >> ")
+
 
 
     # 4-2. newSong 크롤링
@@ -92,49 +113,56 @@ def track1(SongNumListCurrent):
 
 def track2(NewsArtistListCurrent):
     # ======================================================== << Track 2 >> : 기사 크롤링 ==================================================
+    # np.nan이 artist list에 어떤 부분에 들어갔나?? 몽고디비에 저장되어있었음
     print("<< track2 시작 >>")
     print("<< Naver 크롤링을 시작합니다 >> ")
-    pool = Pool(10)
-    # pool.map(listing_article, NewsArtistListCurrent)
+    pool = Pool(6)
+    pool.map(listing_article, NewsArtistListCurrent)
     #
-    # print("<< Naver 크롤링 링크 기록을 시작합니다 >> ")
-    # articles = list(col5.find({'date_crawler': dateToday.strftime('%Y-%m-%d')}))
-    # article_num = col5.count_documents({'date_crawler': {'$lt': dateToday.strftime('%Y-%m-%d')}}) + 1
-    # [col5.update_one({'_id': val['_id']}, {'$set': {'doc_num': idx+article_num}}) for idx, val in enumerate(articles)]
-    #
-    # print("<< Naver 본문 크롤링을 시작합니다 >> ")
-    # articles = list(col5.find({'date_crawler': dateToday.strftime('%Y-%m-%d'), 'text': {'$exists': False}}))
-
-    # pool = Pool(10)
-    # pool.map(text_crawler, articles)
-
+    print("<< Naver 크롤링 링크 기록을 시작합니다 >> ")
     articles = list(col5.find({'date_crawler': dateToday.strftime('%Y-%m-%d')}))
+    article_num = col5.count_documents({'date_crawler': {'$lt': dateToday.strftime('%Y-%m-%d')}}) + 1
+    [col5.update_one({'_id': val['_id']}, {'$set': {'doc_num': idx+article_num}}) for idx, val in enumerate(articles)]
+    #
+    print("<< Naver 본문 크롤링을 시작합니다 >> ")
+    articles = list(col5.find({'date_crawler': dateToday.strftime('%Y-%m-%d'), 'text': {'$exists': False}}))
+    pool.map(text_crawler, articles)
 
-    list_article = db_to_article(articles)
-    list_token = article_to_token(list_article)
-
+    print('<< NLP 사전 업데이트를 시작합니다 >> ')
+    update_mecab_dict_nnp()
+    update_mecab_dict_person()
+    update_powershell()
 
     print("<< NLP 전처리 시작합니다 >> ")
+    articles = list(col5.find({'date_crawler': dateToday.strftime('%Y-%m-%d')}))
+    print("NLP 개수", len(articles))
+    article_to_token(articles)
+
+    # pool.map(article_to_token, articles)
 
 
 def track3():
-    print('test')
-    ######### NLP 분석
+    ######## NLP 분석
+    print("<< NLP 전처리 시작합니다 >>")
+
 
 def multi_process():
-    SongNumListCurrent = list(col1.find({}, {'num': {"$slice": [1, 1]}}))
-    NewsArtistListCurrent = artist_for_nlp.list_artist_query
-    track2(NewsArtistListCurrent,)
-
-    pl = Pool(2)
     print("{0} 크롤링 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
+    SongNumListCurrent = list(col1.find({}, {'num': {"$slice": [1, 1]}}))
+    # NewsArtistListCurrent = artist_for_nlp.list_artist_query
+    # NewsArtistListCurrent = [x for x in NewsArtistListCurrent if str(x) != 'nan']
+    # track2(NewsArtistListCurrent,)
+    track1(SongNumListCurrent,)
 
-    pl.apply_async(track1, (SongNumListCurrent,))
+    print('끝')
+
+    # pl = Pool(2)
+    #
+    # pl.apply_async(track1, (SongNumListCurrent,))
     # pl.apply_async(track3)
-    pl.apply_async(track3)
-
-    pl.close()
-    pl.join()
+    #
+    # pl.close()
+    # pl.join()
 
 
 if __name__ == '__main__':
@@ -151,7 +179,7 @@ if __name__ == '__main__':
         pass
 
     multi_process()
-    # schedule.every().day.at("00:01").do(multi_process, (start, ))
+    # schedule.every().day.at("00:01").do(multi_process)
 
     while True:
         schedule.run_pending()

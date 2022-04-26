@@ -102,13 +102,21 @@ class NLPModeling:
 
         return array_token
 
-    def import_token_bert(self, conn, cursor, date):
-        sql = "SELECT token, date FROM newstokentemp WHERE artist = '브레이브걸스' and date >= '%s'" % date
+    def import_token_bert(self, conn, cursor, date, artist):
+        sql = "SELECT token, tag, date FROM newssentoken WHERE date >= '%s' and artist = '%s'" % (date, artist)
         cursor.execute(sql)
         conn.commit()
-        list_tokens = [item[0].replace(', ', ' ') for item in cursor.fetchall()]
-        list_time = [item[1] for item in cursor.fetchall()]
-        list_time = ['%s-%s-%s' % (item.split('-')[2], item.split('-')[1], item.split('-')[0]) for item in list_time]
+        tuple_sql = cursor.fetchall()
+        array_token = np.array(tuple_sql)
+
+        list_token_temp = list(map(lambda x: np.asarray(x[0].split(', ')), tuple_sql))
+        list_tag = list(map(lambda x: np.asarray(x[1].split(', ')), tuple_sql))
+        list_token = list(map(lambda x, y: np.stack((x, y), axis=1), list_token_temp, list_tag))
+
+        list_tokens = list(map(lambda x: x[x[:,1] == ('NNP' or 'NNG')][:,0].tolist(), list_token))
+
+        list_time = array_token[:, 2]
+        list_time = ['%s/%s/%s' % (item.split('-')[2], item.split('-')[1], item.split('-')[0]) for item in list_time]
 
         return list_tokens, list_time
 
@@ -129,7 +137,7 @@ if __name__ == '__main__':
 
     conn, cursor = DbEnv().connect_sql()
 
-    NewsArtistListCurrent = list(col5.find({}).distinct("artist"))
+    # NewsArtistListCurrent = list(col5.find({}).distinct("artist"))
 
     # NLPModeling().counter_keyword(conn, cursor)
     # NLPModeling().w2v(conn, cursor, '2022-01-20')
@@ -137,9 +145,10 @@ if __name__ == '__main__':
 
     date = '2022-01-20'
     artist = '브레이브걸스'
+    list_tokens, list_time = NLPModeling().import_token_bert(conn, cursor, date)
 
-    sql = "SELECT token, tag FROM newstokentemp WHERE date >= '%s' and artist='%s'" % (date, artist)
-    cursor.execute(sql)
-    conn.commit()
-    list_tokens = cursor.fetchall()
+    # sql = "SELECT token, tag FROM newstokentemp WHERE date >= '%s' and artist='%s'" % (date, artist)
+    # cursor.execute(sql)
+    # conn.commit()
+    # list_tokens = cursor.fetchall()
 
