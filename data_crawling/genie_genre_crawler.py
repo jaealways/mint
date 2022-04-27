@@ -2,76 +2,52 @@ import re
 import requests
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
+from tqdm import tqdm
 
-class GenieList:
-    def __init__(self):
-        self.song_num = 0
-        self.read_db()
 
-    def read_db(self):
-        list_db_music = col1.find({}, {'num': {"$slice": [1, 1]}})
-        for x in list_db_music:
-            self.num = x['num']
-            if 'song_artist_main_kor1' in x['list_split']:
-                self.song_artist = x['list_split']['song_artist_main_kor1']
-            else:
-                self.song_artist = x['list_split']['song_artist_main_eng1']
-            if 'song_title_main_kor' in x['list_split']:
-                self.song_title = x['list_split']['song_title_main_kor']
-            else:
-                self.song_title = x['list_split']['song_title_main_eng']
-            self.pair = self.song_artist + ' ' + self.song_title
-            self.pair = self.pair.replace('%', '%2525')
-            self.pair = self.pair.replace('&', '%2526')
+def genie_genre():
+    list_db_music = col1.find({'genre': {'$exists': False}})
+    for x in tqdm(list_db_music):
+        num, song_artist, song_title = x['num'], x['song_artist'], x['song_title']
+        pair = '%s %s' % (song_artist, song_title)
+        pair = pair.replace('%', '%2525')
+        pair = pair.replace('&', '%2526')
 
-            self.listing_genie()
-
-    def listing_genie(self):
         headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36"}
-        self.page = 'https://www.genie.co.kr/search/searchSong?query={0}&Coll='.format(self.pair)
-        self.url = requests.get(self.page, headers=headers)
-        self.soup = BeautifulSoup(self.url.text, 'html.parser')
+        page = 'https://www.genie.co.kr/search/searchSong?query={0}&Coll='.format(pair)
+        url = requests.get(page, headers=headers)
+        soup = BeautifulSoup(url.text, 'html.parser')
 
-        name = self.soup.select('tr a.title')
-        num = self.soup.select('a.btn-info')
-        
+        html_name = soup.select('tr a.title')
+        html_num = soup.select('a.btn-info')
+
         count = 0
 
-        self.list_genie = {
-            'num': self.num,
-            'song_title': self.song_title,
-            'song_artist': self.song_artist,
-        }
-
-        for n, i in enumerate(name):
-            if self.song_title.lower().replace(' ', '') in i.text.lower().replace(' ', ''):
+        for n, i in enumerate(html_name):
+            if song_title.lower().replace(' ', '') in i.text.lower().replace(' ', ''):
                 count += 1
-                self.song_num += 1
 
-                self.url_detail = num[n].attrs['onclick']
-                self.link_genie = 'https://www.genie.co.kr/detail/songInfo?xgnm='+re.findall('\d+', self.url_detail)[0]
-                self.info_url = requests.get(self.link_genie, headers = headers)
-                self.soup = BeautifulSoup(self.info_url.text, 'html.parser')
-                self.genre = self.soup.select('span.value')[2].text
-                print("{0}의 {1}th - {2}".format(self.pair, count, self.link_genie))
-                
+                url_detail = html_num[n].attrs['onclick']
+                link_genie = 'https://www.genie.co.kr/detail/songInfo?xgnm='+re.findall('\d+', url_detail)[0]
+                info_url = requests.get(link_genie, headers = headers)
+                soup = BeautifulSoup(info_url.text, 'html.parser')
+                genre = soup.select('span.value')[2].text
+                genre = genre.split('/')[-1].replace(' ', '')
 
-                song_info = {
-                    'song_num': self.song_num, 'link': self.link_genie
-                }
+                if genre == '전체':
+                    genre = '일반가요'
 
-                self.list_genie['song_info{0}'.format(count)] = song_info
                 break
-        self.list_genie['genre'] = self.genre
+
+        col4.update_one({'num': num}, {'$set': {'genre': genre}})
 
 
-        col2.insert_one(self.list_genie).inserted_id
+client = MongoClient('localhost', 27017)
+db1 = client.music_cow
+col1 = db1.musicCowData
+col4 = db1.musicInfo
 
 
 if __name__ == '__main__':
-    client = MongoClient('localhost', 27017)
-    db1 = client.music_cow
-    col1 = db1.music_list_split
-    col2 = db1.genie_list
+    genie_genre()
 
-    GenieList()
