@@ -32,6 +32,7 @@ from data_crawling import artist_for_nlp
 from data_preprocessing.nlp_tokenizing import article_to_token, update_mecab_dict_nnp, update_mecab_dict_person, update_powershell
 from data_crawling.crawler_naver_news_link import listing_article
 from data_crawling.crawler_naver_news_text import text_crawler
+from data_crawling.genie_genre_crawler import genie_genre
 from data_transformation.mongo_to_sql import MongoToSQL
 
 
@@ -69,9 +70,8 @@ def track1(SongNumListCurrent):
 
     # 1-4. mongoDB to SQL 크롤링
     print("<<  mongoDB to SQL을 시작합니다 >> ")
-    tuple_mongo = MongoToSQL().make_tuple_mongo_daily_music_cow()
-    tuple_sql = MongoToSQL().make_tuple_sql_daily_music_cow()
-
+    MongoToSQL().update_daily_music_cow()
+    MongoToSQL().update_daily_mcpi()
 
 
     ##### 기존 곡 분석 모델
@@ -109,6 +109,10 @@ def track1(SongNumListCurrent):
     # 4-4. copyrightPrice 크롤링
     print("<< 저작권료 크롤링을 시작합니다 >> ")
     copyrightCrawler.copyrightCrawler(col3, dateToday, newSongList)
+
+    # 4-5. genre 크롤링
+    print("<< genre 크롤링을 시작합니다 >> ")
+    genie_genre()
 
 
 def track2(NewsArtistListCurrent):
