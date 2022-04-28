@@ -1,10 +1,9 @@
+import pandas as pd
 from tqdm import tqdm
-from sklearn.feature_extraction.text import CountVectorizer
-from konlpy.tag import Mecab
 from bertopic import BERTopic
 from datetime import datetime
-from dateutil.relativedelta import relativedelta
 from pymongo import MongoClient
+from sklearn.feature_extraction.text import CountVectorizer
 
 from data_modeling.nlp_modeling import NLPModeling
 from data_transformation.db_env import DbEnv, db
@@ -22,10 +21,6 @@ artist = '브레이브걸스'
 df_artist_nlp = df_nlp()
 artist_mongo = df_artist_nlp[df_artist_nlp['nlp_dict'] == artist]['music_cow'].values[0]
 
-num_mongo = col1.find({'song_artist': artist_mongo}).distinct('num')
-num_mongo_list = "_".join([str(x) for x in num_mongo])
-
-
 print(date)
 conn, cursor = DbEnv().connect_sql()
 list_tokens, list_time = NLPModeling().import_token_bert(conn, cursor, date, artist)
@@ -37,22 +32,27 @@ model = BERTopic(embedding_model="sentence-transformers/xlm-r-100langs-bert-base
                  top_n_words=20,
                  calculate_probabilities=True)
 
-topics, probs = model.fit_transform(list_tokens)
-model.save("%s_%s" % (artist, num_mongo_list))
-print('모델 저장 완료')
+# topics = model.fit(list_tokens)
+# model.save("%s_%s" % (artist, num_mongo_list))
+# print('모델 저장 완료')
 
-model = BERTopic.load("%s_%s" % (artist, num_mongo_list))
+# topics = model.fit(list_tokens)
+model_after = model.load("%s" % artist)
 print('모델 출력 완료1')
 
 # topics = model.get_topic_info()
-# df_time = model.topics_over_time(list_tokens, list(topics), list_time)
 # print('모델 출력 완료2')
+# df_time = model.topics_over_time(list_tokens, topics, list_time)
+# df_time.to_pickle("df_%s" % artist)
+# #
+# # # model.visualize_topics()
+print('모델 출력 완료3')
+df_time = pd.read_pickle("df_%s" % artist)
+fig = model.visualize_topics_over_time(df_time)
 #
+fig.write_html("file.html")
 # # model.visualize_topics()
-# fig = model.visualize_topics_over_time(df_time)
-# print('모델 출력 완료3')
-#
-# fig.write_html("file.html")
-# model.visualize_topics()
-# model.visualize_distribution(probs[0])
+# # model.visualize_distribution(probs[0])
 
+# num_mongo = col1.find({'song_artist': artist_mongo}).distinct('num')
+# num_mongo_list = "_".join([str(x) for x in num_mongo])
