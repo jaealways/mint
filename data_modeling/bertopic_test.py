@@ -6,7 +6,7 @@ from pymongo import MongoClient
 from sklearn.feature_extraction.text import CountVectorizer
 
 from data_modeling.nlp_modeling import NLPModeling
-from data_transformation.db_env import DbEnv, db
+from data_transformation.db_env import DbEnv
 from data_crawling.artist_for_nlp import df_nlp
 
 
@@ -16,7 +16,7 @@ client = MongoClient('localhost', 27017)
 db1 = client.music_cow
 col1 = db1.musicCowData
 
-date = '2021-04-19'
+date = '2022-03-19'
 artist = '브레이브걸스'
 df_artist_nlp = df_nlp()
 artist_mongo = df_artist_nlp[df_artist_nlp['nlp_dict'] == artist]['music_cow'].values[0]
@@ -32,24 +32,26 @@ model = BERTopic(embedding_model="sentence-transformers/xlm-r-100langs-bert-base
                  top_n_words=20,
                  calculate_probabilities=True)
 
-# topics = model.fit(list_tokens)
+topics, _ = model.fit_transform(list_tokens)
 # model.save("%s_%s" % (artist, num_mongo_list))
 # print('모델 저장 완료')
 
 # topics = model.fit(list_tokens)
-model_after = model.load("%s" % artist)
+# model_after = model.load("%s" % artist)
 print('모델 출력 완료1')
 
 # topics = model.get_topic_info()
 # print('모델 출력 완료2')
-# df_time = model.topics_over_time(list_tokens, topics, list_time)
+df_time = model.topics_over_time(list_tokens, topics, list_time, nr_bins=20)
 # df_time.to_pickle("df_%s" % artist)
 # #
 # # # model.visualize_topics()
 print('모델 출력 완료3')
-df_time = pd.read_pickle("df_%s" % artist)
-fig = model.visualize_topics_over_time(df_time)
-#
+# df_time = pd.read_pickle("df_%s" % artist)
+
+
+fig = model.visualize_topics_over_time(df_time, top_n_topics=10)
+
 fig.write_html("file.html")
 # # model.visualize_topics()
 # # model.visualize_distribution(probs[0])
