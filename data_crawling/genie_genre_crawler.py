@@ -6,7 +6,7 @@ from tqdm import tqdm
 
 
 def genie_genre():
-    list_db_music = col1.find({'genre': {'$exists': False}})
+    list_db_music = col4.find({'genre': {'$exists': False}})
     for x in tqdm(list_db_music):
         num, song_artist, song_title = x['num'], x['song_artist'], x['song_title']
         pair = '%s %s' % (song_artist, song_title)
