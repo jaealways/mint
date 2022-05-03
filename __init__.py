@@ -26,6 +26,8 @@ import os
 from multiprocessing import Process, Pool
 import numpy as np
 import math
+from tqdm import tqdm
+
 
 from crawlers import musicCowCrawler, songSeparator, copyrightCrawler, musicInfoCrawler, mcpiCrawler
 from data_crawling import artist_for_nlp
@@ -34,7 +36,8 @@ from data_crawling.crawler_naver_news_link import listing_article
 from data_crawling.crawler_naver_news_text import text_crawler
 from data_crawling.genie_genre_crawler import genie_genre
 from data_transformation.mongo_to_sql import MongoToSQL
-
+from data_crawling.artist_for_nlp import list_artist_NNP
+from data_modeling.bertopic_text import bertopic
 
 # == 몽고디비 ==
 client = MongoClient('localhost', 27017)
@@ -120,7 +123,7 @@ def track2(NewsArtistListCurrent):
     # np.nan이 artist list에 어떤 부분에 들어갔나?? 몽고디비에 저장되어있었음
     print("<< track2 시작 >>")
     print("<< Naver 크롤링을 시작합니다 >> ")
-    pool = Pool(6)
+    pool = Pool(10)
     pool.map(listing_article, NewsArtistListCurrent)
     #
     print("<< Naver 크롤링 링크 기록을 시작합니다 >> ")
@@ -142,21 +145,29 @@ def track2(NewsArtistListCurrent):
     print("NLP 개수", len(articles))
     article_to_token(articles)
 
-    # pool.map(article_to_token, articles)
-
 
 def track3():
-    ######## NLP 분석
-    print("<< NLP 전처리 시작합니다 >>")
+    # ======================================================== NLP 분석
+    print("<< NLP 토픽 모델링 시작합니다 >>")
+    pool = Pool(8)
+
+    list_artist = list_artist_NNP
+    pool.map(bertopic, list_artist)
+
+    # for artist in tqdm(list_artist):
+    #     bertopic(artist)
 
 
 def multi_process():
-    print("{0} 크롤링 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
-    SongNumListCurrent = list(col1.find({}, {'num': {"$slice": [1, 1]}}))
+    # print("{0} 크롤링 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
+    # SongNumListCurrent = list(col1.find({}, {'num': {"$slice": [1, 1]}}))
     # NewsArtistListCurrent = artist_for_nlp.list_artist_query
     # NewsArtistListCurrent = [x for x in NewsArtistListCurrent if str(x) != 'nan']
     # track2(NewsArtistListCurrent,)
-    track1(SongNumListCurrent,)
+
+    print("{0} 분석 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
+    # track1(SongNumListCurrent,)
+    track3()
 
     print('끝')
 
