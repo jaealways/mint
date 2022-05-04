@@ -52,6 +52,7 @@ col4 = db1.musicInfo
 
 # article
 col5 = db2.article_info
+col6 = db2.article_info_history
 dateToday = datetime.datetime.today()
 
 
@@ -59,13 +60,17 @@ def track1(SongNumListCurrent):
     # ====================================== << Track 1 >> : 현재 musicCowData 디비에 있는 곡들 기준 크롤링 =========================================
     # 1. 현재 musicCowData 디비에 있는 곡들 / 가수들
     # 1-1. DB에 있는 곡들 대상으로 뮤직카우 데이터 크롤링
+    # 크롤링 멀티프로세싱으로 바꾸고, 분석은 sync apply로
+    pool = Pool(20)
     print("<< track1 시작 >>")
     print("<< 뮤직카우 데이터 크롤링을 시작합니다 >>")
-    musicCowCrawler.songCrawler(col1, SongNumListCurrent)  # 뮤직카우 디비에 있는 기존 곡들 크롤링
+    pool.map(musicCowCrawler.songCrawler, SongNumListCurrent)
+    # musicCowCrawler.songCrawler(SongNumListCurrent)  # 뮤직카우 디비에 있는 기존 곡들 크롤링
 
     # 1-2. copyrightPrice 크롤링
     print("<< 저작권료 크롤링을 시작합니다 >> ")
-    copyrightCrawler.copyrightCrawler(col3, dateToday, SongNumListCurrent)
+    pool.map(musicCowCrawler.songCrawler, SongNumListCurrent)
+    # copyrightCrawler.copyrightCrawler(SongNumListCurrent)
 
     # 1-3. mcpi 크롤링
     print("<< mcpi 크롤링을 시작합니다 >> ")
@@ -76,6 +81,13 @@ def track1(SongNumListCurrent):
     MongoToSQL().update_daily_music_cow()
     MongoToSQL().update_daily_mcpi()
 
+    # pl = Pool(2)
+    #
+    # pl.apply_async(track1, (SongNumListCurrent,))
+    # pl.apply_async(track3)
+    #
+    # pl.close()
+    # pl.join()
 
     ##### 기존 곡 분석 모델
     # 2-1. 시총 계산
@@ -95,7 +107,6 @@ def track1(SongNumListCurrent):
 
     # 2-5. 턴오버 계산
     print("<< 턴오버 계산을 시작합니다 >> ")
-
 
 
     # 4-2. newSong 크롤링
@@ -120,20 +131,25 @@ def track1(SongNumListCurrent):
 
 def track2(NewsArtistListCurrent):
     # ======================================================== << Track 2 >> : 기사 크롤링 ==================================================
-    # np.nan이 artist list에 어떤 부분에 들어갔나?? 몽고디비에 저장되어있었음
     print("<< track2 시작 >>")
     print("<< Naver 크롤링을 시작합니다 >> ")
-    pool = Pool(10)
+    pool = Pool(20)
     pool.map(listing_article, NewsArtistListCurrent)
-    #
+
     print("<< Naver 크롤링 링크 기록을 시작합니다 >> ")
     articles = list(col5.find({'date_crawler': dateToday.strftime('%Y-%m-%d')}))
-    article_num = col5.count_documents({'date_crawler': {'$lt': dateToday.strftime('%Y-%m-%d')}}) + 1
+    article_num = col6.count_documents({'date_crawler': {'$lt': dateToday.strftime('%Y-%m-%d')}}) + 1
     [col5.update_one({'_id': val['_id']}, {'$set': {'doc_num': idx+article_num}}) for idx, val in enumerate(articles)]
-    #
+
     print("<< Naver 본문 크롤링을 시작합니다 >> ")
     articles = list(col5.find({'date_crawler': dateToday.strftime('%Y-%m-%d'), 'text': {'$exists': False}}))
     pool.map(text_crawler, articles)
+
+    print("<< article info에서 history로 이동합니다 >> ")
+    articles = list(col5.find({'date_crawler': dateToday.strftime('%Y-%m-%d')}))
+    col6.insert_many(articles).inserted_ids
+    date_3m = (dateToday - relativedelta(months=3)).strftime('%Y-%m-%d')
+    col5.delete_many({"date": {"$lt": date_3m}})
 
     print('<< NLP 사전 업데이트를 시작합니다 >> ')
     update_mecab_dict_nnp()
@@ -149,35 +165,27 @@ def track2(NewsArtistListCurrent):
 def track3():
     # ======================================================== NLP 분석
     print("<< NLP 토픽 모델링 시작합니다 >>")
-    pool = Pool(8)
+    pool = Pool(10)
 
     list_artist = list_artist_NNP
     pool.map(bertopic, list_artist)
 
-    # for artist in tqdm(list_artist):
-    #     bertopic(artist)
-
 
 def multi_process():
-    # print("{0} 크롤링 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
-    # SongNumListCurrent = list(col1.find({}, {'num': {"$slice": [1, 1]}}))
-    # NewsArtistListCurrent = artist_for_nlp.list_artist_query
-    # NewsArtistListCurrent = [x for x in NewsArtistListCurrent if str(x) != 'nan']
-    # track2(NewsArtistListCurrent,)
+    print("{0} 크롤링 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
+    SongNumListCurrent = list(col1.find({}, {'num': {"$slice": [1, 1]}}))
+    NewsArtistListCurrent = artist_for_nlp.list_artist_query
+    NewsArtistListCurrent = [x for x in NewsArtistListCurrent if str(x) != 'nan']
+    track2(NewsArtistListCurrent,)
 
     print("{0} 분석 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
-    # track1(SongNumListCurrent,)
     track3()
+    track1(SongNumListCurrent,)
 
     print('끝')
+    print(datetime.now())
 
-    # pl = Pool(2)
-    #
-    # pl.apply_async(track1, (SongNumListCurrent,))
-    # pl.apply_async(track3)
-    #
-    # pl.close()
-    # pl.join()
+
 
 
 if __name__ == '__main__':
