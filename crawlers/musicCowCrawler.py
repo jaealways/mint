@@ -152,7 +152,7 @@ def songCrawlerNew(col, musicCowSongNumListCurrent):
     return newSongList
 
 # 기존 db에 있는 곡 크롤링 (songCrawler) 코드 수행시간 : 매일 돌릴다고 했을 때 1137곡 기준으로 8분
-def songCrawler(col, musicCowSongNumListCurrent):
+def songCrawler(musicCowSongNumListCurrent):
 
     print("========== << 기존 db에 있는 곡 크롤링을 시작합니다 >> ==========")
 
@@ -233,12 +233,11 @@ def songCrawler(col, musicCowSongNumListCurrent):
     print("========== << 기존 db에 있는 곡 크롤링이 끝났습니다 >> ==========\n")
 
 
-
 client = MongoClient('localhost', 27017)
 db1 = client.music_cow
 
 # music cow
-col = db1.musicCow_Volume
+col = db1.musicCowData
 list_db_gen_daily = col.find({}, {'num': {"$slice": [1, 1]}})
 
 #MusicCowCrawler()
