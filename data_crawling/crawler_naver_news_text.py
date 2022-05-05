@@ -89,7 +89,7 @@ dateToday = datetime.datetime.today()
 
 def text_crawler(doc):
     link = doc['link']
-    print(doc['doc_num'])
+    # print(doc['doc_num'])
 
     try:
         req = requests.get(link, headers=headers)
