@@ -189,7 +189,7 @@ def listing_article(artist):
             cons = temp_soup.select('ul.list_news li')
             if cons != []:
                 for num, con in enumerate(cons):
-                    print('{}번째 con'.format(num + 1))
+                    # print('{}번째 con'.format(num + 1))
                     try:
                         temp = con.select('a.info')[1]
                         press = con.select_one('a.info.press')
