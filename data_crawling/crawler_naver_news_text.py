@@ -82,12 +82,14 @@ client = MongoClient('localhost', 27017)
 db1 = client.music_cow
 db2 = client.article
 col5 = db2.article_info
+col6 = db2.article_info_history
+
 dateToday = datetime.datetime.today()
 
 
 def text_crawler(doc):
     link = doc['link']
-    print(doc['doc_num'])
+    # print(doc['doc_num'])
 
     try:
         req = requests.get(link, headers=headers)

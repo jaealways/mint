@@ -103,22 +103,32 @@ class NLPModeling:
         return array_token
 
     def import_token_bert(self, conn, cursor, date, artist):
-        sql = "SELECT token, tag, date FROM newssentoken WHERE date >= '%s' and artist = '%s'" % (date, artist)
-        cursor.execute(sql)
-        conn.commit()
-        tuple_sql = cursor.fetchall()
-        array_token = np.array(tuple_sql)
+        try:
+            sql = "SELECT token, tag, date, doc_num FROM newssentoken WHERE date >= '%s' and artist = '%s'" % (date, artist)
+            cursor.execute(sql)
+            conn.commit()
+            tuple_sql = cursor.fetchall()
+            array_token = np.array(tuple_sql)
 
-        list_token_temp = list(map(lambda x: np.asarray(x[0].split(', ')), tuple_sql))
-        list_tag = list(map(lambda x: np.asarray(x[1].split(', ')), tuple_sql))
-        list_token = list(map(lambda x, y: np.stack((x, y), axis=1), list_token_temp, list_tag))
+            if len(array_token) > 80:
+                list_token_temp = list(map(lambda x: np.asarray(x[0].split(', ')), tuple_sql))
+                list_tag = list(map(lambda x: np.asarray(x[1].split(', ')), tuple_sql))
+                list_token = list(map(lambda x, y: np.stack((x, y), axis=1), list_token_temp, list_tag))
+                list_doc_num = list(map(lambda x: x[3], tuple_sql))
 
-        list_tokens = list(map(lambda x: x[x[:,1] == ('NNP' or 'NNG')][:,0].tolist(), list_token))
+                list_tokens = list(map(lambda x: x[(x[:,1] == 'NNP') | (x[:,1] =='NNG')][:,0].tolist(), list_token))
+                list_tokens = list(map(lambda x: ' '.join(x), list_tokens))
 
-        list_time = array_token[:, 2]
-        list_time = ['%s/%s/%s' % (item.split('-')[2], item.split('-')[1], item.split('-')[0]) for item in list_time]
 
-        return list_tokens, list_time
+                list_time = array_token[:, 2]
+                # list_time = ['%s/%s/%s' % (item.split('-')[2], item.split('-')[1], item.split('-')[0]) for item in list_time]
+
+                return list_tokens, list_time, list_doc_num
+            else:
+                pass
+
+        except:
+            pass
 
 
 # model = Word2Vec.load('../storage/word_dictionary/month6.model')

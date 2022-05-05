@@ -152,94 +152,69 @@ def songCrawlerNew(col, musicCowSongNumListCurrent):
     return newSongList
 
 # 기존 db에 있는 곡 크롤링 (songCrawler) 코드 수행시간 : 매일 돌릴다고 했을 때 1137곡 기준으로 8분
-def songCrawler(col, musicCowSongNumListCurrent):
+def songCrawler(x):
+    print(x['num'], "번 곡 시작")
 
-    print("========== << 기존 db에 있는 곡 크롤링을 시작합니다 >> ==========")
+    # post method data
+    post_data = {"song_id": "{}".format(x['num']), "period": "60"}
 
-    # url to post
-    action_postURL = "https://www.musicow.com/api/song_prices"
+    # request post data
+    res_post = r.post(action_postURL, data = post_data, cookies = search_cookies, headers = headers)
 
-    # use get to pull cookies information
-    res = r.get(action_postURL)
+    # pull data into json format
+    values = res_post.json()
 
-    # Get the Cookies
-    search_cookies = res.cookies
+    # normalize data with song prices
+    song_prices = res_post.json()["prices"]
+    df = pd.json_normalize(song_prices)
 
-    # headers information
-    headers = {
-        'user-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36"}
+    list_music_cow = {
+        'num': x['num'],
+        'song_title': "{}".format(x['song_title']),
+        'song_artist': "{}".format(x['song_artist'])
+    }
 
-    # musicCowSongNumListCurrent = col.find({}, {'num': {"$slice": [1, 1]}})
-                                # 호출하고 for문에서 한번 사용시 소멸되는 듯 하니, for문에서 쓰기 전마다 한 번씩 호출하여 지역변수로 선언하기로 함.
+    # ymd : 거래 일자
+    # price_high : 최고가
+    # price_low : 최저가
+    # price_close : 하루 마감 가격
+    # pct_price_change : 전일 대비 가격증감률
+    # cnt_unit_trade : 거래량
 
-    for x in musicCowSongNumListCurrent:
-        print(x['num'], "번 곡 시작")
+    # 현재까지 모은 데이터 날짜 확인
+    currentData = col.find_one({'num': x['num']})
 
-        # post method data
-        post_data = {"song_id": "{}".format(x['num']), "period": "60"}
+    # df2 = pd.json_normalize(currentData)
+    # currentDate = df2.columns[len(df2.columns)-1].split(".")[0]
 
-        # request post data
-        res_post = r.post(action_postURL, data = post_data, cookies = search_cookies, headers = headers)
+    list_currentDate = currentData.keys()
+    list_currentDate = list(set(list_currentDate) - set(['_id', 'num', 'song_title', 'song_artist']))
+    list_currentDate.sort()
 
-        # pull data into json format
-        values = res_post.json()
+    if len(list_currentDate) > 0:
+        currentDate = list_currentDate[-1]
+    else:
+        pass
 
-        # normalize data with song prices
-        song_prices = res_post.json()["prices"]
-        df = pd.json_normalize(song_prices)
-
-        list_music_cow = {
-            'num': x['num'],
-            'song_title': "{}".format(x['song_title']),
-            'song_artist': "{}".format(x['song_artist'])
-        }
-
-        # ymd : 거래 일자
-        # price_high : 최고가
-        # price_low : 최저가
-        # price_close : 하루 마감 가격
-        # pct_price_change : 전일 대비 가격증감률
-        # cnt_unit_trade : 거래량
-
-        # 현재까지 모은 데이터 날짜 확인
-        currentData = col.find_one({'num': x['num']})
-
-        # df2 = pd.json_normalize(currentData)
-        # currentDate = df2.columns[len(df2.columns)-1].split(".")[0]
-
-        list_currentDate = currentData.keys()
-        list_currentDate = list(set(list_currentDate) - set(['_id', 'num', 'song_title', 'song_artist']))
-        list_currentDate.sort()
-
-        if len(list_currentDate) > 0:
-            currentDate = list_currentDate[-1]
-        else:
-            pass
-
-        # currentData 이후 시점부터 ymd 를 인덱스로 하여 딕셔너리 만들기
-        if currentDate == df.iloc[len(df.index)-1, 0]:        # 이미 디비에 가장 최근 데이터로 갱신이 완료된 경우
-            print("  - 이미 가장 최근 데이터가 저장되어있습니다.")
-            print(x['num'], "번 곡 종료")
-            continue
-        else:
-            index = df.index[df['ymd'] == currentDate].tolist()[0]
-            dict1 = df.iloc[index+1 :, :].set_index('ymd').T.to_dict()
-
-        # db 업데이트
-        col.update_one(list_music_cow, {'$set': dict1}, upsert=True)
-
+    # currentData 이후 시점부터 ymd 를 인덱스로 하여 딕셔너리 만들기
+    if currentDate == df.iloc[len(df.index)-1, 0]:        # 이미 디비에 가장 최근 데이터로 갱신이 완료된 경우
+        print("  - 이미 가장 최근 데이터가 저장되어있습니다.")
         print(x['num'], "번 곡 종료")
-
-    print("========== << 기존 db에 있는 곡 크롤링이 끝났습니다 >> ==========\n")
-
+        pass
+    else:
+        index = df.index[df['ymd'] == currentDate].tolist()[0]
+        dict1 = df.iloc[index+1 :, :].set_index('ymd').T.to_dict()
+        col.update_one(list_music_cow, {'$set': dict1}, upsert=True)
+        print(x['num'], "번 곡 종료")
 
 
 client = MongoClient('localhost', 27017)
 db1 = client.music_cow
 
-# music cow
-col = db1.musicCow_Volume
-list_db_gen_daily = col.find({}, {'num': {"$slice": [1, 1]}})
-
-#MusicCowCrawler()
+col = db1.musicCowData
+action_postURL = "https://www.musicow.com/api/song_prices"
+res = r.get(action_postURL)
+search_cookies = res.cookies
+headers = {
+    'user-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36"}
 

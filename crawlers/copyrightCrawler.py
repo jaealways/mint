@@ -28,8 +28,13 @@ from pandas.io.json import json_normalize
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
+client = MongoClient('localhost', 27017)
+db1 = client.music_cow
+col3 = db1.copyright_price
+dateToday = datetime.datetime.today()
 
-def copyrightCrawler(col3, dateToday, musicCowSongNumList):
+
+def copyrightCrawler(musicCowSongNumList):
 
     driver = webdriver.Chrome(executable_path='crawlers/chromedriver.exe')
 
