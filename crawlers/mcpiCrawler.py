@@ -17,6 +17,7 @@ from pandas.io.json import json_normalize
 from selenium.webdriver.common.by import By
 import pandas as pd
 from selenium.webdriver.chrome.options import Options
+from datetime import datetime
 
 
 # 현재 mcpi 디비에 있는 데이터 조회
@@ -33,13 +34,15 @@ def readDB(col2):
 
 # mcpi 크롤링
 def mcpiCrawler(col2):
-
     options = Options()
 
     mcpiDict = {}                   # 크롤링한 mcpi 지수가 저장되는 딕셔너리
     currentDate = readDB(col2)      # 객체 생성과 동시에 이전에 크롤링한 mcpi 데이터가 현재 디비에 있는지/없는지 디비를 read함.
 
-    driver = webdriver.Chrome(executable_path='crawlers/chromedriver.exe')
+    try:
+        driver = webdriver.Chrome(executable_path='crawlers/chromedriver.exe')
+    except:
+        driver = webdriver.Chrome(executable_path='chromedriver.exe')
 
     driver.maximize_window()
     URL = 'https://www.musicow.com/mcpi'
@@ -74,10 +77,10 @@ def mcpiCrawler(col2):
             # for k in date_list:
 
                 # 이미 가장 최근 데이터가 저장되어있는 경우
-                if currentDate == date_list[k].text:
-                    print("  - 이미 가장 최근 데이터가 저장되어있습니다.")
-                    print("========== << mcpi 크롤링을 마쳤습니다 >> ==========")
-                    return
+                # if currentDate == date_list[k].text:
+                #     print("  - 이미 가장 최근 데이터가 저장되어있습니다.")
+                #     print("========== << mcpi 크롤링을 마쳤습니다 >> ==========")
+                #     return
 
                 # 이미 디비에 있었던 mcpi 지수 가장 최근 날짜 다음날 까지 크롤링 완료시 크롤링 멈춤
                 # (ex. 디비에 22.02.25 (=self.currentData) 까지 있고 22.02.28 에 크롤링 시
@@ -118,11 +121,13 @@ def mcpiCrawler(col2):
 
 # 크롤링 완료한 mcpi 딕셔너리를 몽고디비에 추가
 def mcpi_to_mongo(col2, mcpiDict, currentDate):
-
     mcpiDictTransformed = {}  # yy.mm.dd -> 20yy-mm-dd 형식으로 바꾼 딕셔너리
     for k, v in mcpiDict.items():
         new_k = ('20' + k).replace('.', '-')
-        mcpiDictTransformed[new_k] = v
+        if new_k == datetime.today().strftime('%Y-%m-%d'):
+            pass
+        else:
+            mcpiDictTransformed[new_k] = v
 
     mcpiDictTransformedSortedtuple = sorted(mcpiDictTransformed.items(), reverse=False)  # 날짜 오름차순 정렬
     mcpiDictTransformedSorted = dict((x, y) for x, y in mcpiDictTransformedSortedtuple)
@@ -132,10 +137,17 @@ def mcpi_to_mongo(col2, mcpiDict, currentDate):
     else:
         col2.update_one({}, {'$set': mcpiDictTransformedSorted}, upsert=True)
 
+
+client = MongoClient('localhost', 27017)
+db1 = client.music_cow
+# music cow
+col2 = db1.mcpi
+
 if __name__ == '__main__':
-    client = MongoClient('localhost', 27017)
-    db1 = client.music_cow
-    db2 = client.daily_crawler
-    # music cow
-    col2 = db1.mcpi
+    # client = MongoClient('localhost', 27017)
+    # db1 = client.music_cow
+    # db2 = client.daily_crawler
+    # # music cow
+    # col2 = db1.mcpi
+    mcpiCrawler(col2)
 

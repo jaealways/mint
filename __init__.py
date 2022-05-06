@@ -66,12 +66,13 @@ def track1(SongNumListCurrent):
     pool = Pool(20)
     print("<< track1 시작 >>")
     print("<< 뮤직카우 데이터 크롤링을 시작합니다 >>")
-    # pool.map(musicCowCrawler.songCrawler, SongNumListCurrent)
+    pool.map(musicCowCrawler.songCrawler, SongNumListCurrent)
     # musicCowCrawler.songCrawler(SongNumListCurrent)  # 뮤직카우 디비에 있는 기존 곡들 크롤링
 
     # # 1-2. copyrightPrice 크롤링
     # print("<< 저작권료 크롤링을 시작합니다 >> ")
-    # copyrightCrawler.copyrightCrawler(SongNumListCurrent)
+    if dateToday.day == 1:
+        copyrightCrawler.copyrightCrawler(SongNumListCurrent)
     #
     # # 1-3. mcpi 크롤링
     # print("<< mcpi 크롤링을 시작합니다 >> ")
@@ -130,7 +131,7 @@ def track1(SongNumListCurrent):
 
     # 4-4. copyrightPrice 크롤링
     print("<< 저작권료 크롤링을 시작합니다 >> ")
-    copyrightCrawler.copyrightCrawler(col3, dateToday, newSongList)
+    copyrightCrawler.copyrightCrawler(newSongList)
 
     # 4-5. genre 크롤링
     print("<< genre 크롤링을 시작합니다 >> ")
@@ -187,12 +188,12 @@ def track3():
 def multi_process():
     print("{0} 크롤링 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
     SongNumListCurrent = list(col1.find({}, {'num': {"$slice": [1, 1]}}))
-    # NewsArtistListCurrent = artist_for_nlp.list_artist_query
-    # NewsArtistListCurrent = [x for x in NewsArtistListCurrent if str(x) != 'nan']
-    # track2(NewsArtistListCurrent,)
+    NewsArtistListCurrent = artist_for_nlp.list_artist_query
+    NewsArtistListCurrent = [x for x in NewsArtistListCurrent if str(x) != 'nan']
+    track2(NewsArtistListCurrent,)
 
     print("{0} 분석 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
-    # track3()
+    track3()
     track1(SongNumListCurrent,)
 
     print('끝')
