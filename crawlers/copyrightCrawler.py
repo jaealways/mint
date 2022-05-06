@@ -35,8 +35,11 @@ dateToday = datetime.datetime.today()
 
 
 def copyrightCrawler(musicCowSongNumList):
+    try:
+        driver = webdriver.Chrome(executable_path='crawlers/chromedriver.exe')
+    except:
+        driver = webdriver.Chrome(executable_path='chromedriver.exe')
 
-    driver = webdriver.Chrome(executable_path='crawlers/chromedriver.exe')
 
     song_num = []       # musicCowData 에 있는 곡 번호 리스트
 
@@ -73,33 +76,48 @@ def copyrightCrawler(musicCowSongNumList):
         flag = 0  # 이중 for 문 탈출을 위함 flag
         yearChanged = False # 해가 넘어갔는지 여부
 
-        for i in range(currentYear, 2023):
+        for i in range(currentYear, datetime.date.today().year+1):
             driver.find_element(By.CSS_SELECTOR, '#btn_year_graph1_{}'.format(i)).send_keys(Keys.ENTER)
             # button.click()
 
             if yearChanged == True:    # 해가 넘어갔을 때 1월부터 다시 긁기 위해 currentMonth 값을 1로 변경.
                 currentMonth = 1
 
-            for j in range(currentMonth+1,14):
+            for j in range(currentMonth+1, 14):
                 price = driver.find_element(By.CSS_SELECTOR, "#graph1 > span:nth-child({})".format(j)).get_attribute("data-bar-value")
 
-                if price == "0":       # 데이터가 쌓인 부분까지 크롤링하고, 이후에 없는 경우 이중 for문 탈출을 위해 flag값 변경
-                                       # ex. (2022년 2월까지만 뮤카에 저작권료 있고, 3월부터 데이터 0이면 다음곡으로 넘어감.
-                    flag = 1
-                    break
+                # if (currentYear == dateToday.year & currentMonth >= dateToday.month & price == "0"):       # 데이터가 쌓인 부분까지 크롤링하고, 이후에 없는 경우 이중 for문 탈출을 위해 flag값 변경
+                #                        # ex. (2022년 2월까지만 뮤카에 저작권료 있고, 3월부터 데이터 0이면 다음곡으로 넘어감.
+                #     flag = 1
+                #     break
 
                 if j == 13:     # 해가 넘어갔으면 다시 1월부터 긁기 위해 yearChanged 를 True 로 함.
                     yearChanged = True
 
                 if len(str(j-1)) == 1:
                     year = "0" + str(j-1)
-                col3.update_one({'num': x}, {'$set': {'{0}-{1}'.format(i, year) : price}},upsert=True)       # 디비에 누적
+                elif str(j-1) == 10:
+                    year = str(j-1)
+                else:
+                    year = str(j-1)
+                col3.update_one({'num': x}, {'$set': {'{0}-{1}'.format(i, year) : price}}, upsert=True)       # 디비에 누적
 
-            if flag == 1:
-                break
+            # if flag == 1:
+            #     break
 
         print('{} 번 완료'.format(x))
 
     print("<< 저작권료 크롤링을 마쳤습니다 >>")
     driver.close()
 
+
+if __name__ == '__main__':
+    client = MongoClient('localhost', 27017)
+    db1 = client.music_cow
+    db2 = client.article
+
+    # music cow
+    col1 = db1.musicCowData
+
+    SongNumListCurrent = list(col1.find({}))
+    copyrightCrawler(SongNumListCurrent)
