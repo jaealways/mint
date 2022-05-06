@@ -50,7 +50,7 @@ def bertopic(artist):
         df_time = model.topics_over_time(list_tokens, topics, list_time, nr_bins=20)
         fig = model.visualize_topics_over_time(df_time, top_n_topics=10)
 
-        col6.insert_one(dict_news).inserted_id
+        col7.insert_one(dict_news).inserted_id
 
         fig.write_html("./storage/dict_artist/%s.html" % artist)
 
@@ -58,7 +58,7 @@ def bertopic(artist):
 
     except:
         print('%s, %s, 패스' % (artist, date))
-        col6.insert_one(dict_news).inserted_id
+        col7.insert_one(dict_news).inserted_id
         pass
 
 
@@ -67,7 +67,7 @@ db1 = client.music_cow
 col1 = db1.musicCowData
 db2 = client.article
 col5 = db2.article_info
-col6 = db1.newsLink
+col7 = db1.newsLink
 date = (datetime.today() - relativedelta(months=3)).strftime('%Y-%m-%d')
 df_artist_nlp = df_nlp()
 list_artist = df_artist_nlp['nlp_dict'].values.tolist()
