@@ -17,7 +17,7 @@
 # 가수명/노래제목 split 적용, copyrightCrawler 디비 연결 오류 , naverCrawler 연결, songCrawlerNew, songSeparator 미완성, multiprocessing
 
 # modules
-import datetime
+from datetime import datetime, timedelta
 import schedule
 import time
 from dateutil.relativedelta import relativedelta
@@ -39,6 +39,8 @@ from data_crawling.genie_genre_crawler import genie_genre
 from data_transformation.mongo_to_sql import MongoToSQL
 from data_crawling.artist_for_nlp import list_artist_NNP
 from data_modeling.bertopic_text import bertopic
+from data_preprocessing.data_tidying import DataTidying
+from data_modeling.song_analytics import SongAnalytics
 
 # == 몽고디비 ==
 client = MongoClient('localhost', 27017)
@@ -55,7 +57,7 @@ col4 = db1.musicInfo
 col5 = db2.article_info
 col6 = db2.article_info_history
 col7 = db1.newsLink
-dateToday = datetime.datetime.today()
+# dateToday = datetime.datetime.today()
 
 
 def track1(SongNumListCurrent):
@@ -70,23 +72,20 @@ def track1(SongNumListCurrent):
     # musicCowCrawler.songCrawler(SongNumListCurrent)  # 뮤직카우 디비에 있는 기존 곡들 크롤링
 
     # # 1-2. copyrightPrice 크롤링
-    # print("<< 저작권료 크롤링을 시작합니다 >> ")
-    if dateToday.day == 1:
+    if datetime.today().day == 1:
+        print("<< 저작권료 크롤링을 시작합니다 >> ")
         copyrightCrawler.copyrightCrawler(SongNumListCurrent)
-    #
-    # # 1-3. mcpi 크롤링
-    # print("<< mcpi 크롤링을 시작합니다 >> ")
-    # mcpiCrawler.mcpiCrawler(col2)  # mcpi 지수 크롤링
-    #
-    # # 1-4. mongoDB to SQL 크롤링
-    # print("<<  mongoDB to SQL을 시작합니다 >> ")
-    # MongoToSQL().update_daily_music_cow()
-    # MongoToSQL().update_daily_mcpi()
 
-    pl = Pool(4)
+    # 1-3. mcpi 크롤링
+    print("<< mcpi 크롤링을 시작합니다 >> ")
+    mcpiCrawler.mcpiCrawler(col2)  # mcpi 지수 크롤링
 
-    print("<< 저작권료 크롤링을 시작합니다 >> ")
-    pl.apply_async(copyrightCrawler.copyrightCrawler, (SongNumListCurrent, ))
+    # 1-4. mongoDB to SQL 크롤링
+    print("<<  mongoDB to SQL을 시작합니다 >> ")
+    MongoToSQL().update_daily_music_cow()
+    MongoToSQL().update_daily_mcpi()
+
+    pl = Pool(3)
 
     print("<< mcpi 크롤링을 시작합니다 >> ")
     pl.apply_async(mcpiCrawler.mcpiCrawler, (col2, ))
@@ -100,8 +99,14 @@ def track1(SongNumListCurrent):
 
     ##### 기존 곡 분석 모델
     # 2-1. 시총 계산
-    print("<< 시가총액 계산을 시작합니다 >> ")
+    duration = 365
+    list_song_num = col1.find({}).distinct('num')
+    date_df = (datetime.today() - timedelta(days=duration + 1)).strftime('%Y-%m-%d')
+    df_price = DataTidying().get_df_price(date_df, list_song_num)
+    df_mcpi = DataTidying().get_df_mcpi(date_df)
+    df_copyright = DataTidying().get_df_copyright()
 
+    print("<< 시가총액 계산을 시작합니다 >> ")
 
     # 2-2. PER 계산
     print("<< PER 계산을 시작합니다 >> ")
@@ -109,7 +114,7 @@ def track1(SongNumListCurrent):
 
     # 2-3. 베타 계산
     print("<< 베타 계산을 시작합니다 >> ")
-
+    # SongAnalytics().beta_index(df_price, df_mcpi)
 
     # 2-4. 공포탐욕지수 계산
     print("<< 공탐지수 계산을 시작합니다 >> ")
@@ -146,18 +151,18 @@ def track2(NewsArtistListCurrent):
     pool.map(listing_article, NewsArtistListCurrent)
 
     print("<< Naver 크롤링 링크 기록을 시작합니다 >> ")
-    articles = list(col5.find({'date_crawler': dateToday.strftime('%Y-%m-%d')}))
-    article_num = col6.count_documents({'date_crawler': {'$lt': dateToday.strftime('%Y-%m-%d')}}) + 1
+    articles = list(col5.find({'date_crawler': datetime.today().strftime('%Y-%m-%d')}))
+    article_num = col6.count_documents({'date_crawler': {'$lt': datetime.today().strftime('%Y-%m-%d')}}) + 1
     [col5.update_one({'_id': val['_id']}, {'$set': {'doc_num': idx+article_num}}) for idx, val in enumerate(articles)]
 
     print("<< Naver 본문 크롤링을 시작합니다 >> ")
-    articles = list(col5.find({'date_crawler': dateToday.strftime('%Y-%m-%d'), 'text': {'$exists': False}}))
+    articles = list(col5.find({'date_crawler': datetime.today().strftime('%Y-%m-%d'), 'text': {'$exists': False}}))
     pool.map(text_crawler, articles)
 
     print("<< article info에서 history로 이동합니다 >> ")
-    articles = list(col5.find({'date_crawler': dateToday.strftime('%Y-%m-%d')}))
+    articles = list(col5.find({'date_crawler': datetime.today().strftime('%Y-%m-%d')}))
     col6.insert_many(articles).inserted_ids
-    date_3m = (dateToday - relativedelta(months=3)).strftime('%Y-%m-%d')
+    date_3m = (datetime.today() - relativedelta(months=3)).strftime('%Y-%m-%d')
     col5.delete_many({"date": {"$lt": date_3m}})
     MongoToSQL().delete_article_3m(date_3m)
 
@@ -167,7 +172,7 @@ def track2(NewsArtistListCurrent):
     update_powershell()
 
     print("<< NLP 전처리 시작합니다 >> ")
-    articles = list(col5.find({'date_crawler': dateToday.strftime('%Y-%m-%d')}))
+    articles = list(col5.find({'date_crawler': datetime.today().strftime('%Y-%m-%d')}))
     print("NLP 개수", len(articles))
     article_to_token(articles)
 
@@ -177,24 +182,25 @@ def track3():
     print("<< NLP 토픽 모델링 시작합니다 >>")
     # 토픽 모델링 진행할 아티스트를 7개로 나누는 로직
     pool = Pool(8)
-    date_7d = (dateToday - datetime.timedelta(days=7)).strftime('%Y-%m-%d')
+    pool_date = 1
+    date_7d = (datetime.today() - timedelta(days=pool_date)).strftime('%Y-%m-%d')
     list_exist_day_artist = col7.find({'date': {'$gt': date_7d}}).distinct('artist')
     list_exist_day_num = col7.find({'date': {'$gt': date_7d}}).distinct('date')
     list_artist_full = list(set(list_artist_NNP) - set(list_exist_day_artist))
-    list_artist = list_artist_full[:round(len(list_artist_full)/(7-len(list_exist_day_num)))]
+    list_artist = list_artist_full[:round(len(list_artist_full)/(pool_date-len(list_exist_day_num)))]
     pool.map(bertopic, list_artist)
 
 
 def multi_process():
-    print("{0} 크롤링 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
+    print("{0} 크롤링 시작합니다".format(datetime.today().strftime('%Y-%m-%d')))
     SongNumListCurrent = list(col1.find({}, {'num': {"$slice": [1, 1]}}))
-    NewsArtistListCurrent = artist_for_nlp.list_artist_query
-    NewsArtistListCurrent = [x for x in NewsArtistListCurrent if str(x) != 'nan']
-    track2(NewsArtistListCurrent,)
+    # NewsArtistListCurrent = artist_for_nlp.list_artist_query
+    # NewsArtistListCurrent = [x for x in NewsArtistListCurrent if str(x) != 'nan']
+    # track2(NewsArtistListCurrent,)
 
-    print("{0} 분석 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
+    print("{0} 분석 시작합니다".format(datetime.today().strftime('%Y-%m-%d')))
     track3()
-    track1(SongNumListCurrent,)
+    # track1(SongNumListCurrent,)
 
     print('끝')
     print(datetime.now())
@@ -202,7 +208,7 @@ def multi_process():
 
 if __name__ == '__main__':
     start = time.time()
-    print("{0} 작업 시작합니다".format(dateToday.strftime('%Y-%m-%d')))
+    print("{0} 작업 시작합니다".format(datetime.today().strftime('%Y-%m-%d')))
 
     with open("storage/check_new/newArtistList.txt", 'w') as f:
         pass
