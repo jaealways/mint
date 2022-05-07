@@ -39,12 +39,12 @@ def bertopic(artist):
             index_text = list_tokens.index(news_text)
             doc_num_text = list_doc_num[index_text]
             date_text = list_time[index_text]
-            link_text = col5.find({'artist': artist_query, 'date': date_text, 'doc_num': int(doc_num_text)}).distinct('link')
-            for k_l in link_text:
-                if k_l == ' ':
+            link_text = col5.find({'artist': artist_query, 'date': date_text, 'doc_num': int(doc_num_text)})
+            for val in link_text:
+                if val['link'] == ' ':
                     pass
                 else:
-                    dict_news[str(k)] = k_l
+                    dict_news[str(k)] = {'link': val['link'], 'title': val['article_title'], 'date': val['date']}
                     break
 
         df_time = model.topics_over_time(list_tokens, topics, list_time, nr_bins=20)
@@ -52,7 +52,7 @@ def bertopic(artist):
 
         col7.insert_one(dict_news).inserted_id
 
-        fig.write_html("./storage/dict_artist/%s.html" % artist)
+        fig.write_html("storage/dict_artist/%s.html" % artist)
 
         return dict_news
 
@@ -72,11 +72,12 @@ date = (datetime.today() - relativedelta(months=3)).strftime('%Y-%m-%d')
 df_artist_nlp = df_nlp()
 list_artist = df_artist_nlp['nlp_dict'].values.tolist()
 
+
 if __name__ == '__main__':
+#별, 어반자카파
+    artist = '정세운'
+    bertopic(artist)
 
-    # artist = '뮤직카우'
-    # bertopic(artist, date)
-
-    for artist in tqdm(list_artist):
-        bertopic(artist)
+    # for artist in tqdm(list_artist):
+    #     bertopic(artist)
 
