@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import numpy as np
 
 from data_transformation.db_env import DbEnv, db
@@ -17,18 +17,38 @@ class DataTidying:
 
         return list_music_num
 
-    def get_df_price(self, date, list_num):
-        df_price = pd.DataFrame()
+    # def get_df_price(self, date, list_num):
+    #     df_price = pd.DataFrame()
+    #
+    #     for num in tqdm(list_num):
+    #         sql = "SELECT DISTINCT date, price_close FROM musiccowdata WHERE num='%s' and date>='%s' ORDER BY date" % (num, date)
+    #         df_temp = db(cursor, sql).dataframe
+    #         df_temp = df_temp.set_index('date')
+    #         df_temp.columns = [num]
+    #
+    #         df_price = pd.concat([df_price, df_temp], axis=1)
+    #
+    #     return df_price.T
 
-        for num in tqdm(list_num):
-            sql = "SELECT DISTINCT date, price_close FROM musiccowdata WHERE num='%s' and date>='%s' ORDER BY date" % (num, date)
-            df_temp = db(cursor, sql).dataframe
-            df_temp = df_temp.set_index('date')
-            df_temp.columns = [num]
+    def get_df_price(self, num, duration=365):
+        date_df = (datetime.today() - timedelta(days=duration+2)).strftime('%Y-%m-%d')
 
-            df_price = pd.concat([df_price, df_temp], axis=1)
+        sql = "SELECT DISTINCT date, price_close FROM musiccowdata WHERE num='%s' and date>='%s' ORDER BY date" % (num, date_df)
+        df_temp = db(cursor, sql).dataframe
+        df_temp = df_temp.set_index('date')
+        df_temp.columns = [num]
 
-        return df_price.T
+        return df_temp
+
+    def get_df_price_volume(self, num, duration=365):
+        date_df = (datetime.today() - timedelta(days=duration+2)).strftime('%Y-%m-%d')
+
+        sql = "SELECT DISTINCT date, volume FROM musiccowdata WHERE num='%s' and date>='%s' ORDER BY date" % (num, date_df)
+        df_temp = db(cursor, sql).dataframe
+        df_temp = df_temp.set_index('date')
+        df_temp.columns = [num]
+
+        return df_temp
 
     def get_df_mcpi(self, date):
         sql = "SELECT DISTINCT date, price FROM dailymcpi WHERE date>='%s' ORDER BY date" % date
@@ -41,6 +61,17 @@ class DataTidying:
 
         return df_mcpi
 
+    def get_df_mcpi_volume(self, date):
+        sql = "SELECT DISTINCT date, volume FROM dailymcpi WHERE date>='%s' ORDER BY date" % date
+        df_mcpi_volume = db(cursor, sql).dataframe
+
+        df_mcpi_volume = df_mcpi_volume.set_index('date')
+        df_mcpi_volume.columns = [0]
+
+        df_mcpi_volume = np.transpose(df_mcpi_volume)
+
+        return df_mcpi_volume
+
     def get_list_song_artist(self, cursor):
         sql = "SELECT DISTINCT num, title, artist FROM list_song_artist ORDER BY num"
         df_list = db(cursor, sql).dataframe
@@ -50,21 +81,6 @@ class DataTidying:
 
         return df_list
 
-    def get_df_song_volume(self, cursor, str_date='17-01-01', end_date='23-12-31'):
-        df_song_volume = pd.DataFrame()
-        df_mcpi = pd.read_pickle("../storage/df_raw_data/df_mcpi_17-01-01_23-12-31.pkl")
-        list_mcpi_date = df_mcpi.loc[:, '20' + str_date: '20' + end_date].columns.tolist()
-        for date in tqdm(list_mcpi_date):
-            sql = "SELECT DISTINCT num, volume FROM daily_music_cow WHERE date='%s' ORDER BY num" % (date)
-            df_temp = db(cursor, sql).dataframe
-            df_temp = df_temp.set_index('num')
-            df_temp.columns = ["%s" % date]
-
-            df_song_volume = pd.concat([df_song_volume, df_temp], axis=1)
-
-        df_song_volume.to_pickle("../storage/df_raw_data/df_song_volume_%s_%s.pkl" % (str_date, end_date))
-
-        return df_song_volume
 
     def get_df_fng_index(self, str_date='17-01-01', end_date='23-12-31'):
         df_mcpi = pd.read_pickle("../../fear-and-greed/df_mcpi_17-01-01_23-12-31.pkl")
@@ -80,8 +96,6 @@ class DataTidying:
         return df_mcpi_volume, df_fng_index
 
     def get_df_copyright(self):
-        # 곡 출시되기 이전 정보는 nan 처리하는 로직 만들기
-        # copyright_prices = pd.read_pickle("../storage/df_raw_data/copyright_prices.pkl")
         list_copyright = list(col3.find({}))
         df_copyright_prices = pd.DataFrame([])
 
@@ -112,6 +126,25 @@ class DataTidying:
 
         return df_copyright_prices
 
+    def get_df_stock_num(self):
+        list_stock = list(col4.find({}))
+        df_stock = pd.DataFrame([])
+
+        for dict_copy in list_stock:
+            dict_val = {}
+            for key, val in dict_copy.items():
+                if key == 'num':
+                    song_num = val
+                elif key == 'stock_num':
+                    num = int(val)
+                else:
+                    pass
+            dict_val[song_num] = num
+            df_temp = pd.DataFrame.from_dict(dict_val, orient='index')
+            df_stock = pd.concat([df_stock, df_temp])
+
+        return df_stock
+
     def get_df_song_genre(self):
         df_genre = pd.DataFrame()
 
@@ -135,6 +168,7 @@ conn, cursor = DbEnv().connect_sql()
 client = MongoClient('localhost', 27017)
 db1 = client.music_cow
 col3 = db1.copyright_price
+col4 = db1.musicInfo
 
 DYToday = datetime.today().strftime("%Y-%m")
 
@@ -142,5 +176,5 @@ DYToday = datetime.today().strftime("%Y-%m")
 # list_music_num = DataTidying().get_list_song_artist(cursor)
 
 if __name__ == '__main__':
-    DataTidying().get_df_copyright()
+    DataTidying().get_df_stock_num()
 
