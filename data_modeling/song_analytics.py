@@ -3,81 +3,98 @@ import numpy as np
 from pymongo import MongoClient
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
+from multiprocessing import Process, Pool
+from fng.score import Score, FearGreed
 
-from data_transformation.db_env import DbEnv
+from data_transformation.db_env import DbEnv, db
 from data_preprocessing.data_tidying import DataTidying
 from data_transformation.mongo_to_sql import MongoToSQL
 
 
 class SongAnalytics:
     def beta_index(self, df_price, df_mcpi, duration=365):
-        # date = '2021-04-28'
-
         list_date, list_song = df_mcpi.columns.tolist(), df_price.index.tolist()
         array_mcpi, array_price = df_mcpi.to_numpy(), df_price.to_numpy()
 
         array_diff_mcpi, array_diff_price = np.diff(array_mcpi), np.diff(array_price)
-        array_corr, array_var, array_beta = array_price[:, duration:].copy(), array_price[:, duration:].copy(), array_price[:, duration:].copy()
 
-        array_return_mcpi = np.true_divide(array_diff_mcpi, array_mcpi[:, 1:])
-        array_return_price = np.true_divide(array_diff_price, array_price[:, 1:])
+        array_return_mcpi = np.true_divide(array_diff_mcpi, array_mcpi[:, :-1])
+        array_return_price = np.true_divide(array_diff_price, array_price[:, :-1])
 
-        for idx in range(array_return_price.shape[1] - duration + 1):
-            array_corr[:, idx] = np.corrcoef(array_return_mcpi[:, idx:idx + duration][0],
-                                             array_return_price[:, idx:idx + duration])[0, 1:]
-            array_var[:, idx] = np.var(array_return_price[:, idx:idx + duration], axis=1)
-            array_beta[:, idx] = np.multiply(array_corr[:, idx],
-                                             array_var[:, idx] / np.var(array_return_mcpi[0, idx:idx + duration]))
+        array_corr = np.corrcoef(array_return_mcpi[0], array_return_price[0])
+        array_var = np.var(array_return_price, axis=1)
+        array_beta = np.multiply(array_corr[0, 1], array_var / np.var(array_return_mcpi[0]))
 
         df_beta = pd.DataFrame(array_beta)
         df_beta.columns, df_beta.index = list_date[duration:], list_song
+        df_beta.dropna(inplace=True)
+        df_beta['rank'] = df_beta.iloc[:, 0].rank(method='max', ascending=False)
 
         for idx, row in df_beta.iterrows():
             if str(row[list_date[duration:][0]]) == 'nan':
                 pass
             else:
-                tuple_insert = (list_date[duration:][0], int(idx), float(row[list_date[duration:][0]]))
+                tuple_insert = (list_date[duration:][0], int(idx), float(row[0]), int(row['rank']))
                 MongoToSQL().update_daily_beta(tuple_insert)
 
+    def per_duration(self, df_price, df_copyright, duration=12):
+        df_price, df_copyright = df_price.sort_index(), df_copyright.sort_index()
+        date_13m = (datetime.today() - relativedelta(months=duration)).strftime('%Y-%m')
+        df_copyright = df_copyright.loc[:, date_13m:].iloc[:, :duration]
+        df_copyright_mean = pd.DataFrame(df_copyright.mean(axis=1, skipna=False), columns=[df_price.columns[-1]]).mul(12)
 
-    def per_duration(self, date, df_price, df_copyright, duration=365):
-        # date = (datetime.today() - relativedelta(months=1)).strftime('%Y-%m')
-        list_month, list_song = df_copyright.columns, df_copyright.index
+        df_per = pd.DataFrame(df_price.iloc[:, -1]).div(df_copyright_mean)
+        df_per.dropna(inplace=True)
+        df_per['rank'] = df_per.iloc[:, 0].rank(method='max', ascending=False)
 
-        array_copyright = df_copyright.to_numpy()
-        copyright_mean = np.zeros((array_copyright.shape[0], array_copyright.shape[1] - duration + 1))
+        for idx, row in df_per.iterrows():
+            if str(row.values[-1]) == 'nan':
+                pass
+            else:
+                tuple_insert = (df_per.columns[0], int(idx), float(row[0]), int(row['rank']))
+                MongoToSQL().update_daily_per(tuple_insert)
 
-        for idx, val in enumerate(array_copyright.T[duration - 1:, :]):
-            copyright_mean[:, idx] = np.nanmean(array_copyright[:, idx: idx + duration], axis=1)
+    def market_cap(self, df_price, df_stock):
+        df_price, df_stock = df_price.sort_index(), df_stock.sort_index()
+        df_stock.columns = [df_price.columns[-1]]
+        df_market_cap = pd.DataFrame(df_price.iloc[:, -1]).mul(df_stock)
+        df_market_cap.dropna(inplace=True)
+        df_market_cap['rank'] = df_market_cap.iloc[:, 0].rank(method='max', ascending=False)
 
-        df_copyright_mean = pd.DataFrame(copyright_mean)
-        df_copyright_mean.columns, df_copyright_mean.index = list_month[duration - 1:], list_song
-
-        df_per = df_price.copy()
-
-        for idx_c, val_c in enumerate(df_price.columns):
-            date_copyright = datetime.strptime(val_c, "%Y-%m-%d") - relativedelta(months=1)
-            date_copyright = date_copyright.strftime("%Y-%m")
-            for idx_i, val_i in enumerate(df_price.index):
-                try:
-                    val_copy = df_copyright_mean.loc[val_i, date_copyright]
-                    df_per.loc[val_i, val_c] = df_price.loc[val_i, val_c] / (val_copy * 12)
-                except:
-                    df_per.loc[val_i, val_c] = np.nan
-                    # 510, 617, 639, 717 등 저작권 없음
-
-        return df_per
-
-    def market_cap(self):
-        print('market_cap')
+        for idx, row in df_market_cap.iterrows():
+            tuple_insert = (df_market_cap.columns[0], int(idx), float(row[0]), int(row['rank']))
+            MongoToSQL().update_daily_marketcap(tuple_insert)
 
 
-    def fng_index(self):
-        print('market_cap')
+    def fng_index(self, df_price, df_price_volume, duration=365):
+        x, y = df_price.to_numpy(), df_price_volume.to_numpy()
+        score = Score(x, y)
+        score_fng = FearGreed(x, y, score).compute(duration=duration)
+        df_fng = pd.DataFrame(pd.DataFrame(score_fng, columns=[df_price.columns[duration+1:]]).iloc[:, -1])
+        df_fng.index = df_price.index
+        df_fng.dropna(inplace=True)
+        df_fng['rank'] = df_fng.iloc[:, 0].rank(method='max', ascending=False)
 
+        for idx, row in df_fng.iterrows():
+            if str(row.values[0]) == 'nan':
+                pass
+            else:
+                tuple_insert = (df_fng.columns[0][0], int(idx), float(row.values[0]), int(row['rank']))
+                MongoToSQL().update_daily_fng(tuple_insert)
 
-    def turn_over(self):
-        print('market_cap')
+    def turn_over(self, df_price_volume, df_stock):
+        df_sum = pd.DataFrame(df_price_volume.mean(axis=1, skipna=False)).mul(365)
+        df_turnover = df_sum.div(df_stock)
+        df_turnover.columns = [df_price_volume.columns[-1]]
+        df_turnover.dropna(inplace=True)
+        df_turnover['rank'] = df_turnover.iloc[:, 0].rank(method='max', ascending=False)
+
+        for idx, row in df_turnover.iterrows():
+            if str(row.values[-1]) == 'nan':
+                pass
+            else:
+                tuple_insert = (df_turnover.columns[0], int(idx), float(row[0]), int(row['rank']))
+                MongoToSQL().update_daily_turnover(tuple_insert)
 
 
 conn, cursor = DbEnv().connect_sql()
@@ -91,5 +108,19 @@ col1 = db1.musicCowData
 #
 
 if __name__ == '__main__':
-    SongAnalytics().per_duration('2022-05-06')
+    duration = 365
+    list_song_num = col1.find({}).distinct('num')
+    date_df = (datetime.today() - timedelta(days=duration + 1)).strftime('%Y-%m-%d')
+
+    pool = Pool(20)
+
+    df_price = pd.DataFrame()
+    df_price_temp = pool.map(DataTidying().get_df_price, list_song_num)
+    for i in df_price_temp:
+        df_price = pd.concat([df_price, i], axis=1)
+    df_price = df_price.T
+
+    df_copyright = DataTidying().get_df_copyright()
+    SongAnalytics().per_duration(df_price, df_copyright)
+
 
