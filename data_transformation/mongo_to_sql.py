@@ -1,8 +1,9 @@
-from db_env import DbEnv
+from data_transformation.db_env import DbEnv
 from pymongo import MongoClient
 from tqdm import tqdm
 
 # mongodb 저장 형식을 sql 형식으로 옮기기, 연산처리 빠르게
+
 
 class MongoToSQL:
     def create_table_daily_music_cow(self):
@@ -20,9 +21,50 @@ class MongoToSQL:
     def create_table_daily_mcpi(self):
         conn_sql, cursor_sql = DbEnv().connect_sql()
         sql_col = """date varchar(255) NOT NULL,
-        price int(11) NOT NULL,
+        price float(11) NOT NULL,
         volume int(11) NOT NULL"""
         DbEnv().create_table(conn_sql, cursor_sql, 'dailyMCPI', sql_col)
+
+    def create_table_beta(self):
+        conn_sql, cursor_sql = DbEnv().connect_sql()
+        sql_col = """date varchar(255) NOT NULL,
+        num int(11) NOT NULL,
+        beta float(11) NOT NULL,
+        ranking int(11) NOT NULL"""
+        DbEnv().create_table(conn_sql, cursor_sql, 'dailybeta', sql_col)
+
+    def create_table_per(self):
+        conn_sql, cursor_sql = DbEnv().connect_sql()
+        sql_col = """date varchar(255) NOT NULL,
+        num int(11) NOT NULL,
+        per float(11) NOT NULL,
+        ranking int(11) NOT NULL"""
+        DbEnv().create_table(conn_sql, cursor_sql, 'dailyper', sql_col)
+
+    def create_table_marketcap(self):
+        conn_sql, cursor_sql = DbEnv().connect_sql()
+        sql_col = """date varchar(255) NOT NULL,
+        num int(11) NOT NULL,
+        cap float(22) NOT NULL,
+        ranking int(11) NOT NULL"""
+        DbEnv().create_table(conn_sql, cursor_sql, 'dailymarketcap', sql_col)
+
+    def create_table_fng(self):
+        conn_sql, cursor_sql = DbEnv().connect_sql()
+        sql_col = """date varchar(255) NOT NULL,
+        num int(11) NOT NULL,
+        fng float(22) NOT NULL,
+        ranking int(11) NOT NULL"""
+        DbEnv().create_table(conn_sql, cursor_sql, 'dailyfng', sql_col)
+
+    def create_table_turnover(self):
+        conn_sql, cursor_sql = DbEnv().connect_sql()
+        sql_col = """date varchar(255) NOT NULL,
+        num int(11) NOT NULL,
+        tno float(22) NOT NULL,
+        ranking int(11) NOT NULL"""
+        DbEnv().create_table(conn_sql, cursor_sql, 'dailyturnover', sql_col)
+
 
     def create_table_news_token(self, conn, cursor):
         sql_col = """token varchar(10000) NOT NULL,
@@ -100,6 +142,36 @@ class MongoToSQL:
                 cursor.execute(sql)
                 conn.commit()
 
+    def update_daily_beta(self, tuple_insert):
+        sql = f"""INSERT INTO mu_tech.dailybeta (date, num, beta, ranking) VALUES {tuple_insert}"""
+        cursor.execute(sql)
+        conn.commit()
+
+    def update_daily_per(self, tuple_insert):
+        sql = f"""INSERT INTO mu_tech.dailyper (date, num, per, ranking) VALUES {tuple_insert}"""
+        cursor.execute(sql)
+        conn.commit()
+
+    def update_daily_marketcap(self, tuple_insert):
+        sql = f"""INSERT INTO mu_tech.dailymarketcap (date, num, cap, ranking) VALUES {tuple_insert}"""
+        cursor.execute(sql)
+        conn.commit()
+
+    def update_daily_fng(self, tuple_insert):
+        sql = f"""INSERT INTO mu_tech.dailyfng (date, num, fng, ranking) VALUES {tuple_insert}"""
+        cursor.execute(sql)
+        conn.commit()
+
+    def update_daily_turnover(self, tuple_insert):
+        sql = f"""INSERT INTO mu_tech.dailyturnover (date, num, tno, ranking) VALUES {tuple_insert}"""
+        cursor.execute(sql)
+        conn.commit()
+
+    def delete_article_3m(self, date_3m):
+        sql = """DELETE FROM mu_tech.newssentoken WHERE date < '%s'""" % date_3m
+        cursor.execute(sql)
+        conn.commit()
+
 
 # daily routine
 conn, cursor = DbEnv().connect_sql()
@@ -120,8 +192,14 @@ col5 = db2.article_info
 
 if __name__ == '__main__':
     mongo_sql = MongoToSQL()
-
-    mongo_sql.update_daily_mcpi()
+    mongo_sql.create_table_marketcap()
+    mongo_sql.create_table_per()
+    mongo_sql.create_table_beta()
+    mongo_sql.create_table_fng()
+    mongo_sql.create_table_turnover()
+    # mongo_sql.update_daily_music_cow()
+    #
+    # mongo_sql.update_daily_mcpi()
 
 
 
