@@ -12,8 +12,12 @@ class DbEnv:
         return conn
 
     def connect_sql(self):
-        with open("../storage/key.json", "r") as env:
-            env_dict = json.load(env)
+        try:
+            with open("./storage/key.json", "r") as env:
+                env_dict = json.load(env)
+        except:
+            with open("../storage/key.json", "r") as env:
+                env_dict = json.load(env)
         sql_db_pw = env_dict["sql_password"]
         conn = pymysql.connect(host='127.0.0.1', user='root', password=sql_db_pw, db='mu_tech', charset='utf8mb4')
         cursor = conn.cursor()

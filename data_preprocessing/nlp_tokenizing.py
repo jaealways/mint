@@ -56,6 +56,7 @@ def db_to_article(list_article):
 
     return list_article
 
+
 def article_to_sen(list_article):
     article_split = list(map(lambda x: x[0].split('. '), list_article))
     list(map(lambda x, y: x.append(y[0]), article_split, list_article))
@@ -78,6 +79,7 @@ def article_to_sen(list_article):
 
     return list_sens
 
+
 def article_to_token(list_article):
     df_artist_nlp = afn.df_nlp()
     # articles1 = list(col.find({'text': {'$exists': True}}))
@@ -88,7 +90,6 @@ def article_to_token(list_article):
     text2 = list(map(lambda x: text_cleaning(x), text2))
     artist1 = list(map(lambda x: x['artist'], list_article))
     docnum1 = list(map(lambda x: x['doc_num'], list_article))
-
 
     # list_temp = set(artist1) - set(df_artist_nlp['nlp_query'].values)
 
@@ -104,9 +105,10 @@ def article_to_token(list_article):
     tuple_tokens = tuple(map(lambda x, y: sen_token_exclude(x, y), array_token_tp, list_article))
 
     sql = "INSERT INTO newssentoken VALUES (%s, %s, %s, %s, %s, %s)"
-    list_tokens = list(map(lambda x: sql_exclude(x, sql), tuple_tokens))
+    list(map(lambda x: sql_exclude(x, sql), tuple_tokens))
 
-    return list_tokens
+    sql = "INSERT INTO newssentokenhistory VALUES (%s, %s, %s, %s, %s, %s)"
+    list(map(lambda x: sql_exclude(x, sql), tuple_tokens))
 
 
 def text_cleaning(text):
@@ -209,7 +211,8 @@ def get_jongsung_TF(sample_text):
     last_jamo = last_word_jamo_list[-1]
     jongsung_TF = "T"
     if last_jamo in ['ㅏ', 'ㅑ', 'ㅓ', 'ㅕ', 'ㅗ', 'ㅛ', 'ㅜ', 'ㅠ', 'ㅡ', 'ㅣ', 'ㅘ', 'ㅚ', 'ㅙ', 'ㅝ', 'ㅞ', 'ㅢ', 'ㅐ,ㅔ', 'ㅟ', 'ㅖ',
-                     'ㅒ']: jongsung_TF = "F"
+                     'ㅒ']:
+        jongsung_TF = "F"
     return jongsung_TF
 
 

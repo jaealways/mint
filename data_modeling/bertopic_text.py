@@ -23,10 +23,10 @@ def bertopic(artist):
     conn, cursor = DbEnv().connect_sql()
 
     try:
-        list_tokens, list_time, list_doc_num = NLPModeling().import_token_bert(conn, cursor, date, artist_mc)
+        list_tokens, list_time, list_doc_num = NLPModeling().import_token_bert(conn, cursor, date_3m, artist)
 
         topic_num = round(len(list_tokens) ** 0.25)
-        print('%s, %s, 주제 %s개, 기사 %s개' % (artist, date, topic_num, len(list_tokens)))
+        print('%s, %s, 주제 %s개, 기사 %s개' % (artist, date_3m, topic_num, len(list_tokens)))
         vectorizer = CountVectorizer(input=list_tokens, max_features=3000)
         model = BERTopic(embedding_model="sentence-transformers/xlm-r-100langs-bert-base-nli-stsb-mean-tokens", \
                          vectorizer_model=vectorizer, nr_topics=topic_num, top_n_words=20, calculate_probabilities=True)
@@ -39,12 +39,12 @@ def bertopic(artist):
             index_text = list_tokens.index(news_text)
             doc_num_text = list_doc_num[index_text]
             date_text = list_time[index_text]
-            link_text = col5.find({'artist': artist_query, 'date': date_text, 'doc_num': int(doc_num_text)}).distinct('link')
-            for k_l in link_text:
-                if k_l == ' ':
+            link_text = col5.find({'artist': artist_query, 'date': date_text, 'doc_num': int(doc_num_text)})
+            for val in link_text:
+                if val['link'] == ' ':
                     pass
                 else:
-                    dict_news[str(k)] = k_l
+                    dict_news[str(k)] = {'link': val['link'], 'title': val['article_title'], 'date': val['date']}
                     break
 
         df_time = model.topics_over_time(list_tokens, topics, list_time, nr_bins=20)
@@ -52,12 +52,12 @@ def bertopic(artist):
 
         col7.insert_one(dict_news).inserted_id
 
-        fig.write_html("./storage/dict_artist/%s.html" % artist)
+        fig.write_html("storage/dict_artist/%s.html" % artist)
 
         return dict_news
 
     except:
-        print('%s, %s, 패스' % (artist, date))
+        print('%s, %s, 패스' % (artist, date_3m))
         col7.insert_one(dict_news).inserted_id
         pass
 
@@ -68,15 +68,16 @@ col1 = db1.musicCowData
 db2 = client.article
 col5 = db2.article_info
 col7 = db1.newsLink
-date = (datetime.today() - relativedelta(months=3)).strftime('%Y-%m-%d')
+date_3m = (datetime.today() - relativedelta(months=3)).strftime('%Y-%m-%d')
 df_artist_nlp = df_nlp()
 list_artist = df_artist_nlp['nlp_dict'].values.tolist()
 
+
 if __name__ == '__main__':
+#별, 어반자카파
+    artist = '트와이스'
+    bertopic(artist)
 
-    # artist = '뮤직카우'
-    # bertopic(artist, date)
-
-    for artist in tqdm(list_artist):
-        bertopic(artist)
+    # for artist in tqdm(list_artist):
+    #     bertopic(artist)
 
