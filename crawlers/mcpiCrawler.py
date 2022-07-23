@@ -14,6 +14,9 @@ from pymongo import MongoClient
 from selenium import webdriver
 import time
 from pandas.io.json import json_normalize
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 import pandas as pd
 from selenium.webdriver.chrome.options import Options
@@ -39,10 +42,11 @@ def mcpiCrawler(col2):
     mcpiDict = {}                   # 크롤링한 mcpi 지수가 저장되는 딕셔너리
     currentDate = readDB(col2)      # 객체 생성과 동시에 이전에 크롤링한 mcpi 데이터가 현재 디비에 있는지/없는지 디비를 read함.
 
-    try:
-        driver = webdriver.Chrome(executable_path='crawlers/chromedriver.exe')
-    except:
-        driver = webdriver.Chrome(executable_path='chromedriver.exe')
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.binary_location = "C:\Program Files\Google\Chrome Beta\Application\chrome.exe"
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
     driver.maximize_window()
     URL = 'https://www.musicow.com/mcpi'
