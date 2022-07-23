@@ -43,6 +43,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import pandas as pd
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
 
 # 2000~3000 중 새로 추가된 곡 코드 수행시간 : 10분
 def songCrawlerNew(col, musicCowSongNumListCurrent):
@@ -56,91 +58,96 @@ def songCrawlerNew(col, musicCowSongNumListCurrent):
         if x['num'] in song_list:
             song_list.remove(x['num'])
 
-    option = Options()
-    option.headless = False
-    driver = webdriver.Chrome(options=option, executable_path='crawlers/chromedriver.exe')
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.binary_location = "C:\Program Files\Google\Chrome Beta\Application\chrome.exe"
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
     detectedSongNumber = 0      # 감지한 신곡 개수
 
     print("========== << 2000 ~ 3000 중 새로 추가된 곡 크롤링을 시작합니다 >> =========")
 
     # 2000~3000 중에 이미 디비에 있는 곡 번호는 제외한 list 를 대상으로 신곡 탐지
+
     for x in song_list:
+        try:
+            # Opening the connection and grabbing the page
+            my_url = 'https://www.musicow.com/song/{}'.format(x)
+            driver.get(my_url)
 
-        # Opening the connection and grabbing the page
-        my_url = 'https://www.musicow.com/song/{}'.format(x)
-        driver.get(my_url)
+            song_title = driver.find_element(By.XPATH, '/ html / body / div[2] / div[1] / div[2] / div[1] / div[2] / div[1] / strong').text
 
-        song_title = driver.find_element(By.XPATH, '/ html / body / div[2] / div[1] / div[2] / div[1] / div[2] / div[1] / strong').text
-
-        if song_title == "":
-            pass
-        else :
-            detectedSongNumber = detectedSongNumber + 1
-
-            print("{}번 곡 시작".format(x))
-
-            # url to post
-            action_postURL = "https://www.musicow.com/api/song_prices"
-
-            # use get to pull cookies information
-            res = r.get(action_postURL)
-
-            # Get the Cookies
-            search_cookies = res.cookies
-
-            # post method data
-            post_data = {"song_id": "{}".format(x), "period": "60"}
-
-            # headers information
-            headers = {
-                'user-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36"}
-
-            # request post data
-            res_post = r.post(action_postURL, data=post_data, cookies=search_cookies, headers=headers)
-
-            # pull data into json format
-            values = res_post.json()
-
-            # normalize data with Brazilian gold values
-            song_prices = res_post.json()["prices"]
-            df = pd.json_normalize(song_prices)
-
-            # song_title_add, song_artist_add
-            song_title_add = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[2]/div[1]/div[2]/div[1]/strong'))).text
-            song_artist_add = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[2]/div[1]/div[2]/div[2]/div'))).text
-
-            dict1 = {
-                'num': x,
-                'song_title': "{}".format(song_title_add),
-                'song_artist': "{}".format(song_artist_add)
-            }
-
-            # songsplit 적용 후 아래 조건 검사 해야함
-            # ex 뮤직카우 : IU(아이유) 로 등록 됨
-            #    현재디비 : IU 로 등록 됨
-            # -> 아래 코드 적용시 IU(아이유)가 새로운 가수라고 판단하기 때문에
-            # IU(아이유)를 songSeparator 를 거친 후 IU 라고 여과한 후 조건 탐색해야
-            # # 새로 등록된 가수 명단 누적
-            # if song_artist_add in self.musicCowArtistListCurrent:
-            #     pass
-            # else:
-            #     self.newArtistList.append(song_artist_add)
-
-
-            # 뮤직카우에 신곡으로 등록이 됐지만, 등록된지 얼마 되지 않아 아직 price 데이터가 누적되지 않은 경우
-            if df.empty:
+            if song_title == "":
                 pass
-            else:
-                dict2 = df.set_index('ymd').T.to_dict()
-                dict1.update(dict2)
+            else :
+                detectedSongNumber = detectedSongNumber + 1
 
-            newSongList.append(dict1)
+                print("{}번 곡 시작".format(x))
 
-            # 디비 업데이트
-            col.insert_one(dict1).inserted_id
+                # url to post
+                action_postURL = "https://www.musicow.com/api/song_prices"
 
-            print(x, "번 곡 종료")
+                # use get to pull cookies information
+                res = r.get(action_postURL)
+
+                # Get the Cookies
+                search_cookies = res.cookies
+
+                # post method data
+                post_data = {"song_id": "{}".format(x), "period": "60"}
+
+                # headers information
+                headers = {
+                    'user-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.82 Safari/537.36"}
+
+                # request post data
+                res_post = r.post(action_postURL, data=post_data, cookies=search_cookies, headers=headers)
+
+                # pull data into json format
+                values = res_post.json()
+
+                # normalize data with Brazilian gold values
+                song_prices = res_post.json()["prices"]
+                df = pd.json_normalize(song_prices)
+
+                # song_title_add, song_artist_add
+                song_title_add = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[2]/div[1]/div[2]/div[1]/strong'))).text
+                song_artist_add = WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div[1]/div[2]/div[1]/div[2]/div[2]/div'))).text
+
+                dict1 = {
+                    'num': x,
+                    'song_title': "{}".format(song_title_add),
+                    'song_artist': "{}".format(song_artist_add)
+                }
+
+                # songsplit 적용 후 아래 조건 검사 해야함
+                # ex 뮤직카우 : IU(아이유) 로 등록 됨
+                #    현재디비 : IU 로 등록 됨
+                # -> 아래 코드 적용시 IU(아이유)가 새로운 가수라고 판단하기 때문에
+                # IU(아이유)를 songSeparator 를 거친 후 IU 라고 여과한 후 조건 탐색해야
+                # # 새로 등록된 가수 명단 누적
+                # if song_artist_add in self.musicCowArtistListCurrent:
+                #     pass
+                # else:
+                #     self.newArtistList.append(song_artist_add)
+
+
+                # 뮤직카우에 신곡으로 등록이 됐지만, 등록된지 얼마 되지 않아 아직 price 데이터가 누적되지 않은 경우
+                if df.empty:
+                    pass
+                else:
+                    dict2 = df.set_index('ymd').T.to_dict()
+                    dict1.update(dict2)
+
+                newSongList.append(dict1)
+
+                # 디비 업데이트
+                col.insert_one(dict1).inserted_id
+
+                print(x, "번 곡 종료")
+        except:
+            pass
 
     driver.close()
     print("\n\n========== << 총 {} 개 신곡 크롤링을 마쳤습니다 >> ==========".format(detectedSongNumber))
