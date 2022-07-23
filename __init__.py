@@ -24,6 +24,8 @@ from data_modeling.bertopic_text import bertopic
 from data_preprocessing.data_tidying import DataTidying
 from data_modeling.song_analytics import SongAnalytics
 from data_preprocessing.web_update import *
+from data_transformation.local_to_aws import LocalToAWS
+
 
 # == 몽고디비 ==
 client = MongoClient('localhost', 27017)
@@ -47,8 +49,9 @@ col8 = db3.mcpi_info
 col9 = db3.song_info
 col10 = db3.index_rank
 
-
-# dateToday = datetime.datetime.today()
+dateToday = datetime.today().strftime('%Y-%m-%d')
+dateYesterday = (datetime.today() - timedelta(days=1)).strftime('%Y-%m-%d')
+date_2d = (datetime.today() - timedelta(days=2)).strftime('%Y-%m-%d')
 
 
 def track1(NewsArtistListCurrent):
@@ -90,21 +93,36 @@ def track2():
     print("<< track2 시작 >>")
     print("<< NLP 토픽 모델링 시작합니다 >>")
     # 토픽 모델링 진행할 아티스트를 7개로 나누는 로직
-    pool = Pool(6)
+    pool = Pool(5)
     pool_date = 2
     date_7d = (datetime.today() - timedelta(days=pool_date)).strftime('%Y-%m-%d')
-    list_exist_day_artist = col7.find({'date': {'$gt': date_7d}}).distinct('artist')
-    list_exist_day_num = col7.find({'date': {'$gt': date_7d}}).distinct('date')
+
+    sql = f"SELECT distinct artist from topicmodel WHERE date >= '{date_7d}'"
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    list_exist_day_artist = [x[0] for x in result]
+
+    sql = f"SELECT distinct date from topicmodel WHERE date >= '{date_7d}'"
+    cursor.execute(sql)
+    result = cursor.fetchall()
+    list_exist_day_num = len(result)
+
     list_artist_full = list(set(list_artist_NNP) - set(list_exist_day_artist))
-    list_artist = list_artist_full[:round(len(list_artist_full)/(pool_date-len(list_exist_day_num)))]
-    # list_artist = list_artist_full
+
+    if pool_date-list_exist_day_num == 0:
+        list_artist = list_artist_full[:round(len(list_artist_full)/2)]
+    else:
+        list_artist = list_artist_full[:round(len(list_artist_full)/(pool_date-list_exist_day_num))]
+    bertopic('뮤직카우')
     pool.map(bertopic, list_artist)
+
+    print("<< NLP history 제거 시작합니다 >>")
+    sql = f"DELETE from topicmodel WHERE date < '{date_7d}'"
+    cursor.execute(sql)
+    conn.commit()
 
 def track3(SongNumListCurrent):
     # ====================================== << Track 1 >> : 현재 musicCowData 디비에 있는 곡들 기준 크롤링 =========================================
-    # 1. 현재 musicCowData 디비에 있는 곡들 / 가수들
-    # 3-1. DB에 있는 곡들 대상으로 뮤직카우 데이터 크롤링
-    # 크롤링 멀티프로세싱으로 바꾸고, 분석은 sync apply로
     pool = Pool(20)
     print("<< track3 시작 >>")
     print("<< 뮤직카우 데이터 크롤링을 시작합니다 >>")
@@ -112,10 +130,10 @@ def track3(SongNumListCurrent):
     # musicCowCrawler.songCrawler(SongNumListCurrent)  # 뮤직카우 디비에 있는 기존 곡들 크롤링
     col1.update_many({}, {'$unset': {datetime.today().strftime('%Y-%m-%d'): ''}})
 
-    # # 3-2. copyrightPrice 크롤링
-    if datetime.today().day == 1:
-        print("<< 저작권료 크롤링을 시작합니다 >> ")
-        copyrightCrawler.copyrightCrawler(SongNumListCurrent)
+    # 3-2. copyrightPrice 크롤링
+    SongNumListcopyright = list(col3.find({(datetime.today()-relativedelta(months=1)).strftime('%Y-%m'): '0'}))
+    print("<< 저작권료 크롤링을 시작합니다 >> ")
+    copyrightCrawler.copyrightCrawler(SongNumListcopyright)
 
     # 3-3. mcpi 크롤링
     print("<< mcpi 크롤링을 시작합니다 >> ")
@@ -125,18 +143,8 @@ def track3(SongNumListCurrent):
     print("<<  mongoDB to SQL을 시작합니다 >> ")
     MongoToSQL().update_daily_music_cow()
     MongoToSQL().update_daily_mcpi()
+    MongoToSQL().update_list_song()
 
-    # pl = Pool(3)
-    #
-    # print("<< mcpi 크롤링을 시작합니다 >> ")
-    # pl.apply_async(mcpiCrawler.mcpiCrawler, (col2, ))
-    #
-    # print("<<  mongoDB to SQL을 시작합니다 >> ")
-    # pl.apply_async(MongoToSQL().update_daily_music_cow())
-    # pl.apply_async(MongoToSQL().update_daily_mcpi())
-    #
-    # pl.close()
-    # pl.join()
 
 def track4():
     ##### 기존 곡 분석 모델
@@ -169,11 +177,11 @@ def track4():
 
     # 2-2. PER 계산
     print("<< PER 계산을 시작합니다 >> ")
-    SongAnalytics().per_duration(df_price.iloc[:,1:], df_copyright)
+    SongAnalytics().per_duration(df_price.iloc[:, 1:], df_copyright)
 
     # 2-3. 베타 계산
     print("<< 베타 계산을 시작합니다 >> ")
-    SongAnalytics().beta_index(df_price.iloc[:,1:], df_mcpi.iloc[:,1:])
+    SongAnalytics().beta_index(df_price.iloc[:, 1:], df_mcpi.iloc[:, 1:])
 
     # 2-4. 공포탐욕지수 계산
     print("<< MCPI 공탐지수 계산을 시작합니다 >> ")
@@ -185,6 +193,7 @@ def track4():
     # 2-5. 턴오버 계산
     print("<< 1년 턴오버 계산을 시작합니다 >> ")
     SongAnalytics().turn_over(df_price_volume, df_stock)
+
 
 def track5(SongNumListCurrent):
     print("<< track5 시작 >>")
@@ -207,34 +216,43 @@ def track5(SongNumListCurrent):
     print("<< genre 크롤링을 시작합니다 >> ")
     genie_genre()
 
+
 def track6():
     print("<< track6 시작 >>")
-    print("<< 업데이트 정보를 정리합니다 >>")
-    pool = Pool(20)
+    print("<< 클라우드 업데이트를 시작합니다 >>")
 
-    print("<< MCPI 웹 정보를 정리합니다 >>")
-    update_mcpi_info()
+    conn_aws, cursor_aws = LocalToAWS().connect_sql()
 
-    print("<< 노래 웹 정보를 정리합니다 >>")
-    list_song = list(col4.find({}))
-    pool.map(update_song_info, list_song)
+    print("<< daily 업데이트를 시작합니다 >>")
+    LocalToAWS().update_local_to_aws(conn, cursor, conn_aws, cursor_aws, 'musiccowdata')
+    LocalToAWS().update_local_to_aws(conn, cursor, conn_aws, cursor_aws, 'dailymcpi')
+    LocalToAWS().update_local_to_aws(conn, cursor, conn_aws, cursor_aws, 'dailymarketcap')
+    LocalToAWS().update_local_to_aws(conn, cursor, conn_aws, cursor_aws, 'dailyper')
+    LocalToAWS().update_local_to_aws(conn, cursor, conn_aws, cursor_aws, 'dailybeta')
+    LocalToAWS().update_local_to_aws(conn, cursor, conn_aws, cursor_aws, 'dailyfng')
+    LocalToAWS().update_local_to_aws(conn, cursor, conn_aws, cursor_aws, 'dailyturnover')
 
-    print("<< NLP 웹 정보를 정리합니다 >>")
-    list_song_nlp1 = list(col7.find({'date': (datetime.today() - timedelta(days=1)).strftime('%Y-%m-%d')}))
-    pool.map(update_song_info_nlp, list_song_nlp1)
-    list_song_nlp2 = list(col7.find({'date': (datetime.today() - timedelta(days=2)).strftime('%Y-%m-%d')}))
-    pool.map(update_song_info_nlp, list_song_nlp2)
+    print("<< 토픽모델링 업데이트를 시작합니다 >>")
+    LocalToAWS().update_local_to_aws(conn, cursor, conn_aws, cursor_aws, 'topickeyword')
+    LocalToAWS().update_local_to_aws(conn, cursor, conn_aws, cursor_aws, 'topicmodel')
+    LocalToAWS().update_local_to_aws(conn, cursor, conn_aws, cursor_aws, 'topicnews')
 
-    print("<< 순위 웹 정보를 정리합니다 >>")
-    update_rank_info()
+    print("<< NLP history 제거 시작합니다 >>")
+    pool_date = 2
+    date_7d = (datetime.today() - timedelta(days=pool_date)).strftime('%Y-%m-%d')
+    sql = f"DELETE from topicmodel WHERE date < '{date_7d}'"
+    cursor_aws.execute(sql)
+    conn_aws.commit()
 
+    print("<< listsong 업데이트를 시작합니다 >>")
+    LocalToAWS().update_local_to_aws(conn, cursor, conn_aws, cursor_aws, 'listsong')
 
-def track7():
-    print("<< track7 시작 >>")
-    print("<< 웹 업데이트를 시작합니다 >>")
+    conn_aws.close()
 
 
 def multi_process():
+    conn, cursor = DbEnv().connect_sql()
+
     print("{0} 크롤링 시작합니다".format(datetime.today().strftime('%Y-%m-%d')))
     SongNumListCurrent = list(col1.find({}, {'num': {"$slice": [1, 1]}}))
     NewsArtistListCurrent = artist_for_nlp.list_artist_query
@@ -247,10 +265,10 @@ def multi_process():
     track4()
     track5(SongNumListCurrent,)
 
-    print("{0} 웹페이지 업데이트 시작합니다".format(datetime.today().strftime('%Y-%m-%d')))
+    print("{0} 클라우드 업데이트 시작합니다".format(datetime.today().strftime('%Y-%m-%d')))
     track6()
-    track7()
 
+    conn.close()
     print('끝')
     print(datetime.now())
 
