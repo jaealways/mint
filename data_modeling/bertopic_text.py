@@ -26,6 +26,7 @@ def bertopic(artist):
         list_tokens, list_time, list_doc_num = NLPModeling().import_token_bert(conn, cursor, date_3m, artist)
 
         topic_num = round(len(list_tokens) ** 0.25)
+        # topic_num = proper_topic_num()
         print('%s, %s, 주제 %s개, 기사 %s개' % (artist, date_3m, topic_num, len(list_tokens)))
         vectorizer = CountVectorizer(input=list_tokens, max_features=3000)
         model = BERTopic(embedding_model="sentence-transformers/xlm-r-100langs-bert-base-nli-stsb-mean-tokens", \
@@ -71,6 +72,11 @@ col7 = db1.newsLink
 date_3m = (datetime.today() - relativedelta(months=3)).strftime('%Y-%m-%d')
 df_artist_nlp = df_nlp()
 list_artist = df_artist_nlp['nlp_dict'].values.tolist()
+
+def proper_topic_num():
+    # bert 분석 통해서 뉴스 갯수별로 적절한 확률변수 생성하기
+    topic_num=1
+    return topic_num
 
 
 if __name__ == '__main__':
