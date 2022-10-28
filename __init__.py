@@ -121,6 +121,7 @@ def track2():
     cursor.execute(sql)
     conn.commit()
 
+
 def track3(SongNumListCurrent):
     # ====================================== << Track 1 >> : 현재 musicCowData 디비에 있는 곡들 기준 크롤링 =========================================
     pool = Pool(20)
@@ -131,7 +132,7 @@ def track3(SongNumListCurrent):
     col1.update_many({}, {'$unset': {datetime.today().strftime('%Y-%m-%d'): ''}})
 
     # 3-2. copyrightPrice 크롤링
-    SongNumListcopyright = list(col3.find({(datetime.today()-relativedelta(months=1)).strftime('%Y-%m'): '0'}))
+    SongNumListcopyright = list(col3.find({(datetime.today()-relativedelta(months=1)).strftime('%Y-%m'): ''}))
     print("<< 저작권료 크롤링을 시작합니다 >> ")
     copyrightCrawler.copyrightCrawler(SongNumListcopyright)
 
@@ -288,6 +289,4 @@ if __name__ == '__main__':
     while True:
         schedule.run_pending()
         time.sleep(1)
-
-
 
