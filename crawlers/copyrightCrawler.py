@@ -21,7 +21,7 @@ def copyrightCrawler(musicCowSongNumList):
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
-    chrome_options.binary_location = "C:\Program Files\Google\Chrome Beta\Application\chrome.exe"
+    # chrome_options.binary_location = "C:\Program Files\Google\Chrome Beta\Application\chrome.exe"
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
     song_num = []       # musicCowData 에 있는 곡 번호 리스트
