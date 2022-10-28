@@ -45,7 +45,7 @@ def mcpiCrawler(col2):
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--disable-dev-shm-usage')
-    chrome_options.binary_location = "C:\Program Files\Google\Chrome Beta\Application\chrome.exe"
+    # chrome_options.binary_location = "C:\Program Files\Google\Chrome Beta\Application\chrome.exe"
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
     driver.maximize_window()
