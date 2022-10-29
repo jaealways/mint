@@ -4,7 +4,7 @@ from pymongo import MongoClient
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 from multiprocessing import Process, Pool
-from fng.score import Score, FearGreed
+from fng.score import scoreIndex, scoreStock, FearGreed
 
 from data_transformation.db_env import DbEnv, db
 from data_preprocessing.data_tidying import DataTidying
@@ -54,6 +54,7 @@ class SongAnalytics:
                 tuple_insert = (df_per.columns[0], int(idx), float(row[0]), int(row['rank']))
                 MongoToSQL().update_daily_per(tuple_insert)
 
+
     def market_cap(self, df_price, df_stock):
         df_price, df_stock = df_price.sort_index(), df_stock.sort_index()
         df_stock.columns = [df_price.columns[-1]]
@@ -62,14 +63,13 @@ class SongAnalytics:
         df_market_cap['rank'] = df_market_cap.iloc[:, 0].rank(method='max', ascending=False)
 
         for idx, row in df_market_cap.iterrows():
-            tuple_insert = (df_market_cap.columns[0], int(idx), float(row[0]), int(row['rank']))
+            tuple_insert = (df_market_cap.columns[0], int(idx), int(row[0]), int(row['rank']))
             MongoToSQL().update_daily_marketcap(tuple_insert)
-
 
     def fng_index(self, df_price, df_price_volume, duration=365):
         x, y = df_price.to_numpy(), df_price_volume.to_numpy()
-        score = Score(x, y)
-        score_fng = FearGreed(x, y, score).compute(duration=duration)
+        score = scoreIndex(x, y)
+        score_fng = FearGreed(score).compute_index(duration=duration)
         df_fng = pd.DataFrame(pd.DataFrame(score_fng, columns=[df_price.columns[duration+1:]]).iloc[:, -1])
         df_fng.index = df_price.index
         df_fng.dropna(inplace=True)
@@ -81,6 +81,22 @@ class SongAnalytics:
             else:
                 tuple_insert = (df_fng.columns[0][0], int(idx), float(row.values[0]), int(row['rank']))
                 MongoToSQL().update_daily_fng(tuple_insert)
+
+
+    def fng_index_plot(self, df_price, df_price_high, df_price_low, df_price_volume, duration=365):
+        a,b,c,y = df_price.to_numpy(), df_price_high.to_numpy(), df_price_low.to_numpy(), df_price_volume.to_numpy()
+        score_index = scoreIndex(a,y)
+        score_stock = scoreStock(a,b,c,y)
+        score_fng_index = FearGreed(score_index).compute_index(duration=duration)
+        score_fng_stock = FearGreed(score_stock).compute_stock(duration=duration)
+        df_fng_index = pd.DataFrame(score_fng_index)
+        df_fng_stock = pd.DataFrame(score_fng_stock)
+
+        df_fng_index.index, df_fng_stock.index = df_price.index, df_price.index
+        # df_fng.dropna(inplace=True)
+
+        return df_fng_index, df_fng_stock
+
 
     def turn_over(self, df_price_volume, df_stock):
         df_sum = pd.DataFrame(df_price_volume.mean(axis=1, skipna=False)).mul(365)
@@ -103,24 +119,57 @@ db1 = client.music_cow
 col1 = db1.musicCowData
 
 # duration = 365
-# df_mcpi = pd.read_pickle("../storage/df_raw_data/df_mcpi_17-01-01_23-12-31.pkl")
-# df_price = pd.read_pickle("../storage/df_raw_data/df_price_17-01-01_23-12-31.pkl")
+# df_price = pd.read_pickle("../storage/df_raw_data/df_price.pkl")
+# df_price_volume = pd.read_pickle("../storage/df_raw_data/df_volume.pkl")
 #
 
 if __name__ == '__main__':
-    duration = 365
+    duration=720
     list_song_num = col1.find({}).distinct('num')
-    date_df = (datetime.today() - timedelta(days=duration + 1)).strftime('%Y-%m-%d')
-
+    date_today = datetime.strptime('2022-08-01', '%Y-%m-%d')
+    date_df = (datetime.today() - timedelta(days=duration+2)).strftime('%Y-%m-%d')
     pool = Pool(20)
 
-    df_price = pd.DataFrame()
-    df_price_temp = pool.map(DataTidying().get_df_price, list_song_num)
-    for i in df_price_temp:
-        df_price = pd.concat([df_price, i], axis=1)
-    df_price = df_price.T
+    # df_price = pd.DataFrame()
+    # df_price_temp = pool.map(DataTidying().get_df_price, list_song_num)
+    # for i in df_price_temp:
+    #     df_price = pd.concat([df_price, i], axis=1)
+    # df_price = df_price.T
+    # df_price.to_pickle('../storage/df_raw_data/df_price.pkl')
 
-    df_copyright = DataTidying().get_df_copyright()
-    SongAnalytics().per_duration(df_price, df_copyright)
 
+    # df_price_volume = pd.DataFrame()
+    # df_volume_temp = pool.map(DataTidying().get_df_price_volume, list_song_num)
+    # for i in df_volume_temp:
+    #     df_price_volume = pd.concat([df_price_volume, i], axis=1)
+    # df_price_volume = df_price_volume.T
+    # df_price_volume.to_pickle('../storage/df_raw_data/df_volume.pkl')
+
+    df_price = pd.read_pickle("../storage/df_raw_data/df_price.pkl")
+    df_price_volume = pd.read_pickle("../storage/df_raw_data/df_volume.pkl")
+    df_price_high = pd.read_pickle("../storage/df_raw_data/df_price_high.pkl")
+    df_price_low = pd.read_pickle("../storage/df_raw_data/df_price_low.pkl")
+    df_fng_index, df_fng_stock = SongAnalytics().fng_index_plot(df_price, df_price_high, df_price_low, df_price_volume, duration=120)
+
+    import matplotlib.pyplot as plt
+    index_list = df_price_volume.index.tolist()
+
+    num_mc = 903
+    num = index_list.index(num_mc)
+
+    fig, axs = plt.subplots(4)
+    axs[0].plot(df_price.to_numpy()[num, -df_fng_index.shape[1]:])
+    axs[1].plot(df_price_volume.to_numpy()[num, -df_fng_index.shape[1]:])
+    axs[2].plot(df_fng_index.to_numpy()[num, :])
+    axs[3].plot(df_fng_stock.to_numpy()[num, :])
+
+    plt.show()
+
+    # for date in list_date:
+    #     print(date)
+    #     date_df = (datetime.today() - timedelta(days=duration + 2)).strftime('%Y-%m-%d')
+    #     df_price = df_price.loc[date_df:,:date]
+    #     df_price_volume = df_price_volume.iloc[date_df:,:date]
+    #
+    #     SongAnalytics().fng_index(df_price, df_price_volume, duration=120)
 

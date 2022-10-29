@@ -7,7 +7,7 @@ import seaborn as sns
 import time
 from gensim.models.word2vec import Word2Vec
 
-from data_modeling.nlp_modeling import NLPClustering
+from data_modeling.nlp_modeling import NLPModeling
 
 
 class BetaPlot:
@@ -132,40 +132,53 @@ class BetaPlot:
 
         plt.show(block=False)
 
-
         plt.draw()
         plt.pause(0.5)
         fig.clear()
 
 
-df_beta = pd.read_pickle("../storage/df_raw_data/df_beta.pkl")
-df_per_12 = pd.read_pickle("../storage/df_raw_data/df_per_month_12.pkl")
-df_list = pd.read_pickle("../storage/df_raw_data/df_list_song_artist.pkl")
-df_genre = pd.read_pickle("../storage/df_raw_data/df_genre.pkl")
+def df_beta_per_dt():
+    sql = f"SELECT A.num, A.genre, B.per, C.beta from listsong A INNER JOIN dailyper B on A.num=B.num INNER JOIN " \
+          f"dailybeta C on A.num=C.num WHERE b.date='{dateYes}' and c.date='{dateYes}'"
+    df_beta_per = db(cursor, sql).dataframe
+    df_beta_per.columns = ['num', 'genre', 'per', 'beta']
+    df_beta_per = df_beta_per.set_index('num')
+    df_beta_per
 
-model = Word2Vec.load('../storage/word_dictionary/month6.model')
-df_list = pd.read_pickle("../storage/df_raw_data/df_list_song_artist.pkl")
 
 # ['국내CCM', '한국영화', '댄스', '포크', '락', '발라드', '트로트', '캐롤', '인디', '소울', '일렉트로니카', '힙합', '팝', '드라마', '전체']
 
 # artist든 genre든 간에 number 맞춰야 함
 
 
-list_date = sorted(list(set.intersection(set(df_per_12.columns.tolist()), set(df_beta.columns.tolist()))))
-# plt.ion()
-fig, ax = plt.subplots(1)
-plt.xlim(-2, 7)
-plt.ylim(0, 80)
+#=====================DT 로직 =====================
+from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
+from data_preprocessing.web_update import *
+
+
+conn, cursor = DbEnv().connect_sql()
+
+# dateYes = (datetime.today() - relativedelta(days=1)).strftime('%Y-%m-%d')
+dateYes = '2022-09-04'
+df_beta_per_dt()
+#=================== plot 로직 ==============================
+
+# list_date = sorted(list(set.intersection(set(df_per_12.columns.tolist()), set(df_beta.columns.tolist()))))
+# # plt.ion()
+# fig, ax = plt.subplots(1)
+# plt.xlim(-2, 7)
+# plt.ylim(0, 80)
 # plt.figure(figsize=(50, 50))
 
-for date in list_date:
-    date = '2021-11-04'
-    df_beta_temp, df_per_temp, color_map, df_clu = BetaPlot().color_artist()
-    BetaPlot().plot_artist(date, df_beta_temp, df_per_temp, color_map, df_clu)
+# for date in list_date:
+#     date = '2021-11-04'
+#     df_beta_temp, df_per_temp, color_map, df_clu = BetaPlot().color_artist()
+#     BetaPlot().plot_artist(date, df_beta_temp, df_per_temp, color_map, df_clu)
 
     # df_beta_temp, df_per_temp, color_map = BetaPlot().color_genre()
     # BetaPlot().plot_genre(date, df_beta_temp, df_per_temp, color_map)
 
-    plt.pause(0.3)
-    plt.close()
+    # plt.pause(0.3)
+    # plt.close()
 

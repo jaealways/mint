@@ -9,26 +9,11 @@ from tqdm import tqdm
 
 
 class DataTidying:
-    """모든 데이터프레임 생성시 column: date, row: num으로 되게 통일하기"""
-
     def get_list_from_sql(self, cursor, sql):
         list_music_num = DbEnv().get_data_from_table(cursor, sql)
         list_music_num = [item[0] for item in list_music_num]
 
         return list_music_num
-
-    # def get_df_price(self, date, list_num):
-    #     df_price = pd.DataFrame()
-    #
-    #     for num in tqdm(list_num):
-    #         sql = "SELECT DISTINCT date, price_close FROM musiccowdata WHERE num='%s' and date>='%s' ORDER BY date" % (num, date)
-    #         df_temp = db(cursor, sql).dataframe
-    #         df_temp = df_temp.set_index('date')
-    #         df_temp.columns = [num]
-    #
-    #         df_price = pd.concat([df_price, df_temp], axis=1)
-    #
-    #     return df_price.T
 
     def get_df_price(self, num, duration=365):
         date_df = (datetime.today() - timedelta(days=duration+2)).strftime('%Y-%m-%d')
@@ -39,6 +24,7 @@ class DataTidying:
         df_temp.columns = [num]
 
         return df_temp
+
 
     def get_df_price_volume(self, num, duration=365):
         date_df = (datetime.today() - timedelta(days=duration+2)).strftime('%Y-%m-%d')
@@ -119,7 +105,10 @@ class DataTidying:
                             temp = val
                     else:
                         val = val.replace(',', '')
-                        val = int(val)
+                        try:
+                            val = int(val)
+                        except:
+                            val = val
                 dict_val[key] = val
             df_temp = pd.DataFrame.from_dict(dict_val, orient='index').rename(columns={0: num}).T
             df_copyright_prices = pd.concat([df_copyright_prices, df_temp])

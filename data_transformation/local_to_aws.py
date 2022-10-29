@@ -3,13 +3,14 @@ import pymysql
 import json
 
 
-from db_env import DbEnv
-from mongo_to_sql import MongoToSQL
-
 class LocalToAWS:
     def connect_sql(self):
-        with open("../storage/key.json", "r") as env:
-            env_dict = json.load(env)
+        try:
+            with open("../storage/key.json", "r") as env:
+                env_dict = json.load(env)
+        except:
+            with open("./storage/key.json", "r") as env:
+                env_dict = json.load(env)
         aws_db_pw = env_dict["aws_password"]
         conn = pymysql.connect(host='kuggle.csr6lxslx7sg.ap-northeast-2.rds.amazonaws.com', user='kuggle',
                                password=aws_db_pw, db='mu_tech', charset='utf8')
@@ -18,49 +19,17 @@ class LocalToAWS:
 
         return conn, cursor
 
-    def db_aws(self, conn, cursor, sql):
-        cursor.execute(sql)
-        conn.commit()
+    def update_local_to_aws(self, conn_sql, cursor_sql, conn_aws, cursor_aws, table):
+        sql = f"SELECT * from {table}"
+        cursor_sql.execute(sql)
+        tuple_local = cursor_sql.fetchall()
 
-        return conn, cursor
+        cursor_aws.execute(sql)
+        tuple_aws = cursor_aws.fetchall()
 
-    def update_df_to_aws(self, df):
-        for idx, x in df.iterrows():
-            for i, v in x.items():
-                cursor.execute(sql.format(idx, str(i), v))
-                conn.commit()
+        diff_local = tuple(set(tuple_local) - set(tuple_aws))
+        value_sql = ('%s, ' * len(tuple_local[0]))[:-2]
 
-
-
-    # def update_sql_to_aws(self, col_local, col_aws):
-
-
-
-# mongo_sql = MongoToSQL()
-
-df_per = pd.read_pickle("../storage/df_raw_data/df_per_month_12.pkl")
-df_beta = pd.read_pickle("../storage/df_raw_data/df_beta.pkl")
-
-df_per_date = df_per.loc[48, :]
-df_beta_date = df_beta.loc[48, :]
-
-conn_sql, cursor_sql = LocalToAWS().connect_sql()
-
-sql = f"""SELECT * FROM daily_beta """
-cursor_sql.execute(sql)
-data_sql = cursor_sql.fetchall()
-
-
-sql = f"""CREATE TABLE IF NOT EXISTS daily_beta 
-(num int(11) NOT NULL, date varchar(255) NOT NULL, value float(15) NOT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8;"""
-conn, cursor = LocalToAWS().db_aws(conn_sql, cursor_sql, sql)
-
-sql = f"""CREATE TABLE IF NOT EXISTS daily_per 
-(num int(11) NOT NULL, date varchar(255) NOT NULL, value float(15)) ENGINE=InnoDB DEFAULT CHARSET=utf8;"""
-conn, cursor = LocalToAWS().db_aws(conn_sql, cursor_sql, sql)
-
-# sql = f"""INSERT INTO daily_beta(num, date, value) VALUE(%d, %s, %f);"""
-# LocalToAWS().update_df_to_aws(df_beta)
-
-sql = """INSERT INTO daily_per(num, date, value) VALUES({0}, {1}, {2});"""
-LocalToAWS().update_df_to_aws(df_per)
+        sql = f"INSERT INTO {table} VALUES ({value_sql})"
+        cursor_aws.executemany(sql, diff_local)
+        conn_aws.commit()

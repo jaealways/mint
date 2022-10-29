@@ -4,3 +4,9 @@ storage/key.json
 /topic_modeling.py
 /test3.py
 /storage/
+data_modeling/brave_girls
+data_modeling/df_브레이브걸스
+*.html
+*.pkl
+data_modeling/브레이브걸스
+data_modeling/브레이브걸스_1060_1064_2380_2381_2397_2399_2474_2475_2516_2543_temp

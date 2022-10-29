@@ -41,7 +41,7 @@ def df_list():
 
 
 def add_num():
-    df = pd.read_pickle('../storage/df_song_list.pkl')
+    df = pd.read_pickle('df_song_list.pkl')
     for n in range(0, len(df)):
         num, song_artist, song_title = df['num'][n], df['song_artist'][n], df['song_title'][n]
         print(num, song_artist, song_title)
@@ -62,7 +62,7 @@ def add_num():
 
 
 def make_df():
-    df = pd.read_pickle('../storage/df_song_list.pkl')
+    df = pd.read_pickle('df_song_list.pkl')
     df_all = []
     df_cow_all, df_you_all, df_gen_all = pd.DataFrame(df_all), pd.DataFrame(df_all), pd.DataFrame(df_all)
     for num in df['num']:
@@ -175,9 +175,9 @@ def make_df():
     df_you_all.to_pickle('df_you_all.pkl')
 
 def get_std_index():
-    df_cow_all = pd.read_pickle('../storage/df_cow_all.pkl')
-    df_gen_all = pd.read_pickle('../storage/df_gen_all.pkl')
-    df_you_all = pd.read_pickle('../df_you_all.pkl')
+    df_cow_all = pd.read_pickle('df_cow_all.pkl')
+    df_gen_all = pd.read_pickle('df_gen_all.pkl')
+    df_you_all = pd.read_pickle('df_you_all.pkl')
 
     df_index_youtube_std = mean_norm(df_you_all)
     df_index_genie_std = mean_norm(df_gen_all)
@@ -194,9 +194,9 @@ def mean_norm(df_input):
 
 
 def get_index_corr():
-    df_cow_all = pd.read_pickle('../storage/df_cow_all.pkl')
-    df_gen_all = pd.read_pickle('../storage/df_gen_all.pkl')
-    df_you_all = pd.read_pickle('../df_you_all.pkl')
+    df_cow_all = pd.read_pickle('df_cow_all.pkl')
+    df_gen_all = pd.read_pickle('df_gen_all.pkl')
+    df_you_all = pd.read_pickle('df_you_all.pkl')
 
     # df_you_all = pd.read_pickle('df_index_youtube_std.pkl')
     # df_gen_all = pd.read_pickle('df_index_genie_std.pkl')
@@ -226,8 +226,8 @@ def get_index_corr():
     print('test')
 
 
-# df_list()
+df_list()
 # add_num()
-# make_df()
-# get_std_index()
+make_df()
+get_std_index()
 get_index_corr()
