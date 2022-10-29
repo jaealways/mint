@@ -29,7 +29,7 @@ col10 = db3.index_rank
 
 dateToday = datetime.today().strftime('%Y-%m-%d')
 dateYesterday = (datetime.today() - timedelta(days=1)).strftime('%Y-%m-%d')
-
+date_2d = (datetime.today() - timedelta(days=2)).strftime('%Y-%m-%d')
 
 def update_mcpi_info():
     list_mcpi = list(col7.find({'artist': '뮤직카우', 'date': dateToday}))

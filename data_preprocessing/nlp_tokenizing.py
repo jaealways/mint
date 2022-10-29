@@ -14,9 +14,6 @@ import subprocess, sys
 from jamo import h2j, j2hcj
 import datetime
 
-from tensorflow.keras.preprocessing.text import Tokenizer
-from tensorflow.keras.preprocessing.sequence import pad_sequences
-
 from data_transformation.db_env import DbEnv, db
 import data_crawling.artist_event_rule as aer
 import data_crawling.artist_for_nlp as afn
@@ -278,6 +275,3 @@ def update_mecab_dict_person():
     with open("C:/mecab/user-dic/person.csv", 'w', encoding='utf-8') as f:
         for line in file_data:
             f.write(line)
-
-
-
