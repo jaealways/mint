@@ -109,25 +109,18 @@ class NLPModeling:
             tuple_sql = cursor.fetchall()
             array_token = np.array(tuple_sql)
 
-            if len(array_token) > 80:
-                list_token_temp = list(map(lambda x: np.asarray(x[0].split(', ')), tuple_sql))
-                list_tag = list(map(lambda x: np.asarray(x[1].split(', ')), tuple_sql))
-                list_token = list(map(lambda x, y: np.stack((x, y), axis=1), list_token_temp, list_tag))
-                list_doc_num = list(map(lambda x: x[3], tuple_sql))
+            list_token_temp = list(map(lambda x: np.asarray(x[0].split(', ')), tuple_sql))
+            list_tag = list(map(lambda x: np.asarray(x[1].split(', ')), tuple_sql))
+            list_token = list(map(lambda x, y: np.stack((x, y), axis=1), list_token_temp, list_tag))
+            list_doc_num = list(map(lambda x: x[3], tuple_sql))
 
-                list_tokens = list(map(lambda x: x[(x[:,1] == 'NNP') | (x[:,1] =='NNG')][:,0].tolist(), list_token))
-                list_tokens = list(map(lambda x: ' '.join(x), list_tokens))
+            list_tokens = list(map(lambda x: x[(x[:,1] == 'NNP') | (x[:,1] =='NNG')][:,0].tolist(), list_token))
+            list_tokens = list(map(lambda x: ' '.join(x), list_tokens))
 
-                list_time = array_token[:, 2]
-                # list_time = ['%s/%s/%s' % (item.split('-')[2], item.split('-')[1], item.split('-')[0]) for item in list_time]
+            list_time = array_token[:, 2]
+            # list_time = ['%s/%s/%s' % (item.split('-')[2], item.split('-')[1], item.split('-')[0]) for item in list_time]
 
-                return list_tokens, list_time, list_doc_num
-
-            else:
-                list_tokens, list_time, list_doc_num = list(map(lambda x: np.asarray(x[0].split(', ')), tuple_sql)), 0, 0
-
-                return list_tokens, list_time, list_doc_num
-
+            return list_tokens, list_time, list_doc_num
 
         except:
             list_tokens, list_time, list_doc_num = 0, 0, 0
@@ -136,30 +129,24 @@ class NLPModeling:
 
     def import_token_test_set(self, conn, cursor, date_start, date_end, artist):
         try:
-            sql = "SELECT token, tag, date, doc_num FROM newssentokenhistory WHERE date>='%s' and date <='%s' and artist = '%s'" % (date_start, date_end, artist)
+            sql = "SELECT token, tag, date, doc_num FROM newssentoken WHERE artist = '%s'" % (artist)
             cursor.execute(sql)
             conn.commit()
             tuple_sql = cursor.fetchall()
             array_token = np.array(tuple_sql)
 
-            if len(array_token) > 80:
-                list_token_temp = list(map(lambda x: np.asarray(x[0].split(', ')), tuple_sql))
-                list_tag = list(map(lambda x: np.asarray(x[1].split(', ')), tuple_sql))
-                list_token = list(map(lambda x, y: np.stack((x, y), axis=1), list_token_temp, list_tag))
+            list_token_temp = list(map(lambda x: np.asarray(x[0].split(', ')), tuple_sql))
+            list_tag = list(map(lambda x: np.asarray(x[1].split(', ')), tuple_sql))
+            list_token = list(map(lambda x, y: np.stack((x, y), axis=1), list_token_temp, list_tag))
 
-                # list_tokens = list(map(lambda x: x[(x[:,1] == 'NNP') | (x[:,1] =='NNG')][:,0].tolist(), list_token))
-                # list_tokens = list(map(lambda x: ' '.join(x), list_tokens))
+            # list_tokens = list(map(lambda x: x[(x[:,1] == 'NNP') | (x[:,1] =='NNG')][:,0].tolist(), list_token))
+            # list_tokens = list(map(lambda x: ' '.join(x), list_tokens))
 
-                # list_time = ['%s/%s/%s' % (item.split('-')[2], item.split('-')[1], item.split('-')[0]) for item in list_time]
-                list_tokens = list(map(lambda x: [str(y[0]) for y in x if 'S' not in str(y[1])], list_token))
-                list_tokens = list(map(lambda x: ' '.join(x), list_tokens))
+            # list_time = ['%s/%s/%s' % (item.split('-')[2], item.split('-')[1], item.split('-')[0]) for item in list_time]
+            list_tokens = list(map(lambda x: [str(y[0]) for y in x if 'S' not in str(y[1])], list_token))
+            list_tokens = list(map(lambda x: ' '.join(x), list_tokens))
 
-                return list_tokens
-
-            else:
-                list_tokens = list(map(lambda x: np.asarray(x[0].split(', ')), tuple_sql))
-
-                return list_tokens
+            return list_tokens
 
         except:
             list_tokens = 0

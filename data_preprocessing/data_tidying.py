@@ -16,28 +16,57 @@ class DataTidying:
         return list_music_num
 
     def get_df_price(self, num, duration=365):
-        date_df = (datetime.today() - timedelta(days=duration+2)).strftime('%Y-%m-%d')
+        # date_df = (datetime.today() - timedelta(days=duration+2)).strftime('%Y-%m-%d')
 
-        sql = "SELECT DISTINCT date, price_close FROM musiccowdata WHERE num='%s' and date>='%s' ORDER BY date" % (num, date_df)
+        # sql = "SELECT DISTINCT date, price_close FROM musiccowdata WHERE num='%s' and date>='%s' ORDER BY date" % (num, date_df)
+        sql = "SELECT DISTINCT date, price_close FROM musiccowdata WHERE num='%s' ORDER BY date" % (num)
+
         df_temp = db(cursor, sql).dataframe
         df_temp = df_temp.set_index('date')
         df_temp.columns = [num]
 
         return df_temp
 
+    def get_df_price_high(self, num, duration=365):
+        # date_df = (datetime.today() - timedelta(days=duration+2)).strftime('%Y-%m-%d')
+
+        # sql = "SELECT DISTINCT date, price_high FROM musiccowdata WHERE num='%s' and date>='%s' ORDER BY date" % (num, date_df)
+        sql = "SELECT DISTINCT date, price_high FROM musiccowdata WHERE num='%s' ORDER BY date" % (num)
+
+        df_temp = db(cursor, sql).dataframe
+        df_temp = df_temp.set_index('date')
+        df_temp.columns = [num]
+
+        return df_temp
+
+    def get_df_price_low(self, num, duration=365):
+        # date_df = (datetime.today() - timedelta(days=duration+2)).strftime('%Y-%m-%d')
+
+        # sql = "SELECT DISTINCT date, price_low FROM musiccowdata WHERE num='%s' and date>='%s' ORDER BY date" % (num, date_df)
+        sql = "SELECT DISTINCT date, price_low FROM musiccowdata WHERE num='%s' ORDER BY date" % (num)
+
+        df_temp = db(cursor, sql).dataframe
+        df_temp = df_temp.set_index('date')
+        df_temp.columns = [num]
+
+        return df_temp
 
     def get_df_price_volume(self, num, duration=365):
-        date_df = (datetime.today() - timedelta(days=duration+2)).strftime('%Y-%m-%d')
+        # date_df = (datetime.today() - timedelta(days=duration+2)).strftime('%Y-%m-%d')
 
-        sql = "SELECT DISTINCT date, volume FROM musiccowdata WHERE num='%s' and date>='%s' ORDER BY date" % (num, date_df)
+        # sql = "SELECT DISTINCT date, volume FROM musiccowdata WHERE num='%s' and date>='%s' ORDER BY date" % (num, date_df)
+        sql = "SELECT DISTINCT date, volume FROM musiccowdata WHERE num='%s'ORDER BY date" % (num)
+
         df_temp = db(cursor, sql).dataframe
         df_temp = df_temp.set_index('date')
         df_temp.columns = [num]
 
         return df_temp
 
-    def get_df_mcpi(self, date):
-        sql = "SELECT DISTINCT date, price FROM dailymcpi WHERE date>='%s' ORDER BY date" % date
+    def get_df_mcpi(self):
+        # sql = "SELECT DISTINCT date, price FROM dailymcpi WHERE date>='%s' ORDER BY date" % date
+        sql = "SELECT DISTINCT date, price FROM dailymcpi ORDER BY date"
+
         df_mcpi = db(cursor, sql).dataframe
 
         df_mcpi = df_mcpi.set_index('date')
@@ -47,8 +76,10 @@ class DataTidying:
 
         return df_mcpi
 
-    def get_df_mcpi_volume(self, date):
-        sql = "SELECT DISTINCT date, volume FROM dailymcpi WHERE date>='%s' ORDER BY date" % date
+    def get_df_mcpi_volume(self):
+        # sql = "SELECT DISTINCT date, volume FROM dailymcpi WHERE date>='%s' ORDER BY date" % date
+        sql = "SELECT DISTINCT date, volume FROM dailymcpi ORDER BY date"
+
         df_mcpi_volume = db(cursor, sql).dataframe
 
         df_mcpi_volume = df_mcpi_volume.set_index('date')
