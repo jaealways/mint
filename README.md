@@ -12,6 +12,7 @@
 
 ### Web service hyperlink
 해당 엔진을 기반으로, 정보를 제공하는 musicowlabs 웹서비스를 만들었습니다.<br/><br/>
+(2023.04.07 서비스 종료)
 [musicowlabs](https://musicowlabs.com)<br/>
 [위의 링크가 안될경우](https://3.39.149.157/)<br/><br/>
 
